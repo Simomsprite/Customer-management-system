@@ -1,0 +1,46 @@
+<style type="text/css">
+	#vertical-timeline::before{
+        width:0px !important;
+    }
+</style>
+
+<!-- 操作记录 -->
+<div id="vertical-timeline" class="vertical-container light-timeline" style="width:100%;">
+	<volist name="group_list" id="vo1">
+		<div class="col-sm-12">
+			<div class="pull-left">
+				<span style="line-height:32px;margin-right: 10px;">
+					<small>{$vo1['create_date']}&nbsp;{$vo1['week_name']}</small>
+				</span>
+			</div>
+			<div class="pull-left">
+				<volist name="vo1['action_list']" id="vo">
+					<div class="vertical-timeline-block" style="margin:0px;border-left:1px solid #ccc;margin-left:20px;">
+						<i class="fa fa-circle pull-left" style="margin-left:-6px;color:#CAD7EF;margin-top:9px;font-size:12px;"></i>
+						<div class="vertical-timeline-content" style="padding-top: 0px;margin-left:20px;">
+							<div class="pull-left">
+								<span class="pull-left" style="line-height:32px;margin-right: 10px;">
+									<small>{$vo['create_time']|date='H:i',###}</small>
+								</span>
+								<a class="role_info pull-left" rel="{$vo['create_role_info']['role_id']}" href="javascript:void(0)" style="margin-right:5px;">
+									<img alt="image" class="img-circle" style="width:32px;height:32px;" <if condition = "$vo['create_role_info']['thumb_path']" >src="{$vo['create_role_info']['thumb_path']}"<else />src="__PUBLIC__/img/avatar_default.png"</if>>
+								</a>
+								<span class="pull-left" style="line-height:32px;">
+									<div class="pull-left">{$vo['create_role_info']['full_name']}&nbsp;&nbsp;</div>
+									<div class="pull-left">{$vo['duixiang']}</div>
+									<div style="clear:both;"></div>
+								</span>
+								<volist name="vo['role_list']" id="vo1">
+									<a class="role_info" rel="{$vo1['role_id']}" href="javascript:void(0)" style="margin-right:5px;">
+										<img alt="image" class="img-circle" style="width:32px;height:32px;" <if condition = "$vo1['thumb_path']">src="{$vo1['thumb_path']}"<else />src="__PUBLIC__/img/avatar_default.png"</if>>
+									</a>
+									<span style="line-height:32px;">{$vo1['full_name']}</span>
+								</volist>
+							</div>
+						</div>
+					</div>
+				</volist>
+			</div>
+		</div>
+	</volist>
+</div>

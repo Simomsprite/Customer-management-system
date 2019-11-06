@@ -1,0 +1,113 @@
+<include file="Public:header" />
+<style>
+    #form1 .form-control {
+        display: inline-block;
+    }
+</style>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="title-bar">
+                <div class="row " id="title-show">
+                    <ul class="nav pull-left" style="margin:0px 10px 0px 20px;">
+                        <span>
+                            <img src="__PUBLIC__/img/contract_view_icon.png" style="margin-bottom:9px;" alt="">
+                        </span>
+                        <span style="font-size:21px;margin-left:5px">&nbsp;&nbsp;&nbsp;SN 跟踪</span>&nbsp;&nbsp;
+                    </ul>
+                </div>
+            </div>
+            <div class="tabs-container">
+                <div class="pull-left" style="width:100%;">
+                    <div class="ibox-content" style="padding:15px 0 0 20px;background:#fff;" id="left-content">
+                        <div class="tab-content ">
+                            <div class="tab-pane in active" id="tab1">
+                                <div class="panel-body">
+                                    <include file="Public:alert" />
+                                    <form id="form1" action="{:U('purchase/into_warehouse')}" method="post">
+                                        <div style="margin-bottom: 10px;">
+                                            <div style="width: 45%;display: inline-block;"> SN码：
+                                                <b style="color:black; font-size: 1.6rem">{$data['sn']}</b>
+                                            </div>
+                                            <div style="width: 45%;display: inline-block;">
+                                                仓库：{$data['warehouse_name']}
+                                            </div>
+                                        </div>
+                                        <div style="margin: 10px 0;">
+                                            <div style="width: 45%;display: inline-block;">
+                                                采购入库时间： {$data['purchase_time']}
+                                            </div>
+                                            <div style="width: 45%;display: inline-block;">
+                                                最近操作时间： {:date('Y-m-d H:i:s', $data['update_time'])}
+                                            </div>
+                                        </div>
+                                        <div style="margin: 10px 0;">
+                                            <div style="width: 45%;display: inline-block;">
+                                                产品名称： 
+												<a href="{:U('product/view', array('id' => $vo['product_info']['product_id']))}" target="_blank">
+                                                    {$data['product_info']['name']}
+                                                </a>
+                                            </div>
+                                            <div style="width: 45%;display: inline-block;">
+                                                产品编码： {$data['product_info']['number']}
+                                            </div>
+                                        </div>
+                                        <div style="margin: 10px 0;">
+                                            <div style="width: 45%;display: inline-block;">
+                                                规格： {$data['product_info']['spec']}
+                                            </div>
+                                            <div style="width: 45%;display: inline-block;">
+                                                单位： {$data['product_info']['standard']}
+                                            </div>
+                                        </div>
+
+                                        <table class="table table-bordered" width="95%">
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>
+                                                    操作类型
+                                                </th>
+                                                <th>
+                                                    名称
+                                                </th>
+                                                <th>
+                                                    负责人
+                                                </th>
+                                                <th>
+                                                    操作时间
+                                                </th>
+                                            </tr>
+                                            <volist name="data['sn_log']" id="vo" key="key">
+                                                <tr>
+                                                    <td>{$key}</td>
+                                                    <td>
+                                                        {$vo['type_name']}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{$vo['detail']['url']}" target="_blank">
+                                                            {$vo['detail']['name']}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0);" class="role_info" rel="{$vo['owner_role_id']}">{$vo['detail']['owner_role_name']}</a>
+                                                    </td>
+                                                    <td>
+                                                        {:date('Y-m-d H:i:s', $vo['detail']['update_time'])}
+                                                    </td>
+                                                </tr>
+                                            </volist>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<include file="Public:footer" />

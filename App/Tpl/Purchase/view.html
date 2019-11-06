@@ -1,0 +1,912 @@
+<include file="Public:header" />
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+	    <div class="col-lg-12">
+			<div class="title-bar">
+				<div class="row " id="title-show">
+					<ul class="nav pull-left" style="margin:0px 10px 0px 20px;">
+						<span>
+							<img src="__PUBLIC__/img/contract_view_icon.png" style="margin-bottom:9px;" alt="">
+						</span>
+						<span style="font-size:21px;margin-left:5px">&nbsp;&nbsp;&nbsp;{$purchase.name}</span>&nbsp;&nbsp; 
+					</ul>
+					
+					<if condition="$purchase['exam_status'] eq 0 or $purchase['exam_status'] eq 3">
+						<if condition="$purchase['type'] eq 1">
+							<a href="{:U('purchase/edit','id='.$purchase['purchase_id'])}" class="btn btn-outline btn-default pull-right" style="margin-right: 15px;"><i class="fa fa-pencil"></i>&nbsp;&nbsp;编辑</a>
+						<elseif condition="$purchase['type'] eq 2" />
+							<a href="javascript:void(0);" id="edit_return" rel="{$purchase['purchase_id']}" class="btn btn-outline btn-default pull-right" style="margin-right: 15px;">
+								<i class="fa fa-pencil"></i>&nbsp;&nbsp;编辑
+							</a>
+						</if>
+					</if>
+					<if condition="$purchase['do_examine'] eq 1">
+						<a href="javascript:void(0);" class="btn btn-info pull-right examine_order" style="margin-right: 15px;">
+							审核<input type="hidden" class="is_pass" value="1">
+						</a>
+					<else />
+						<?php if ($purchase['type'] == 1) { ?>
+							<button id="return_goods" class="btn btn-success pull-right" style="margin: 0 20px 0 10px;">退货</button>
+						<?php } ?>
+						<button id="stock_in_btn" class="btn btn-success pull-right" style="margin: 0 10px;">入库</button>
+					</if>
+					<if condition="$purchase['do_revoke'] eq 1">
+						<a href="javascript:void(0);" class="btn btn-info pull-right examine_order" style="margin-right: 10px;">
+							撤销<input type="hidden" class="is_pass" value="2">
+						</a>
+					</if>
+					
+					<!-- <a href="javascript:void(0);" id="print" class="btn btn-info pull-right" style="margin-right: 15px;"><i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;打印</a> -->
+				</div>
+			</div>
+			<div class="tabs-container">
+				<div class="pull-left" style="width:100%;" >
+					<div class="ibox-content" style="padding:15px 0 0 20px;background:#fff;" id="left-content">
+						<ul class="nav nav-tabs" id="left_list" style="height:40px;">
+							<li class="active" ><a href="#tab1" data-toggle="tab" type="tab1">基本信息</a></li>
+							<li><a href="#tab2" data-toggle="tab" type="tab2">入库记录</a></li>
+							<li><a href="#tab3" data-toggle="tab" type="tab3">付款记录</a></li>
+							<!-- <li><a href="#tab4" data-toggle="tab" type="tab4">采购单附件</a></li> -->
+						</ul>
+						<div class="tab-content ">
+							<div class="tab-pane in active" id="tab1">
+								<div class="panel-body">
+									<include file="Public:alert" />
+									<div style="font-size:13px;font-weight:700;margin:15px auto;">
+										<span style="border-left:5px solid #19AA8D;padding-left:10px;height:10px;"></span>基本信息
+										<span class="print btn btn-xs btn-info pull-right" object="{:($purchase['type'] == 2 ? 'sales_return' : 'purchase')}" pid="{$purchase['purchase_id']}">打印</span>
+									</div>
+									<div style="margin-bottom: 10px;">
+										<input type="hidden" id="purchase_type" value="{$purchase['type']}">
+										<span style="margin-right: 20px;">{$type_name}单号：{$purchase['number']}</span>
+										<?php if ($purchase['type'] == 2) { ?>
+											<span style="margin-right: 20px;">
+												关联合同：
+												<a href="{:U('contract/view', array('id' => $purchase['contract_id']))}" target="_blank">{$purchase['contract_number']}</a>
+											</span>
+										<?php } ?>
+										<span style="margin-right: 20px;">{$type_name}名称：{$purchase['name']}</span>
+										<?php if ($purchase['type'] != 2) { ?>
+											<span style="margin-right: 20px;">供应商：<a href="{:U('supplier/view','id='.$purchase['supplier']['supplier_id'])}">{$purchase['supplier']['name']}</a></span>
+										<?php } ?>
+										<span style="margin-right: 20px;">负责人：<a href="javascript:void(0);" class="role_info" rel="{$purchase['owner_role_id']}">{$purchase['owner_name']}</a></span>
+										<span style="margin-right: 20px;">日期：{$purchase['purchase_time']}</span>
+									</div>
+									<table class="table table-bordered" id="no-input-border" width="95%" border="0" cellspacing="1" cellpadding="0">
+										<thead>
+											<tr style="background-color:#f9fafc;text-align:center;">
+												<td style="background-color:#f9fafc;padding:14px;color:#999">序号</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">产品名称</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">规格</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">{$type_name}价格(元)</td>
+												<?php if ($purchase['type'] != 2) { ?>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">折扣(%)</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">销售单价(元)</td>
+												<?php } ?>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">{$type_name}数量</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">退货数量</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">已入库数</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">待入库数</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">单位</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">小计</td>
+											</tr>
+										</thead>
+										<tbody>
+											<?php $purchase['prime_price'] = 0; ?>
+											<volist name="purchase['product_info_list']" id="vo">
+												<tr id="row_{$key+1}">
+													<td style="text-align:center;padding:14px;color:#666">{$key+1}</td> 
+													<td style="text-align:center;padding:14px;color:#666">{$vo.name}</td>                                     
+													<td style="text-align:center;padding:14px;color:#666">{$vo['spec']['string']}</td>
+													<td style="text-align:center;padding:14px;color:#666">{$vo.price_discount|number_format=2}</td>
+													<?php if ($purchase['type'] != 2) { ?>
+														<td style="text-align:center;padding:14px;color:#666">{$vo.discount}</td>
+														<td style="text-align:center;padding:14px;color:#666">{$vo.price|number_format=2}</td>
+													<?php } ?>
+													<td style="text-align:center;padding:14px;color:#666">
+														<?php if ($vo['has_sn'] && $purchase['type'] == 1) { ?>
+														<a href="javascript:void(0);" class="add_SN" rel="{$vo.product_info_id}" name="{$vo.name}({$vo.spec.string})">
+															<span class="label label-success">SN <i class="fa fa-edit"></i></span>
+														</a>
+														<?php } ?>
+														{$vo.count}
+													</td>
+													<td  style="text-align:center;padding:14px;color:#666">{$vo['return_count']}</td>                               
+													<td style="text-align:center;padding:14px;color:#666">
+														<?php if ($vo['has_sn']) { ?>
+														<a href="javascript:void(0);" class="purchae_in_SN" rel="{$vo.product_info_id}" name="{$vo.name}({$vo.spec.string})">
+															<span class="label label-success">SN</span>
+														</a>
+														<?php } ?>
+														{$vo.stock_in_count}
+													</td>
+													<td style="text-align:center;padding:14px;color:#666">{$vo['count'] + $vo['return_count'] - $vo['stock_in_count']}</td>                    
+													<td style="text-align:center;padding:14px;color:#666">{$vo['standard']}</td>
+													<td style="text-align:center;padding:14px;color:#666">{$vo['subtotal']|number_format=2}</td>
+												</tr>
+												<?php $purchase['prime_price'] += $vo['subtotal']; ?>
+											</volist>
+										</tbody>
+										<tr>
+											<td colspan="12">
+												<div style="text-align:center;margin-top:10px;">
+													<?php if ($purchase['type'] == 1) { ?>
+														<div class="pull-right">最终合计(元) :<span style="color:#999;">&nbsp;{$purchase['purchase_amount']+$purchase['other_amount']|number_format=2}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+														</div>
+														<div class="pull-right">其他金额 :
+														<span style="color:#999;">&nbsp;{$purchase['other_amount']|number_format=2}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+														</div>
+														<div class="pull-right">{$type_name}金额 :
+														<span style="color:#999;">&nbsp;{$purchase['purchase_amount']|number_format=2}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+														</div>
+														<div class="pull-right">整单折扣(%) :
+														<span style="color:#999;">&nbsp;{$purchase['discount']}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+														</div>
+													<?php }elseif($purchase['type'] == 2){ ?>
+														<div class="pull-right" title="最终退款金额即协商后的退款金额，默认等于全部退货产品计算后的金额" >最终{$type_name}金额 :
+														<span style="color:#999;">&nbsp;{$purchase['purchase_amount']|number_format=2}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+														</div>
+													<?php } ?>
+													<div class="pull-right">产品合计(元) :<span style="color:#FF9900;">&nbsp;{$purchase['prime_price']|number_format=2}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+												</div>
+											</td>
+										</tr>
+									</table>
+									<div style="margin: 10px 0;">
+										<div style="margin-bottom: 10px;">备注：{$purchase['remark']}</div>
+										<div>制单人：<ahref="javascript:void(0);" class="role_info" rel="{$purchase.creator_role_id}">{$purchase['creator_name']}</a></div>
+									</div>
+									<div id="log_view"><!-- 审批日志信息 --></div>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab2">
+								<div class="panel-body" style="padding-left:0px;">
+									<div style="font-size:13px;font-weight:700;margin:15px auto;" class="clear-both">
+										<span style="border-left:5px solid #19AA8D;padding-left:10px;height:10px;"></span>入库记录
+									</div>
+									<empty name="stock_in_list">
+										<include file="Public:nodata" />
+									<else />
+										<volist name="stock_in_list" id="vo">
+											<table class="table table-bordered" id="no-input-border" width="95%">
+												<tr>
+													<td colspan="7">
+														<div class="pull-left" style="width: 50%; line-height: 30px;">
+															入库仓：&#12288;
+															<a href="javascript:void(0);">{$vo['warehouse_name']}</a>
+														</div>
+														<span class="stock_del btn btn-xs btn-danger pull-right" object="stock_in" pid="{$vo['stock_in_id']}">删除</span>
+														<span style="margin: 5px 10px; float: right; color: #999;">|</span>
+														<span class="print btn btn-xs btn-info pull-right" object="stock_in" pid="{$vo['stock_in_id']}">打印</span>
+													</td>
+												</tr>
+												<tr style="background-color:#f9fafc;text-align:center;">
+													<td style="background-color:#f9fafc;padding:14px;color:#999">序号</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">产品名称</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">规格</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">单位</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">{$type_name}数量</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">本次入库数</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">备注</td>
+												</tr>										
+												<volist name="vo.in_list" id="vv">
+													<tr id="row_{$key+1}">
+														<td style="text-align:center;padding:14px;color:#666">{$key+1}</td>
+														<td style="text-align:center;padding:14px;color:#666">{$vv.name}</td>
+														<td style="text-align:center;padding:14px;color:#666">{$vv['spec']['string']}</td>
+														<td style="text-align:center;padding:14px;color:#666">{$vv.standard}</td>
+														<td style="text-align:center;padding:14px;color:#666">{$vv.purchase_product_count}</td>
+														<td style="text-align:center;padding:14px;color:#666">
+															<?php if ($vv['has_sn']) { ?>
+															<a href="javascript:void(0);" class="view_SN" rel="{$vv.product_info_id}" rel2="{$vv.stock_in_id}" name="{$vv.name}({$vv['spec']['string']})">
+																<span class="label label-success">SN</span>
+															</a>
+															<?php } ?>
+															{$vv.count}
+														</td>
+														<td style="text-align:center;padding:14px;color:#666">
+															{$vv.remark}
+														</td>
+													</tr>
+												</volist>
+												<tr>
+													<td colspan="7">
+														<div style="margin: 10px 0;">
+															<div style="width: 45%;display: inline-block;">
+																入库日期：&#12288;{$vo.create_time}
+															</div>
+															<div style="width: 45%;display: inline-block;">
+																入库单号：&#12288;{$vo['number']}
+															</div>
+														</div>
+														<div>
+															<div style="width: 45%;display: inline-block;">
+																经办人：&#12288;&#12288;<a href="javascript:void(0);" class="role_info" rel="{$vo.owner_role_id}">{$vo['owner_role_name']}</a>
+															</div>
+															<div style="width: 45%;display: inline-block;">
+																备注：&#12288;&#12288;&#12288;{$vo['remark']}
+															</div>
+														</div>
+													</td>
+												</tr>
+											</table>
+											<hr>
+										</volist>
+									</empty>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab3">
+								<div class="panel-body" style="padding-left:0px;">
+									<if condition="$purchase['exam_status'] eq 2">
+										<div class="row">
+											<a href="javascript:void(0);" class="btn btn-primary pull-right" id="add_yingfu"  style="margin: 0 35px 10px 0;"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;添加应付款</a>
+										</div>
+									</if>
+									<empty name="payables">
+										<include file="Public:nodata" />
+									<else />
+										<table class="table table-bordered table-hover table-striped table_thead_fixed">
+											<tr>
+												<th>序号</th>
+												<th>单号</th>
+												<th>金额</th>
+												<th>状态</th>
+												<th>创建人</th>
+												<th>负责人</th>
+												<th>创建时间</th>
+											</tr>
+											<volist name="payables" id="val">
+												<tr>
+													<td>{$i}</td>
+													<td>
+														<a href="{:U('finance/view')}&t=payables&id={$val['payables_id']}" target="_blank">{$val['name']}</a>
+													</td>
+													<td>
+														{$val['price']}
+													</td>
+													<td>
+														{$val['status_name']}
+													</td>
+													<td>
+														<a href="javascript:void(0);" class="role_info" rel="{$val['creator_role_id']}">
+															{$val['creator_role_name']}
+														</a>
+													</td>
+													<td>
+														<a href="javascript:void(0);" class="role_info" rel="{$val['owner_role_id']}">
+															{$val['owner_role_name']}
+														</a>
+													</td>
+													<td>
+														{$val['create_time']}
+													</td>
+												</tr>
+											</volist>
+										</table>
+									</empty>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab4">
+								<div class="panel-body" style="padding-left:0px;">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display:none;" id="dialog-role-info" title="{:L('DIALOG_USER_INFO')}">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none;" id="dialog-file" title="{:L('ADD_ACCESSORY')}">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none" id="dialog-stock-in" title="入库单">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none" id="dialog-add-SN" title="SN码管理">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none" id="dialog-view-SN" title="SN码查看">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none" id="dialog-return-good-add" title="新增退货单">
+	<include file="Public:loading" />
+</div>
+
+<link href="__PUBLIC__/css/litebox.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/js/litebox.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/images-loaded.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+// 打印按钮。
+var preview_page ; // 弹出窗口
+$(".print").on('click', function(){
+	var is_IE = IEVersion();
+	if (is_IE != 'edge' && is_IE != -1) {
+		swal('抱歉，IE浏览器暂不支持预览、打印功能', '可换用谷歌，360，edge等浏览器\n（360浏览器须切换极速模式）', 'warning');
+		return false;
+	}
+	let object = $(this).attr('object');
+	let id = $(this).attr('pid');
+    preview_page = layer.open({
+        type: 2,
+        title: '模板预览',
+        shadeClose: true,
+        area: ['100%', '100%'],
+        content: '{:U("template/preview")}&object='+ object +'&id=' + id
+    }); 
+    $('.layui-layer-title,.layui-layer-close').remove();
+});
+
+
+function IEVersion() {
+	var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+	var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器  
+	var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器  
+	var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+	if (isIE) {
+		var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+		reIE.test(userAgent);
+		var fIEVersion = parseFloat(RegExp["$1"]);
+		if (fIEVersion == 7) {
+			return 7;
+		} else if (fIEVersion == 8) {
+			return 8;
+		} else if (fIEVersion == 9) {
+			return 9;
+		} else if (fIEVersion == 10) {
+			return 10;
+		} else {
+			return 6;//IE版本<=7
+		}
+	} else if (isEdge) {
+		return 'edge';//edge
+	} else if (isIE11) {
+		return 11; //IE11  
+	} else {
+		return -1;//不是ie浏览器
+	}
+}
+
+// 页面加载时执行Tab start
+$(function(){
+	var thisId = window.location.hash; 
+	var atype = thisId.substr(1);
+	$('#left_list a[type="'+atype+'"]').tab('show');
+});
+// 页面加载时执行Tab end
+$('#left_list a').click(function (e) {
+	var maodian = '#'+$(this).attr('type');
+	url_jump(maodian);
+});
+function url_jump(maodian){
+    var purchase_id = "{$purchase['purchase_id']}";;
+    var url = "{:U('purchase/view','id=')}"+purchase_id+maodian;
+    window.history.replaceState({},0,'http://'+window.location.host+url);
+}
+
+var is_receivables = '{$is_receivables}';
+$('#is_agree').change(function(){
+	var agree_id = $(this).val();
+	if(agree_id == 1){
+		$('.is_show').show();
+		if(is_receivables == 0 || is_receivables == ''){
+			$('#pay_times').hide();
+		}
+	}else{
+		$('.is_show').hide();
+	}
+});
+$('.openrecycle').click(function(){
+	var is_receivables = $("input[name='is_receivables']:checked").val();
+	if(is_receivables == 1){
+		$('#pay_times').show();
+	}else{
+		$('#pay_times').hide();
+	}
+});
+// 审核
+function examine(_id, _examine)
+{
+	swal({
+		title: '数据提交中',
+		text: '......',
+		type: 'info',
+		showConfirmButton: false
+	});
+	$.ajax({
+		url: '{:U("purchase/examine")}',
+		data: { purchase_id: _id, examine: _examine },
+		type: 'POST',
+		dataType: 'JSON',
+		success: function (res) {
+			if (res.status == 1) {
+				swal({
+					title: res.msg,
+					type: 'success'
+				}, function () {
+					history.go(0);
+				});
+			} else {
+				swal(res.msg, '', 'error');
+			}
+		}
+	});
+}
+
+//删除回款单
+$('.not_rel_contacts').click(function(){
+	var receivingorder_id = $(this).attr('rel');
+	if(receivingorder_id == 0){
+		alert_crm('您没有选择任何回款单！');
+		return false;
+	}
+	swal({
+		title: "您确定要删除这条信息吗？",
+			text: "删除后将无法恢复，请谨慎操作！",
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",   
+		confirmButtonText: "是的，我要删除！",
+        cancelButtonText:'让我再考虑一下…',
+        closeOnConfirm:false,
+        closeOnCancel:false
+	},
+	function(isConfirm){
+        if (isConfirm) {
+        	$.ajax({
+	            type:'post',
+	            url: "{:U('finance/delete','t=receivingorder')}",
+	            data: {id:receivingorder_id,t:'receivingorder'},
+	            async: false,
+	            success: function (data) {
+					if (data.status == 1) {
+						swal("删除成功！", "您已经永久删除了信息！", "success");
+						location.reload();
+					}else{
+						swal({
+							title: "操作失败！",
+							text:data.info,
+							type: "error"
+						})
+						return false;
+					}
+	            },
+	            dataType: 'json'
+	        });
+        } else {
+            swal("已取消","您取消了删除操作！","error");
+        }
+    });
+});
+if ("{:C('isMobile')}" == "1") {
+	width = $('.container').width() * 0.9;
+} else {
+	width = 800;
+}
+
+$("#dialog-role-info").dialog({
+    autoOpen: false,
+    modal: true,
+	width: 650,
+	maxHeight:600,
+	position: ["center",100]
+});
+
+$(function(){
+	$(".role_info").click(function(){
+		$role_id = $(this).attr('rel');
+		$('#dialog-role-info').dialog('open');
+		$('#dialog-role-info').load('{:U("user/dialoginfo","id=")}'+$role_id);
+	});
+});
+
+//采购入库单作废r
+$("#dialog-abolish").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 500,
+	maxHeight: 450,
+	position: ["center", 100],
+	buttons: {
+		"确定": function () {
+			//作废理由
+			var reason = $('input[reason=reason]').val();
+			if (!reason) {
+				alert_crm('作废理由不能为空');
+				return false;
+			}
+			$('#form_abolish').submit();
+		},
+		"取消": function () {
+			$(this).dialog("close");
+		}
+	},
+	close: function () {
+		dialog_destroy($(this));
+	}
+});
+$(".abolish").click(function () {
+	var baseinfo_id = $(this).attr('rel');
+	$('input[name=baseinfo_id]').val(baseinfo_id);
+	$('#dialog-abolish').dialog('open');
+});
+$('#dialog-stock-in').dialog({
+	autoOpen: false,
+	modal: true,
+	width: 900,
+	maxHeight: 650,
+	position: ["center", 100],
+	buttons: {
+		"确定": function () {
+			var self = $(this);
+			var count = 0;
+			$('input.stock_in_count').each(function (key, val) {
+				count += $(val).val();
+			});
+			if (count == 0) {
+				swal('最少入库一件产品！', '', 'warning');
+				return false;
+			}
+			var data = $('#stock_in_form').serializeArray();
+			swal({
+				title: "数据提交中...",
+				type: "info",
+				showConfirmButton: false
+			});
+			$.ajax({
+				url: '{:U("purchase/into_stock")}',
+				data: data,
+				type: 'POST',
+				dataType: 'JSON',
+				success: function (res) {
+					if (res.status === 1) {
+						type = 'success';
+					} else {
+						type = 'error';
+					}
+					swal({
+						title: res.msg,
+						type: type
+					}, function () {
+						self.dialog('close');
+						history.go(0);
+					})
+				}
+			});
+		},
+		"取消": function () {
+			$(this).dialog("close");
+		}
+	},
+	close: function () {
+		dialog_destroy($(this));
+	}
+});
+$('#stock_in_btn').on('click', function () {
+	var purchase_id = "{$purchase['purchase_id']}";
+	$('#dialog-stock-in').dialog('open');
+	$('#dialog-stock-in').load('{:U("purchase/into_stock")}&purchase_id=' + purchase_id);
+});
+
+$('#dialog-add-SN').dialog({
+	autoOpen: false,
+	modal: true,
+	width: 800,
+	maxHeight: 600,
+	position: ["center", 100],
+	buttons: {
+		"保存": function () {
+			if ($('#add_SN_form').find('table tbody tr.add').length == 0) {
+				if ($('#add_SN_form').find('table tbody tr').length > 0) {
+					$(this).dialog('close');
+					return false;
+				}
+				swal('最少添加一条SN码。');
+				return false;
+			}
+			var data = $('#add_SN_form').serializeArray();
+			var empty_data = 0;
+			$.each(data, function (key, val) {
+				if (!val.value) {
+					swal('数据不能为空');
+					empty_data++;
+					return false;
+				}
+			});
+			if (empty_data > 0) return false;
+			ajax_loading();
+			$.ajax({
+				url: '{:U("purchase/dialogAddSN")}',
+				data: data,
+				type: 'POST',
+				dataType: 'JSON',
+				success: function (res) {
+					if (res.status == 1) {
+						rtal(res.msg);
+					} else {
+						rtal(res.msg, 'error');
+					}
+					$('#dialog-add-SN').dialog("close");
+					swal.close();
+				}
+			});
+		},
+		"取消": function () {
+			$(this).dialog("close");
+		}
+	},
+	close: function () {
+		dialog_destroy($(this));
+	}
+});
+/**
+* 添加SN码
+* purchase_type 1 采购单 2销售退货单
+**/ 
+$('.add_SN').on('click', function () {
+	var product_info_id = $(this).attr('rel');
+	var name = $(this).attr('name');
+	$('#dialog-add-SN').dialog('open');
+	$('#dialog-add-SN').load('{:U("purchase/dialogAddSN")}&purchase_id=' + "{$_GET['id']}&product_info_id=" + product_info_id + '&name=' + encodeURIComponent(name));
+});
+$('#dialog-view-SN').dialog({
+	autoOpen: false,
+	modal: true,
+	width: 800,
+	maxHeight: 600,
+	position: ["center", 100],
+	buttons: {
+		'确认': function () {
+			$(this).dialog('close');
+		}
+	},
+	close: function () {
+		dialog_destroy($(this));
+	}
+})
+$('.view_SN').on('click', function () {
+	var product_info_id = $(this).attr('rel');
+	var stock_in_id = $(this).attr('rel2');
+	var name = $(this).attr('name');
+	$('#dialog-view-SN').dialog('open');
+	$('#dialog-view-SN').load('{:U("Purchase/stockInSnView")}&product_info_id=' + product_info_id + '&stock_in_id=' + stock_in_id + '&name=' + encodeURIComponent(name));
+});
+//采购或销售退货已入库的SN查看
+$('.purchae_in_SN').on('click', function () {
+	var product_info_id = $(this).attr('rel');
+	var name = $(this).attr('name');
+	$('#dialog-view-SN').dialog('open');
+	$('#dialog-view-SN').load('{:U("sales/in_sn_list")}&purchase_id=' + "{$_GET['id']}&product_info_id=" + product_info_id + '&name=' + encodeURIComponent(name));
+});
+
+//新增退货单
+$("#dialog-return-good-add").dialog({
+	autoOpen: false,
+	modal: true,
+	width: $(document).width() * 0.8,
+	maxHeight: 600,
+	position: ["center", 100],
+	buttons: {
+		"确定": function () {
+			//js提交场景，form表单必填验证
+			if (!$("#form_dialog").valid()) {
+				swal('信息未完善', '请检查必填项', 'warning');
+				return false;
+			}
+
+			var product_count = 0;
+			$('#form_dialog .count .form-control').each(function (key, val) {
+				product_count += $(val).val();
+			})
+			if (product_count == 0) {
+				swal('最少选择一件产品才可退货！');
+				return false;
+			}
+			ajax_loading();
+			var data = $('#form_dialog').serializeArray();
+			$.ajax({
+				url: '{:U("purchase/return_goods_add")}',
+				data: data,
+				type: 'POST',
+				dataType: 'JSON',
+				success: function (res) {
+					type = (res.status == 1) ? 'success' : 'error';
+					swal({
+						title: res.msg,
+						type: type
+					}, function () {
+						$("#dialog-return-good-add").dialog('close');
+					});
+				}
+			});
+		},
+		"取消": function () {
+			$(this).dialog("close");
+		}
+	},
+	close: function () {
+		dialog_destroy($(this));
+	}
+});
+
+// 退货
+$('#return_goods').on('click', function () {
+	var purchase_id = "{$purchase['purchase_id']}";
+	$('#dialog-return-good-add').dialog('open');
+	$('#dialog-return-good-add').load('{:U("purchase/return_goods_add")}&purchase_id=' + purchase_id);
+});
+</script>
+
+<div style="display:none;" id="dialog-return-sales" title="退货单">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none;" id="dialog-add_yingfu" title="添加应付款">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var width = $('#wrapper').width() * 0.7;
+	//添加或编辑退货单dialog
+	$("#dialog-return-sales").dialog({
+		autoOpen: false,
+		modal: true,
+		width: width,
+		maxHeight: 600,
+		position: ["center",100],
+		buttons: {
+			"确定": function () {
+				var product_count = 0;
+				$('#form_dialog .count .form-control').each(function (key, val) {
+					product_count += $(val).val();
+				});
+				$('input[name="subject"]').val($.trim($('input[name="subject"]').val()));
+				if ($('input[name="subject"]').val() == '') {
+					swal({
+						title: '退货标题不能为空',
+						type: 'warning'
+					}, function () {
+						setTimeout(function () {
+							$('input[name="subject"]').focus();
+						}, 1);
+					});
+					return false;
+				}
+				if (product_count == 0) {
+					swal('最少选择一件产品才可退货！');
+					return false;
+				}
+				swal({
+					title: '数据提交中',
+					text: '......',
+					type: 'info',
+					showConfirmButton: false
+				});
+				var data = $('#form_dialog').serializeArray();
+				var submit_url = $('#form_dialog').attr('action');
+				$.ajax({
+					url: submit_url,
+					data: data,
+					type: 'POST',
+					dataType: 'JSON',
+					success: function (res) {
+						type = (res.status == 1) ? 'success' : 'error';
+						swal({
+							title: res.info,
+							type: type
+						}, function () {
+							$("#dialog-return-sales").dialog('close');
+						});
+					}
+				});
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function () { 
+	    	dialog_destroy($(this));
+	    }
+	});
+	//编辑退货单
+	$("#edit_return").click(function(){
+		var purchase_id = $(this).attr('rel');
+		$('#dialog-return-sales').dialog('open');
+		$('#dialog-return-sales').load('{:U("sales/return_edit","purchase_id=")}'+purchase_id);
+	});
+
+	
+	// 添加应付款
+	$('#dialog-add_yingfu').dialog({
+		autoOpen: false,
+		modal: true,
+		width: 550,
+		maxHeight: 500,
+		position: ["center", 100],
+		buttons: {
+			"确定": function () {
+				ajax_loading();
+				$('#payables_form').submit();
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function () {
+			dialog_destroy($(this));
+		}
+	});
+	$('#add_yingfu').on('click', function () {
+		$('#dialog-add_yingfu').dialog('open');
+		$('#dialog-add_yingfu').load('{:U("Finance/adddialog")}&t=payables&purchase_id={$purchase["purchase_id"]}&type={$purchase["type"]}');
+	});
+
+	// 出入库删除
+	$('.stock_del').on('click', function () {
+		let self = $(this);
+		swal({
+			title: "您确定要删除这条数据吗？",
+			text: "删除后将无法恢复，请谨慎操作！",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "是的，我要删除！",
+			cancelButtonText: '让我再考虑一下…',
+			closeOnConfirm: false,
+			closeOnCancel: false
+		}, function (isConfirm) {
+			if (isConfirm) {
+				ajax_loading();
+				let type = self.attr('object');
+				let id = self.attr('pid');
+				$.ajax({
+					type: 'post',
+					url: "{:U('stock/delete')}",
+					data: {id: id, type: type},
+					success: function (res) {
+						if (res.status == 1) {
+							swal({
+								title: "删除成功！",
+								text: "您已经永久删除了信息！",
+								type: "success"
+							}, () => {
+								location.reload();
+							});
+						} else {
+							swal({
+								title: "操作失败！",
+								text: res.info,
+								type: "error"
+							})
+							return false;
+						}
+					}
+				});
+			} else {
+				swal.close();
+			}
+		});
+	});
+</script>
+<include file="Public:exam" />
+<include file="Public:footer" />	

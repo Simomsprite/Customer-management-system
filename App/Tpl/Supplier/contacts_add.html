@@ -1,0 +1,45 @@
+<style type="text/css">
+	#form_contacts table tr td:nth-child(odd){
+		text-align:right;
+		border:none;
+		width: 120px;
+	}
+	#form_contacts table tr td:nth-child(even){
+		border:none;
+	}
+</style>
+<form action="{:U('supplier/contacts_add')}" id="form_contacts" method="post">
+	<input type="hidden" name="supplier_id" value="{$_GET['supplier_id']}" />
+	<table class="table" style="border:none;">
+		<tr>
+			<td>姓名：</td>
+			<td>
+				<input type="text" name="name" class="form-control" >
+			</td>
+		</tr>
+		<tr>
+			<td>联系方式：</td>
+			<td>
+				<input type="text" name="telephone" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<td>邮箱：</td>
+			<td>
+				<input type="text" name="email" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<td>地址：</td>
+			<td>
+				<input type="text" name="address" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<td>备注：</td>
+			<td>
+				<input type="text" name="remark" class="form-control">
+			</td>
+		</tr>
+	</table>
+</form>

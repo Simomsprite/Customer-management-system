@@ -1,0 +1,225 @@
+<include file="Public:header" />
+<!-- nice-scroll -->
+<script src="__PUBLIC__/style/js/plugins/nice-scroll/jquery.nicescroll.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/style/js/TableFreeze.js"></script>
+<script src="__PUBLIC__/js/chart/highcharts.js"></script>
+<script src="__PUBLIC__/js/chart/modules/exporting.js"></script>
+<link href="__PUBLIC__/css/litebox.css" rel="stylesheet" type="text/css">
+<style>
+	body{
+		overflow-y: hidden;
+	}
+	table tr td{min-width: 50px;}
+	table tr {height: 50px;text-align: center;}
+	#oDivL_tab_Test3{background-color: #fff;z-index: inherit !important;}
+	.table{max-width: none;}
+	.tabTh{background-color: #fff;}
+
+	#right-sidebar-log{
+		width: 50% !important;
+		right: -60%;
+		background-color: #fff;
+	    overflow: hidden;
+	    position: fixed;
+	    top: 60px;
+	    z-index: 1009;
+	    bottom: 0;
+	    box-shadow: 0px 2px 1px #888888;
+	}
+	.ibox-span{
+		float: left;
+		line-height: 30px;
+	}
+</style>
+<script>
+$(function(){
+	var scroll_width = 10;
+	$("#table_div").height(window.innerHeight-$("#table_div").offset().top-$("#tfoot_div").height()-20);
+	$(window).resize(function(){
+		$("#table_div").height(window.innerHeight-$("#table_div").offset().top-$("#tfoot_div").height()-20);
+		$("#oDivL_tab_Test3").height($("#table_div").height()-scroll_width-1).width($("#oTableLH_tab_Test3").width());
+		$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width()-scroll_width);
+	});
+	$(".nicescroll").niceScroll({
+		cursorcolor: "#999",//#CC0071 光标颜色 
+	    cursoropacitymax: 0.4, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
+	    touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
+	    cursorwidth: scroll_width+"px", //像素光标的宽度 
+	    cursorborder: "0", //     游标边框css定义 
+	    cursorborderradius: "3px",//以像素为光标边界半径 
+	    autohidemode: false, //是否隐藏滚动条 
+	    zindex:100,
+	    background:"#F3F3F5",//滚动条背景色
+	});
+	
+		$("#tab_Test3").FrozenTable(1,0,3);
+	
+	$("#oDivL_tab_Test3").height($("#table_div").height()).width($("#oTableLH_tab_Test3").width());
+	$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width());
+})
+
+</script>
+<div class="wrapper wrapper-content ">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<include file="Public:analytics_left" />
+				<input type="hidden" id="type_id" value="{$type_id}">
+				<input type="hidden" id="content_id" value="{$content_id}">
+				<div class="col-lg-10">
+					<div class="ibox-content" style="padding-bottom:10px;border-bottom: none;">
+						<include file="Public:alert" />
+						<div class="row">
+							<div class="col-lg-2">
+								<div class="pull-left" >
+									<span style="font-size: 18px;color: #000;">
+										<if condition = "$_GET['content_id'] eq 1">
+											日志统计分析
+										<else />
+											跟进分析
+										</if>
+									</span>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<ul class="nav pull-left" style="margin:2px 0 0 15px;">
+									<li>
+										<div class="input-group">
+											<select name="search_year" id="search_year" class="form-control search_time" >
+												<volist name="year_array" id="vo">
+													<option value="{$vo}" <if condition = "$search_time_year eq $vo">selected</if>>{$vo}年</option>
+												</volist>
+											</select>
+										</div>
+									</li>
+								</ul>
+								<ul class="nav pull-left" style="margin:2px 0 0 15px;">
+									<li>
+										<div class="input-group">
+											<select name="search_month" id="search_month" class="form-control search_time" >
+												<volist name="month_array" id="vo">
+													<option value="{$vo}" <if condition = "$search_time_month eq $vo">selected</if>>{$vo}月</option>
+												</volist>
+											</select>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="ibox-content " id="right_height" style="border-top: none;">
+						<div class="th_content" style="position:relative;">
+							<div id="table_div" class="nicescroll">
+								<table class="table table-hover table-striped table_thead_fixed table-bordered" id="tab_Test3" >
+									<tr class="tabTh">
+										<td style="min-width:170px;padding-left: 15px;">员工</td>
+										<td>本月提交</td>
+										<td>本年提交</td>
+										<for start="1" end="$days" comparison="elt" step="1" name="a" >
+											<td style="width: 50px;" <if condition="in_array($a,$week_array)">color:#ed5565 !important;</if> ><if condition ="strlen($a) eq 1">0</if>{$a}</td>
+										</for>
+										<td style="max-width: 30px;"></td>
+									</tr>
+									<tbody>
+										<volist name="role_list" id="vo">
+											<tr>
+												<td style="padding-left: 15px;">
+													<a class="role_info" rel="{$vo.role_id}" href="javascript:void(0)">
+														<if condition="$vo['thumb_path']">
+															<img class="img-circle" style="width:32px;height:32px;" src="{$vo['thumb_path']}"/>
+														<else/>
+															<img class="img-circle" style="width:32px;height:32px;" src="__PUBLIC__/img/avatar_default.png"/>
+														</if>
+														<span>{$vo['full_name']}</span>
+													</a>
+												</td>
+												<td>
+													<span title="已完成访客计划">{$vo['done_month_count']}</span> /
+													<span title="待完成访客计划">{$vo['month_count']}</span>
+												</td>
+												<td>
+													<span title="已完成访客计划">{$vo['done_year_count']}</span> /
+													<span title="待完成访客计划">{$vo['year_count']}</span>
+												</td>
+												<volist name="vo['log_count']" id="voo">
+													<td>
+														<if condition = "$voo['plan_count'] eq 0 && $voo['done_plan_count'] eq 0 && $voo['lt_time'] eq 1">
+															<i class="fa fa-close" style="font-size: 18px;color: #ed5565;"></i>
+														<else />
+															<a href="javascript:void(0);" class="visitor_plan_dialog" done="true" rel="{$vo.role_id}" rel1="{$voo['sdate']}" title="已完成访客计划">{$voo['done_plan_count']}</a> |
+															<a href="javascript:void(0);" class="visitor_plan_dialog" rel="{$vo.role_id}" rel1="{$voo['sdate']}" title="待完成访客计划">{$voo['plan_count']}</a>
+														</if>
+													</td>
+												</volist>
+												<td></td>
+											</tr>
+										</volist>
+									</tbody>
+								</table>
+							</div>
+							<div id="tfoot_div" class="clearfix">
+								<div class="clearfix" id="tfoot_page">
+									{$page}
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<link href="__PUBLIC__/css/litebox.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/js/litebox.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/images-loaded.min.js" type="text/javascript"></script>
+
+<div class="" style="display:none;" id="dialog-role-info" title="{:L('USER_INFO')}">
+	<div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div class="" style="display:none;" id="dialog-visitor-plan" title="访客计划">
+	<div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(".search_time").change(function(){
+		var search_year = $('#search_year').val();
+		var search_month = $('#search_month').val();
+		var type_id = "{$_GET['type_id']}";
+		var content_id = "{$_GET['content_id']}";  
+		window.location.href="{:U('remind/visitor_plan_analytics')}"+'&search_year='+search_year+'&search_month='+search_month;
+	});
+
+	$("#dialog-visitor-plan").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 600,
+		maxHeight: 550,
+		position: ["center",100],
+		close: function () {
+			dialog_destroy($(this));
+		}
+	});
+	$('.visitor_plan_dialog').on('click', function () {
+		let role_id = $(this).attr('rel');
+		let sdate = $(this).attr('rel1');
+		let url = '{:U("remind/visitor_plan_dialog")}&role_id='+ role_id +'&sdate='+ sdate;
+		if ($(this).attr('done') == 'true') {
+			url += '&done=true';
+		}
+		$("#dialog-visitor-plan").dialog('open');
+		$("#dialog-visitor-plan").load(url);
+	});
+</script>
+<include file="Public:footer" />

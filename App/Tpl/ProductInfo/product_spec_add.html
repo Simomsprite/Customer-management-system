@@ -1,0 +1,47 @@
+<form id="form" action="{:U('product_info/product_spec_add')}" method="post">
+	<input type="hidden" name="product_id" value="{$_GET['product_id']}">
+	<div class="form-group" id="spec_name_tab"></div>
+	<div class="form-group" id="spec_tab"></div>
+</form>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//默认加载的规格属性
+		var category_id = "{$_GET['category_id']}";
+		load_spec_name(category_id);
+
+		//点击规格值显示
+		$(document).on('click','.spec_val',function(e){
+
+			//解决radio、checkbox点击会响应两次的问题，这是radio、checkbox本身和js的问题
+			if(e.target.tagName != "INPUT") return;
+
+			//每次选择规格时，把当前的表单值存入js session中
+			var data_arr = new Array();
+			$('.data_record').each(function(key, val){
+				var id_name = $(this).attr('id');
+				var val = $(this).val();
+				//data_arr.push({id_name : val});
+				data_arr[id_name] = val;
+				});
+			//console.log(data_arr);
+			$.session.set('data_arr',data_arr);		
+
+			//动态加载不同规格的tabel格式
+			$('#spec_tab').load("{:U('product_info/spec_val')}", $('#form').serialize(),function(){
+				//重新加载table格式后，填充原来对应的值
+				var data_arr = $.session.get('data_arr');			
+				for(var key in data_arr){  
+				    // console.log("键:",key);  
+				    // console.log("值:",data_arr[key]);
+				    $('#'+key).val(data_arr[key]);
+				}
+			});
+		});									
+	});
+	//加载规格属性
+	function load_spec_name(category_id = 0){
+		$('#spec_name_tab').load("{:U('product_info/spec_name')}",{category_id:category_id},function(){
+			$('#spec_tab').html('');
+		});
+	}
+</script>

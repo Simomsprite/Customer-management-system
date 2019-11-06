@@ -1,0 +1,207 @@
+<include file="Public:header" />
+<link href="__PUBLIC__/style/css/plugins/switchery/switchery.css" rel="stylesheet">
+<script src="__PUBLIC__/style/js/plugins/switchery/switchery.js"></script>
+<style type="text/css">
+    .table-content {
+        position: relative;
+    }
+    #tfoot_div {
+        position: absolute;
+        bottom: 0;
+    }
+    tr>td:nth-child(1) { width: 20%; }
+    tr>td:nth-child(2) { width: 70%; }
+</style>
+<div class="wrapper wrapper-content">
+    <include file="Public:alert" />
+    <div class="row">
+        <div class="col-lg-12">
+            <include file="Setting:setting_left" />
+            <div class="col-lg-10 ">
+                <div class="table-content clearfix ibox-title" id="right_height" style="padding-top:0px">
+                    <div class="col-lg-12">
+                        <div style="padding:18px 0 10px;border-bottom:1px solid #ddd;font-weight:700;">进销存设置</div>
+                        <div style="padding:10x;margin:15px 20px;">
+                            <div class="text-left pull-left" style="margin:40px 0px;text-align: left;">
+                                <h4>进销存功能（增值服务）</h4>
+                            </div>
+                            <div class="text-left pull-left" style="margin:40px 0px 40px 40px;text-align: left;">
+                                <input type="checkbox" class="js-switch-large" id="call_setting" <if condition="$pss_status">checked</if> disabled="true" />
+                            </div>
+                            <div class="ibox">
+                                <if condition="$pss_status">
+                                    <form id="_form" method="POST">
+                                        <table class="table" style="width:100% !important;">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2">基本参数设置</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="form-inline">
+                                                <tr>
+                                                    <td style="border: none;" class="tdleft">允许超库存销售</td>
+                                                    <td style="border: none;">
+                                                        <div class="radio radio-info radio-inline">
+                                                            <input type="radio" name="over_stock_sales" <if condition="$config_array['over_stock_sales'] eq 0">checked</if> id="over_stock_sales" class="over_stock_sales" value="0">
+                                                            <label for="opennum">否</label>
+                                                        </div>
+                                                        <div class="radio radio-info radio-inline">
+                                                            <input type="radio" name="over_stock_sales" <if condition="$config_array['over_stock_sales'] eq 1">checked</if> id="over_stock_sales" class="over_stock_sales" value="1">
+                                                            <label for="opennum">是</label>&nbsp;
+                                                        </div>
+                                                        <span title="即商品出库时，是否可以超出实际库存量。" style="color:#E3E3E3;font-size:20px;margin-left: 5px;cursor:pointer;" class="title_ fa fa-question-circle"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none;" class="tdleft">采购单号前缀</td>  
+                                                    <td style="border: none;">
+                                                        <input class="form-control input-sm" type="text" name="purchase_prefix" value="{$config_array['purchase_prefix']|default='CGD_'}">
+                                                        <span title="此处可修改采购单号的前缀" style="color:#E3E3E3;font-size:20px;margin-left: 5px;cursor:pointer;" class="title_ fa fa-question-circle"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none;" class="tdleft">采购退货单号前缀</td>  
+                                                    <td style="border: none;">
+                                                        <input class="form-control input-sm" type="text" name="purchase_return_prefix" value="{$config_array['purchase_return_prefix']|default='CTD_'}">
+                                                        <span title="此处可修改采购退货单号的前缀" style="color:#E3E3E3;font-size:20px;margin-left: 5px;cursor:pointer;" class="title_ fa fa-question-circle"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none;" class="tdleft">销售退货单号前缀</td>
+                                                    <td style="border: none;">
+                                                        <input class="form-control input-sm" type="text" name="sales_return_prefix" value="{$config_array['sales_return_prefix']|default='XTD_'}">
+                                                        <span title="此处可修改销售退货单号的前缀" style="color:#E3E3E3;font-size:20px;margin-left: 5px;cursor:pointer;"
+                                                            class="title_ fa fa-question-circle"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none;" class="tdleft">出库单号前缀</td>
+                                                    <td style="border: none;">
+                                                        <input class="form-control input-sm" type="text" name="stock_in_prefix" value="{$config_array['stock_in_prefix']|default='CKD_'}">
+                                                        <span title="此处可修改出库单号的前缀" style="color:#E3E3E3;font-size:20px;margin-left: 5px;cursor:pointer;" class="title_ fa fa-question-circle"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none;" class="tdleft">入库单号前缀</td>
+                                                    <td style="border: none;">
+                                                        <input class="form-control input-sm" type="text" name="stock_out_prefix" value="{$config_array['stock_out_prefix']|default='RKD_'}">
+                                                        <span title="此处可修改入库单号的前缀" style="color:#E3E3E3;font-size:20px;margin-left: 5px;cursor:pointer;" class="title_ fa fa-question-circle"></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                <else />
+                                    <p style="margin-top:30px;color:#FF6751;">购买请联系官方客服：4006968650</p>
+                                </if>
+                            </div>
+                        </div>
+                    </div>
+                    <if condition="$pss_status">
+                        <div id="tfoot_div" class="clearfix">
+                            <div class="clearfix" id="tfoot_page">
+                                <div class="ibox-content" style="border:none; margin-left: 50px; margin-bottom: 20px;">
+                                    <div class="col-sm-offset-2">
+                                        <button class="ladda-button btn btn-primary" data-style="zoom-in" type="submit">
+                                            <span class="ladda-label">{:L('SAVE')}</span>
+                                            <span class="ladda-spinner"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </if>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<div class="modal inmodal fade" id="Modal" tabindex="-1" style=" overflow:auto; border:1px solid #000000;" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">使用帮助</h4>
+                <!-- <small class="font-bold">设置合同前缀 -->
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 14px;" id="content">可修改合同编号的前缀</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var large = document.querySelector('.js-switch-large');
+    var switchery = new Switchery(large, { size: 'large' });
+    var _submit = true;
+    var _msg = '';
+    
+    $(function () {
+        $(".ibox-title").height(window.innerHeight - $("#tfoot_div").height() - 40);
+        $(window).on('resize', function () {
+            $(".ibox-title").height(window.innerHeight - $("#tfoot_div").height() - 40);
+        })
+    });
+
+    $('.title_').on('click', function () {
+        var content = $(this).attr('title');
+        $('#Modal #content').html(content);
+        $('#Modal').modal('show');
+    });
+
+    $('[name="purchase_return_prefix"]').on('input', function () {
+        if ($(this).val() == 'XSD_') {
+            $(this).css('border', '1px solid red');
+            _msg = '采购退货单号前缀不能为 XSD_';
+            _submit = false;
+        } else {
+            $(this).css('border', '1px solid #d8e3ef');
+            _submit = true;
+        }
+    });
+    $('#_form').on('submit', function () {
+        if (!_submit) {
+            $('#Modal #content').html(_msg);
+            $('#Modal').modal('show');
+            return false;
+        }
+    });
+
+    $('[name="purchase_prefix"]').on('input', foo);
+    $('[name="sales_return_prefix"]').on('input', foo);
+
+    // 采购单号前缀  销售退货单号前缀 不能一致
+    function foo(){
+        let purchase_prefix = $('[name="purchase_prefix"]').val();
+        let sales_return_prefix = $('[name="sales_return_prefix"]').val();
+        if ($.trim(purchase_prefix) == $.trim(sales_return_prefix)) {
+            $('[name="purchase_prefix"]').css('border', '1px solid red');
+            $('[name="sales_return_prefix"]').css('border', '1px solid red');
+            _msg = '采购单号前缀不能与销售退货单号前缀相同';
+            _submit = false;
+        } else {
+            $('[name="purchase_prefix"]').css('border', '1px solid #d8e3ef');
+            $('[name="sales_return_prefix"]').css('border', '1px solid #d8e3ef');
+            _submit = true;
+        }
+    }
+
+    //动态判断是否开启进销存
+    $(document).on('click', '.switchery', function(){
+        var pss_open = {$_SESSION['pss_open'] ?: 1};
+        if (pss_open == 1) {   
+            var pss_open = 2;
+        } else {
+            var pss_open = 1;
+        }   
+        window.location.href = "{:U('system/pssSetup','pss_open=')}" + pss_open;
+    });
+</script>
+<include file="Public:footer" />

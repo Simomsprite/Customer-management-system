@@ -1,0 +1,94 @@
+<include file="Public:headerm" />
+<div class="wrap-box">
+    <header class="abe-header am-header-default"> <a href="javascript:history.go(-1)" class="return iconfont">&#xe612;</a>
+        <h1 class="abe-header-title">修改密码</h1>
+    </header>
+    <form class="form-inline" id="form3" method="post">
+        <input type="hidden" name="user_id" value="{$user.user_id}"/>
+        <ul class="cust-form">
+            <li class="titbox"><span class="tit">旧密码：</span>
+                <div class="txtbox">
+                <input type="password" name="old_password" id="old_password" class="txt ptxt100p" placeholder="">
+                </div>
+            </li>
+            <li class="titbox"><span class="tit">新密码：</span>
+                <input type="password" name="new_password" id="new_password" class="txt ptxt100p" placeholder="">
+            </li>
+            <li class="titbox"><span class="tit">重复新密码：</span>
+                <input type="password" name="confirm_password" id="confirm_password" class="txt ptxt100p" placeholder="">
+            </li>
+        </ul>
+        <div class="sub-box pdt_20">
+            <input type="button"  id="submit_password" value="保存修改" class="pbtn pbtnw80p">
+        </div>
+    </form>
+
+    <script>
+
+        $('#new_password').blur(function(){
+            var new_pass = $(this).val();
+            if(new_pass.length < 6 || new_pass.length > 16){
+                showtab1('2',"密码长度应为6-16位字符！");
+                return false;
+            }else{
+                return true;
+            }
+        });
+
+        $('#confirm_password').blur(function(){
+            var two_pass = $(this).val();
+            if(two_pass){
+                var new_pass = $('#new_password').val();
+                if(two_pass != new_pass){
+                    showtab1('2',"两次输入的密码不一致！");
+                    $('confirm_password').focus();
+                    return false;
+                }
+            }
+        });
+
+        $('#submit_password').click(function() {
+            $.base64.utf8encode = true;
+            if($('#old_password').val() == ''){
+                showtab1('2',"旧密码不能为空！");
+                return false;
+            }
+            if($('#new_password').val() == ''){
+                showtab1('2',"新密码不能为空！");
+                return false;
+            }
+
+            if($('#confirm_password').val() == ''){
+                showtab1('2',"重复密码不能为空！");
+                return false;
+            }
+
+            $('#old_password').val($.md5($('#old_password').val()));
+            $('#new_password').val($.md5($('#new_password').val()));
+            $('#confirm_password').val($.md5($('#confirm_password').val()));
+
+            $.ajax({
+                url : "{:U('Userm/editPassword')}",
+                type: "POST",
+                data:$("#form3").serialize(),
+                async: true,
+                success: function(data) {
+                    if(data.status == 1){
+                        showtab1('1',"修改成功，即将刷新页面!");
+                        //window.location.reload();
+                        window.location.href="{:U('user/index')}";
+                    }else{
+                        showtab1('2',"修改失败"+data.info);
+                        $('#old_password').val('');
+                        $('#new_password').val('');
+                        $('#confirm_password').val('');
+                        return false;
+                    }
+                }
+            });
+        });
+
+    </script>
+</div>
+</body>
+</html>

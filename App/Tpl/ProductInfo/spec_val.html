@@ -1,0 +1,42 @@
+<style type="text/css">
+	/*悬浮提示信息框样式*/
+	.fa-info-circle {
+		font-size: 16px;
+		color: rgb(249, 94, 0);
+		cursor: pointer;
+	}
+	.popover {
+	 	color: rgb(249, 94, 0);
+	}
+	/*悬浮提示信息框样式*/
+</style>
+<table class="table table-bordered" id="spec_tab">
+	<tr style="background-color:#f9fafc;">
+		<td style="min-width: 50px;">序号</td>
+		<volist name="list" id="vo">
+			<td style="min-width: 50px;">{$key}<input type="hidden" name="spec_name_list[]" value="{$key}"></td>
+		</volist>
+		<td style="min-width: 150px;">商品编码</td>
+		<td style="min-width: 150px;">条形码</td>
+		<td style="min-width: 120px;">成本价 <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="统计时，作为计算实际销售成本的依据"></i></td>
+		<td style="min-width: 120px;">采购价 <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="建议的采购价格，与成本计算无关"></i></td>
+		<td style="min-width: 120px;">建议售价</td>
+	</tr>
+	<volist name="list_format" id="vo" key="k">
+		<tr class="spec_tr_{$k}">
+			<td>{$key+1}</td>
+			<volist name="vo" id="vv">
+				<td>{$vv}<input type="hidden" name="product_list[{$k}][spec_val_list][]" value="{$vv}"></td>
+			</volist>
+			<td><input type="text" name="product_list[{$k}][number]" class="form-control data_record" id="{$k}_1" ></td>
+			<td><input type="text" name="product_list[{$k}][bar_code]" class="form-control data_record" id="{$k}_2"></td>
+			<td><input type="text" name="product_list[{$k}][price_cost_avg]" class="form-control data_record" id="{$k}_3"></td>
+			<td><input type="text" name="product_list[{$k}][price_cost]" class="form-control data_record" id="{$k}_4"></td>
+			<td><input type="text" name="product_list[{$k}][price]" class="form-control data_record" id="{$k}_5"></td>
+		</tr>
+	</volist>
+</table>
+<script type="text/javascript">
+	// 由于本页面为动态加载，需要手动触发悬浮提示
+	$('.fa-info-circle').popover();
+</script>

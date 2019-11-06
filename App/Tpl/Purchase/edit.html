@@ -1,0 +1,719 @@
+<include file="Public:header" />
+<script type="text/javascript" src="__PUBLIC__/js/PCASClass.js" ></script>
+<style type="text/css">
+.add_body >div >.full-height-scroll{
+   	border-right:1px dotted #ccc
+}
+.add_body_title{
+	margin:20px 0 0 10px;
+	padding-left: 14px;
+}
+.add_body_form>form>.form-group{
+	margin-bottom: 25px;
+}
+body{overflow-y:hidden;}
+.product_thead>tr>td{
+	background-color:#FFFFFF;padding:1px;font-size:13px;color:#999;
+}
+/*附件样式*/
+.test_div {
+    width: 98.8%;
+    background-color: #f9f9f9;
+    height: 30px;
+    position: relative;
+    top: -31px;
+    right: -1px;
+}
+.test_div>.addfile{
+	display: inline-block;
+    line-height: 30px;
+    margin-left: 18px;
+    cursor: pointer;
+}
+#filecontent{
+	width: 95%;
+    border: 1px dashed #d8e3ef;
+}
+.showfile{
+	padding:6px;
+}
+#filecontent .tishiinfo{
+	margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: 10px;
+}
+#filecontent .fujian{
+	margin-left: 8px;
+	color: #646464;
+}
+#addfilediv{
+	color: #cccccc;
+    margin-left: 6px;
+    padding-top: 8px;
+    display: block;
+    margin-bottom: 6px;
+}
+</style>
+<script>
+$(function(){
+	$(".add_body").height(window.innerHeight-$("#add_body").offset().top-$("#tfoot_div").height()-40);
+	$(window).resize(function(){
+		$(".add_body").height(window.innerHeight-$("#add_body").offset().top-$("#tfoot_div").height()-40);
+	})
+})
+</script>
+<div class="wrapper wrapper-content animated fadeIn">
+	<include file="Public:alert" />
+	<form class="form-horizontal" id="form" role="form" action="{:U('purchase/edit')}" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="purchase_id" value="{$purchase['purchase_id']}">
+		<input type="hidden" name="refer_url" value="{$refer_url}" />
+		<input type="hidden" name="total_amount_val" id="total_amount" value="0" />
+		<div class="ibox-content add_body" id="add_body" >
+			<div class="row">
+				<div class="col-md-6 add_body" style="padding-right: 0px;">
+					<div class="full-height-scroll">
+						<div class="row">
+							<div class="col-md-12 add_body_title" >
+								<div class="all-inline">
+									<span class="sq-tag"></span>
+									<div class="text-tag">
+										<span>基础信息</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-11 add_body_form" style="margin:20px 0 0 20px;">
+								<div class="form-group">
+									<input type="hidden" name="process_status" value="{$process_status}">
+									<if condition="$process_status eq 1">
+										<label class="col-md-4 control-label">审批流：</label>
+										<div class="col-md-6">
+											<select name="temp_id" class="form-control" style="display: inline-block;width: 250px;" required>
+												<option value="">--请选择--</option>
+												<volist name="process_list" id="vo">
+													<option value="{$vo['process_id']}" <if condition="$order_exam['process_id'] eq $vo['process_id']">selected</if> >{$vo['name']}</option>
+												</volist>
+											</select>
+										</div>
+									<else />
+										<label class="col-md-4 control-label">审批人：</label>
+										<div class="col-md-6">
+											<input type="hidden" name="temp_id" id="exam_role_id" value="{$order_exam['role_list'][0]['role_id']}" required />
+											<input class="form-control" type="text" id="exam_role_name" value="{$order_exam['role_list'][0]['full_name']}" readonly="true" style="cursor:pointer;display: inline-block;width: 250px;" placeholder="请点击选择" required />
+										</div>
+									</if>
+									<div class="col-md-2"><span style="color:red">*</span></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label">采购订单号：</label>
+									<div class="col-md-6">
+										<input class="form-control" type="text" name="number" value="{$purchase['number']}" required readonly />
+									</div>
+									<div class="col-md-2"><span style="color:red">*</span></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label">采购名称：</label>
+									<div class="col-md-6">
+										<input class="form-control" type="text" name="name" value="{$purchase['name']}" required />
+									</div>
+									<div class="col-md-2"><span style="color:red">*</span></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label">供应商：</label>
+									<div class="col-md-6">
+										<input type="hidden" name="supplier_id" value="{$purchase['supplier']['supplier_id']}" id="supplier_id"/>
+										<input class="form-control" type="text" id="supplier_name" value="{$purchase['supplier']['name']}" readonly="true" style="cursor:pointer;" placeholder="请点击选择" required />
+									</div>
+									<div class="col-md-2"><span style="color:red">*</span></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label">日期：</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control Wdate" name="purchase_time" value="{$purchase['purchase_time']}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" required >
+									</div>
+									<div class="col-md-2"><span style="color: red;">*</span></div>
+								</div>
+								<!-- <div class="form-group">
+									<label class="col-md-4 control-label">采购金额（元）：</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" name="purchase_amount" value="{$purchase['purchase_amount']}" required />
+									</div>
+									<div class="col-md-2"><span style="color:red">*</span></div>
+								</div> -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">其他金额（元）：</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" name="other_amount" value="{$purchase['other_amount']}" required />
+									</div>
+									<div class="col-md-2">
+										<span style="color:red">*</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label">创建人：</label>
+									<div class="col-md-6">
+										<input type="hidden" name="creator_role_id" id="creator_role_id" value="{$purchase['creator_role_id']}"/>
+										<input class="form-control" type="text" value="{$purchase['creator_name']}" readonly="true" required/>
+									</div>
+									<div class="col-md-2"><span style="color:red">*</span></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label">负责人：</label>
+									<div class="col-md-6">
+										<input type="hidden" name="owner_role_id" value="{$purchase['owner_role_id']}" />
+										<input class="form-control" type="text" id="owner_role_id" style="cursor:pointer;" placeholder="请选择负责人" value="{$purchase['owner_name']}" required readonly />
+									</div>
+									<div class="col-md-2"><span style="color:red"></span></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label">备注：</label>
+									<div class="col-md-8">
+										<textarea class="form-control" name="remark" rows="5">{$purchase['remark']}</textarea>
+									</div>																					
+								</div>
+							</div>
+							<div class="col-md-1 pull-right"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 add_body" style="padding-left: 0px;">
+					<div class="full-height-scroll">
+						<div class="col-md-12 add_body_title" >
+							<div class="pull-left">
+								<div class="all-inline">
+									<span class="sq-tag"></span>
+									<div class="text-tag">
+										<span>产品信息</span>
+									</div>
+								</div>
+							</div>
+							<div class="pull-right">
+								<a href="javascript:void(0);" style="padding-top:10px;" id="choseProduct" class="addproduct" >请选择产品</a>
+							</div>
+						</div>
+						<div class="col-md-12 ibox-content" style="border:0px;">
+							<div class="panel-body" style="padding:0px;">
+								<table class="table table-bordered" id="no-input-border" width="95%" border="0" cellspacing="1" cellpadding="0">
+									<thead class="product_thead">
+										<tr style="background-color:#FFFFFF;text-align:center;">
+											<td>&nbsp;</td>
+											<td >产品名称</td>
+											<td >规格</td>
+											<td >采购价格(元)</td>
+											<td >采购折扣(%)</td>
+											<td >折扣价</td>
+											<td >建议售价(元)</td>
+											<td >数量</td>
+											<td >单位</td>
+											<td >小计</td>
+										</tr>
+									</thead>
+									<?php $max_key = 1;$purchase['prime_price'] = 0?>
+									<if condition="$purchase['product_info_list']">
+										<tbody id="add_products">
+											<volist name="purchase['product_info_list']" id="vo">
+												<tr id="row_{$key+1}">
+													<td style="text-align:center;">
+														<a href="javascript:void(0);" class="reduce_one"><i class="icon-minus"></i></a>
+													</td>
+													<td>
+														<input type="hidden" name="product_info_list[{$key+1}][product_info_id]" id="product_id_{$key+1}" class="cproduct_id" value="{$vo.product_info_id}"/>
+														<input type="hidden" name="product_info_list[{$key+1}][id]" value="{$vo['id']}">
+														<input type="text" class="form-control" id="product_name_{$key+1}" style="border:none;!important" readonly="true" value="{$vo.name}"/>
+													</td>
+													<td>
+														{$vo['spec']['string']}
+													</td>
+													<td><!-- 采购原价 -->
+														<input type="text" id="product_ori_price_{$key+1}" name="product_info_list[{$key+1}][price]" class="form-control" value="{$vo.price}" onkeyup="calculate({$key+1},1)" />
+													</td>
+													<td><!-- 折率 -->
+														<input type="text" name="product_info_list[{$key+1}][discount]" id="product_discount_rate_{$key+1}" style="" class="form-control" onkeyup="calculate({$key+1},1)" <if condition="$vo['discount'] eq 0">value="0.00"<else/>value="{$vo.discount}"</if>/>
+													</td>
+													<td><!-- 采购折扣价 -->
+														<input type="text" class="form-control" name="product_info_list[{$key+1}][price_discount]" id="product_unit_price_{$key+1}" onkeyup="calculate({$key+1})" value="{$vo.price_discount}" />
+													</td>
+													<!-- 建议售价(元) -->
+													<td >
+														<input type="number" class="form-control" name="product_info_list[{$key+1}][price]" value="{$vo['price']}" readonly="true">
+													</td>
+													<td><!-- 商品数量 -->
+														<input type="text" class="form-control amount" name="product_info_list[{$key+1}][count]" style="" id="product_amount_{$key+1}" onkeyup="calculate({$key+1})" value="{$vo.count}"/>
+													</td>
+													<td>
+														<input type="text" style="border:none;!important" name="product_info_list[{$key+1}][standard]" readonly="readonly" class="form-control" value="{$vo.standard}"/>
+													</td>
+													<td><!-- 小计 -->
+														<input type="text" style="border:none;!important" name="product_info_list[{$key+1}][subtotal]" id="product_subtotal_{$key+1}" class="form-control subtotal" value="{$vo.subtotal}" readonly="readonly" rel="{$key+1}"/>
+													</td>
+												</tr>
+												<?php $max_key = ++$key;$purchase['prime_price'] += $vo['subtotal'];?>
+											</volist>
+										</tbody>
+									<else/>
+										<tbody id="add_products">
+										</tbody>
+									</if>
+									<tfoot>
+										<tr ><td colspan="10" style="color:#999;text-align:center"><span >暂无产品信息，请添加产品！</span></td></tr>
+									</tfoot>
+								</table>
+								<div class="ibox" style="overflow-x: hidden;margin: 10px 5px 0px;">
+									<div class="row" style="margin: 10px 5px 0px;">
+										<div class="col-md-4" style="padding-top:9px">
+											产品合计(元):&nbsp; 
+											<span id="total_subtotal_val">{$purchase['prime_price']}</span>
+											<input type="hidden" value="{$purchase['prime_price']}" id="prime_price" name="prime_price">
+										</div>
+										<div class="col-md-4">整单折扣(%):&nbsp;
+											<input style="display: inline-block; width: 60px; padding: 1px;" type="text" id="final_discount_rate" name="discount" class="form-control" onkeyup="final_price_sum('rate');" value="{$purchase['discount']}" />
+										</div>
+										<div class="col-md-4">最终合计(元):&nbsp;
+											<input style="display: inline-block; width: 100px; padding: 1px;" type="text" name="purchase_amount" id="final_price" class="form-control" placeholder="0.00" onkeyup="final_price_sum('price');" value="{$purchase['purchase_amount']}" onblur="bu(this)" />
+											<input type="hidden" id="total_amount_val" value="{$purchase['total_amount']}" name="total_amount">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="tfoot_div" class="clearfix">
+			<div class="clearfix" id="tfoot_page">
+				<div class="ibox-content" style="border-top: none;">
+					<div class="col-sm-offset-2"><button type="submit" id="save_submit" class="btn btn-primary">保存采购单</button></div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="" style="display:none;" id="dialog-validate" title="{:L('TEST_RESULTS')}">
+	{:L('HAVE_THE_FOLLOWING_PRODUCTS_ARE_SIMILAR_TO_THE_PRODUCT_NAME')}
+	<div id="search_content"></div>
+</div>
+<div style="display:none;" id="dialog-supplier-list" title="选择供应商">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="dialog-product-list" title="添加产品">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="dialog-owner_role-list" title="选择负责人">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="dialog-exam-rolelist" title="选择审批人">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	// 选择审批人
+	$("#dialog-exam-rolelist").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 160],
+		buttons: {
+			'{:L("OK")}': function () {
+				var role_info = $('input[type="radio"].owner:checked');
+				$('#exam_role_id').val(role_info.val());
+				$('#exam_role_name').val(role_info.attr('rel'));
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}': function () {
+				$(this).dialog('close');
+			}
+		},
+		close: function () {
+			$(this).html('');
+		}
+	});
+	$('#exam_role_name').on('click', function () {
+		$("#dialog-exam-rolelist").dialog('open');
+		$("#dialog-exam-rolelist").load('{:U("user/listDialog")}&id=' + $('#exam_role_id').val());
+	});
+	$(document).ready(function(){
+		$('#save_submit').prop('disabled',false);
+		/*form表单验证*/
+		$("#form").validate({
+			submitHandler:function(form){
+				var data = $("#form").serializeArray();
+				if (data.length < 16) {
+					swal('最少添加一件产品', '', 'warning');
+				} else {
+					$('#save_submit').click(function () {
+						$('#save_submit').prop('disabled', true);
+					});
+					form.submit();
+				}
+	        }    
+		});
+	});
+
+	function product_info_count_zero() {
+		if ($('#add_products tr').length < 1) {
+			$('tfoot').show();
+		} else {
+			$('tfoot').hide();
+		}
+	};
+	product_info_count_zero();
+	
+	//选择供应商
+	$(document).on('click','#supplier_name',function () {
+		$('#dialog-supplier-list').dialog('open');
+		$('#dialog-supplier-list').load('{:U("supplier/list_dialog")}');
+	});
+	$("#dialog-supplier-list").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 800,
+		maxHeight: 400,
+		position: ["center", 100],
+		buttons: { 
+			"确定": function () {
+				var supplier_id = $('input:radio[class="supplier_id"]:checked').val();
+				var supplier_name = $('input:radio[class="supplier_id"]:checked').attr('supplier_name');
+				$('#supplier_id').val(supplier_id);
+				$('#supplier_name').val(supplier_name);
+				$(this).dialog("close"); 
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close:function(){
+			dialog_destroy($(this));
+		}
+	});
+
+	var now_rows = {$max_key};
+	var total_row_id = {$max_key};
+	//减少一条信息
+	$(document).on('click','.reduce_one',function(){
+		var row_id = $(this).parent().parent().attr('id');
+		row_val = row_id.substr(4);
+		if($('#product_id_'+row_val).val() == ''){
+			$('#'+row_id).remove();
+			calculate(total_row_id);
+		}else{
+			swal({
+				title: "温馨提示",
+				text: "您确定要移除该商品吗?",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "是的，我要移除！",
+	       		cancelButtonText:'让我再考虑一下…',
+				closeOnConfirm:false,
+	        	closeOnCancel:false
+	        }, 
+	        function(isConfirm){
+				if (isConfirm) {
+					$('#'+row_id).remove();
+					calculate(total_row_id);
+					swal("移除成功！", "您已经移除了该商品信息！", "success");
+					product_info_count_zero();
+				} else {
+					// return false;
+					swal("已取消","您取消了移除操作！","error");
+				} 
+			});
+		}
+		// now_rows --;
+	});
+
+	$(".addproduct").click(function(){
+    	$('#dialog-product-list').dialog('open');
+        $('#dialog-product-list').load('{:U("product/mutildialog")}'); 
+    });
+	//商品浮动层
+	$("#dialog-product-list").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center",100],
+		buttons:{
+			'{:L("OK")}':function(){
+				$(".se_product").each(function(){
+					now_rows += 1;
+					var product_name = $(this).text();
+					var product_id = $(this).attr('rel');
+					var muns = 0;
+					$('.cproduct_id').each(function(k, v){
+						if($(v).val() == product_id){
+							alert_crm('此产品已经存在，如需添加请直接修改数量!');
+							muns += 1;
+						}
+					});
+					if(muns == 0){
+						//建议销售单价
+						var sale_price = $(this).children("input:first-child").val();
+						//建议采购单价，需要相关计算
+						var unit_price = $(this).children("input:first-child").next().next().val();
+						var category_name = $(this).children("input:first-child").next().next().next().val();
+						var standard = $(this).children("input:first-child").next().val();
+						var spec = $(this).find('.spec').val()
+						if(product_id != null){
+							$('#product_name_'+now_rows).val(product_name);
+							$('#add_products').append("<tr id='row_"+now_rows+"'>\
+								<td style='text-align:center;'>\
+									<a href='javascript:void(0);' class='reduce_one'><i class='icon-minus'></i></a>\
+								</td>\
+								<td>\
+									<input type='hidden' name='product_info_list["+now_rows+"][product_info_id]' id='product_id_"+now_rows+"' class='cproduct_id' value='"+product_id+"' /><input type='text' class='form-control' readonly='true' id='product_name_"+now_rows+"' style='border:none;!important' readonly='readonly' value='"+product_name+"'/>\
+								</td>\
+								<td>" + spec + "</td>\
+								<td>\
+									<input type='text' id='product_ori_price_"+now_rows+"' name='product_info_list["+now_rows+"][price_cost]' class='form-control' value='"+unit_price+"' onkeyup='calculate("+now_rows+",1)' />\
+								</td>\
+								<td>\
+									<input type='text' class='form-control product_discount_rate' name='product_info_list["+now_rows+"][discount]' id='product_discount_rate_"+now_rows+"' onkeyup='calculate("+now_rows+",1)' value='0.00'/>\
+								</td>\
+								<td>\
+									<input type='text' class='form-control' name='product_info_list["+now_rows+"][price_discount]' id='product_unit_price_"+now_rows+"' onkeyup='calculate("+now_rows+")' style='' value='"+unit_price+"' />\
+								</td>\
+								<td>\
+									<input name='product_info_list["+now_rows+"][price]' class='form-control' value='"+sale_price+"' readonly>\
+								</td>\
+								<td>\
+									<input type='text' class='form-control amount' name='product_info_list["+now_rows+"][count]' id='product_amount_"+now_rows+"' onkeyup='calculate("+now_rows+")' value='1'/>\
+								</td>\
+								<td>\
+									<input type='text' style='border:none;!important' name='product_info_list["+now_rows+"][unit]' readonly='readonly' class='form-control' value='"+standard+"'/>\
+								</td>\
+								<td>\
+									<input type='text' class='form-control subtotal' name='product_info_list["+now_rows+"][subtotal]' id='product_subtotal_"+now_rows+"' style='border:none;!important' readonly='readonly' rel='"+now_rows+"'/>\
+								</td>\
+							</tr>");
+							calculate(now_rows);
+							product_info_count_zero();
+						}
+					}
+				});
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}':function(){
+				$(this).dialog('close');
+			}
+		},
+		close:function(){
+			$(this).html('');
+		}
+	});
+	//根据选项计算价格
+	function calculate(param,par){
+		par = par || 0;
+		if($('#product_id_'+param).val() != '' && $('#product_id_'+param).val() != '0'){
+
+			//先对当前Row进行计算
+			var amount = $('#product_amount_'+param).val();//数量
+			if (typeof(amount) != 'undefined' ) {
+				//过滤数量
+				amount = amount.replace(/\D/g,''); //清除"数字"和"."以外的字符
+			}
+			
+			$('#product_amount_'+param).val(amount);
+
+			//产品单价
+			var ori_price = $('#product_ori_price_'+param).val();
+
+			//产品售价
+			var unit_price = $('#product_unit_price_'+param).val();
+			if (typeof(unit_price) != 'undefined' ) {
+				//过滤售价
+				unit_price = unit_price.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+				unit_price = unit_price.replace(/^\./g,""); //验证第一个字符是数字
+				unit_price = unit_price.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+				unit_price = unit_price.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+				unit_price = unit_price.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数
+			}
+			$('#product_unit_price_'+param).val(unit_price);
+
+			//产品折扣
+			var discount = $('#product_discount_rate_'+param).val();
+			if (typeof(discount) != 'undefined' ) {
+				//过滤折扣
+				discount = discount.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+				discount = discount.replace(/^\./g,""); //验证第一个字符是数字
+				discount = discount.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+				discount = discount.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+				discount = discount.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数
+			}
+			$('#product_discount_rate_'+param).val(discount);
+
+			if( discount != 0){
+				var discount_rate = $('#product_discount_rate_'+param).val();
+			}else{
+				var discount_rate = $('#discount_rate').val();
+			}
+			discount_rate = new Number(discount_rate);
+			var product_discount = cal_discount_money(unit_price, amount);//折扣额	
+			var unit_val = 0.00;
+			if(par == 0){
+				if(ori_price == 0 || ori_price == 0.00){
+					discount_rate = '0.00';
+				}else{
+					discount_rate = parseFloat((ori_price-unit_price)/ori_price*100).toFixed(2);
+					if(unit_price == 0 || unit_price == 0.00){
+						discount_rate = '100.00';
+					}
+				}
+				unit_val = unit_price;
+				$('#product_discount_rate_'+param).val(discount_rate);
+				var subtotal = parseFloat(unit_val*amount).toFixed(2); //小计
+			}else{
+				if(discount_rate > 0){
+					discount_rate = parseFloat(discount_rate/100).toFixed(2);
+					var unit_val = parseFloat(ori_price*(1-discount_rate)).toFixed(2);
+				}else{
+					var unit_val = parseFloat(ori_price).toFixed(2);
+				}
+				$('#product_unit_price_'+param).val(unit_val);
+				var subtotal = parseFloat(unit_val*amount).toFixed(2); //小计
+			}
+			$('#product_subtotal_'+param).val(subtotal);
+			$('#product_discount_'+param).val(product_discount);
+			//合计数量
+			var total_amount = 0;
+			$('.amount').each(function(k, v){
+				if($(v).val() != '' ||  $(v).val() != '0'){
+					total_amount += new Number($(v).val());
+				}
+			});
+			$('#total_amount_val').val(total_amount);
+			
+			//合计小计
+			var total_subtotal = 0.00;
+			$('.subtotal').each(function(k, v){
+				if($(v).val() != '' ||  $(v).val() != '0'){
+					total_subtotal += new Number($(v).val());
+				}
+			});
+			$('#total_subtotal_val').text(total_subtotal.toFixed(2));
+			$("#prime_price").val(total_subtotal.toFixed(2));
+			$('#total_subtotal').val(total_subtotal.toFixed(2));
+			$('#purchase_price').val(total_subtotal.toFixed(2));
+			$('#final_price').val(total_subtotal.toFixed(2));
+
+			final_price_sum('rate');
+		}else{
+			return false;
+		}
+	}
+	//根据选项计算价格 END
+	/**
+	 *计算销售价格
+	 */
+	function cal_discount_money(unit_price, amount, discount_rate){
+		var product_discount = 0;
+		if(discount_rate == 0){
+			product_discount = 0;
+		}else{
+			product_discount = (unit_price * amount) * (discount_rate/100);
+		}
+		return parseFloat(product_discount).toFixed(2);
+	}
+	function final_price_sum(status){
+		//产品合计
+		var total_subtotal_val = $('#prime_price').val();
+		//整单折扣
+		var final_discount_rate = $('#final_discount_rate').val();
+		if (status == 'purchase_price') {
+			//订单金额
+			var final_price = $('#purchase_price').val();
+		} else {
+			//订单金额
+			var final_price = $('#final_price').val();
+		}
+		if (status == 'rate') {
+			//过滤
+			final_discount_rate = final_discount_rate.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+			final_discount_rate = final_discount_rate.replace(/^\./g,""); //验证第一个字符是数字
+			final_discount_rate = final_discount_rate.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+			final_discount_rate = final_discount_rate.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+			final_discount_rate = final_discount_rate.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数
+			$('#final_discount_rate').val(final_discount_rate);
+
+			if (final_discount_rate > 100) {
+				$('#final_discount_rate').val('0.00');
+				$('#final_discount_rate').focus();
+				final_price_sum('rate');
+				alert_crm('整单折扣不能大于100');
+				return false;
+			}
+			final_price = parseFloat(total_subtotal_val*(1-final_discount_rate/100)).toFixed(2);
+			$('#final_price').val(final_price);
+		} else {
+			//过滤
+			final_price = final_price.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+			final_price = final_price.replace(/^\./g,""); //验证第一个字符是数字
+			final_price = final_price.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+			final_price = final_price.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+			final_price = final_price.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数
+
+			//整单折扣
+			if(final_price == 0 || final_price == 0.00 || total_subtotal_val == 0 || total_subtotal_val == 0.00){
+				final_discount_rate = '0.00';
+			}else{
+				final_discount_rate = parseFloat((total_subtotal_val-final_price)/total_subtotal_val*100).toFixed(2);
+			}
+
+			$('#final_discount_rate').val(final_discount_rate);
+		}
+		$('#purchase_price').val(final_price);
+		$('#final_price').val(final_price);
+	}
+	$("#dialog-owner_role-list").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 100],
+		buttons: {
+			'{:L("OK")}': function () {
+				var role_info = $('input[type="radio"].owner:checked');
+				$('input[name="owner_role_id"]').val(role_info.val());
+				$('#owner_role_id').val(role_info.attr('rel'));
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}': function () {
+				$(this).dialog('close');
+			}
+		},
+		close: function () {
+			$(this).html('');
+		}
+	});
+	$('#owner_role_id').on('click', function () {
+		$("#dialog-owner_role-list").dialog('open');
+		$("#dialog-owner_role-list").load('{:U("user/listDialog")}&id=' + $('input[name="owner_role_id"]').val());
+	})
+	
+</script>
+<include file="Public:footer" />	

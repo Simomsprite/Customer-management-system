@@ -1,0 +1,85 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+  <header class="abe-header am-header-default"> <a href="{:U('customerm/index')}" class="return iconfont">&#xe612;</a>
+    <h1 class="abe-header-title">极光推送</h1>
+  </header>
+    <!--<form action="{:U('Customerm/chatPush')}" method="post">
+        <div class="blank20"></div>
+<div id="pagetwo" style="display: block">
+    <ul class="cust-form">
+        &lt;!&ndash;<li class="titbox"><span class="tit">标题：</span>
+            <div class="txtbox">
+                <input type="text" name="title" class="txt ptxt100p" >
+            </div>
+        </li>&ndash;&gt;
+        <li class="titbox"><span class="tit">内容：</span>
+            <div class="txtbox">
+                <input type="text" name="content" class="txt ptxt100p" >
+            </div>
+        </li>
+    </ul>
+    <div class="sub-box">
+        <input type="submit" name="button" value="发送推送" class="pbtn pbtn-sm pbtnw30p ">
+    </div>
+</div>
+    </form>-->
+
+        <form action="{:U('Customerm/chatImg')}" method="post" enctype="multipart/form-data">
+            <div class="blank20"></div>
+            <div id="pageone" style="display: block">
+                <ul class="cust-form">
+                    <li class="titbox"><span class="tit">图片上传：</span>
+                        <div class="txtbox">
+                            <input type="file" name="image" class="txt ptxt100p" >
+                        </div>
+                    </li>
+                </ul>
+                <div class="sub-box">
+                    <input type="submit" name="button" value="发送图片" class="pbtn pbtn-sm pbtnw30p ">
+                </div>
+            </div>
+    </form>
+</div>
+<script>
+    /*$('#from1').submit(function(e){
+        e.preventDefault();
+        var data=new FormData(this);
+        $.ajax({
+            url:"Customerm/chatMessage",
+            data:data,
+            type:"post",
+            dataType:"json",
+            cache:false,
+            contentType:false,
+            processData:false,
+            success:function(res){
+                if(res.flag===1){
+                    console.log("五哥真帅")
+                }else if (res.flag===2){
+                    console.log("五哥真胖")
+                } else{
+                    console.log("五哥真矮")
+                }
+            },
+            error:function(){
+                console.log("五哥发生未知错误");
+            }
+        })
+    });*/
+
+
+    $('#addFriend').click(function(){
+        var user_id = $("#chat1").val();
+        $.ajax({
+            url:"{:U('Indexm/chatAddFriends')}",
+            type: "POST",
+            data:{user_id},
+            success:function (msg) {
+                showtab(msg);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

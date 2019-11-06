@@ -1,0 +1,45 @@
+<style type="text/css">
+	#form_contacts table tr td:nth-child(odd){
+		text-align:right;
+		border:none;
+		width: 120px;
+	}
+	#form_contacts table tr td:nth-child(even){
+		border:none;
+	}
+</style>
+<form action="{:U('supplier/contacts_edit')}" id="form_contacts" method="post">
+	<input type="hidden" name="contacts_id" value="{$_GET['contacts_id']}" />
+	<table class="table" style="border:none;">
+		<tr>
+			<td>姓名：</td>
+			<td>
+				<input type="text" name="name" value="{$contacts['name']}" class="form-control" >
+			</td>
+		</tr>
+		<tr>
+			<td>联系方式：</td>
+			<td>
+				<input type="text" name="telephone" value="{$contacts['telephone']}" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<td>邮箱：</td>
+			<td>
+				<input type="text" name="email" value="{$contacts['email']}" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<td>地址：</td>
+			<td>
+				<input type="text" name="address" value="{$contacts['address']}" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<td>备注：</td>
+			<td>
+				<input type="text" name="remark" value="{$contacts['remark']}" class="form-control">
+			</td>
+		</tr>
+	</table>
+</form>

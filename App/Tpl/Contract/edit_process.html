@@ -1,0 +1,253 @@
+<form action="{:U('setting/edit_process')}" method="post">
+	<table class="table table-hover table-striped table_thead_fixed sort-list" width="100%" border="0" cellspacing="1" cellpadding="0">
+		<thead>
+			<th>审批人</th>
+			<th>审批岗位</th>
+			<th>操作</th>
+		</thead>
+	  	<tbody class="process" id="process">
+			<volist name="examine_list" id="vo">
+				<tr id="step_{$vo['id']}">
+					<input type="hidden" class="check_list" name="id[]" value="{$vo['id']}"/>
+					<td class="project-people" id="project-people_{$vo['id']}" style="text-align:left !important;">
+                        <volist name="vo['role_list']" id="vo1">
+                            <a class="role_info" rel="{$vo1['role_id']}" title="{$vo1['full_name']}" href="javascript:void(0);">
+                            	<img alt="image" class="img-circle" <if condition = "$vo1['thumb_path']" >src="{$vo1['thumb_path']}"<else />src="__PUBLIC__/img/avatar_default.png"</if> />
+                            </a>
+                        </volist>
+                    </td>
+					<td>
+						<div class="radio radio-info radio-inline">
+							<input type="radio" name="relation{$vo['id']}" <if condition="$vo['relation'] eq 1">checked</if> id="relation1{$vo['id']}" class="relation" rel="{$vo['id']}" value="1">
+							<label for="relation1{$vo['id']}">并</label>&nbsp;&nbsp;&nbsp;
+						</div>
+						<div class="radio radio-info radio-inline">
+							<input type="radio" name="relation{$vo['id']}" <if condition="$vo['relation'] eq 2">checked</if> id="relation2{$vo['id']}" class="relation" rel="{$vo['id']}" value="2">
+							<label for="relation2{$vo['id']}">或</label>&nbsp;
+						</div>
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="edit_step" id="edit_step_{$vo['id']}" rel="{$vo['id']}" rel1="{$vo['role_id']}">编辑</a>
+						<a href="javascript:void(0);" class="delete_step" rel="{$vo['id']}">删除</a>
+					</td> 
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div style="margin-left:5px;margin-top:15px;">
+		<a class="add_step" href="javascript:void(0)">+ 添加审批人</a>
+	</div>
+	<div style="color:#ccc;margin-top:10px;">注：通过拖拽可以修改审批人流程顺序</div>
+</form>
+<div style="display:none;" id="dialog-edit-step" title="编辑审批人">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none;" id="dialog-add-step" title="增加审批人">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("table tbody").sortable({
+		connectWith: "table tbody",
+		stop:function() {
+			position = [];
+			$.each($(".check_list"), function(i, item){position.push(item.value)});
+			$.get('{:U("contract/examinesort")}',{postion:position.join(',')}, function(data){
+				if (data.status !== 1) {
+					swal({
+						title: "顺序保存失败!",
+						type: "error"
+					});
+				}
+			}, 'json');
+		}
+	});
+
+	$("#dialog-edit-step").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 800,
+		height: 500,
+		resizable: false,
+		position:["center",100],
+		buttons: {
+			"保存": function () {
+				var step_id = $("#dialog_step_id").val();
+				var checked_role_id = ',';
+				$(".muti_role_id:checked").each(function(){
+	                checked_role_id += ($(this).val()+',');
+	            });
+				$.post("{:U('contract/step')}",{role_id:checked_role_id,step_id:step_id},
+				function(data){
+					if(data.status == 1){
+						var temp = '';
+						$(data.data.role_list).each(function(k,v){
+			                temp += '<a class="role_info" rel="'+v.role_id+'" title="'+v.full_name+'" href="javascript:void(0);"><img alt="image" class="img-circle" src="'+v.thumb_path+'"></a>';
+			            });
+			            $('#project-people_'+step_id).html(temp);
+			            $('#edit_step_'+step_id).attr('rel1',checked_role_id);
+					}else{
+						swal({
+							title: data.info,
+							type: "error"
+						});
+					}
+				});
+				$(this).dialog("close");
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		}
+	});
+
+	$(document).on('click','.edit_step',function(){
+		var step_id = $(this).attr('rel');
+		var check_ids = $(this).attr('rel1');
+		$('#dialog-edit-step').dialog('open');
+		$('#dialog-edit-step').load("{:U('user/mutiListDialog','by=contract&step_id=')}"+step_id+'&check_ids='+check_ids);
+	});
+
+	$("#dialog-add-step").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 800,
+		height: 500,
+		resizable: false,
+		position:["center",100],
+		buttons: {
+			"保存": function () {
+				var checked_role_id = ',';
+				$(".muti_role_id:checked").each(function(){
+	                checked_role_id += ($(this).val()+',');
+	            });
+				$.post("{:U('contract/step')}",{role_id:checked_role_id},
+				function(data){
+					if(data.status == 1){
+						var temp = '';
+			                temp += '<tr id="step_'+data.data.id+'">\
+			                			<input type="hidden" class="check_list" name="id[]" value="'+data.data.id+'"/>\
+			                			<td class="project-people" id="project-people_22" style="text-align:left !important;">';
+						                $(data.data.role_list).each(function(k,v){
+						                	temp += '<a class="role_info" rel="'+v.role_id+'" title="'+v.full_name+'" href="javascript:void(0);"><img alt="image" class="img-circle" src="'+v.thumb_path+'"></a>';
+						                });
+                       		temp += 	'</td>\
+                       					<td>\
+											<div class="radio radio-info radio-inline">\
+												<input type="radio" name="relation'+data.data.id+'" id="relation1'+data.data.id+'" class="relation" checked rel="'+data.data.id+'" value="1">\
+												<label for="relation1'+data.data.id+'">并</label>&nbsp;&nbsp;&nbsp;\
+											</div>\
+											<div class="radio radio-info radio-inline">\
+												<input type="radio" name="relation'+data.data.id+'" id="relation2'+data.data.id+'" class="relation" rel="'+data.data.id+'" value="2">\
+												<label for="relation2'+data.data.id+'">或</label>&nbsp;\
+											</div>\
+										</td>\
+										<td>\
+											<a href="javascript:void(0);" class="edit_step" id="edit_step_'+data.data.id+'" rel="'+data.data.id+'" rel1="'+checked_role_id+'">编辑</a>\
+											<a href="javascript:void(0);" class="delete_step" rel="'+data.data.id+'">删除</a>\
+										</td></tr>';
+						$('#process').append(temp);
+					}else{
+						swal({
+							title: data.info,
+							type: "error"
+						});
+					}
+				});
+				$(this).dialog("close");
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		}
+	});
+
+	$('.add_step').click(function(){
+		$('#dialog-add-step').dialog('open');
+		// $('#dialog-add-step').load("{:U('contract/step')}");
+		$('#dialog-add-step').load("{:U('user/mutiListDialog','by=contract')}");
+	});
+
+	$(document).on('click','.delete_step',function(){
+		var step_id = $(this).attr('rel');
+		swal({
+			title: "温馨提示",
+			text: "您确定要删除吗？",
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "是的，我要删除！",
+	        cancelButtonText:'让我再考虑一下…',
+	        closeOnConfirm:false,
+	        closeOnCancel:false
+		},
+		function(isConfirm){
+	    	if (isConfirm) {
+				$.ajax({
+					type:'get',
+					url:'index.php?m=contract&a=step_delete&step_id='+step_id,
+					async:false,
+					success:function(data){
+						if(data.status){
+							$('#step_'+step_id).remove();
+							swal({
+								title: data.info,
+								type: "success"
+							});
+						}else{
+							swal({
+								title: data.info,
+								type: "error"
+							});
+						}
+					},
+					dataType:'json'
+				});
+			} else {
+	            swal("已取消","您取消了删除操作！","error");
+	        }
+		});
+	});
+
+	$('.relation').change(function(){
+		var relation = $(this).val();
+		var step_id = $(this).attr('rel');
+		if(relation && step_id){
+			$.ajax({
+				type: "post",
+				async:false,
+				url: "{:U('contract/examinedata')}", 
+				data: {relation:relation,step_id:step_id},
+				dataType: "json",
+				success : function(result){
+					if(result.status != 1){
+						swal({
+							title: result.info,
+							type: "error"
+						});
+					}else{
+						return true;
+					}
+				}
+			});
+		}
+	});
+});
+</script>
+
+
+
+
+

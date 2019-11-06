@@ -1,0 +1,117 @@
+<style>
+    #sendsms_div { width: 100%; padding: 20px 50px; }
+    #sendsms_div .red { color: red; }
+    #sendsms_div .row { margin-bottom: 20px; }
+    #sendsms_div .col-md-3 { line-height: 32px; font-size: 14px; color: #888; }
+    #sendsms_div .col-md-9 p:nth-child(1) { margin-top: 8px; }
+    #sendsms_div #sms_error_msg { font-size: 16px; font-weight: bold; }
+</style>
+<div id="sendsms_div">
+    <form method="POST" action="{:U('setting/sendsms')}">
+        <input type="hidden" name="phoneNum" value="{$phoneNum}">
+        <input type="hidden" name="is_get" value="false">
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <span>模板选择：</span>
+            </div>
+            <div class="col-md-9">
+                <select class="form-control" name="template_id" id="template">
+                    <option value="0">--不采用模板--</option>
+                    <volist name="templateList" id="val">
+                        <option value="{$val['template_id']}" rel="{$val['content']}">{$val['subject']}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <span class="red">*</span>
+                <span>模板预览：</span>
+            </div>
+            <div class="col-md-9">
+                <textarea name="smsContent" id="smsContent" rows="5" class="form-control" style="resize: none;"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 text-center">
+            </div>
+            <div class="col-md-9">
+                <a id="add_blname" class="btn btn-primary pull-right" href="javascript:void(0);" style="font-size:14px;margin-right:5px;background:#469bf0;border:#469bf0;">插入变量联系人</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <span>提示信息：</span>
+            </div>
+            <div class="col-md-9">
+                <p></p>
+                <p><span id="sms_error_msg"></span></p>
+                <p>已输入<span class="red" id="font_length">0</span>个文字 </p>
+                <p>当前剩余短信条数：<span class="red" id="surplus">{$surplus}</span> <span>请注意短信条数，余额不足将导致无法发送!</span></p>
+                <p>已选客户<sapn class="red" id="count">{$count}</sapn>名，将发送<span id="send_sms_count" class="red">{$count}</span>条短信。</p>
+                <p>若短信长度超过70字，将作为长短信分为多条发送。</p>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(function(){
+        var error_count = '{$error_count}';
+        var send_btn = $('[aria-describedby="dialog-sendsms"]').find('.ui-dialog-buttonset button').eq(0);
+        if (error_count > 0) {
+            send_btn.hide();
+            $('#sendsms_div p').eq(0).html('<span class="red">部分客户联系人信息不完善</a>，无法完成发送，<a href="javascript:void(0);" id="error_submit">查看详情</a>');
+            $('#error_submit').on('click', function(){
+                var form = $('#sendsms_div form');
+                form.find('[name="is_get"]').val('true');
+                form.submit();
+            });
+        }
+        input();
+        $('#template').on('change', function(){
+            var template_id = $(this).val();
+            if (template_id == 0) {
+                $('#smsContent').val('');
+            } else {
+                var content = $(this).find('[value="'+ template_id +'"]').attr('rel');
+                $('#smsContent').val(content);
+            }
+            input();
+        });
+        $('#smsContent').on('input', function(){
+            input();
+        });
+        function input() {
+            var length = $('#smsContent').val().length;
+            var send_sms_count = $('#send_sms_count').html();
+            var surplus = $('#surplus').html();
+            $('#font_length').html(length);
+            if (length > 70) {
+                var page = Math.ceil(length / 70);
+            } else {
+                var page = 1;
+            }
+            if (length > 300) {
+                $('#sms_error_msg').html('字数超出短信内容字数上限，单次发送长短信最多300字。');
+                send_btn.hide();
+                return false;
+            }
+            var count = $('#count').html();
+            send_sms_count = count * page;
+            $('#send_sms_count').html(send_sms_count);
+           
+            if (send_sms_count > surplus) {
+                $('#sms_error_msg').html('发送条数超过剩余条数！, 超出<span class="red">'+ (send_sms_count - surplus) +'</span>条');
+                send_btn.hide();
+            } else {
+                if (error_count == 0) {
+                    send_btn.show();
+                    $('#sms_error_msg').html('');
+                }
+            }
+        }
+        $('#add_blname').on('click', function(){
+            $('#smsContent').val($('#smsContent').val()+'{name}');
+        });
+    });
+</script>

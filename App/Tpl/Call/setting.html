@@ -1,0 +1,84 @@
+<include file="Public:header" />
+<link href="__PUBLIC__/style/css/plugins/switchery/switchery.css" rel="stylesheet">
+<script src="__PUBLIC__/style/js/plugins/switchery/switchery.js"></script>
+<style type="text/css">
+.r_out {width:74px; height:74px; border:8px solid #d9d9d9; background:#fff; box-shadow:3px 3px 5px #bfbfbf; -webkit-box-shadow:3px 3px 5px #bfbfbf; -moz-box-shadow:3px 3px 5px #bfbfbf; -ms-box-shadow:3px 3px 5px #bfbfbf; border-radius:50%; -webkit-border-radius:50%; -moz-border-radius:50%; -ms_border-radius:50%; display:inline-block; margin-right:5px; position:relative;}
+.r_out p {position:absolute; bottom:-50px; color:#666A6B; text-align:center; margin:0 auto; width:100%; font-size:14px; line-height:25px; font-weight:bold;}
+.r_in {width:60px; height:60px; border:10px solid #fff; border-radius:50%; -webkit-border-radius:50%; -moz-border-radius:50%; -ms_border-radius:50%; overflow:hidden; position:relative;}
+.r_c {width:60px; height:60px; position:absolute; bottom:0; left:0; height:0;}
+.c1 {background:#fbad4c;}
+.c2 {background:#87d7a5;}
+.c3 {background:#00adc7;}
+.r_num {color:#404040; font-size:14px; line-height:50px; font-weight:bold; position:absolute; top:50%; margin-top:-25px; text-align:center; width:100%;}
+</style>
+<div class="wrapper wrapper-content">
+	<include file="Public:alert" />
+    <div class="row">
+        <div class="col-lg-12">
+			<include file="Setting:setting_left" />
+			<div class="col-lg-10 ">
+				<div class="table-content clearfix ibox-title" id="right_height" style="padding-top:0px">
+					<div class="col-lg-12">
+						<div style="padding:18px 0 10px;border-bottom:1px solid #ddd;font-weight:700;">呼叫中心设置</div>
+						<div style="padding:10x;margin:15px 20px;">
+							<div class="text-left pull-left" style="margin:40px 0px;text-align: left;">
+		                        <h4>呼叫中心功能（增值服务）</h4>
+		                    </div>
+		                    <div class="text-left pull-left" style="margin:40px 0px 40px 40px;text-align: left;">
+		                    	<input type="checkbox" class="js-switch-large" id="call_setting" <if condition = "$call_setting['CENTER'] eq 1">checked</if> disabled="true" />
+		                    </div>
+		                    <!-- <div class="text-left pull-left" style="margin:40px 0px 40px 40px;text-align: left;">
+		                    	<input type="checkbox" class="js-switch-large1" id="is_record" />
+		                    </div> -->
+		                    <if condition = "$call_setting['CENTER'] eq 1">
+			                    <div class="text-left pull-left" style="margin:40px 0px 40px 20px;text-align: left;" >
+			                        <span style="font-size:13px;line-height: 30px;">( 已开启，授权人数:&nbsp;&nbsp;<span style="color:#f96868;">{$call_setting['NUM']}</span>人 )</span>
+			                    </div>
+			                </if>
+
+							<!-- <div class="text-left pull-left" style="margin:18px 0px 28px 20px;text-align: left;">
+								<div class="r_out" style="float:left;">
+									<div class="r_in">
+										<div class="r_c <?php if($progress < 50){echo 'c3';}else{if($progress<=70){echo 'c2';}elseif($progress<99){echo '';}else{echo 'c1';}} ?>"></div>
+										<div class="r_num">{$progress}%</div>
+									</div>
+								</div>
+								<p style="float:left;margin:25px 0px 28px 20px;">( 总容量：{$total_size}GB / 已使用：{$call_size} )</p>
+							</div> -->
+
+		                    <div class="ibox">
+		                    	<p>智能一键外呼：智能电话宝与PDCRM深度融合，在系统中点击拨号按钮就可以实现一键外呼。避免了话机拨号的繁琐。同时也提升了工作效率。</p>
+								<p>通话记录：每次通话记录都可以在系统中进行保存。上级领导可以随时查看通话时长、通话时间，并且可以按照时间段筛选通话记录。</p>
+								<p>通话录音：自动生成通话记录，系统可将通话记录进行智能存储。支持在线播放和下载。</p>
+								<p>呼叫弹屏：客户来电，系统会对数据进行智能分析，将匹配的客户直接弹窗，显示客户的基本信息及往来沟通日志。员工可快速实现沟通内容的记录。</p>
+								
+		                    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+var large = document.querySelector('.js-switch-large');
+var switchery = new Switchery(large, { size: 'large' });
+$(document).on('click','.switchery',function(){
+	if ($('#call_setting').attr('checked') !== 'checked') {
+		alert_crm('如需开通请联系官方客服专线：4006968650');
+	}
+});
+
+$(document).ready(function(){
+	$(".c1").animate({
+	  height: "{$progress}%"
+	},1000);
+	$(".c2").animate({
+	  height: "{$progress}%"
+	},1000)
+	$(".c3").animate({
+	  height: "{$progress}%"
+	},1000)
+});
+</script>
+<include file="Public:footer" />

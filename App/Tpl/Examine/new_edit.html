@@ -1,0 +1,373 @@
+<include file="Public:header" />
+<script type="text/javascript" src="__PUBLIC__/js/PCASClass.js" ></script>
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.fileupload.css" type="text/css" />
+<style type="text/css">
+.add_body >div >.full-height-scroll{
+	border-right:1px dotted #ccc;
+	overflow-x:hidden;
+}
+.add_body_title{
+	margin:15px auto 30px auto;
+	padding-left: 14px;
+}
+.add_body_form>form>.form-group{
+	margin-bottom: 25px;
+}
+body{overflow-y:hidden;}
+.product_thead>tr>td{
+	background-color:#FFFFFF;padding:1px;font-size:13px;color:#999;
+}
+#main_pic_prev{width: 120px;height: 120px;border: 1px dashed #d3d3d6;}
+.showfile{
+		padding:6px;
+	}
+</style>
+<script>
+$(function(){
+	$(".add_body").height(window.innerHeight-$("#add_body").offset().top-$("#tfoot_div").height()-40);
+	$(window).resize(function(){
+		$(".add_body").height(window.innerHeight-$("#add_body").offset().top-$("#tfoot_div").height()-40);
+	})
+})
+</script>
+<div class="wrapper wrapper-content animated fadeIn col-md-6">
+	<include file="Public:alert" />
+	<form class="form-horizontal" id="form" role="form" action="{:U('examine/edit')}" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="type" value="{$Think.get.type}"/>
+		<input type="hidden" name="examine_id" value="{$info['examine_id']}">
+		<div class="ibox-content add_body" id="add_body" >
+			<div class="row">
+				<div class="col-md-12 nicescroll add_body">
+					<div class="full-height-scroll">
+						<div class="row" >
+							<div class="col-md-12 add_body_title" style="margin:20px 0 0 10px;">
+								<div class="all-inline">
+									<span class="sq-tag"></span>
+									<div class="text-tag">
+										<span>{$examine_status['name']}</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-11 add_body_form" style="margin:20px 0 0 21px;">
+								<div class="form-group">
+									<label class="col-md-3 control-label">申请人：</label>
+									<div class="col-md-6">
+										<input type="hidden" name="owner_role_id" value="{$info['owner_role_id']}" id="owner_role_id"/>
+										<input class="form-control required" aria-required="true" value="{$info['owner_name']}" type="text" id="owner_name" readonly="true" style="cursor:pointer;" title="请点击选择"/>
+									</div>
+									<div class="col-md-2"><span style="color:red">*</span></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">审批人：</label>
+									<div class="col-md-6">
+										<if condition="$option eq 1">
+											<input type="hidden" name="order_id" value="{$examine_step['order_id']}">
+											<input type="hidden" name="examine_role_id" value="{$examine_step['role_id']}" id="examine_role_id" />
+											<div class="project-people" style="text-align:left !important;">
+                                                <volist name="examine_step['role_list']" key="key1" id="vo">
+                                                    <a class="role_info pull-left" rel="{$vo['role_id']}" title="{$vo['full_name']}" href="javascript:void(0);"><img alt="image" class="img-circle" src="{$vo['thumb_path']}"></a>
+                                                    <if condition = "$key1 lt count($examine_step['role_list'])">
+														<span class="pull-left" style="line-height: 30px;margin-right: 10px;">( {$examine_step['relation_name']} )</span>
+													</if>
+                                                </volist>
+                                            </div>
+										<else/>
+											<input type="hidden" name="examine_role_id" value="" id="examine_role_id" />
+											<input type="text" class="form-control required" value="" aria-required="true" name="examine_role" id="examine_role" readonly="true" style="cursor:pointer;" title="请点击选择" placeholder="请点击选择"/>
+										</if>
+									</div>
+									<div class="col-md-2"><span style="color:red">*</span></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">申请事由：</label>
+									<div class="col-md-6">
+										<textarea class="form-control required" aria-required="true" rel="申请事由" rows="3" name="content" >{$info['content']}</textarea>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<volist name="field_list['main']" id="vo" key="key">
+									<div class="form-group">
+										<label class="col-md-3 control-label">{$vo.name}：</label>
+										<if condition="$vo['form_type'] == 'textarea' || $vo['form_type'] == 'address'">
+											<if condition = "$vo['tip_start'] eq 1">
+												<div class="col-md-6">
+													{$vo.html}
+												</div>
+												<div class="col-md-2"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-8">
+													{$vo.html}
+												</div>
+											</if>
+										<else/>
+											<div class="col-md-6">
+												{$vo.html}
+											</div>
+											<if condition = "$vo['tip_start'] eq 1">
+												<div class="col-md-2"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-2"></div>
+											</if>
+										</if>
+									</div>
+								</volist>
+								<volist name="field_list['data']" id="vo" key="key">
+									<div class="form-group">
+										<label class="col-md-3 control-label">{$vo.name}：</label>
+										<if condition="$vo['form_type'] == 'textarea'">
+											<if condition = "$vo['tip_start'] eq 1">
+												<div class="col-md-6">
+													{$vo.html}
+												</div>
+												<div class="col-md-2"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-8">
+													{$vo.html}
+												</div>	
+											</if>
+										<elseif condition="$vo['form_type'] == 'address'"/>
+											<if condition = "$vo['tip_start'] eq 1">
+												<div class="col-md-6">
+													{$vo.html}
+												</div>
+												<div class="col-md-2"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-8">
+													{$vo.html}
+												</div>	
+											</if>
+										<else/>
+											<div class="col-md-6">
+												{$vo.html}
+											</div>
+											<if condition = "$vo['tip_start'] eq 1 || $vo['field'] eq 'customer_id'">
+												<div class="col-md-2"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-2"></div>
+											</if>
+										</if>
+									</div>
+								</volist>
+							</div>
+							<div class="col-md-2 pull-right"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="tfoot_div" style="margin-top:-1px;" class="clearfix">
+			<div class="clearfix" id="tfoot_page">
+				<div class="ibox-content">
+					<div class="col-sm-offset-3"><input name="submit" id="submit" class="btn btn-primary" type="submit" value="提交审批"/></div>
+				</div>
+			</div>
+		</div> 
+	</form>
+</div>
+<div style="display:none;" id="dialog-role-list2" title="{:L('SELECT_HEAD')}">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none;" id="dialog-message" title="{:L('SELECT_HEAD')}">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none;" id="dialog-file" title="添加文件">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	/*form表单验证*/
+	$("#form").validate({
+	
+	});
+});
+//添加差旅报销
+var now_rows = 1;
+$('#add_shixiang').click(function(){
+	now_rows +=1;
+	$.ajax({
+		url: "{:U('examine/travel_business')}",
+		data:{now_rows:now_rows},
+		type: "POST",
+		success:function(er){
+			$('#add_content').append(er);
+			return true;
+		},
+		error:function(er){
+			return false;
+		}
+	});
+});
+//计算金额
+function calculate(){
+	var total_amount = 0;
+	$('.bx_money').each(function(k, v){
+		//合计数量
+		if($(v).val() != '' ||  $(v).val() != '0'){
+			total_amount += new Number($(v).val());
+		}
+	});
+	$('#budget').val(total_amount);
+}
+//添加发票图片
+$("#addfile").click(function(){
+	$('#dialog-file').dialog('open');
+	$('#dialog-file').load('{:U("file/addlogfile")}');
+});
+$("#dialog-file").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 800,
+	maxHeight: 400,
+	position: ["center",100],
+	buttons: {
+		"确定": function () {
+		   $.ajax({
+				cache: true,
+				type: "POST",
+				url:'{:U("file/getfiles")}',
+				data:$('#uploadForm').serialize(),
+				async: false,
+				success: function(data) {
+				   var result = data.data.file_list;
+				   $('#filecontent').removeAttr('class');
+				   var temp = '';
+				   if(result){
+						 $.each(result,function(k,v){
+							temp += '<div class="showfile" id="del_'+v.file_id+'"><input type="hidden" name="file[]" value="'+v.file_id+'"/><img src="__PUBLIC__/productImg/'+v.pic+'">&nbsp;<span style="color:#646464;">'+v.name+'&nbsp;(&nbsp;'+v.size+'KB&nbsp;)</span>&nbsp;&nbsp;<a href="javascript:;" rel="'+v.file_id+'" onclick="del_file(this);"><img src="__PUBLIC__/img/delfile.png"/></a></div>';
+						 });
+						 $('#addfilediv').before(temp);
+						 $('#file_num').html(data.data.file_num);
+						 $('#file_size').html(data.data.file_size);
+				   }
+				  
+				}
+			});
+		   $(this).dialog("close");
+		},
+		"取消": function () {
+			 $(this).dialog("close");
+		}
+	}
+});
+$('#examine_role').click(function(){
+	$('#dialog-role-list2').dialog('open');
+	$('#dialog-role-list2').load('{:U("user/listDialog","by=examine")}');
+});
+$('#owner_name').click(function () {
+	$('#dialog-role-list2').dialog('open');
+	$('#dialog-role-list2').load('{:U("user/listDialog")}');
+});
+$("#dialog-role-list2").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 800,
+	height:400,
+	buttons: { 
+		"Ok": function () {
+			var item = $('input:radio[name="owner"]:checked').val();
+			var name = $('input:radio[name="owner"]:checked').attr('rel');
+			var by = $('#dialog_by').val();
+			if(item) {
+				if (by == 'examine') {
+					$('#examine_role_id').val(item);
+					$('#examine_role').val(name);
+				} else {
+					$('#owner_role_id').val(item);
+					$('#owner_name').val(name);
+				}
+			}
+			$(this).dialog("close"); 
+		},
+		"Cancel": function () {
+			$(this).dialog("close");
+		}
+	},
+	position:["center",100]
+});
+
+//删除 函数
+function del_obj(id){
+    var module = 'examine';
+    $.post("{:U('file/filedel')}",{file_id:id,module:module},function(data){
+		if(data.status == 1){
+			$('#del_'+id).remove();
+			swal("删除成功！", "你的文件被删除了", "success");
+			if($('.showfile').length > 0){
+				return true;
+			}else{
+				$('#filecontent').addClass('hide');
+			}
+		}else{
+		 	swal({
+				title: "提示",
+				text: data.info,
+				type: "error"
+			});
+		}
+		},"json"
+	);
+}
+//删除
+function del_file(obj){
+	var id = $(obj).attr('rel');
+	swal({
+		title: "您确定要删除附件信息吗？",
+		text: "删除后将无法恢复，请谨慎操作！",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "删除",
+		cancelButtonText: "取消",
+		closeOnConfirm: false
+	},
+	function(isConfirm){
+		if (isConfirm) {
+			del_obj(id);
+		}else{
+			return false;
+		}
+	});
+}
+//全部删除 函数
+function delall(){
+	swal({
+		title: "您确定要删除附件信息吗？",
+		text: "删除后将无法恢复，请谨慎操作！",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "删除",
+		cancelButtonText: "取消",
+		closeOnConfirm: false
+	},
+	function(isConfirm){
+		if (isConfirm) {
+			$('.showfile').each(function(){
+				var id = $(this).find('input[type="hidden"]').val();
+				del_obj(id);		
+			});
+		}else{
+			return false;
+		}
+	});
+}
+</script>
+<include file="Public:footer" />	

@@ -1,0 +1,459 @@
+<include file="Public:header" />
+<link href="__PUBLIC__/css/litebox.css" rel="stylesheet" type="text/css">
+<!-- nice-scroll -->
+<script src="__PUBLIC__/style/js/plugins/nice-scroll/jquery.nicescroll.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/style/js/TableFreeze.js"></script>
+<script src="__PUBLIC__/js/pdcrm_more.js" type="text/javascript"></script>
+<style>
+	body{
+		overflow-y: hidden;
+	}
+	.option{padding-left:-30px;}
+</style>
+<script>
+$(function(){
+	var scroll_width = 7;
+	$("#table_div").height(window.innerHeight-$("#table_div").offset().top-$("#tfoot_div").height()-parseInt($("#table_container").css("padding-bottom").replace("px",""))-10);
+	$(window).resize(function(){
+		$("#table_div").height(window.innerHeight-$("#table_div").offset().top-$("#tfoot_div").height()-parseInt($("#table_container").css("padding-bottom").replace("px",""))-10);
+		$("#oDivL_tab_Test3").height($("#table_div").height()-scroll_width-1).width($("#oTableLH_tab_Test3").width());
+		$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width()-scroll_width);
+	});
+	$(".nicescroll").niceScroll({
+		cursorcolor: "#999",//#CC0071 光标颜色 
+	    cursoropacitymax: 0.4, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
+	    touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
+	    cursorwidth: scroll_width+"px", //像素光标的宽度 
+	    cursorborder: "0", //     游标边框css定义 
+	    cursorborderradius: "3px",//以像素为光标边界半径 
+	    autohidemode: false, //是否隐藏滚动条 
+	    zindex:100,
+	    background:"#F3F3F5",//滚动条背景色
+	});
+	if ($('#tab_Test3').length > 1) {
+		$("#tab_Test3").FrozenTable(1,0,2);
+	}
+	$("#oDivL_tab_Test3").height($("#table_div").height()-scroll_width).width($("#oTableLH_tab_Test3").width()).css({'zIndex':9});
+	$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width()-scroll_width).css({'zIndex':9});
+	//$("#oDivH_tab_Test3").css('top','-7px');
+})
+</script>
+<div class="wrapper wrapper-content">
+	<include file="Public:alert" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins"> 
+				<div class="title-bar">
+					<div class="row  clearfix" id="title-hide" style="display:none;">
+						<ul class="breadcrum pull-left">
+							<li>已选中&nbsp;<span id="icheck_num"></span>&nbsp;项</li>
+							<li class="single_btn"><a href="javascript:void(0)" id="edit_invoice"><i class="fa fa-pencil"></i>&nbsp;编辑</a></li>
+							<if condition = "checkPerByAction('invoice','check')">
+								<li class="single_btn"><a href="javascript:void(0)" id="check_invoice"><i class="fa fa-check"></i><span id="to_check" ><input type="hidden" id="is_checked" value="1">&nbsp;审核</span></a></li>
+							</if>
+							<!-- <li><a href="javascript:void(0);" class="excelExport"><i class="fa fa-download"></i>&nbsp;导出</a></li> -->
+							<li><a id="delete" href="javascript:void(0)"><i class="fa fa-times"></i>&nbsp;删除</a></li>
+							<li class="last_li"><big><a class="fa fa-times pull-right" id="back-show"></a></big></li>
+						</ul>
+					</div>
+					<div class="row " id="title-show">
+						<ul class="nav pull-left" style="margin:2px 0 0 15px;">
+							<a href="{:U('invoice/add')}" class="btn btn-primary btn-sm pull-left" style="margin-right:8px"><i class="fa fa-plus-circle"></i>&nbsp; 添加发票</a> 
+						</ul>
+						<form class="form-inline" action="" method="get" id="form_index">
+							<input type="hidden" name="m" value="invoice"/>
+							<input type="hidden" name="a" value="index"/>
+							<!-- 保留特殊参数，如果有的话，如act、by、me等 -->
+							<volist name="single_list" id="vo">
+								<if condition="!in_array($key, array('category'))">
+									<input type="hidden" name="{$key}" value="{$vo}">
+								</if>
+							</volist>
+							<ul class="breadcrum pull-right" style="margin-bottom: 0px">
+								<li>
+									<div class="input-group" style="margin-right: 10px;margin-bottom: 5px;">
+										<select class="form-control" name="category" onchange="$('#form_index').submit();">
+											<option value="0" <if condition="$_GET['category'] eq 0">selected="selected"</if>>销项发票</option>
+											<option value="1" <if condition="$_GET['category'] eq 1">selected="selected"</if>>进项发票</option>
+										</select>
+									</div>
+								</li>
+								<li>
+									搜索：
+									<div class="input-group">
+										<!-- 默认搜索的condition类型和form_type -->
+										<input type="hidden" name="name[condition]" value="contains"/>
+										<input type="hidden" name="name[form_type]" value="text">
+
+										<!-- <select name="" class="form-control" style="display: inline-block;width: 120px;border-right: 0px;">
+											<option value="1">发票号码</option>
+											<option value="2">客户名称</option>
+											<option value="3">合同编号</option>
+										</select> -->
+										<input type="text" style="width:160px;" placeholder="请输入发票号码" onkeydown='if(event.keyCode==13) {$("#short_search_btn").trigger("click");return false;}' class="form-control input-sm" name="name[value]" <if condition="$_GET['name']['condition'] eq 'contains'">value="{$_GET['name']['value']}"</if> />
+										<span class="input-group-btn">
+											<button class="btn btn-default btn-search" id="short_search_btn" type="submit"><i class="fa fa-search"></i></button>
+										</span>
+									</div>
+									&nbsp;&nbsp;
+									<a title="高级搜索" href="javascript:void(0)" id="search_type" class="btn btn-white btn-bitbucket">
+										<i class="fa fa-filter" style="color: #D8E3EF;"></i>
+									</a>
+								</li>
+								<!-- <if condition = "checkPerByAction('invoice','excelexport')">
+									<div class="btn-group ">
+		                                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">操作 <span class="caret"></span>
+		                                </button>
+		                                <ul class="dropdown-menu">
+											<li><a href="javascript:void(0);" class="excelExport"><i class="fa fa-download"></i>&nbsp;导出</a></li>
+		                                </ul>
+		                            </div>
+	                            </if> -->
+							</ul>
+						</form>
+					</div>
+				</div>
+				<div class="row" style="margin: 0">
+					<div class="ibox-content" style="padding:0px;">
+						<div class="ibox-content clearfix" id="table_container" style="padding:0px;border: none;">
+							<form id="form1" action="" method="Post" style="position:relative;"> 
+								<div id="table_div" class="nicescroll" style="left:0px;top:0px;">
+									<if condition="$invoice_list eq null">
+										<include file="Public:nodata" />
+									<else/>
+										<table class="table table-hover table-striped table_thead_fixed" id="tab_Test3" style="background:#fff;margin-bottom:0px;">
+											<tr id="childNodes_num" class="tabTh">
+												<td style="max-width: 60px;width:74px;padding:0 10px 0 7px;">
+													<div class="checkbox checkbox-primary">
+														<input type="checkbox" class="check_all"/>
+														<label for=""></label>
+													</div>
+												</td>
+												<td>发票编号</td>
+												<td>客户名称</td>
+												<td>合同编号</td>
+												<td>开票日期</td>
+												<td>本次开票金额</td>
+												<td>合同总金额</td>
+												<td>已开票金额</td>
+												<td>未开票金额</td>
+												<td>快递单号</td>
+												<td>负责人</td>
+												<td>状态</td>
+											</tr>
+											<volist name="invoice_list" id="vo">
+												<input type="hidden" id="number_{$vo['invoice_id']}" value="{$vo['number']}">
+												<input type="hidden" id="express_{$vo['invoice_id']}" value="{$vo['express']}">
+												<tr class="controls_tr">
+													<td>
+														<div class="checkbox checkbox-primary">
+															<input name="invoice_id[]" class="check_list" type="checkbox" value="{$vo.invoice_id}" <if condition="$vo['is_checked'] eq '0' && checkPerByAction('invoice','check')">rel1="0"<else/>rel1="1"</if>/>
+															<label for=""></label>
+														</div>
+													</td>
+													<td><a href="{:U('invoice/view','id='.$vo['invoice_id'])}">{$vo.name}</a></td>
+													<td><a href="{:U('customer/view','id='.$vo['customer_id'])}">{$vo.customer_name}</a></td>
+													<td><a href="{:U('contract/view','id='.$vo['contract_id'])}">{$vo.contract_num}</a></td>
+													<td>{$vo['invoice_time']|date="Y-m-d",###}</td>
+													<td>{$vo['price']}</td>
+													<td>{$vo['contract_price']}</td>
+													<td>{$vo['invoiced_price']}</td>
+													<td>{$vo['no_invoiced_price']}</td>
+													<td>{$vo['express']}</td>
+													<td><a href="javascript:void(0);" class="role_info" rel="{$vo['create_role_id']}">{$vo['full_name']}</td>
+													<td>
+														<if condition="$vo['is_checked'] eq '2'">
+															<span class="fa fa-circle" style="color:#F5715F"></span>&nbsp;&nbsp;&nbsp;拒绝
+														<elseif condition="$vo['is_checked'] eq '1'"/>
+															<span class="fa fa-circle" style="color:#7CCA4E"></span>&nbsp;&nbsp;&nbsp;通过
+														<else />
+															<span class="fa fa-circle" style="color:#F5CA00"></span>&nbsp;&nbsp;&nbsp;待审
+														</if> 
+														<if condition="$vo['is_checked'] eq '0' && checkPerByAction('invoice','check')">
+															<a class="control checkbtn" style="display:none;" rel="{$vo['invoice_id']}" rel2="{$vo.number}" rel3="{$vo['sales_type']}" href="javascript:;">{:L('THROUGH_CHECK')}</a>&nbsp;
+														<elseif condition="$vo['is_checked'] eq '1' && checkPerByAction('invoice','check')"/>
+															<a class="backbtn control" style="display:none;" href="{:U('invoice/revokeCheck', 'id='.$vo['invoice_id'])}">撤销</a>&nbsp;
+														<elseif condition="$vo['is_checked'] eq '2' && checkPerByAction('invoice','check')"/><a class="backbtn control" style="display:none;" href="{:U('invoice/revokeCheck', 'id='.$vo['invoice_id'])}">撤销</a>&nbsp;
+														</if>
+													</td>
+												</tr> 
+											</volist>
+										</table>
+									</if>
+								</div>
+								<div id="tfoot_div" class="clearfix">
+									<tr>
+										<div class="clearfix" id="tfoot_page">
+											{$page}<include file="Public:listrows" />
+										</div>
+									</tr>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+    		</div>
+        </div>
+    </div>
+</div>
+<div style="display:none" id="dialog-check-invoice" title="发票审核">
+	<form action="" id="contract_dialog" method="post">
+		<input id="dialog_order_id" name="invoice_id" type="hidden" value="" />
+		<input type="hidden" name="m" value="invoice">
+		<input type="hidden" name="a" value="check">
+		<table class="table" style="border:none;">
+			<tr>
+				<td style="border:none;text-align:right">审核结果：</td>
+				<td style="border:none;">
+					<select name="is_agree" id="is_agree" style="width:300px;" class="form-control required">
+						<option value="1">同意</option>
+						<option value="2">拒绝</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td style="border:none;text-align:right">备注：</td>
+				<td style="border:none;">
+					<textarea class="form-control" id="dialog_description" name="description" placeholder="填写理由(非必填)"></textarea>
+				</td>
+			</tr>
+			<tr class="extra">
+				<td style="border:none;text-align:right">发票号码：</td>
+				<td style="border:none;">
+					<input class="form-control required" name="number" type="text" placeholder="发票号码必填" />
+				</td>
+			</tr>
+			<tr class="extra">
+				<td style="border:none;text-align:right">快递单号：</td>
+				<td style="border:none;">
+					<input class="form-control" name="express" type="text"  />
+				</td>
+			</tr>
+		</table>
+	</form>
+	<script type="text/javascript">
+		$('#is_agree').change(function(){
+			var is_agree = $(this).val();
+			if (is_agree == 1) {
+				$('.extra').show();
+			} else {
+				$('.extra').hide();
+			}
+		});
+	</script>
+</div>
+
+<script type="text/javascript">
+if ("{:C('isMobile')}" == "1") {
+	width = $('.container').width() * 0.9;
+} else {
+	width = 800;
+}
+/*让复选框默认取消选择*/
+var is_receivables = '{$is_receivables}';
+$(':checkbox').prop('checked', false);
+
+$("#edit_invoice").click(function(){
+	window.location.href="{:U('invoice/edit', 'id=')}"+$(this).attr('rel');
+});
+$("#short_search").val('{$Think.get.search}');
+
+$("#check_invoice").click(function(){
+	var is_checked = $('#is_checked').val();
+	var id = $(this).attr('rel');
+	if(is_checked == 1){
+		var order_id = $(this).attr('rel');
+		$("#dialog_order_id").val(order_id);
+		$('#dialog-check-invoice').dialog('open');
+		$("#dialog_description").focus();
+
+		// 给审核弹窗发票编号和快递号复制
+		$('input[name="number"]').val($('#number_'+order_id).val());
+		$('input[name="express"]').val($('#express_'+order_id).val());
+	}else{
+		swal({   
+			title: "确定要撤销审核吗？",
+			type: "warning",   
+			showCancelButton: true,  
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "确定",   
+			closeOnConfirm: false 
+		},
+		function(){ 
+			window.location.href="{:U('invoice/revokeCheck', 'invoice_id=')}"+id;
+		});
+	}
+});
+
+$("#dialog-check-invoice").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 444,
+	maxHeight: 460,
+	position: ["center",100] ,
+	buttons: {
+		"确定": function () {
+			// 弹窗表单验证
+			if (!$('#contract_dialog').valid()) {
+				swal('信息未完善', '请检查必填项', 'warning');
+				return false;
+			}
+
+			$('#contract_dialog').submit();
+			$(this).dialog("close");
+		},
+		"取消": function () {
+			$(this).dialog("close");
+		}
+	}
+});
+
+$("#dialog-role-info").dialog({
+    autoOpen: false,
+    modal: true,
+	width: width,
+	maxHeight: 550,
+	position: ["center",100]
+});
+
+$(function(){
+
+	$('#delete').click(function(){
+		var id_array = new Array();
+		$("input.check_list:checked").each(function(){  
+			id_array.push($(this).val());
+		});
+		if(id_array.length == 0){
+			alert_crm('您没有选中任何客户！');
+			return false;
+		}
+		swal({
+			title: "您确定要删除发票信息吗？",
+   			text: "删除后将无法恢复，请谨慎操作！",
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "是的，我要删除！",
+	        cancelButtonText:'让我再考虑一下…',
+	        closeOnConfirm:false,
+	        closeOnCancel:false
+		},
+		function(isConfirm){
+	        if (isConfirm) {
+	        	$.ajax({
+		            type:'post',
+		            url: "{:U('invoice/delete')}",
+		            data: {invoice_id: id_array},
+		            async: false,
+		            success: function (data) {
+						if (data.status == 1) {
+							swal("删除成功！", "您已经永久删除了信息！", "success");
+							location.reload();
+						}else{
+							swal({
+								title: "操作失败！",
+								text:data.info,
+								type: "error"
+							})
+							return false;
+						}
+		            },
+		            dataType: 'json'
+		        });
+	        } else {
+	            swal("已取消","您取消了删除操作！","error");
+	        }
+	    });
+	});
+	$("#dosearch").click(function(){
+		result = checkSearchForm();
+		if(result){
+			$("#act").val('search');$("#searchForm").submit();
+		} 
+	});
+});
+</script>
+
+<!-- 导出功能相关js -->
+<script type="text/javascript">
+	// 总需导出数、每次导出数量、循环导出第N次
+	var count = {$count|default=0};
+	var limit_size = {$limit_size|default=5000};
+	var times = 1;
+
+	// 点击导出按钮
+	$(".excelExport").click(function(){
+		<?php session('export_status', 0); ?>
+
+		var total_count = count;
+		var id_array = new Array(); 
+		$("input[class='check_list']:checked").each(function() {   
+			id_array.push($(this).val());
+		});
+		if (id_array.length > 0) {
+			total_count = id_array.length;
+		}
+
+		if(total_count > limit_size){
+			swal({   
+				title: "导出量过大,将自动分批导出",
+				text: "导出过程中,当前窗口禁止进行任何操作,等待文件导出完毕！",
+				type: "warning",   
+				showCancelButton: true,   
+				confirmButtonColor: "#DD6B55",   
+				confirmButtonText: "确定",   
+				closeOnConfirm: false, 
+				animation: "slide-from-top", 
+				showLoaderOnConfirm: true
+			},
+			function(){
+				$('.sa-button-container .cancel').css('display', 'none');
+				$('.sa-button-container .confirm').attr('disabled', 'disabled');
+				$('.sa-button-container .confirm').html('导出中...');
+				loopExport(total_count);
+			});
+		} else {
+			loopExport(total_count);
+		}
+	});
+
+	// 循环导出
+	function loopExport(total_count){
+		// 如果勾选的列表数据
+		var id_array = new Array(); 
+		$("input[class='check_list']:checked").each(function() {   
+			id_array.push($(this).val());
+		});
+
+		$.get("{:U('system/export_status')}", function(data){
+			if (data.data == 0) {
+				// 显示导出进度
+				var progress = '('+(times-1)*limit_size+'/'+total_count+')';
+				$('.sa-button-container .confirm').html('导出中...'+progress);
+				
+				if((times-1)*limit_size < total_count){
+					// 设置相关参数并提交
+					$('#hide_param').remove();
+					var hide_html_str = '<div id="hide_param">\
+										<input type="hidden" name="act" value="excel"/>\
+										<input type="hidden" name="daochu" value="'+id_array+'" />\
+										<input type="hidden" name="current_page" value="'+times+'"/>\
+										<input type="hidden" name="export_limit" value="'+limit_size+'"/>\
+									</div>';
+					$("#searchForm").append(hide_html_str);
+					$("#searchForm").submit();
+					
+					setTimeout("loopExport("+ total_count +")", 1000);
+					times++; 
+				}else{
+					$("#act").val('');
+					times = 1;
+					$('.sa-button-container .confirm').attr('disabled', false);
+					swal("数据导出成功！", "", "success");
+				}
+			}
+		}, 'json');
+	}
+</script>
+<include file="Public:search" />
+<include file="Public:footer" />

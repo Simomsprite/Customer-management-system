@@ -1,0 +1,109 @@
+<style>
+	#datas tr{cursor : pointer;}
+</style>
+<div class="clearfix">
+	<input type="hidden" name="m" value="supplier" />
+	<input type="hidden" name="a" value="list_dialog" />
+	<input type="hidden" name="row" id="row" value="{$_GET['row']}" />
+	<ul class="nav pull-left form-inline">
+		<li class="pull-left" >
+			<select class="form-control" style="width:auto" id="field" onchange="changeCondition()" name="field">
+            	<option class="" value="name">--请选择--</option>
+				<volist name="field_array" id="v">
+					<option class="<if condition="$v['form_type'] == 'address'">text<else/>{$v['form_type']}</if>" value="{$v[field]}" rel="supplier" <if condition = "$search_field['field'] eq $v[field]">selected</if>>{$v[name]}</option>
+                </volist>
+				<option class="date" value="create_time" <if condition = "$search_field['field'] eq 'create_time'">selected</if>>创建时间</option>
+			</select>&nbsp;&nbsp;
+		</li>
+		<li id="conditionContent" class="pull-left">
+			<select class="form-control" id="condition" style="width:auto" name="condition" onchange="changeSearch()">
+				<option value="contains" <if condition = "$search_field['condition'] eq 'contains'">selected</if>>{:L('CONTAINS')}</option>
+				<option value="not_contain" <if condition = "$search_field['condition'] eq 'not_contain'">selected</if>>{:L('NOT_CONTAIN')}</option>
+				<option value="is" <if condition = "$search_field['condition'] eq 'is'">selected</if>>{:L('IS')}</option>
+				<option value="isnot" <if condition = "$search_field['condition'] eq 'isnot'">selected</if>>{:L('ISNOT')}</option>						
+				<option value="start_with" <if condition = "$search_field['condition'] eq 'start_with'">selected</if>>{:L('START_WITH')}</option>
+				<option value="end_with" <if condition = "$search_field['condition'] eq 'end_with'">selected</if>>{:L('END_WITH')}</option>
+				<option value="is_empty" <if condition = "$search_field['condition'] eq 'is_empty'">selected</if>>{:L('IS_EMPTY')}</option>
+				<option value="is_not_empty" <if condition = "$search_field['condition'] eq 'is_not_empty'">selected</if>>{:L('IS_NOT_EMPTY')}</option>
+			</select>&nbsp;&nbsp;
+		</li>
+		<li id="searchContent" class="pull-left">
+			<input id="search" type="text" class="input-medium form-control search-query" name="search" value="{$search_field['search']}" onkeydown="if(event.keyCode==13)d_changeCondition(0)"/>
+		</li>
+		<li class="pull-left">
+			&nbsp;&nbsp;<button class="btn btn-primary" onclick="d_changeCondition(0)">{:L('SEARCH')}</button>
+		</li>
+	</ul>
+</div>
+<empty name="list">
+	<div class="alert">暂无数据</div>
+<else/>
+<table class="table table-hover" style="margin-top: 5px;">
+	<thead>
+		<tr style="background-color:#F5F5F6;">
+			<th>&nbsp;</th>
+			<th>供应商编号</th>
+            <volist name="field_array" id="v">
+				<if condition="$i lt 4">
+					<th>{$v[name]|default='&nbsp;'}</th>
+				</if>
+            </volist>
+		</tr>
+	</thead>
+	<tfoot id="footers">
+		<tr>
+			<td colspan="5">
+				{$page}
+			</td>
+		</tr>
+	</tfoot>
+	<tbody id="datas">
+		<volist name="list" id="vo">
+			<tr style="cursor:pointer;">
+				<td>
+					<input type="radio" class="supplier_id" name="supplier" value="{$vo.supplier_id}" supplier_name="{$vo['name']}" />
+				</td>
+				<td>{$vo['number']}</td>
+				<volist name="field_array" id="v">
+					<if condition="$i lt 4">
+						<if condition="$v['form_type'] eq 'datetime'">
+							<td><empty name="vo[$v['field']]"><else />{$vo[$v['field']]|date="Y-m-d",###}</empty></td>
+						<else />
+							<td>{$vo[$v['field']]}</td>
+						</if>
+					</if>
+                </volist>
+			</tr>
+		</volist>
+	</tbody>
+</table>
+</empty>
+<script type="text/javascript">
+	$('#go_page').change(function(){
+		var sel = $(this).val();
+		$('#dialog-supplier-list').load(sel,function(){
+			changeCondition();
+		});
+		return false;
+	});
+	$("#datas tr").click(function(){
+		$(this).find('td:first-child .supplier_id').prop('checked', true);
+	});
+	$(function(){
+		$('#footers a').click(function(){ 
+			var rel = $(this).attr('href'); 
+			$('#dialog-supplier-list').load(rel);   
+			return false;
+		});
+	});
+
+	function d_changeCondition(){
+		var field = $('#field option:selected').val();
+		var condition = $('#condition option:selected').val();
+		var search = $('#search').val();
+		var url = "{:U('supplier/list_dialog','field=')}"+field+'&condition='+condition+'&search='+search;
+		$('#dialog-supplier-list').load(url,function(){
+			changeCondition();
+		});
+	}
+</script>

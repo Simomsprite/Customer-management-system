@@ -1,0 +1,104 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+    <header class="abe-header am-header-default"> <a href="javascript:history.go(-1)" class="return iconfont">&#xe612;</a>
+        <h1 class="abe-header-title">添加沟通日志</h1>
+    </header>
+    <form id="add-form" action="{:U('Logm/add')}" method="post">
+    <input type='hidden' name="r" value="rLeadsLog"/>
+    <input type='hidden' name="module" value="leads"/>
+    <input type='hidden' id="leads_id" name="id" value="{$leads_id}"/>
+    <input type='hidden' name="role_id" value="{$Think.session.role_id}"/>
+    <ul class="cust-form">
+        <li class="titbox"><span class="tit">跟进类型：</span>
+            <div class="txtbox">
+                <select name="status_id" id="status_id" class="pbsele w100p" onchange="selectStatus()">
+                    <option value="">--请选择--</option>
+                    <volist name="status_list" id="vo">
+                        <option value="{$vo['id']}">{$vo['name']}</option>
+                    </volist>
+                </select>
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">下次联系时间：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" placeholder="请选择下次联系时间" name="nextstep_time" id="nextstep_time" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                <i class="iconfont arrow">&#xe607;</i>
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">日志内容：<em class="abe-red">*</em></span>
+            <div class="txtbox">
+                <input type="text" id="log_content" name="content" class="txt ptxt100p" placeholder="添加沟通日志内容">
+            </div>
+        </li>
+    </ul>
+    <div class="sub-box">
+        <input type="button" id="add_log" value="确定" class="pbtn pbtn-sm pbtnw80p">
+    </div>
+    </form>
+</div>
+<script src="__PUBLIC__/waps/js/mobiscroll_date.js" charset="gb2312"></script>
+<script src="__PUBLIC__/waps/js/mobiscroll.js"></script>
+<script>
+    function selectStatus() {
+        var status_id = $("#status_id option:selected").val();
+        var temp = '<option value="">--请选择--</option>';
+        $.ajax({
+            type: 'post',
+            url: "{:U('setting/getReplyByStatus')}",
+            data: { status_id: status_id },
+            async: false,
+            success: function (data) {
+                if (data.data.length > 0) {
+                    $.each(data.data, function (k, v) {
+                        temp += '<option value="' + v.content + '">' + v.str_content + '</option>';
+                    });
+                }
+            },
+            dataType: 'json'
+        });
+        $('#replay_list').html(temp);
+    }
+
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            dateOrder : 'yyyymmdd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+        $("#nextstep_time").mobiscroll($.extend(opt['datetime'], opt['default']));
+
+    });
+
+    /*ajax 提交记录*/
+    $('#add_log').click(function(){
+        var content = $("#log_content").val();
+        content = $.trim(content);
+        if (content == '') {
+            showtab('3','日志内容不能为空');
+            return false;
+        }
+        var log_type = 'rLeadsLog';
+        $(this).prop('disabled',true);
+        $.post("{:U('Log/add')}", $("#add-form").serialize(), function(data){
+            if(data.status == 1){
+                window.location.href = "{:U('leadsm/view',array('id'=>$leads_id,'by'=>'me'))}";
+            }else{
+                showtab('2','添加失败, 请重试');
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<style type="text/css">
+    #dialog_allmap img { 
+        max-width: inherit; 
+    }
+    .div-search{
+    	position: absolute;
+	    top: 10px;
+    	left: 10px;
+	    z-index: 1;
+	    padding: 8px;
+    	background-color: #fff;
+    }
+
+    /*搜索下拉框和系统中的样式可能有冲突，导致默认无法在顶层显示，重新定义层级*/
+    .tangram-suggestion-main{
+    	z-index:1051;
+    }
+</style>
+<form action="" method="post">
+	<table class="table table-hover table-striped table_thead_fixed sort-list" width="100%" border="0" cellspacing="1" cellpadding="0">
+	  	<tr>
+	  		<td style="width: 55px;">坐标：</td>
+	  		<td>
+	  			<input type="text" id="lng_lat" value="{$_GET['lng']},{$_GET['lat']}" class="form-control" style="width: 400px;" placeholder="请在地图上选择位置" readonly="1">
+	  		</td>
+	  	</tr>
+	  	<tr>
+	  		<td style="width: 55px;">地址：</td>
+	  		<td>
+	  			<input type="text" id="address" value="{$_GET['address']}" class="form-control" style="width: 400px;" placeholder="请在地图上选择位置" readonly="1">
+	  		</td>
+	  	</tr>
+	</table>
+	<div style="position: relative;">
+		<div class="div-search">
+			<div id="r-result">
+				请输入关键字搜索：<br />
+				<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" />
+			</div>
+			<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+		</div>
+		<div id="dialog_allmap" style="height: 500px;"></div>
+	</div>
+</form>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var lng = "{$_GET['lng']}" ? "{$_GET['lng']}" : '116.404';
+        var lat = "{$_GET['lat']}" ? "{$_GET['lat']}" : '39.915';
+
+		// 百度地图API功能
+		var map = new BMap.Map("dialog_allmap");
+		var point = new BMap.Point(lng, lat); //设置位置中心点
+	    map.centerAndZoom(point, 13);
+
+	    map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+
+		//如果没有设置地图中心点，则通过IP重新定位
+        if (lng == '116.404' && lat == '39.915') {
+            function myFun(result){
+                var cityName = result.name;
+                map.setCenter(cityName);
+                //alert("当前定位城市:"+cityName);
+            }
+            var myCity = new BMap.LocalCity();
+            myCity.get(myFun);
+        } else {
+        	//创建点标记
+			var marker = new BMap.Marker(point);
+			map.addOverlay(marker);
+        }
+
+		//点击地图获取
+		var geoc = new BMap.Geocoder();    
+		map.addEventListener("click", function(e){
+			//经纬度信息
+			//alert(e.point.lng + ", " + e.point.lat);   
+			$('#lng_lat').val(e.point.lng + "," + e.point.lat);
+
+			//地址信息
+			var pt = e.point;
+			geoc.getLocation(pt, function(rs){
+				var addComp = rs.addressComponents;
+				//alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+				$('#address').val(addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+			});
+
+			//创建点标记
+			map.clearOverlays();  // 删除之前的点标记
+			var marker = new BMap.Marker(e.point);
+			map.addOverlay(marker);
+		});
+
+		//搜索功能
+		function G(id) {
+			return document.getElementById(id);
+		}
+		var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+			{"input" : "suggestId"
+			,"location" : map
+		});
+
+		ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+		var str = "";
+			var _value = e.fromitem.value;
+			var value = "";
+			if (e.fromitem.index > -1) {
+				value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			}    
+			str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+			
+			value = "";
+			if (e.toitem.index > -1) {
+				_value = e.toitem.value;
+				value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			}    
+			str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+			G("searchResultPanel").innerHTML = str;
+		});
+
+		var myValue;
+		ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+		var _value = e.item.value;
+			myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+			
+			setPlace();
+		});
+
+		function setPlace(){
+			map.clearOverlays();    //清除地图上所有覆盖物
+			function myFun(){
+				var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+				map.centerAndZoom(pp, 18);
+				map.addOverlay(new BMap.Marker(pp));    //添加标注
+
+				//获取经纬度信息
+				$('#lng_lat').val(pp.lng + "," + pp.lat);
+
+				//获取地址信息
+				geoc.getLocation(pp, function(rs){
+					var addComp = rs.addressComponents;
+					$('#address').val(addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+				});
+			}
+			var local = new BMap.LocalSearch(map, { //智能搜索
+			  	onSearchComplete: myFun
+			});
+			local.search(myValue);
+		}
+	});
+</script>
+
+
+
+
+

@@ -1,0 +1,93 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+  <header class="abe-header am-header-default"> <a href="javascript:history.go(-1);" class="return iconfont">&#xe612;</a>
+    <h1 class="abe-header-title">联系人详情</h1>
+  </header>
+<div id="pagetwo" style="display: block">
+    <input type="hidden" id="contacts_id" name="id" readonly="readonly" value="{$contact[contacts_id]}"/>
+    <input type="hidden" id="contents" name="{$contact.content}" readonly="readonly" value="{$contact.content}"/>
+    <ul class="cust-form">
+        <li class="titbox"><span class="tit">联系人姓名：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly"  value="{$contact['name']}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">角色：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly"  value="{$contact['post']}">
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">尊称：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p"  readonly="readonly" value="{$contact['saltname']}">
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">职位：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$contact['role']}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">手机：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$contact['telephone']}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">QQ：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$contact['qq_no']}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">邮箱：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$contact['email']}">
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+<if condition="$contact[contacts_id] neq ''">
+<a class="faq-btn iconfont">&#xe60b;</a>
+<div class="faq-btn-box ad-faq">
+    <if condition="$contact['content'] neq 'resource'"><a href="{:U('Contactsm/edit',array('id'=>$contact[contacts_id]))}"><i class="iconfont icolor3">&#xe6f8;</i>编辑</a><else/></if>
+    <a href="javascript:showtab(3,'是否删除该条数据');"><i class="iconfont icolor5">&#xe603;</i>删除</a>
+</div>
+<div class="popup-bg" id="heimu" style="display: none;"></div><else/></if>
+<script>
+    function closetab(){
+        var content=$("#contents").val();
+        var contacts_id=$("#contacts_id").val();
+        $.ajax({
+            url:"{:U('Contactsm/delete')}"+'&id='+contacts_id,
+            type:"GET",
+            async: true,
+            success:function(){
+                var str="{:U('Customerm/index')}"+'&content='+content;
+                window.location.href=str;
+            }
+        });
+    }
+
+    $(function(){
+        $("#heimu").css({top:"-100%"});
+        $(".faq-btn").click(function(){
+            $(".faq-btn-box").animate({bottom:"0"});
+            $("#heimu").show();
+            $("#heimu").animate({top:"0"},300);
+        });
+        $("#heimu").click(function(){
+            $(this).animate({top:"-100%"},300);
+            $(".faq-btn-box").animate({bottom:"-200px"});
+        });
+        $(".faq-btn-box a").click(function(){
+            $(".faq-btn-box").animate({bottom:"-200px"});
+            $("#heimu").animate({top:"-100%"},300);
+        });
+        $(".clue-tab").tabs();
+    });
+
+
+</script>
+</body>
+</html>

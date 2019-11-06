@@ -1,0 +1,32 @@
+<div >
+	<ul class="dropdown-alerts" id="tel_list_{$_GET['model_id']}" style="">
+		<li>
+			<img src="__PUBLIC__/img/phone.png" style="width:25px;height:25px;margin-right:5px;" />
+			<b style="font-size:16px;line-height: 25px;">选择呼出电话</b>
+		</li>
+		<li class="divider" style="height:1px;background-color: #ccc;margin-top: 10px;"></li>
+	<li>
+		<empty name="list">
+			<div style="background-color:#fff;"><include file="Public:nodata" /></div>
+		<else />
+			<volist name="list" id="voo">
+				<div class="text-left link-block">
+					<if condition = "$voo['telephone'] neq ''">
+                        <a href="javascript:void(0);" class="call btn btn-primary" title="点击呼叫该客户联系人" phone="{$voo['telephone']}" rel="{$_GET['model_id']}" model="customer" style="color:#fff;">
+                            <strong>呼叫</strong>
+                        </a>
+                        <span>{$voo['telephone']}</span>
+                        <span style="font-size:14px;">( {$voo['name']} )</span>
+                    <else />
+                    	<a href="{:U('contacts/view','id='.$voo['contacts_id'])}" target="_blank" class="btn btn-primary" style="color:#fff;">
+                            <strong>无电话号码，点击查看</strong>
+                        </a>
+                        <span>{$voo['telephone']}</span>
+                        <span style="font-size:14px;">( {$voo['name']} )</span>
+                	</if>
+                </div>
+			</volist>
+		</empty>
+    </li>
+	</ul>
+</div>

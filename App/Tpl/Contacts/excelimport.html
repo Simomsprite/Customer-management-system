@@ -1,0 +1,159 @@
+<form id="excel_import_form" action="{:U(contacts/excelImport)}" method="post" enctype="multipart/form-data" onkeydown="if(event.keyCode==13){return false;}">
+	<table class="table table-hover">
+		<tr>
+			<td class="tdleft" width="20%">{:L('FILE_REQUIRES')}</td> 
+			<td>{:L('FILE_REQUIRES_CONTENT')}
+			<p>{:L('ALLOWED_FILE_TYPE')}</p></td>
+		</tr>
+		<tr>
+			<td class="tdleft" width="20%">{:L('ERROR_HANDLING')}</td> 
+			<td>
+				<input id="ownership1" type="radio" value="1" name="error_handing" checked="checked">{:L('SKIP')}
+				<input id="ownership" type="radio" value="2" name="error_handing">{:L('END')}
+			</td>
+		</tr>
+		<tr>
+			<td class="tdleft">{:L('SELECT_FILE_TO_IMPORT')}</td>
+			<td><p id="attachment1"><input type="file" name="excel"/></p><p style="color:red">{:L('IMPORT_TIPS')}&nbsp;<a href="{:U('contacts/excel_model_download')}">{:L('CLICK_TO_DOWNLOAD')}</a></p></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><input class="btn btn-primary" id="submit" type="submit" name="submit" value="{:L('IMPORT')}"/> &nbsp; <input class="btn" onclick="javascript:$('#dialog-import').dialog('close');" type="button" value="{:L('CANCEL')}"/></td>
+		</tr>
+	</table>
+</form>
+<form id="error_data_download_form" action="{:U('contacts/error_data_download')}" method="POST">
+	<input type="hidden" name="excel">
+</form>
+<div id="importcontent" style="display:none; position: relative;">
+	<div style="padding:10px;background-color:#f9f9f9;border:1px solid #f6f6f6;">
+		共<span id="all_rows" style="color:green"></span>条数据，导入至第<span id="this_rows" style="color:green"></span>条，导入成功<span id="success_rows" style="color:green"></span>条，导入失败<span id="error_rows" style="color:red"></span>条
+		<span id="import"></span>
+	</div>
+	<div id="error_message" style="color:red;height:250px"></div>
+</div>
+<div class="hide" id="dialog-role-list" title="{:L('CHOOSE_CLUES')}">loading...</div>
+<script type="text/javascript">
+$("#dialog-role-list").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 600,
+	maxHeight: 400,
+	buttons: {
+		"确定": function () {
+			var item = $('input:radio[name="owner"]:checked').val();
+			var name = $('input:radio[name="owner"]:checked').attr('rel');
+			$('#owner_name').val(name);
+			$('#owner_id').val(item);
+			$(this).dialog("close"); 
+		},
+		"取消": function () {
+			$(this).dialog("close");
+		}
+	},
+	position: ["center", 100]
+});
+$(function(){
+	var has_excel = false;
+	var excel_path = null;
+	$('[name="excel"]').on('change', function(){
+		var file_path = $(this).val().split('.');
+		if (file_path[0] == '') {
+			has_excel = false;
+			return false;
+		}
+		var ext = file_path[file_path.length - 1];
+		ext = ext.toLowerCase();
+		if (ext != 'xls' && ext != 'xlsx') {
+			swal('文件类型出错！', '只允许上传 ".xls" 或 ".xlsx" 后缀的文件。', 'warning');
+			has_excel = false;
+		} else {
+			has_excel = true;
+		}
+	});
+	$('#excel_import_form').on('submit', function(){
+		if (has_excel) {
+			$('#excel_import_form').ajaxSubmit({
+				type:'post',
+				url:'{:U("contacts/excel_import")}',
+				dataType: 'JSON',
+				success: function(json){
+					if (json.status == 1) {
+						excel_path = json.data;
+						$('#excel_import_form').hide();
+						$('#importcontent').show();
+						$(".ui-dialog-titlebar-close").hide();
+						var error_handing = $('[name="error_handing"]:checked').val();
+						update(3, json.data, error_handing);
+					} else {
+						alert_crm('导入文件时出错!');
+					}
+					$('.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix').show();
+				},
+				beforeSend: function(){
+					layer.load();
+					$('#submit').prop('disabled', true);
+                },
+                complete: function(){
+                	layer.closeAll('loading');
+					$('#submit').prop('disabled', false);
+                }
+			});
+		} else {
+			swal('选择正确的导入文件', '', 'warning');
+		}
+		return false;
+	});
+	var row_size = 99;
+	var success_rows = 0;
+	var error_rows = 0;
+	function update(no,path,is_jump){
+		var url = "{:U('contacts/excel_import_act','num=')}"+no+'&path='+path+'&is_jump='+is_jump;
+		$.get(url,function(data){
+			if(data.status == 1){
+				$.each(data.data.message, function(k, v){
+					if(v.error_message){
+						error_rows ++;
+						$('#error_message').append('<p style="padding:3px;">第"'+v.no+'"行出错,"'+v.error_message+'"</p>');
+					}else{
+						success_rows ++;
+					}
+					$("#this_rows").html(v.no-2);
+					$("#success_rows").html(success_rows);
+					$("#error_rows").html(error_rows);
+				});
+				$("#all_rows").html(data.data.allrow - 2);	
+				if(no + row_size - 1 < data.data.allrow && (error_rows == 0 || (error_rows != 0 && is_jump == 1))){
+					$("#import").html('正在导入...');
+					update(no + row_size + 1, path, is_jump);
+				}else{
+					var html = '<span style="color:green">导入完成</span>&nbsp;&nbsp;&nbsp;<a href="{:U("contacts/index")}">刷新</a>';
+					if (is_jump == 1) html += ' &nbsp;&nbsp; <a id="error_data_download" href="javascript:void(0);">错误数据下载</a>';
+					$("#import").html(html);
+					$('#error_data_download').on('click', function () {
+						$('#error_data_download_form').find('input').val(data.data.excel);
+						$('#error_data_download_form').submit();
+					});
+				}
+			}else if(data.status == 2){
+				alert_crm(data.data);
+			}else{
+				alert_crm(data.info);
+			}
+		});
+	}
+
+	$('#owner_name').click(
+		function(){
+			$('#dialog-role-list').dialog('open');
+			$('#dialog-role-list').load("{:U('user/listDialog')}");
+		}
+	);
+	$('#remove').click(
+		function(){
+			$('#owner_id').attr('value', '');
+			$('#owner_name').attr('value', '');
+		}
+	);
+});
+</script>

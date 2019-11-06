@@ -1,0 +1,100 @@
+<div class="clearfix">
+	<form class="form-inline" id="dd" onkeydown="if(event.keyCode==13){return false;}">
+		<input type="hidden" name="m" value="purchase">
+		<input type="hidden" name="a" value="dialogList">
+		<ul class="nav pull-left form-inline">
+			<li class="pull-left">
+				<select style="width:auto;" class="form-control" name="field" id="d_department" >
+					<option value="name">采购单标题</option>
+					<option value="number">采购单号</option>
+					<option value="owner_role_name">负责人</option>
+				</select>&nbsp;&nbsp;
+			</li>
+			<li class="pull-left">
+				<input class="form-control" id="d_name" type="text" name="value" value="{$search['value']}" placeholder="采购单编号/负责人" onkeydown="if(event.keyCode==13)changeCondition1(0)"/>&nbsp;&nbsp;
+			</li> 
+			<li class="pull-left">
+				<input type="button" onclick="changeCondition1()" class="btn btn-primary" value="{:L('SEARCH')}"/>
+			</li>
+		</ul>
+	</form>
+</div>
+<if condition="$list">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th style="width: 50px;">&nbsp;</th>
+				<th>采购单编号</th>
+				<th>采购单名称</th>
+				<th>负责人</th>
+				<th>采购日期</th>
+			</tr>
+		</thead>
+		<tfoot id="footers">
+			<tr>
+				<td colspan="7">
+					{$page}
+				</td>
+			</tr>
+		</tfoot>
+		<tbody id="data2">
+			<volist name="list" id="val">
+				<tr>
+					<td>
+						<div class="radio radio-info radio-inline" style="margin-left:25px;">
+							<input name="purchase_id" class="purchase_id" type="radio" rel="{$val['name']}" value="{$val['purchase_id']}" supplier_name="{$val['supplier_name']}" sales_number="{$val['sales_number']}" type_id="{$val['type_id']}">
+							<label for=""></label>
+						</div>
+					</td>
+					<td>
+						<a href="{:U('purchase/view', array('id' => $val['purchase_id']))}" target="_blank">
+							{$val['number']}
+						</a>
+					</td>
+					<td>
+						<a href="{:U('purchase/view', array('id' => $val['purchase_id']))}" target="_blank">
+							{$val['name']}
+						</a>
+					</td>
+					<td>
+						<a href="javascript:void(0);">
+							{$val['owner_role_name']}
+						</a>
+					</td>
+					<td>
+						{$val['purchase_time']}
+					</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+<else />
+	<div style="clear:both">
+		<include file="Public:nodata" />
+	</div>
+</if>
+<script type="text/javascript">
+	var id = "{$_GET['id']}";
+	if (id) {
+		$('input.owner[value="'+ id +'"]').click();
+	}
+	$('#go_page').change(function(){
+		var sel = $(this).val();
+		$("#dialog-purchase-list").load(sel);
+		return false;
+	});
+	$(function(){
+		$('#footers a').click(function(){ 
+			var rel = $(this).attr('href'); 
+			$("#dialog-purchase-list").load(rel);   
+			return false;
+		});
+	});
+	
+	$("#data2 tr").click(function(){
+		$(this).find('td:first-child .purchase_id').prop('checked', true);
+	});
+	function changeCondition1(){
+		$("#dialog-purchase-list").load('index.php?'+$("#dd").serialize());
+	}
+</script>

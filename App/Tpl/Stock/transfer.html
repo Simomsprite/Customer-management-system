@@ -1,0 +1,371 @@
+<include file="Public:header" />
+<link href="__PUBLIC__/css/litebox.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/js/PCASClass.js" type="text/javascript"></script>
+<!-- nice-scroll -->
+<script src="__PUBLIC__/style/js/plugins/nice-scroll/jquery.nicescroll.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/style/js/TableFreeze.js"></script>
+<script src="__PUBLIC__/js/pdcrm_more.js" type="text/javascript"></script>
+<style>
+body{
+	overflow-y: hidden;
+}
+.option{padding-left:-30px;}
+#oDivL_tab_Test3{background-color: #fff;}
+</style>
+<script>
+$(function(){
+	var scroll_width = 10;
+	$("#table_div").height(window.innerHeight-$("#table_div").offset().top-$("#tfoot_div").height()-parseInt($("#table_container").css("padding-bottom").replace("px",""))-10);
+	$(window).resize(function(){
+		$("#table_div").height(window.innerHeight-$("#table_div").offset().top-$("#tfoot_div").height()-parseInt($("#table_container").css("padding-bottom").replace("px",""))-10);
+		$("#oDivL_tab_Test3").height($("#table_div").height()-scroll_width-1).width($("#oTableLH_tab_Test3").width());
+		$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width()-scroll_width);
+	});
+	$(".nicescroll").niceScroll({
+		cursorcolor: "#999",//#CC0071 光标颜色 
+	    cursoropacitymax: 0.4, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
+	    touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
+	    cursorwidth: scroll_width+"px", //像素光标的宽度 
+	    cursorborder: "0", //     游标边框css定义 
+	    cursorborderradius: "3px",//以像素为光标边界半径 
+	    autohidemode: false, //是否隐藏滚动条 
+	    zindex:100,
+	    background:"#F3F3F5",//滚动条背景色
+	});
+	$("#tab_Test3").FrozenTable(1,0,2);
+	$("#oDivL_tab_Test3").height($("#table_div").height()-scroll_width-1).width($("#oTableLH_tab_Test3").width()).css({'zIndex':9});
+	$("#oDivL_tab_Test3").css({"background-color":"#fff","border-right":"1px solid #e7eaec"});
+	$("#oTableLH_tab_Test3").css({"border-right":"1px solid #e7eaec"});
+	$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width()-scroll_width).css({'zIndex':9});
+})
+</script>
+<div class="wrapper wrapper-content">
+	<include file="Public:alert" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins"> 
+				<div class="title-bar" style="position: relative;z-index: 99;">
+					<div class="row  clearfix" id="title-hide" style="display:none;">
+						<ul class="breadcrum pull-left">
+							<li>已选中&nbsp;<span id="icheck_num"></span>&nbsp;项</li>
+							<li class="single_btn"><a href="javascript:void(0)" id="edit_transfer"><i class="fa fa-pencil"></i>&nbsp;编辑</a></li>
+
+							<li class="single_btn do_examine">
+								<a href="javascript:void(0)" class="examine_order">
+									<i class="fa fa-check"></i>&nbsp;审核<input type="hidden" class="is_pass" value="1">
+								</a>
+							</li>
+							<li class="single_btn do_revoke">
+								<a href="javascript:void(0)" class="examine_order">
+									<i class="fa fa-check"></i>&nbsp;撤销<input type="hidden" class="is_pass" value="2">
+								</a>
+							</li>
+							<li class="single_btn"><a href="javascript:void(0)" id="delete" ><i class="fa fa-times"></i>&nbsp;删除</a></li>
+							<li class="last_li"><big><a class="fa fa-times pull-right" id="back-show"></a></big></li>
+						</ul>
+					</div>
+					<div class="row" id="title-show">
+						<ul class="nav pull-left" style="margin:2px 0 0 15px;">
+							<a href="javascript:void(0);" id="add_transfer" class="btn btn-primary btn-sm pull-left" style="margin-right:8px">
+								<i class="fa fa-plus-circle"></i>&nbsp; 新增
+							</a>
+						</ul>
+						<form class="form-inline" id="form_index" action="" method="get">
+							<input type="hidden" name="m" value="stock"/>
+							<input type="hidden" name="a" value="transfer"/>
+							<ul class="breadcrum pull-right" style="margin-bottom: 0px">
+								<li>
+									<div class="input-group" style="margin-right: 10px;margin-bottom: 5px;">
+										<select class="form-control" name="out_warehouse_id" onchange="$('#form_index').submit();" >
+											<option value="">全部调出仓</option>
+											<volist name="warehouse_list" id="vo">
+												<option value="{$vo['warehouse_id']}" <if condition="$_GET['out_warehouse_id'] eq $vo['warehouse_id']">selected="selected"</if> >{$vo['name']}</option>
+											</volist>
+										</select>
+									</div>
+									<div class="input-group" style="margin-right: 10px;margin-bottom: 5px;">
+										<select class="form-control" name="in_warehouse_id" onchange="$('#form_index').submit();" >
+											<option value="">全部调入仓</option>
+											<volist name="warehouse_list" id="vo">
+												<option value="{$vo['warehouse_id']}" <if condition="$_GET['in_warehouse_id'] eq $vo['warehouse_id']">selected="selected"</if> >{$vo['name']}</option>
+											</volist>
+										</select>
+									</div>
+								</li>
+								<li>
+									搜索：
+									<div class="input-group">
+										<!-- 默认搜索的condition类型和form_type -->
+										<input type="hidden" name="number[condition]" value="contains"/>
+										<input type="hidden" name="number[form_type]" value="text">
+
+										<input id="short_search" type="text" style="width:210px;" placeholder="调拨单号" onkeydown='if(event.keyCode==13) {$("#short_search_btn").trigger("click");return false;}' class="form-control input-sm" name="number[value]" <if condition="$_GET['number']['condition'] eq 'contains'">value="{$_GET['number']['value']}"</if> />
+										<span class="input-group-btn">
+											<button class="btn btn-default btn-search" id="short_search_btn" type="submit"><i class="fa fa-search"></i></button>
+										</span>
+									</div>
+									&nbsp;&nbsp;<a title="高级搜索" href="javascript:void(0)" id="search_type" class="btn btn-white btn-bitbucket"><i class="fa fa-filter" style="color: #D8E3EF;"></i></a>
+								</li>
+							</ul>
+						</form>
+					</div>
+				</div>
+				<div class="ibox-content clearfix" id="table_container" style="z-index: 1;">
+					<form id="form1" action="" method="Post" style="position:relative;"> 
+						<div id="table_div" class="nicescroll">
+							<table class="table table-hover table-striped table_thead_fixed" id="tab_Test3">
+								<if condition="$list eq null">
+									<tr>
+										<td style="background-color: #fff;"><include file="Public:nodata" /></td>
+									</tr>
+								<else/>
+									<tr id="childNodes_num" class="tabTh">
+										<td style="width:30px;padding-left: 20px">
+											<div class="checkbox checkbox-primary">
+												<input type="checkbox" class="check_all"/>
+												<label for=""></label>
+											</div>
+										</td>
+										<td>调拨单号</td>
+										<td>调出仓库</td>
+										<td>调入仓库</td>
+										<td>调出时间</td>
+										<td>调入时间</td>
+										<td>负责人</td>
+										<td>状态</td>
+										<td>审批状态</td>
+									</tr>
+									<volist name="list" id="vo">
+										<tr class="controls_tr">
+											<td style="width:30px;padding-left: 20px">
+												<div class="checkbox checkbox-primary">
+													<input name="transfer_id[]" class="check_list" type="checkbox" value="{$vo.transfer_id}" do_examine="{$vo['do_examine']}" do_revoke="{$vo['do_revoke']}" />
+													<label for=""></label>
+												</div>
+											</td>
+											<td>
+												<a href="{:U('stock/transfer_view','transfer_id='.$vo['transfer_id'])}">{$vo.number}</a>
+											</td>
+											<td>{$vo.out_warehouse_name}</td>
+											<td>{$vo.in_warehouse_name}</td>
+											<td>{$vo['transfer_out_date'] ? date('Y-m-d', $vo['transfer_out_date']) : ''}</td>
+											<td>{$vo['transfer_in_date'] ? date('Y-m-d', $vo['transfer_in_date']) : ''}</td>
+											<td>{$vo['owner_role_name']}</td>
+											<td>
+												<switch name="vo.status">
+													<case value="0">未出库</case>
+													<case value="1">在途</case>
+													<case value="2">已入库</case>
+													<default />
+												</switch>
+											</td>
+											<td>
+												<switch name="vo.exam_status">
+													<case value="0"><span class="fa fa-circle examine" rel="0" style="color:#F5CA00"></span>待审</case>
+													<case value="1"><span class="fa fa-circle examine" rel="0" style="color:#F5CA00"></span>审批中</case>
+													<case value="2"><span class="fa fa-circle examine" rel="1" style="color:#7CCA4E"></span>通过</case>
+													<case value="3"><span class="fa fa-circle examine" rel="2" style="color:#F5715F"></span>驳回</case>
+													<default />
+												</switch>
+											</td>
+										</tr> 
+									</volist>
+								</if>
+							</table>
+						</div>
+						<div id="tfoot_div" class="clearfix">
+							<div class="clearfix" id="tfoot_page">
+								<if condition="$fields_search">
+									<span class="pull-left" style="margin-left:25px;margin-top:10px;">本次搜索结果<span style="color:#F8AC59"> {$count} </span>条数据<a href="{:U('stock/index')}" class="btn" style="background:#fff;border:1px solid #ccc;margin-left:10px;color:#999;" id="clearnumber">清除搜索条件</a></span>
+								</if>
+								{$page}<include file="Public:listrows" />
+							</div>
+						</div>
+					</form>
+				</div>
+    		</div>
+        </div>
+    </div>
+</div>
+
+<div style="display:none" id="dialog-role-info" title="{:L('DIALOG_USER_INFO')}">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+
+<div style="display:none;" id="dialog-stock-transfer" title="库存调拨">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	/*让复选框默认取消选择*/
+	var is_receivables = '{$is_receivables}';
+	$(':checkbox').prop('checked', false);
+
+	if ("{:C('isMobile')}" == "1") {
+		width = $('#table_container').width() * 0.9;
+	} else {
+		width = 1000;
+	}
+
+	//员工信息弹窗
+	$("#dialog-role-info").dialog({
+	    autoOpen: false,
+	    modal: true,
+		width: width,
+		maxHeight: 550,
+		position: ["center",100]
+	});
+	$(".role_info").click(function(){
+		$role_id = $(this).attr('rel');
+		$('#dialog-role-info').dialog('open');
+		$('#dialog-role-info').load('{:U("user/dialoginfo","id=")}'+$role_id);
+	});
+
+	$('#delete').click(function(){
+		var id_array = new Array();
+		$("input.check_list:checked").each(function(){  
+			id_array.push($(this).val());
+		});
+		if(id_array.length == 0){
+			alert_crm('{:L('PLEASE_CHOOSE_THE_LEADS')}');
+			return false;
+		}
+		swal({
+			title: "您确定要删除调拨记录吗？",
+			text: "只能删除待审或驳回且未进行入库操作的记录！",
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "是的，我要删除！",
+	        cancelButtonText:'让我再考虑一下…',
+	        closeOnConfirm:false,
+	        closeOnCancel:false
+		},
+		function(isConfirm){
+	        if (isConfirm) {
+	        	$.ajax({
+		            type:'post',
+		            url: "{:U('stock/transfer_delete')}",
+		            data: {transfer_ids: id_array},
+		            async: false,
+		            success: function (data) {
+						if (data.status == 1) {
+							swal("删除成功！", "您已经永久删除了信息！", "success");
+							location.reload();
+						}else{
+							swal({
+								title: "操作失败！",
+								text:data.info,
+								type: "error"
+							})
+							return false;
+						}
+		            },
+		            dataType: 'json'
+		        });
+	        } else {
+	            swal("已取消","您取消了删除操作！","error");
+	        }
+	    });
+	});
+
+	//添加库存调拨
+	$('#add_transfer').click(function(){
+		$('#dialog-stock-transfer').dialog('open');
+		$('#dialog-stock-transfer').load('{:U("stock/transfer_add")}');
+	});
+	//编辑库存调拨
+	$('#edit_transfer').click(function(){
+		var transfer_id = $(this).attr('rel');
+		$('#dialog-stock-transfer').dialog('open');
+		$('#dialog-stock-transfer').load('{:U("stock/transfer_edit","transfer_id=")}'+transfer_id);
+	});
+	$("#dialog-stock-transfer").dialog({
+		autoOpen: false,
+		modal: true,
+		width: width,
+		maxHeight: 600,
+		position: ["center",100],
+		buttons: {
+			'确定' : function () {
+				//js提交场景，form表单必填验证
+				if (!$("#form_transfer").valid()) {
+					swal('信息未完善', '请检查必填项', 'warning');
+					return false;
+				}
+
+				var count = 0;
+				$('#form_transfer .count').each(function (key, val) {
+					count += Number($(val).val());
+				});	
+				if (count == 0) {
+					swal('信息未完善', '至少选择一件产品!', 'warning');
+					return false;
+				}
+				if ($('#form_transfer [name="owner_role_id"]') == '') {
+					swal('信息未完善', '请选择负责人', 'warning');
+					return false;
+				}
+				if ($('#form_transfer [name="number"]') == '') {
+					swal('信息未完善', '请填写出库单号', 'warning');
+					return false;
+				}
+				if ($('select[name="out_warehouse_id"].dialog_val').val() == $('select[name="in_warehouse_id"].dialog_val').val()) {
+					swal('信息不正确', '调出仓和调入仓不能相同', 'warning');
+					return false;
+				}
+				// swal({
+				// 	title: '数据提交中',
+				// 	text: '......',
+				// 	type: 'info',
+				// 	showConfirmButton: false
+				// });
+				var data = $('#form_transfer').serializeArray();
+				var submit_url = $('#form_transfer').attr('action');
+				$.ajax({
+					url: submit_url,
+					data: data,
+					type: 'POST',
+					dataType: 'JSON',
+					success: function (res) {
+						console.log(res);
+						if (res.status == 1) {
+							type = 'success';
+						} else {
+							type = 'error';
+						}
+						swal({
+							title: res.msg,
+							type: type,
+						}, function () {
+							swal({
+								title: '页面刷新中',
+								text: '......',
+								type: 'info',
+								showConfirmButton: false
+							});
+							history.go(0);
+						});
+					}
+				})
+			},
+			'取消' : function () {
+				$(this).dialog('close');
+			}
+		}
+	});
+</script>
+<include file="Public:exam" />
+<include file="Public:search" />
+<include file="Public:footer" />

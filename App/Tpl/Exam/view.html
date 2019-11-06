@@ -1,0 +1,402 @@
+<include file="Public:header" />
+<style>
+    .status_disabled {
+        width: 100%;
+        background-color: #ccc;
+        opacity: 0.5;
+    }
+    .process { margin-top: 15px;}
+    .process button { margin-left: 10px; }
+    .process .inline { margin-left: 30px; } 
+    #process_add { margin-left: 20px; font-size: 12px; color: #1AB394; opacity: 0.5; }
+    .process_delete { font-size: 12px; color: #ED5565; opacity: 0.5; }
+    .process_edit { margin: 0 10px; font-size: 12px; color: #01AAEF; opacity: 0.5; }
+</style>
+<div class="wrapper wrapper-content">
+    <include file="Public:alert" />
+    <div class="row">
+        <div class="col-lg-12">
+            <include file="Setting:setting_left" />
+            <div class="col-lg-10 ">
+                <div class="table-content clearfix ibox-title" id="right_height" style="padding-top:0px">
+                    <input type="hidden" name="status_id" id="status_id" value="{$status_id}">
+                    <div class="col-lg-12">
+                        <div style="padding:18px 0 10px;border-bottom:1px solid #ddd;font-weight:700;">
+                            <b style="font-size: 16px;">{$info['name']}</b>
+                            <span style="margin-left: 10px; color: #aaa;">（{$info['remark']}）</span>
+                            <a href="javascript:void(0);" id="process_add" type-id="{$info['type_id']}">添加</a>
+                        </div>
+                        <div style="padding:10x;margin:15px 20px;">
+                            <empty name="list">
+                                <div class="alert alert-info">
+                                    暂无数据！
+                                </div>
+                            </empty>
+                            <volist name="list" id="val">
+                                <div class="process" process-id="{$val['process_id']}">
+                                    <label>{$val['name']}</label>
+                                    <?php if ($val['remark']) { ?>
+                                    <span style="color:#ccc;">（{$val['remark']}）</span>
+                                    <?php } ?>
+                                    <div class="inline">
+                                        <div class="radio radio-info radio-inline" title="启用后,申请流程将会固定，用户无需选择下一审批人">
+                                            <input type="radio" class="process_status" name="status_{$key}" id="status_{$key}_1" value="1" <?php
+                                                echo $val['status'] == 1 ? 'checked' : ''; ?>>
+                                            <label for="status_{$key}_1">启用&nbsp;&nbsp;</label>
+                                        </div>
+                                        <div class="radio radio-info radio-inline" style="margin-left: 0px;padding-left: 10px;" title="禁用后,用户自选下一审批人。">
+                                            <input type="radio" class="process_status" name="status_{$key}" id="status_{$key}_0" value="0" <?php
+                                                echo $val['status'] == 0 ? 'checked' : ''; ?>>&nbsp;
+                                            <label for="status_{$key}_0">禁用</label>
+                                        </div>
+                                    </div>
+                                    <a href="javascript:void(0);" class="process_edit">编辑</a>
+                                    <a href="javascript:void(0);" class="process_delete">删除</a>
+                                    <div class="status_style <?php echo $val['status'] == 1 ? '' : 'status_disabled'; ?>" style="margin-top:10px;">
+                                        <div style="border:1px solid #ddd;padding:15px;" id="content_form">
+                                            <div class="pull-left">
+                                                <?php if (!empty($val['step'])) { ?>
+                                                    <volist name="val['step']" id="v" key="k">
+                                                        <?php if ($k > 1) { ?>
+                                                            <div class="pull-left" style="margin-top:32px;margin-left:15px;font-size:22px;color:#ccc;">
+                                                                <i class="fa fa-long-arrow-right"></i>
+                                                            </div>
+                                                        <?php } ?>
+                                                        <div class="pull-left process-step" style="margin-top:20px;">
+                                                            <volist name="v['role_list']" key="kk" id="vv">
+                                                                <div class="pull-left">
+                                                                    <div style="clear:both;">
+                                                                        <img class="img-circle" style="width:50px;height:50px;border-radius:50%;margin-left:15px;" src="{$vv['thumb_path']}" />
+                                                                    </div>
+                                                                    <div style="clear:both;text-align:center;margin-left:15px;margin-top:5px;">
+                                                                        {$vv['full_name']}
+                                                                    </div>
+                                                                </div>
+                                                                <?php if ($kk < count($v['role_list'])) { ?>
+                                                                    <span class="pull-left" style="line-height: 50px;">
+                                                                        ( <?php echo $v['relation'] == 1 ? '并' : '或'; ?> )
+                                                                    </span>
+                                                                <?php } ?>
+                                                            </volist>
+                                                        </div>
+                                                    </volist>
+                                                <?php } else { ?>
+                                                    <span style="vertical-align:middle;color:#ccc;">您还没有设置审批人！</span>
+                                                <?php } ?>
+                                            </div>
+                                            <button type="button" class="btn btn-danger pull-right empty_process" <?php echo $val['status'] == 0 ? 'disabled' : ''; ?>>清空</button>
+                                            <button type="button" class="btn btn-primary pull-right edit_process_step" <?php echo $val['status'] == 0 ? 'disabled' : ''; ?>>编辑</button>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </volist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display:none" id="dialog-edit-process-step" title="编辑审批流步骤">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none" id="dialog-add-process" title="添加审批流">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none" id="dialog-edit-process" title="编辑审批流">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">	
+$(function () {
+    // 修改审批流状态
+    $('.process_status').on('change', function () {
+        var self = $(this);
+        var process_id = $(this).parents('.process').attr('process-id');
+        var status = $(this).val();
+        ajax_loading();
+        $.ajax({
+            url: '{:U("exam/process_status_edit")}',
+            data: {process_id: process_id, status: status},
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.status == 1) {
+                    var type = 'success';
+                    if (status == 1) {
+                        self.parents('.process').find('.status_style').removeClass('status_disabled');
+                        self.parents('.process').find('button').removeAttr('disabled');
+                    } else {
+                        self.parents('.process').find('.status_style').addClass('status_disabled');
+                        self.parents('.process').find('button').attr('disabled', 'disabled');
+                    }
+                } else {
+                    if (res.status == 0) {
+                        var type = 'error';
+                    } else if (res.status == 2) {
+                        var type = 'warning';
+                    }
+                    temp_val = status == 1 ? 0 : 1;
+                    $('[process-id="' + process_id + '"] .process_status[value="' + status + '"]').prop('checked', false);
+                    $('[process-id="' + process_id + '"] .process_status[value="' + temp_val + '"]').prop('checked', true);
+                }
+                swal(res.msg, '', type);
+            }
+        });
+    });
+
+    // 编辑审批流步骤
+    $("#dialog-edit-process-step").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 750,
+        maxHeight: 650,
+        resizable: false,
+        position: ["center", 100],
+        buttons: {
+            "确定": function () {
+                // 改审批流是否修改
+                if ($('#process_step_edit').val() == 1) {
+                    history.go(0);
+                }
+                $(this).dialog("close");
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        },
+        close: function () {
+            dialog_destroy($(this));
+        }
+    });
+    $('.edit_process_step').click(function () {
+        var process_id = $(this).parents('.process').attr('process-id');
+        $('#dialog-edit-process-step').dialog('open');
+        $('#dialog-edit-process-step').load("{:U('exam/step','process_id=')}" + process_id);
+    });
+    
+    // 清空审批流
+    $('.empty_process').on('click', function () {
+        if ($(this).parents('.process').find('.process-step').length == 0) {
+            rtal('该审批流没有设置审批人,无法清空。', 'error');
+            return false;
+        }
+        var self = $(this);
+        swal({
+            title: "您确定要清空吗?",
+            text: '清空后数据无法恢复！',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                var process_id = self.parents('.process').attr('process-id');
+                ajax_loading();
+                $.ajax({
+                    url: '{:U("exam/step_delete")}',
+                    data: {process_id: process_id},
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (res) {
+                        if (res.status == 1) {
+                            var type = 'success';
+                        } else {
+                            var type = 'error';
+                        }
+                        swal({
+                            title: res.msg,
+                            type: type
+                        }, function () {
+                            history.go(0);
+                        });
+                    }
+                });
+            } else {
+                swal.close();
+            }
+        });
+    });
+
+    // 删除审批流
+    $('.process_delete').on('click', function () {
+        var self = $(this);
+        swal({
+            title: "您确定要删除吗?",
+            text: '删除后数据无法恢复！',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                var process_id = self.parents('.process').attr('process-id');
+                ajax_loading();
+                $.ajax({
+                    url: '{:U("exam/process_delete")}',
+                    data: { process_id: process_id },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (res) {
+                        if (res.status == 1) {
+                            var type = 'success';
+                        } else {
+                            var type = 'error';
+                        }
+                        swal({
+                            title: res.msg,
+                            type: type
+                        }, function () {
+                            self.parents('.process').remove();
+                        });
+                    }
+                });
+            } else {
+                swal.close();
+            }
+        });
+    });
+    
+    // 添加审批流
+    $("#dialog-add-process").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 500,
+        maxHeight: 650,
+        resizable: false,
+        position: ["center", 100],
+        buttons: {
+            "确定": function () {
+                if ($('#process_add_form [name="name"]').val() == '') {
+                    swal({
+                        type: 'warning',
+                        title: '标题不能为空',
+                    }, function () {
+                        setTimeout(function () {
+                            $('#process_add_form [name="name"]').focus();
+                        }, 1);
+                    });
+                    return false;
+                }
+                var data = $('#process_add_form').serializeArray();
+                ajax_loading();
+                $.ajax({
+                    url: '{:U("exam/process_add")}',
+                    data: data,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (res) {
+                        if (res.status == 1) {
+                            var type = 'success';
+                        } else {
+                            var type = 'error';
+                        }
+                        swal({
+                            title: res.msg,
+                            type: type
+                        }, function () {
+                            history.go(0);
+                        });
+                    }
+                });
+                $(this).dialog("close");
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        },
+        close: function () {
+            dialog_destroy($(this));
+        }
+    });
+    $('#process_add').on('click', function () {
+        $("#dialog-add-process").dialog('open');
+        $("#dialog-add-process").load('{:U("exam/process_add", array("id" => $info["type_id"]))}');
+    });
+
+    // 修改审批流
+    $("#dialog-edit-process").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 500,
+        maxHeight: 650,
+        resizable: false,
+        position: ["center", 100],
+        buttons: {
+            "确定": function () {
+                if ($('#process_edit_form [name="name"]').val() == '') {
+                    swal({
+                        type: 'warning',
+                        title: '标题不能为空',
+                    }, function () {
+                        setTimeout(function () {
+                            $('#process_edit_form [name="name"]').focus();
+                        }, 1);
+                    });
+                    return false;
+                }
+                var data = $('#process_edit_form').serializeArray();
+                ajax_loading();
+                $.ajax({
+                    url: '{:U("exam/process_edit")}',
+                    data: data,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (res) {
+                        if (res.status == 1) {
+                            var type = 'success';
+                        } else {
+                            var type = 'error';
+                        }
+                        swal({
+                            title: res.msg,
+                            type: type
+                        }, function () {
+                            history.go(0);
+                        });
+                    }
+                });
+                $(this).dialog("close");
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        },
+        close: function () {
+            dialog_destroy($(this));
+        }
+    });
+    $('.process_edit').on('click', function () {
+        var process_id = $(this).parents('.process').attr('process-id');
+        $("#dialog-edit-process").dialog('open');
+        $("#dialog-edit-process").load('{:U("exam/process_edit")}&id=' + process_id);
+    });
+});
+</script>
+<include file="Public:footer" />

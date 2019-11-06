@@ -1,0 +1,101 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+  <header class="abe-header am-header-default"> <a href="javascript:history.go(-1)" class="return iconfont">&#xe612;</a>
+    <h1 class="abe-header-title">客户列表</h1>
+      <a href="{:U('customerm/add',array('by'=>$content))}" class="next-btn"><i class="iconfont mrg_5">&#xe63f;</i>添加客户</a>
+  </header>
+  <div class="ku-search">
+    <div class="ksinfo" id="kspop">
+      <form id="customer_search" action="" method="get">
+        <input type="hidden" name="m" value="customerm"/>
+        <input type="hidden" name="a" value="index"/>
+        <input type="hidden" name="field" value="name"/>
+        <input type="hidden" name="condition" value="contains"/>
+        <input type="hidden" name="content" value="{$_GET['content']}"/>
+        <input type="hidden" name="by" value="{$content}"/>
+        <input type="hidden" name="scene_id" value="{$_GET['scene_id']}"/>
+      <input type="text" class="txt" name="search" placeholder="客户名/联系人/联系电话" onkeydown='if(event.keyCode==13) {$("#short_search_btn").trigger("click");return false;}' class="form-control input-sm" <if condition = "$_GET['field'] eq 'name'">value="{$_GET['search']}"</if>/>
+      <button class="pbtn pb-blue" type="submit" id="short_search_btn"><em>搜索</em></button>
+      </form>
+    </div>
+  </div>
+  <div class="pbtab pbtab4 mbg_10">
+    <a href="{:U('Customerm/index')}" <if condition="$content neq 'resource'"> class="active"</if>>客户</a>
+    <a href="{:U('Customerm/index','content=resource')}" <if condition="$content eq 'resource'"> class="active"</if>>客户池</a></div>
+    <input type="hidden" id="cont" name="{$content}" value="{$content}">
+  <!--<div class="blank40">
+
+    <div id="search">
+      <form class="form-inline pull-left" id="customer_search" action="" method="get">
+        <input type="hidden" name="m" value="customerm"/>
+        <input type="hidden" name="a" value="index"/>
+        <input type="hidden" name="field" value="name"/>
+        <input type="hidden" name="condition" value="contains"/>
+        <input type="hidden" name="content" value="{$_GET['content']}"/>
+        <input type="hidden" name="by" value="{$content}"/>
+        <input type="hidden" name="scene_id" value="{$_GET['scene_id']}"/>
+        <input type="text" name="search" id="short_search" class="text" placeholder="客户名/联系人/联系电话" onkeydown='if(event.keyCode==13) {$("#short_search_btn").trigger("click");return false;}' class="form-control input-sm" <if condition = "$_GET['field'] eq 'name'">value="{$_GET['search']}"</if>/>
+        <button type="submit" id="short_search_btn" class="submit" style="color: deeppink">搜索</button>
+      </form>
+    </div>-->
+
+
+  <div class="zcmlbox">
+    <ul class="zcml kcpp">
+      <volist name="customerlist" id="vo">
+      <li>
+        <div class="tbt"><em class="tip"></em><span class="abe-fl">
+          <input type="hidden" id="customer_id" name="{$vo['customer_id']}" value="{$vo['customer_id']}">
+         <!-- <a href="{:U('Customerm/indexctm',array('customer_id'=>$vo['customer_id']))}" class="vi-blue"> {$vo.name}</a></span>-->
+          <a href="{:U('customerm/view', array('id'=>$vo['customer_id'],'content'=>$content))}" class="vi-blue"> {$vo.name}</a></span>
+          <!--<a href="{:U('customerm/view', array('id'=>$vo['customer_id'],'content'=>$content))}" class="abe-fr vi-blue"><i class="iconfont mrg_5">&#xe6a7;</i>联系人:{$vo.contacts_name}</a></div>-->
+        <a href="{:U('Customerm/indexcon',array('contacts_id'=>$vo['contacts_id'],'content'=>$content))}" class="abe-fr vi-blue">
+          <i class="iconfont mrg_5">&#xe6a7;</i>联系人:{$vo.contacts_name}</a></div>
+        <a href="{:U('Customerm/indexctm',array('customer_id'=>$vo['customer_id']))}"><div class="item"><span class="">联系电话</span>
+          <div class="info">{$vo.crm_vwlnfx}</div>
+        </div>
+        <div class="item"><span class="">客户负责人</span>
+          <div class="info">{$vo.owner_role_name}</div>
+        </div>
+        <div class="item"><span class="">客户状态</span>
+          <div class="info">{$vo.customer_status}</div>
+        </div>
+        <div class="item"><span class="">行业</span>
+          <div class="info">{$vo.industry}</div>
+        </div>
+        <div class="item"><span class="">客户地址</span>
+          <div class="info">{$vo.address}</div>
+        </div>
+          <div class="item"><span class="">客户信息来源</span>
+            <div class="info">{$vo.origin}</div>
+          </div></a>
+          <!--<a href="{:U('Customerm/delete',array('customer_id'=>$vo['customer_id']))}" onclick="return confirmd()" class="abe-fr pbtn pb-red pbtn-sxm">删除</a>-->
+       <!-- <a href="javascript:showtab(3,'是否删除该条数据')" class="abe-fr pbtn pb-red pbtn-sxm">删除</a>
+        <a href="{:U('Customerm/edit',array('customer_id'=>$vo['customer_id']))}" class="abe-fr pbtn pbtn-sxm mrg_10">编辑</a>-->
+      </li>
+      </volist>
+    </ul>
+  </div>
+  <include file="Public:footerm"/>
+</div>
+<script>
+    function closetab(){
+        var content=$("#cont").val();
+        var customer_id=$("#customer_id").val()
+        $.ajax({
+            url:"{:U('Customerm/delete')}",
+            type:"POST",
+            data:{'content':content,'customer_id':customer_id},
+            async: true,
+            success:function(){
+                var str="{:U('Customerm/index')}"+'&content='+content;
+                window.location.href=str;
+            }
+        });
+    }
+
+
+</script>
+</body>
+
+</html>

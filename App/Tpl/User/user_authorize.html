@@ -1,0 +1,136 @@
+<style>
+	.nav-tabs > li > a{color:#000;}
+	.active{color: #666;}
+	.active >a{height:38px;!important}
+	.check_all{width: 14px;height: 14px;}
+	.modal-body{max-height: 420px;overflow-y:auto;}
+	.per_type { margin-left: 10px; }
+	label { cursor: pointer; }
+</style>
+<div class="modal-header">
+	<b>授权</b>
+	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>	
+</div>
+<style>
+	.hide{display: none;}
+	.remark { margin-left: 1rem; }
+</style>
+<div class="modal-body clearfix" >
+	<form id="form1">
+		<input type="hidden" name="position_id" value="{$position_id}"/>
+		<div class="tabs-container">
+			<div class="full-height-scroll" style="left:0px;top:0px;">
+				<ul class="nav nav-tabs">
+					<volist name="per_type" id="val" key="key">
+						<li <?php echo $key == 1 ? 'class="active"' : '';  ?>>
+							<a class="ta" rel="{$key}" href="#tab{$key}" data-toggle="tab">{$val}</a>
+						</li>
+					</volist>
+				</ul>
+				<div class="tab-content">
+					<volist name="per_list" id="val" key="kkk">
+						<div class="tab-pane <?php echo $kkk == 1 ? 'active' : '';  ?>" id="tab{$kkk}" style="height:300px;line-height:30px;padding:20px 15px">
+							<input type="checkbox" id="check_all_{$kkk}" class="check_all" rel="{$kkk}"/>
+							<label for="check_all_{$kkk}">{:L('SELECT_ALL')}</label>
+							<span class="text-info remark">{$val['remark']}</span>
+							<br/>
+							<volist name="val.list" id="vv" key="kk">
+								<h4 style="padding-top: 10px;clear:both;">{$vv['name']}</h4>
+									<volist name="vv.list" id="v" key="k">
+										<span class="option" style="width:25%; float:left;">
+											<?php $checked = isset($owned_permission[$v['url']]) ? 'checked' : ''; ?>
+											<input id="check_opt_{$kkk}_{$kk}_{$k}" {$checked} class="check_opt" type="checkbox" name="per[]" value="{$v['url']}" <?php echo $v['hide'] == 1 ? 'hidden' : ''; ?> />
+											<label for="check_opt_{$kkk}_{$kk}_{$k}" <?php echo $v['hide'] == 1 ? 'hidden' : ''; ?> >{$v['name']}</label>
+											<?php if ($v['type'] === 1) {
+												$m_a = explode('/', $v['url']);
+												$show = isset($owned_permission[$v['url']]) ? '' : 'hidden';
+											 ?>
+												<select class="per_type" {$show} name="{$m_a[0]}[{$m_a[1]}]">
+													<option <if condition="$owned_permission[$v['url']] == 1">selected="selected"</if> value="1">{:L('PERMISSION_SUB')}</option>
+													<option <if condition="$owned_permission[$v['url']] == 2">selected="selected"</if> value="2">{:L('PERMISSION_EVERYONE')}</option>
+													<option <if condition="$owned_permission[$v['url']] == 3">selected="selected"</if> value="3">{:L('PERMISSION_SELF')}</option>
+													<option <if condition="$owned_permission[$v['url']] == 4">selected="selected"</if> value="4">{:L('PERMISSION_DEPARTMENT')}</option>
+												</select>
+											<?php } ?>
+										</span>
+									</volist>
+							</volist>
+						</div>
+					</volist>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$('[value="log/mylog_view"]').change(function(){
+		$('[value="log/viewajax"]').prop('checked', $(this).prop("checked"));
+	});
+	$('[value="contract/check"]').change(function(){
+		$('[value="contract/revokeCheck"]').prop('checked', $(this).prop("checked"));
+	});
+	$('[value="finance/check"]').change(function(){
+		$('[value="finance/revokeCheck"]').prop('checked', $(this).prop("checked"));
+	});
+	$('[value="invoice/check"]').change(function(){
+		$('[value="invoice/revokeCheck"]').prop('checked', $(this).prop("checked"));
+	});
+
+	$(function(){
+		$(".check_all").click(function(){
+			var rel = $(this).attr('rel');
+			if($(this).prop('checked') == true){
+				$('#tab' + rel).find('.check_opt').prop('checked', true);
+				$('#tab' + rel).find('.per_type').show();
+			}else{
+				$('#tab' + rel).find('.check_opt').prop('checked', false);
+				$('#tab' + rel).find('.per_type').hide();
+			}
+		});
+		$(".check_opt").on('change', function(){
+			if($(this).prop('checked') == true){
+				$(this).parents('.option').find('.per_type').show();
+			}else{
+				$(this).parents('.option').find('.per_type').hide();
+			}
+		});
+	});
+	$("#adbtn").click(
+		function() {
+			$.post('{:U("user/user_authorize")}',$("#form1").serialize(), function(data){
+				if(data.status == 1){
+					swal({
+						title: "授权成功！",
+						text: "跳转中!",
+						type: "success"
+					});
+					$('#Modal').modal('hide');
+					top.location.reload();
+				}else{
+					swal({
+						title: "授权失败!",
+						text: data.info,
+						type: "error"
+					});
+				}
+			}, 'json');
+		}	
+	);
+/*	$('.ta').click(
+		function(){
+			var num = $(this).attr('rel');
+			for (var i=1;i<19;i++){
+				if(num == i){
+					$('#ta'+i).show();
+				}else{
+					$('#ta'+i).hide();
+				}
+			}
+		}
+	);*/
+</script>
+<div class="modal-footer" style="padding:8px 22px;">
+	<button type="button" id="adbtn" class="btn btn-primary">保存</button>
+	<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+</div>

@@ -1,0 +1,253 @@
+<include file="Public:headerm" />
+<body>
+<div class="wrap-box">
+    <header class="abe-header am-header-default"> <a href="javascript:history.go(-1)" class="return iconfont">&#xe612;</a>
+        <h1 class="abe-header-title">基本信息</h1>
+    </header>
+    <form class="form-inline" id="add-form" action="" method="post">
+        <input type="hidden" name="user_id" value="{$user.user_id}"/>
+        <input type="hidden" name="r_url" value="{$r_url}">
+    <ul class="cust-form">
+        <li class="titbox">
+            <span class="tit">姓名：<em class="abe-red">*</em></span>
+            <div class="txtbox">
+                <input type="text" name="full_name" value="{$user['full_name']}" class="txt ptxt100p" placeholder="请输入姓名">
+            </div>
+        </li>
+
+        <li class="titbox">
+            <span class="tit">登录账号：<em class="abe-red">*</em></span>
+            <div class="txtbox">
+                <if condition = "$is_edit eq 1">
+                <input type="text" name="name" value="{$user['login_name']}" class="txt ptxt100p" placeholder="请输入登录账号">
+                <else />
+                    {$user.login_name}
+                </if>
+            </div>
+        </li>
+
+        <li class="titbox">
+            <span class="tit">员工编号：<em class="abe-red">*</em></span>
+            <div class="txtbox">
+                <if condition = "$is_edit eq 1">
+                    <input type="text" id="number" name="number" value="{$user['number']}" placeholder="请输入员工编号" class="txt ptxt100p">
+                    <input type="hidden" name="prefixion" id="prefixion" value="{$user['prefixion']}">
+                <else/>
+                    <input type="hidden" name="prefixion" value="{$user['prefixion']}"/>
+                    <input type="hidden" name="number" value="{$user['number']}" />
+                    {$user['prefixion']}{$user['number']}
+                </if>
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">角色：</span>
+            <div class="txtbox">
+                <if condition = "$is_edit eq 1">
+                    <select name="type" id="type" class="pbsele w100p">
+                        <volist name="user_type_list" key="key" id="vo" >
+                            <option value="{$key}" <if condition = "$user['type'] eq $key">selected</if>>{$vo}</option>
+                        </volist>
+                    </select>
+                <else />
+                    {$user['type_name']}
+                </if>
+                <i class="iconfont arrow">&#xe607;</i>
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">{:L('SEX')}：</span>
+            <div class="txtbox">
+                <select name="sex" id="sex" class="pbsele w100p">
+                    <option value="1" <if condition = "$user['sex'] eq 1">selected</if>>{:L('MALE')}</option>
+                    <option value="2" <if condition = "$user['sex'] eq 2">selected</if>>{:L('FEMALE')}</option>
+                </select>
+                <i class="iconfont arrow">&#xe607;</i>
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">{:L('DEPARTMENT')}：</span>
+            <div class="txtbox">
+                <select name="department_id" id="department" onchange="changeRoleContent()" class="pbsele w100p">
+                    <option value="">--请选择--</option>
+                    <volist name="department_list" id="temp">
+                        <option <if condition = "$user['department_id'] eq $temp['department_id']">selected</if> value="{$temp.department_id}">{$temp.name}</option>
+                    </volist>
+                </select>
+                <i class="iconfont arrow">&#xe607;</i>
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">{:L('POSITION')}：</span>
+            <div class="txtbox">
+                <select name="position_id" id="role" class="pbsele w100p">
+                    <option value="">--请选择--</option>
+                    <volist name="position_list" id="temp">
+                        <option <if condition = "$user['position_id'] eq $temp['position_id']">selected</if> value="{$temp.position_id}">{$temp.name}</option>
+                    </volist>
+                </select>
+                <i class="iconfont arrow">&#xe607;</i>
+            </div>
+        </li>
+
+        <li class="titbox">
+            <span class="tit">家乡：</span>
+            <div class="txtbox">
+                <input type="text" name="hometown" value="{$user['hometown']}" class="txt ptxt100p" placeholder="请输入家乡地址">
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">出生日期：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" placeholder="请选择日期" name="birthday" id="birthday" value="{$user['birthday']}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                <i class="iconfont arrow">&#xe607;</i>
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">自我介绍：</span>
+            <div class="txtbox">
+                <input type="text" name="introduce" value="{$user.introduce}" class="txt ptxt100p" placeholder="清输入自我介绍">
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">是否参与考勤：</span>
+            <div class="txtbox">
+                <select name="kaoqin" class="pbsele w100p">
+                    <option value="1" <if condition = "$user['kaoqin'] eq 1">selected</if>>是</option>
+                    <option value="0" <if condition = "$user['kaoqin'] eq 0">selected</if>>否</option>
+                </select>
+                <i class="iconfont arrow">&#xe607;</i>
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">手机号码：</span>
+            <div class="txtbox">
+                <input type="text" name="telephone" id="telephone" value="{$user.telephone}" class="txt ptxt100p" placeholder="请输入手机号码">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">办公电话：</span>
+            <div class="txtbox">
+                <input type="text" name="office_tel" id="office_tel" value="{$user.office_tel}" class="txt ptxt100p" placeholder="请输入办公电话">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">QQ/MSN：</span>
+            <div class="txtbox">
+                <input type="text" name="qq" id="qq" value="{$user.qq}" class="txt ptxt100p" placeholder="请输入QQ/MSN">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">{:L('EMAIL')}：</span>
+            <div class="txtbox">
+                <input name="email" type="text" value="{$user.email}" class="txt ptxt100p" placeholder="请输入邮箱">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">{:L('ADDRESS')}：</span>
+            <div class="txtbox">
+                <input type="text" name="address" value="{$user.address}" class="txt ptxt100p" placeholder="请输入联系地址">
+            </div>
+        </li>
+    </ul>
+    <div class="sub-box">
+        <input type="button" id="btn" class="pbtn pbtnw80p" value="{:L('SAVE')}"></input>
+    </div>
+    </form>
+</div>
+<script src="__PUBLIC__/waps/js/mobiscroll_date.js" charset="gb2312"></script>
+<script src="__PUBLIC__/waps/js/mobiscroll.js"></script>
+<script type="text/javascript">
+    $("#btn").click(function(){
+        $.ajax({
+            type:'post',
+            url: "{:U('Userm/edit')}",
+            data: $("#add-form").serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if(result.status == '1'){
+                    showtab1('3','操作成功');
+                }else if(result.status == '2'){
+                    showtab1('2',result.msg);
+                }else{
+                    alert(result);
+                }
+            }
+        });
+    });
+
+    $('#number').blur(function(){
+        var number = $(this).val();
+        var prefixion = $('#prefixion').val();
+        var user_id = "{$user.user_id}";
+        $.ajax({
+            type: "post",
+            async:true,
+            url: "{:U('Userm/yanchong')}",
+            data: {number:number,user_id:user_id,prefixion:prefixion},
+            dataType: "json",
+            success : function(result){
+                if(result.status != 1){
+                    showtab1('3',result.info);
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        });
+    });
+
+    function changeRoleContent(){
+        department_id = $('#department').val();
+        if(department_id == ''){
+            $("#role").html('');
+        }else{
+            $.ajax({
+                type:'get',
+                url:'index.php?m=Userm&a=getPositionlistByDepartment&id='+department_id,
+                async:true,
+                success:function(data){
+                    options = '';
+                    if(data.data){
+                        console.log(data.data);
+                        $.each(data.data, function(k, v){
+                            options += '<option value="'+v.position_id+'">'+v.name+'</option>';
+                        });
+                    }
+                    $("#role").html(options);
+                },
+                dataType:'json'
+            });
+        }
+    }
+
+    $('#role').click(
+        function(){
+            department_id = $('#department').val();
+            if(department_id == ''){
+                showtab1('1',"{:L('SELECT_DEPARTMENT_FIRST')}");
+                return false;
+            }
+        }
+    );
+
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yy-mm-dd',
+            dateOrder : 'yyyymmdd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#birthday").mobiscroll($.extend(opt['date'], opt['default']));
+        $("#entry").mobiscroll($.extend(opt['date'], opt['default']));
+
+    });
+</script>
+</body>
+</html>

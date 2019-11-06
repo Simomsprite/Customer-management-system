@@ -1,0 +1,574 @@
+<include file="Public:header" />
+<script src="__PUBLIC__/js/chart/highcharts.js"></script>
+<script src="__PUBLIC__/js/chart/modules/exporting.js"></script>
+<script src="__PUBLIC__/js/chart/modules/funnel.js"></script>
+<script src="__PUBLIC__/style/js/plugins/nice-scroll/jquery.nicescroll.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/style/js/TableFreeze.js"></script>
+
+<!-- echarts -->
+<script type="text/javascript" src="__PUBLIC__/js/echarts/echarts.js"></script>
+<!-- daterangepicker -->
+<link href="__PUBLIC__/css/daterangepicker.css" rel="stylesheet">
+<script src="__PUBLIC__/js/daterangepicker/daterangepicker.js"></script>
+<!--jQuery导出插件-->
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jquery.base64.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/tableExport.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/libs/sprintf.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/jspdf.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/libs/base64.js"></script>
+<!--jQuery导出插件-->
+<style>
+	body{
+		overflow-y: hidden;
+	}
+	
+	/*悬浮提示信息框样式*/
+	.fa-info-circle {
+		font-size: 16px;
+		color: rgb(249, 94, 0);
+		cursor: pointer;
+	}
+	.popover {
+	 	color: rgb(249, 94, 0);
+	}
+	/*悬浮提示信息框样式*/
+</style>
+<script>
+$(function(){
+	<if condition = "$_GET['content_id'] eq 1 || $_GET['content_id'] eq ''">
+		$("#table_div").height(window.innerHeight-$("#table_div").offset().top-30);
+		$(window).resize(function(){
+			$("#table_div").height(window.innerHeight-$("#table_div").offset().top-30);
+			$("#oDivL_tab_Test3").height($("#table_div").height()).width($("#oTableLH_tab_Test3").width());
+			$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width());
+		});
+		var scroll_width = 7;
+		$(".nicescroll").niceScroll({
+			cursorcolor: "#999",//#CC0071 光标颜色 
+		    cursoropacitymax: 0.4, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
+		    touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
+		    cursorwidth: scroll_width+"px", //像素光标的宽度 
+		    cursorborder: "0", //     游标边框css定义 
+		    cursorborderradius: "3px",//以像素为光标边界半径 
+		    autohidemode: false, //是否隐藏滚动条 
+		    zindex:100,
+		    background:"#F3F3F5",//滚动条背景色
+		});
+		$("#tab_Test3").FrozenTable(1,0,1);
+		$("#oDivL_tab_Test3").height($("#table_div").height()).width($("#oTableLH_tab_Test3").width());
+		$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width());
+	</if>
+})
+
+</script>
+<div class="wrapper wrapper-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<include file="Public:analytics_left" />
+				<input type="hidden" id="content_id" value="{$content_id}">
+				<div class="col-lg-10">
+					<div class="ibox-content" style="padding-bottom:10px;border-bottom: none;">
+						<include file="Public:alert" />
+						<form id="search_form" class="form-group" method="get" style="margin-bottom: 0px;">
+							<input type="hidden" name="m" value="business" />
+							<input type="hidden" name="a" value="analytics" />
+							<input type="hidden" name="dbname" id="dbname" value="{$dbname}" />
+							<input type="hidden" name="select_type" value="{$select_type}" />
+							<input type="hidden" name="content_id" value="{$_GET['content_id']}" />
+							<div class="row" style="height: 45px;">
+								<div class="col-lg-4">
+									<div class="pull-left" >
+										<span style="font-size: 18px;color: #000;">
+											<?php
+												switch($_GET['content_id']){
+													case 1:$content_name = '员工商机分析';break;
+													case 2:$content_name = '销售漏斗分析（按创建时间）';break;
+													default : $content_name = '员工商机分析';break;
+												}
+												echo $content_name;
+											?>
+										</span>
+									</div>
+								</div>
+								<div class="col-lg-5"></div>
+								<div class="col-lg-3">
+									<div class="pull-right" >
+										<if condition = "$_GET['content_id'] eq 2">
+											<div class="pull-left" >
+												<a class="pull-right" style="margin-right:18px;font-size:13px;color:#75899D;line-height: 40px;" href="javascript:void(0)" id="addduibi" title=""><i class="fa fa-plus"></i> 对比</a>
+											</div>
+										</if>
+										<div class="pull-left" style="line-height: 40px;">
+											<if condition = "$_GET['content_id'] eq 1">
+												<span class="fa fa-download" style="color:#75899D;"></span>
+												<a style="color: #75899D;" onClick ="$('#tab_Test3').tableExport({type: 'excel', escape: 'false', self: $(this)});">导出</a>
+											<elseif condition = "$_GET['content_id'] eq 2 && $_GET['dbname'] eq ''" />
+												<span class="fa fa-download" style="color:#75899D;"></span>
+												<a style="color: #75899D;" onClick ="$('#export').tableExport({type: 'excel', escape: 'false', self: $(this)});">导出</a>
+											</if>
+										</div>
+									</div>
+									<div class="pull-right" style="margin-right: 15px; margin-top: 10px;">
+										<div class="checkbox checkbox-primary">
+											<input type="hidden" name="user_range" value="{$_GET['user_range']}" />
+											<input id="user_range" type="checkbox" <if condition="$_GET['user_range'] eq 'sale'">checked</if> />
+											<label for="user_range">仅显示销售岗数据</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12" >
+									<div class="nav pull-left" style="margin:2px 0 0 0;">
+										<div class="input-group">
+											<input type="text" name="between_date" id="reservation" autocomplete="off" class="form-control" style="width:300px;"/>
+											<i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;bottom: 10px;right: 24px;top: auto;cursor: pointer;"></i>
+										</div>
+									</div>
+									<if condition = "$_GET['dbname'] eq ''">
+										<div class="nav pull-left" style="margin:2px 0 0 15px;width: 165px;">
+											<div class="input-group">
+												<select class="form-control select2" style="min-width:165px;max-width: 165px;height: 0px;" name="department" id="department" onchange="changeRole()">
+													<option class="all" value="all">{:L('ALL')}</option>
+													<volist name="departmentList" id="vo">
+														<option value="{$vo.department_id}" <if condition="$_GET['department'] eq $vo['department_id']">selected</if>>{$vo.name}</option>
+													</volist>
+												</select>
+											</div>
+										</div>
+										<div class="nav pull-left" style="margin:2px 0 0 15px;width: 165px;">
+											<div class="input-group">
+												<select class="form-control select2" style="min-width:165px;max-width: 165px;height: 0px;" name="role" id="role" onchange="changeCondition()">
+													<option class="all" value="all">{:L('ALL')}</option>
+													<volist name="roleList" id="vo">
+														<option value="{$vo.role_id}" <if condition="$_GET['role'] eq $vo['role_id']">selected</if>>{$vo.role_name}-{$vo.user_name}</option>
+													</volist>
+												</select>
+											</div>
+										</div>
+									</if>
+									<if condition = "$_GET['content_id'] eq 2">
+										<div class="nav pull-left" style="margin:2px 0 0 15px;width: 165px;">
+											<div class="input-group">
+												<select class="form-control" style="min-width:165px;max-width: 165px;line-height: 35px;" name="status_type_id" id="status_type_id" >
+													<volist name="type_list" id="vo">
+														<option value="{$vo.id}" <if condition="$_GET['status_type_id'] eq $vo['id']">selected</if>>{$vo.name}</option>
+													</volist>
+												</select>
+											</div>
+										</div>
+									</if>
+									<div class="pull-left" style="margin-left: 20px;">
+										<button type="submit" id="analytics_search" class="btn btn-primary">{:L('SEARCH')}</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="ibox-content clearfix" id="right_height" style="border-top: none;">
+						<if condition="$_GET['content_id'] eq '' || $_GET['content_id'] eq 1">
+							<div id="content_1" class="th_content" style="position:relative;">
+								<div id="table_div" class="nicescroll" >
+									<table class="table table-hover table-striped table_thead_fixed table-bordered" id="tab_Test3" style="background:#fff;margin-bottom:0px;">
+										<tr class="tabTh">
+											<td>员工姓名</td>
+											<td>员工编号</td>
+											<td>商机数</td>
+											<td>跟进中</td>
+											<td>已成交</td>
+											<td>已失败</td>
+											<td>商机赢单率</td>
+											<td>商机赢单金额</td>
+											<td>平均商机赢单金额</td>
+											<td>回款金额</td>
+											<td>未回款金额</td>
+											<td>回款比例</td>
+										</tr>
+										<tbody>
+											<volist name="reportList" id="vo">
+												<tr>
+													<td><a class="role_info" rel="{$vo.user.role_id}" href="javascript:void(0)">{$vo.user.user_name}</a></td>
+													<td>{$vo['user']['number']}</td>
+													<!-- <td><a href="{:U('business/index')}&field=owner_role_id&search={$vo.user.role_id}&by=me">{$vo.own_count}</a></td> -->
+													<td>
+														<if condition="$vo['own_count'] neq 0">
+															<a href="{:U('business/index')}&owner_role_id={$vo['user']['role_id']}&create_time[form_type]=date&create_time[start]={$start_date}&create_time[end]={$end_date}" target="_blank">
+																{$vo.own_count}
+															</a>
+														<else />
+															0
+														</if>
+													</td>
+													<td>
+														<if condition="$vo['follow_count'] neq 0">
+															<a href="{:U('business/index')}&owner_role_id={$vo['user']['role_id']}&create_time[form_type]=date&create_time[start]={$start_date}&create_time[end]={$end_date}&status_id[condition]=in&status_id[value]={$follow_status_ids}" target="_blank">
+																{$vo.follow_count}
+															</a>
+														<else />
+															0
+														</if>
+													</td>
+													<td>
+														<if condition="$vo['success_count'] neq 0">
+															<a href="{:U('business/index')}&owner_role_id={$vo['user']['role_id']}&create_time[form_type]=date&create_time[start]={$start_date}&create_time[end]={$end_date}&status_id[condition]=in&status_id[value]={$success_status_ids}" target="_blank">
+																{$vo.success_count}
+															</a>
+														<else />
+															0
+														</if>
+													</td>
+													<td>
+														<if condition="$vo['deal_count'] neq 0">
+															<a href="{:U('business/index')}&owner_role_id={$vo['user']['role_id']}&create_time[form_type]=date&create_time[start]={$start_date}&create_time[end]={$end_date}&status_id[condition]=in&status_id[value]={$success_status_ids}" target="_blank">
+																{$vo.fail_status_ids}
+															</a>
+														<else />
+															0
+														</if>
+													</td>
+													<td>{$vo.business_rate}%</td>
+													<td>{:number_format($vo['contract_price'], 2)}</td>
+													<td>{:number_format($vo['contract_average'], 2)}</td>
+													<td>{:number_format($vo['receivingorder_price'], 2)}</td>
+													<td>{:number_format($vo['un_receivingorder_price'], 2)}</td>
+													<td>{$vo.receivingorder_rate}%</td>
+												</tr>
+											</volist>
+											<tr style="background: #70B4E8;color: #fff;font-size: 13px;">
+												<td style="color:#fff;">{:L('SUM_TO')}</td>
+												<td style="color:#fff;"></td>
+												<td style="color:#fff;">
+													<if condition="$total_report['own_count_total'] neq 0">
+														<a href="{:U('business/index')}&by=all&create_time[form_type]=date&create_time[start]={$start_date}&create_time[end]={$end_date}" target="_blank">
+															{$total_report['own_count_total']}
+														</a>
+													<else />
+														0
+													</if>
+												</td>
+												<td style="color:#fff;">
+													<if condition="$total_report['follow_count_total'] neq 0">
+														<a href="{:U('business/index')}&by=all&create_time[form_type]=date&create_time[start]={$start_date}&create_time[end]={$end_date}&status_id[condition]=in&status_id[value]={$follow_status_ids}" target="_blank">
+															{$total_report['follow_count_total']}
+														</a>
+													<else />
+														0
+													</if>
+												</td>
+												<td style="color:#fff;">
+													<if condition="$total_report['success_count_total'] neq 0">
+														<a href="{:U('business/index')}&by=all&create_time[form_type]=date&create_time[start]={$start_date}&create_time[end]={$end_date}&status_id[condition]=in&status_id[value]={$success_status_ids}" target="_blank">
+															{$total_report['success_count_total']}
+														</a>
+													<else />
+														0
+													</if>
+													<a href="">
+													</a>
+												</td>
+												<td style="color:#fff;">
+													<if condition="$total_report['deal_count_total'] neq 0">
+														<a href="{:U('business/index')}&by=all&create_time[form_type]=date&create_time[start]={$start_date}&create_time[end]={$end_date}&status_id[condition]=in&status_id[value]={$success_status_ids}" target="_blank">
+															{$total_report['deal_count_total']}
+														</a>
+													<else />
+														0
+													</if>
+												</td>
+												<td style="color:#fff;">{$total_report['business_rate_total']}%</td>
+												<td style="color:#fff;">{$total_report['contract_price_total']}</td>
+												<td style="color:#fff;">{$total_report['contract_average_total']}</td>
+												<td style="color:#fff;">{$total_report['receivingorder_price_total']}</td>
+												<td style="color:#fff;">{$total_report['un_receivingorder_price_total']}</td>
+												<td style="color:#fff;">{$total_report['receivingorder_rate_total']}%</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</if>
+						<if condition="$_GET['content_id'] eq 2">
+							<div id="content_2" class="th_content full-height-scroll">
+								<if condition = "$_GET['select_type'] gt 0">
+									<div id="canvas_status_duibi" class="col-sm-12 sort-list ui-sortable " style="min-width:100%;margin:0 auto;">
+										<volist name="duibi_array" key="key" id="vo">
+											<div class="col-sm-6 sort-item" rel="{$key}" style="padding:0px;height: 400px;margin-top: 20px;">
+												<div class="dash-border" style="margin:20px;">
+													<div class="dash-title" style="padding:15px;width:80%;margin:0px 10%;">
+														<img src="__PUBLIC__/img/chart.png" style="width:17.5px;" />&nbsp;&nbsp;&nbsp;
+														<span>
+															{$vo['user']['user_name']}
+														</span>
+													</div>
+													<div class="content-chart" id="sales_funnel_{$key}" style="font-size: 12px;width:80%;height: 350px;margin:0px 10%;">
+														<div class="ibox-content">
+											                <include file="Public:loading" />
+											            </div>
+													</div>
+												</div>
+											</div>
+										</volist>
+									</div>
+								<else />
+									<div id="an_chart" class="col-lg-5" style="margin-left: 5px;">
+										<?php if ($total_info['total_count'] > 0): ?>
+											<div id="canvas_status" style="max-width:inherit;min-width:90%; height: 350px;margin-top: 12px;">
+												<include file="Public:loading" />
+											</div>
+										<?php else: ?>
+											<include file="Public:nodata" />
+										<?php endif; ?>
+									</div>
+									<div class="col-lg-6" style="margin-left: 5px;">
+										<div class="full-height-scroll" style="left:0px;top:0px;">
+											<table class="table table-hover" id="export" style="margin-top: 20px;border:1px solid #ccc;background-color: #f9f9f9;">
+												<tr style="background-color: #F4F4F4;">
+													<td style="border-top: none;">阶段</td>
+													<td style="border-top: none;">商机数</td>
+													<td style="border-top: none;">
+														转化率 <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="转化率计算方式：大于当前阶段的商机之和除以大于等于商机总和，项目失败数量的不在计算在内"></i>
+													</td>
+													<td style="border-top: none;">金额(元)</td>
+												</tr>
+												<volist name="status_list" id="vo">
+													<tr>
+														<td>{$vo['name']}</td>
+														<td>{$vo['count']}</td>
+														<td>{$vo['conversion_rate']}</td>
+														<td>{$vo['sum_money']}</td>
+													</tr>
+												</volist>
+												<tr>
+													<td>总计</td>
+													<td>{$total_info['total_count']}</td>
+													<td></td>
+													<td>{$total_info['total_money']}</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</if>
+							</div>
+						</if>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="hide" id="dialog-import" title="{:L('IMPORT_DATA')}">
+	<include file="Public:loading" />
+</div>
+
+<div style="display: none;" id="dialog-role-info" title="员工信息">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none" id="dialog-addduibi" title="添加对比">
+    <include file="Public:loading" />
+</div>
+<script type="text/javascript">
+	// 点击切换"仅销售"或"全部"
+	$('#user_range').click(function(){
+		//console.log($(this).is(':checked'));
+		if ($(this).is(':checked') == true) {
+			$('input[name="user_range"]').val('sale');
+		} else {
+			$('input[name="user_range"]').val('all');
+		}
+		$('#search_form').submit();
+	});
+
+	//时间插件  
+    $('#reservation').daterangepicker({
+        startDate: '{$start_date}', 
+        endDate: '{$end_date}',  
+        //minDate: '01/01/2012',    //最小时间  
+        maxDate : moment(), //最大时间
+        showDropdowns : true,  
+        showWeekNumbers : false, //是否显示第几周  
+        // timePicker : true, //是否显示小时和分钟  
+        // timePickerIncrement : 60, //时间的增量，单位为分钟  
+        timePicker12Hour : false, //是否使用12小时制来显示时间  
+        ranges : {  
+            // subtract() 减去函数，add() 加上函数，有的再减1天的情况是为了保持统一，方便后台取范围都包含截至日期的当天
+        	'今天': [moment().startOf('day'), moment()],
+        	'本月': [moment().startOf('month'), moment()],
+        	'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+        	'本年': [moment().startOf('year'), moment().endOf('year')],
+            '去年': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
+            '第一季度': [moment().startOf('year'), moment().startOf('year').add(3, 'month').subtract(1, 'day')],
+            '第二季度': [moment().startOf('year').add(3, 'month'), moment().startOf('year').add(6, 'month').subtract(1, 'day')],
+            '第三季度': [moment().startOf('year').add(6, 'month'), moment().startOf('year').add(9, 'month').subtract(1, 'day')],
+            '第四季度': [moment().startOf('year').add(9, 'month'), moment().endOf('year')],
+            '上半年': [moment().startOf('year'), moment().startOf('year').add(6, 'month').subtract(1, 'day')],
+            '下半年': [moment().startOf('year').add(6, 'month'), moment().endOf('year')],
+        },   
+        opens : 'right', //日期选择框的弹出位置  
+        locale : {  
+            applyLabel : '确定', 
+            cancelLabel : '取消',
+            customRangeLabel : '自定义',  
+            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],  
+            monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+            // firstDay : 1, // 日历周一至周日从周几开始显示，默认0从周日开始
+            format : 'YYYY-MM-DD', //控件中from和to 显示的日期格式
+            // separator : '至',
+        },
+        alwaysShowCalendars: false,
+    }, function (start, end, label){
+    	// 回调函数【选择时间关闭弹窗时，会回调此匿名函数】
+    	// alert('callback_fun');
+    });
+	
+	$("#dialog-addduibi").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 600,
+		maxHeight: 450,
+		position: ["center",100],
+		buttons: {
+			"确定": function () {
+				var select_role = 0;
+				var arys = new Array();
+				var type_id = $('#type_id').val();
+				var content_id = $('#content_id').val();
+				$('#types_id').val(type_id);
+				$('#contents_id').val(content_id);
+				$('.duibi_role_id').each(function(k, v){
+					duibi_id = $(this).find("option:selected").val();
+					if(duibi_id){
+						if(jQuery.inArray(duibi_id,arys) >= 0){
+							swal({
+								title: "对比员工不能重复！",
+								type: "error"
+							});
+							return false;
+						}
+						arys[k] = duibi_id;
+						select_role +=1;
+					}
+				})
+				var select_type = $('#select_type').val();
+				if(select_role < 2){
+					swal({
+						title: "对比员工至少2位!",
+						type: "error"
+					});
+					return false;
+				}else if(select_type == '' || select_type == 0){
+					swal({
+						title: "对比时间不能为空！",
+						type: "error"
+					});
+					return false;
+				}else{
+					$('#remind_form').submit();
+					return true;
+				}
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
+	$("#addduibi").click(function(){
+		var mokuai_id = $('#type_id').val();
+		var content_id = $('#content_id').val();
+		var dbname = $('#dbname').val();
+		var select_type = $('#select_type').val();
+		$('#dialog-addduibi').dialog('open');
+		$('#dialog-addduibi').load('{:U("business/addduibi","content_id=")}'+content_id +'&dbname='+dbname+'&select_type='+select_type);
+	});
+	
+	$("#dialog-role-info").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 600,
+		maxHeight: 550,
+		position: ["center",100]
+	});
+	
+	$(".role_info").click(function(){
+		$role_id = $(this).attr('rel');
+		$('#dialog-role-info').dialog('open');
+		$('#dialog-role-info').load('{:U("user/dialoginfo","id=")}'+$role_id);
+	});
+
+	$(function () {
+		var canvas_width = $('#an_chart').width();
+		var canvas_height = $('#an_chart').height();
+		$('#canvas_status').css({width:canvas_width*0.6});
+
+		// 销售漏斗
+		$('#canvas_status').highcharts({
+			chart: {
+				type: 'funnel',
+				marginRight: 100
+			},
+			title: {
+				text: '',
+				x: -50
+			},
+			plotOptions: {
+				series: {
+					dataLabels: {
+						enabled: true,
+						format: '<b>{point.name}</b> ({point.y:,.0f})',
+						color: 'black',
+						softConnector: true
+					},
+					neckWidth: '30%',
+					neckHeight: '25%'
+				}
+			},
+			legend: {
+				enabled: false
+			},
+			series: [{
+				name: '销售漏斗分析',
+				data: {$funnel_data_js ?: '[]'}
+			}]
+		});
+	});
+
+	//商机漏斗对比
+	$(function () {
+		<volist name="duibi_array" key="k" id="vo">
+
+			$('#sales_funnel_{$k}').highcharts({
+				chart: {
+					type: 'funnel',
+					marginRight: 100
+				},
+				title: {
+					text: '',
+					x: -50
+				},
+				plotOptions: {
+					series: {
+						dataLabels: {
+							enabled: true,
+							format: '<b>{point.name}</b> ({point.y:,.0f})',
+							color: 'black',
+							softConnector: true
+						},
+						neckWidth: '30%',
+						neckHeight: '25%'
+					}
+				},
+				legend: {
+					enabled: false
+				},
+				series: [{
+					name: '{:L('STAGE_OPPORTUNITIES_FOR')}',
+					data: [{$vo['status_count_array']}]
+				}]
+			});
+		</volist>
+	});
+</script>
+<include file="Public:footer" />

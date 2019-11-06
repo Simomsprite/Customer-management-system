@@ -1,0 +1,104 @@
+<div class="clearfix">
+    <form class="form-inline" id="dd" onkeydown="if(event.keyCode==13){return false;}">
+        <ul class="nav pull-left form-inline">
+            <li class="pull-left">
+                <select style="width:auto;" class="form-control" name="d_department" id="d_department">
+                    <option class="all" value="all">{:L('ALL')}</option>
+                    <option value="number">编号</option>
+                    <option value="number">负责人</option>
+                </select>&nbsp;&nbsp;
+            </li>
+            <li class="pull-left">
+                <input class="form-control" id="d_name" type="text" name="d_name" value="{$search_field['d_name']}" placeholder="采购单编号/负责人"
+                    onkeydown="if(event.keyCode==13)changeCondition1(0)" />&nbsp;&nbsp;
+            </li>
+            <li class="pull-left">
+                <input type="button" onclick="changeCondition1(0)" class="btn btn-primary" value="{:L('SEARCH')}" />
+            </li>
+        </ul>
+    </form>
+</div>
+<if condition="$list">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="width: 50px;">&nbsp;</th>
+                <th>采退单编号</th>
+                <th>负责人</th>
+                <th>日期</th>
+            </tr>
+        </thead>
+        <tfoot id="footers">
+            <tr>
+                <td colspan="7">
+                    <?php if ($page['size'] > 1) { ?>
+                        <div class="pull-right">
+                            共 {$page['count']} 条记录 {$page['p']} / {$page['size']} 页
+                            <select id="page" url="{$page['url']}">
+                                <?php for($i = 1; $i <= $page['size']; $i++) { ?>
+                                    <option value="{$i}" <?php echo $page['p'] == $i ? 'selected' : ''; ?> >第{$i}页</option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    <?php } ?>
+                </td>
+            </tr>
+        </tfoot>
+        <tbody id="data2">
+            <volist name="list" id="val">
+                <tr>
+                    <td>
+                        <div class="radio radio-info radio-inline" style="margin-left:25px;">
+                            <input name="sales_id" class="sales_id" type="radio" rel="{$val['sn_code']}" value="{$val['sales_id']}" price="{$val['sales_price']}" supplier-id="{$val['supplier_id']}" supplier-name="{$val['supplier_name']}">
+                            <label for=""></label>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="{:U('purchase/return_goods_view', array('id' => $val['sales_id']))}" target="_blank">
+                            {$val['sn_code']}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);">
+                            {$val['owner_role_name']}
+                        </a>
+                    </td>
+                    <td>
+                        {$val['sales_time']}
+                    </td>
+                </tr>
+            </volist>
+        </tbody>
+    </table>
+    <else />
+    <div style="clear:both">
+        <include file="Public:nodata" />
+    </div>
+</if>
+<script type="text/javascript">
+    var id = "{$_GET['id']}";
+    if (id) {
+        $('input.owner[value="' + id + '"]').click();
+    }
+    
+    $('#page').on('click', function () {
+        var url = $(this).attr('url');
+        url += '&p=' + $(this).val();
+        $('#dialog-purchase_return-list').load(url);
+    });
+
+    $(function () {
+        $('#footers a').click(function () {
+            var rel = $(this).attr('href');
+            $("#dialog-purchase-list").load(rel);
+            return false;
+        });
+    });
+
+    $("#data2 tr").click(function () {
+        $(this).find('td:first-child .sales_id').prop('checked', true);
+    });
+    function changeCondition1() {
+        $("#dialog-purchase-list").load('index.php?' + $("#dd").serialize());
+    }
+</script>

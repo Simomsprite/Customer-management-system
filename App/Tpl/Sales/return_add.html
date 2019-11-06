@@ -1,0 +1,415 @@
+<style>
+	#form_dialog .form-control {
+		display: inline-block;
+	}
+</style>
+<form id="form_dialog" action="{:U('sales/return_add')}" method="post">
+	<table class="table table-bordered" id="no-input-border" width="95%">
+		<tr>
+			<td colspan="11">
+				<input type="hidden" name="process_status" value="{$process_status}">
+				<if condition="$process_status eq 1">
+					<div class="pull-left" style="width: 50%;">审批流
+						<select name="temp_id" class="form-control" style="display: inline-block;width: 250px;" required>
+							<option value="">--请选择--</option>
+							<volist name="process_list" id="vo">
+								<option value="{$vo['process_id']}">{$vo['name']}</option>
+							</volist>
+						</select>
+					</div>
+				<else />
+					<div class="pull-left" style="width: 50%;">审批人
+						<input type="hidden" name="temp_id" id="exam_role_id" value="" required />
+						<input class="form-control" type="text" id="exam_role_name" readonly="true" style="cursor:pointer;display: inline-block;width: 250px;" placeholder="请点击选择" required />
+					</div>
+				</if>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="11">
+				<?php if ($contract) { ?>
+					<div class="pull-left">关联合同&#12288;
+						<input type="hidden" name="contract_id" required="" value="{$contract['contract_id']}" aria-required="true">
+						<input class="form-control" type="text" readonly style="cursor:pointer; width: 250px;" value="{$contract['number']}">
+					</div>
+				<?php } else { ?>
+					<div class="pull-left">关联合同&#12288;
+						<input type="hidden" name="contract_id" required="" aria-required="true">
+						<input class="form-control" type="text" id="contract_id" readonly style="cursor:pointer; width: 250px;" placeholder="请点击选择">
+					</div>
+				<?php } ?>
+				<!-- <div class="pull-left" style="margin-left: 20px;">退货仓库&#12288;
+					<select name="warehouse_id" class="form-control" style="width: 250px;">
+						<option value="0">--选择仓库--</option>
+						<volist name="warehouse_list" id="vo">
+							<option value="{$vo['warehouse_id']}">{$vo['name']}</option>
+						</volist>
+					</select>
+				</div> -->
+			</td>
+		</tr>
+		<tr style="background-color:#f9fafc;text-align:center;">
+			<td style="background-color:#f9fafc;padding:14px;color:#999">产品名称</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">规格</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">库存总量</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">销售数量</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">已出库数</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">退货数</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">退货入库数</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">单位</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">退货数</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">退货单价（元）</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">小计（元）</td>
+		</tr>
+		<tr class="nodata">
+			<td colspan="11">
+				<div style="background-color:#fff;">
+					<include file="Public:nodata" />
+				</div>
+			</td>
+		</tr>
+		<tr class="tr_goods_model hide"  style="text-align:center;padding:14px;color:#666">
+			<td class="product_name"></td>
+			<td class="spec"></td>
+			<td class="stock_count"></td>
+			<td class="amount"></td>
+			<td class="out_count"></td>
+			<td class="return_count"></td>
+			<td class="return_in_count"></td>
+			<td class="unit"></td>
+			<td class="count">
+				<!-- <a href="javascript:void(0);" class="select_SN" hidden rel="" name="">
+					<span class="label label-success">SN</span>
+				</a> -->
+				<input type="hidden" class="sn_ids" value="">
+				<input type="hidden" class="unit" value="">
+				<input type="number" min="0" class="form-control" value="0" style="width: 100px;">
+			</td>
+			<td class="price_cost">
+				<input type="number" name="" class="form-control" style="width: 100px;">
+			</td>
+			<td class="subtotal">0</td>
+		</tr>
+		<tr style="text-align:center;padding:14px;color:#666">
+			<td>产品数量</td>
+			<td colspan="3" class="total_product_count">0</td>
+			<!-- <td>费用</td>
+			<td colspan="2" class="total_product_price">0</td> -->
+			<!-- <td>其他费用</td>
+			<td class="other_price">
+				<input type="number"  class="form-control" name="other_price" value="0" style="width: 100px;">
+			</td> -->
+			<td colspan="2">费用总计</td>
+			<td colspan="3" class="total_price">0</td>
+		</tr>
+		<tr>
+			<td colspan="11" class="text-right">
+				<input type="hidden" name="total_price">
+				<label><input type="checkbox" id="return_good_consult" class="form-control" style="width: 15px;height: 15px;">已通过协商，获批的退款金额为</label>
+				<input type="text" name="consult_total_price" readonly="readonly" class="form-control" autocomplete="off" style="width: 150px; margin-left: 20px;"> 元
+			</td>
+		</tr>
+		<tr>
+			<td colspan="11">
+				<div style="margin: 10px 0;">
+					<div style="width: 49%;display: inline-block;">
+						退货标题&#12288;
+						<input class="form-control" style="width: 80%;" type="text" name="name" value="" required />
+					</div>
+					<div style="width: 49%;display: inline-block;">退货单号&#12288;
+						<input class="form-control" style="width: 80%;" type="text" name="number" value="{$number}" required />
+					</div>
+				</div>
+				<div style="margin: 10px 0;">
+					<div style="width: 49%;display: inline-block;">退货日期&#12288;
+						<input type="text" class="form-control Wdate" autocomplete="off" style="width: 80%;" name="return_time" value="{:date('Y-m-d')}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" required >
+					</div>
+					<div style="width: 49%;display: inline-block;">负责人&#12288;&#12288;
+						<input type="hidden" name="owner_role_id" id="owner_role_id" value="{:session('role_id')}">
+						<input class="form-control valid" type="text" value="{:session('name')}" readonly="true" style="width: 80%;">
+					</div>
+				</div>
+				<!-- <div style="margin-bottom: 10px;">
+					<div style="width: 49%;display: inline-block;">负责人&#12288;&#12288;
+						<input type="hidden" name="owner_role_id" required="" aria-required="true">
+						<input class="form-control" type="text" id="owner_role_id" readonly="true" style="cursor:pointer; width: 80%;" placeholder="请点击选择">
+					</div>
+				</div> -->
+				<div>
+					<div style="width: 49%;display: inline-block;">
+						<div style="display: inline-block;position: relative;width: 65px;">
+							<div style="position: absolute;top: -53px;">备注</div>
+						</div>
+						<textarea rows="3" class="form-control" name="remark" style="width: 80%;"></textarea>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</form>
+<div style="display:none" id="dialog-select-SN" title="SN码选择">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+
+<div id="dialog-owner_role-list"></div>
+<div id="dialog-contract-list"></div>
+
+<div style="display:none" id="dialog-exam-rolelist" title="选择审批人">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		if ($('input[name="contract_id"]').val()) {
+			productList();
+		}
+	});
+	
+	// 选择审批人
+	$("#dialog-exam-rolelist").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 160],
+		buttons: {
+			'{:L("OK")}': function () {
+				var role_info = $('input[type="radio"].owner:checked');
+				$('#exam_role_id').val(role_info.val());
+				$('#exam_role_name').val(role_info.attr('rel'));
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}': function () {
+				$(this).dialog('close');
+			}
+		},
+		close: function () {
+			$(this).html('');
+		}
+	});
+	$('#exam_role_name').on('click', function () {
+		$("#dialog-exam-rolelist").dialog('open');
+		$("#dialog-exam-rolelist").load('{:U("user/listDialog")}&id=' + $('#exam_role_id').val());
+	});
+	
+	$("#dialog-owner_role-list").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 80],
+		buttons: {
+			'{:L("OK")}': function () {
+				var role_info = $('input[type="radio"].owner:checked');
+				$('input[name="owner_role_id"]').val(role_info.val());
+				$('#owner_role_id').val(role_info.attr('rel'));
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}': function () {
+				$(this).dialog('close');
+			}
+		},
+		close: function () {
+			$(this).html('');
+		}
+	});
+	$('#owner_role_id').on('click', function () {
+		$("#dialog-owner_role-list").dialog('open');
+		$("#dialog-owner_role-list").load('{:U("user/listDialog")}&id=' + $('input[name="owner_role_id"]').val());
+	});
+
+	//弹窗选择合同
+	$("#dialog-contract-list").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 80],
+		buttons: {
+			'{:L("OK")}': function () {
+				var contract_id = $('input:radio[name="contract"]:checked').val();
+				var number = $('input:radio[name="contract"]:checked').parent().parent().next().html();
+
+				$('input[name="contract_id"]').val(contract_id);
+				$('#contract_id').val(number);
+				productList();
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}': function () {
+				$(this).dialog('close');
+			}
+		},
+		close: function () {
+			$(this).html('');
+		}
+	});
+	$('#contract_id').on('click', function () {
+		$("#dialog-contract-list").dialog('open');
+		$("#dialog-contract-list").load('{:U("contract/listDialog")}&contract_id=' + $('input[name="contract_id"]').val());
+	});
+
+	/*选择sn
+	$('#dialog-select-SN').dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 80],
+		buttons: {
+			"确认": function () {
+				var count = Number($('#SN_count').html());
+				var surplus = Number($('#SN_select_surplus').html());
+				if (count > surplus) {
+					swal('选择SN码数量超过待入库数量！', '待入库数' + surplus + ',超出' + (count - surplus), 'warning');
+					return false;
+				}
+				SN_arr = [];
+				$('#select_SN_form input.SN:checked').each(function (key, val) {
+					SN_arr.push($(val).val());
+				});
+				var product_info_id = $('#select_SN_form input[name="product_info_id"]').val();
+				$('input[name="product_info_list[' + product_info_id + '][sn]"]').val(SN_arr);
+				$('input[name="product_info_list[' + product_info_id + '][count]"]').val(SN_arr.length);
+				totalCount();
+				$(this).dialog("close");
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		}
+	});
+	$('.select_SN').on('click', function () {
+		var param = {};
+		param.product_info_id = $(this).attr('rel');
+		param.name = $(this).attr('name');
+		param.surplus = $(this).parents('tr').find('.stock_in_count').html();
+		if (param.surplus == 0) {
+			swal('本仓库没有没有此次采购的该产品库存，无法退货。');
+			return false;
+		}
+		param.sn_ids = $(this).parent('td').find('input.sn_ids').val();
+		param.contract_id = $('[name="contract_id"]').val();
+		$('#dialog-select-SN').dialog('open');
+		$('#dialog-select-SN').load('{:U("Purchase/returnGoodSnView")}&' + $.param(param));
+	});
+	$('.count input').on('click', function () {
+		if ($(this).prop('readonly')) {
+			$(this).parents('td').find('.select_SN').click();
+		}
+	});*/
+
+	function productList() {
+		var contract_id = Number($('input[name="contract_id"]').val());	
+		if (contract_id) {
+			$.ajax({
+				url: '{:U("sales/product_list")}',
+				type: 'POST',
+				data: {contract_id: contract_id},
+				dataType: 'JSON',
+				success: function (res) {
+					if (res.status && res.product_list.length > 0) {
+						$('.return_product').remove();
+						$('.nodata').hide();
+						$.each(res.product_list, function (key, val) {
+							var model = $('.tr_goods_model').clone(1);
+							model.find('.product_name').html(val.product_name);
+							model.find('.spec').html(val.spec);
+							model.find('.stock_count').html(val.stock_count);
+							model.find('.amount').html(val.amount);
+							model.find('.out_count').html(val.out_count);
+							model.find('.unit').html(val.unit);
+							model.find('.unit input').attr('name', 'product_info_list['+ val.product_info_id +'][unit]');
+							if (val.has_sn == 1) {
+								model.find('.count a').show();
+								model.find('.count a').attr('name', val.name + '(' + val.spec.string + ')');
+								model.find('.count a').attr('rel', val.product_info_id);
+								model.find('.count input.sn_ids').attr('name', 'product_info_list[' + val.product_info_id + '][sn]');
+								// model.find('.count input.form-control').prop('readonly', true);
+							}
+							var return_count = res.return_count_list[val.product_info_id] ? res.return_count_list[val.product_info_id] : 0;
+							var return_in_count = res.return_in_count_list[val.product_info_id] ? res.return_in_count_list[val.product_info_id] : 0;
+							return_count = Number(return_count);
+							model.find('.return_count').html(return_count);
+							model.find('.return_in_count').html(return_in_count);
+							model.find('.count input.form-control').attr('name', 'product_info_list[' + val.product_info_id + '][count]');
+							var max = Number(val.out_count) - return_count;
+							model.find('.count input.form-control').attr('max', max);
+							model.find('.price_cost input').attr('name', 'product_info_list[' + val.product_info_id + '][price_cost]');
+							model.find('.price_cost input').val(val.unit_price);
+							model.addClass('return_product');
+							model.removeClass('tr_goods_model');
+							model.removeClass('hide');
+							$('.nodata').before(model);
+						});
+					} else {
+						$('.nodata').show();
+					}
+				}
+			});
+		}
+	}
+	// 计数
+	$('.count input.form-control,.price_cost input,.other_price input').on('input', function () {
+		//如果填写的是退货数，则不能大于已出库数
+		var max_return_count = Number($(this).attr('max'));
+		var return_count = Number($(this).val());
+		if (max_return_count && (return_count > max_return_count)) {
+			alert_crm('退货数不能大于已出库数');
+			$(this).val(max_return_count);
+			return false;
+		}
+		totalCount();
+	});
+	function totalCount () {
+		var count = 0;
+		$('.return_product .count input.form-control').each(function (key, val) {
+			count += Number($(val).val());
+		});
+		$('.total_product_count').html(count);
+		totalPrice();
+	}
+	// 计价
+	function totalPrice() {
+		var total_product_price = 0;
+		$('.return_product').each(function (key, val) {
+			var product_count = Number($(val).find('.count .form-control').val());
+			var product_price = Number($(val).find('.price_cost input').val());
+			var subtotal = Number(product_count * product_price);
+			$(val).find('.subtotal').html(subtotal);
+			total_product_price += subtotal;
+		});
+
+		total_product_price = Number(total_product_price);
+		// var total_price = total_product_price + Number($('.other_price input').val());
+		$('.total_product_price').html(total_product_price);
+		$('.total_price').html(total_product_price);
+		if (!$('#return_good_consult').is(':checked')) {
+			$('#return_good_consult').parents('td').find('[name="consult_total_price"]').val(total_product_price);
+		}
+		$('#return_good_consult').parents('td').find('[name="total_price"]').val(total_product_price);
+	}
+	$('#return_good_consult').on('change', function () {
+		totalPrice()
+	});
+
+	//是否协商价格
+	$('#return_good_consult').click(function(){
+		if ($(this).is(':checked')) {
+			$('input[name="consult_total_price"]').attr('readonly', false);
+		} else {
+			$('input[name="consult_total_price"]').attr('readonly', true);
+			$('input[name="consult_total_price"]').val(Number($('.total_price').html()));
+		}
+	});
+</script>

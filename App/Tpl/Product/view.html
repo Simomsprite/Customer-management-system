@@ -1,0 +1,666 @@
+<include file="Public:header" />
+<script src="__PUBLIC__/js/PCASClass.js" type="text/javascript"></script>
+<style>
+	/*悬浮提示信息框样式*/
+	.fa-info-circle {
+		font-size: 16px;
+		color: rgb(249, 94, 0);
+		cursor: pointer;
+	}
+	.popover {
+	 	color: rgb(249, 94, 0);
+	}
+	/*悬浮提示信息框样式*/
+</style>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+	    <div class="col-lg-12">
+			<div class="title-bar" style="">
+				<div class="row " id="title-show">
+					<ul class="nav pull-left" style="margin:0px 10px 0px 20px;">
+						<span><img src="__PUBLIC__/img/product_view_icon.png" style="margin-bottom:9px;" alt=""></span><span style="font-size:21px;margin-left:5px">&nbsp;&nbsp;&nbsp;{$product['name']}</span>&nbsp;&nbsp; 
+					</ul>
+					<if condition="$product['is_deleted'] neq 1">
+						<a href="javascript:void(0)" id="delete_product" class="btn btn-outline btn-default pull-right" style="margin-right: 15px;"><i class="fa fa-times"></i>&nbsp;&nbsp;下架</a>&nbsp;&nbsp;
+					<else />
+						<a href="javascript:void(0)" id="revert_product" class="btn btn-outline btn-default pull-right" style="margin-right: 15px;"><i class="fa fa-undo"></i>&nbsp;&nbsp;上架</a>&nbsp;&nbsp;
+					</if>
+					<a href="{:U('product/edit','id='.$product['product_id'])}" class="btn btn-outline btn-default pull-right" style="margin-right: 15px;"><i class="fa fa-pencil"></i>&nbsp;&nbsp;编辑</a>&nbsp;&nbsp;
+				</div>
+			</div>
+		    <div class="tabs-container">
+		    	<div style="padding: 15px 0px 0px 20px; background: rgb(255, 255, 255); min-height: 492.48px;" id="left-content">
+					<ul class="nav nav-tabs" id="left_list" style="height:40px;">
+						<li class="active" ><a href="#tab1" data-toggle="tab" type="tab1">{:L('BASIC_INFORMATION')}</a></li>
+						<li><a href="#tab4" data-toggle="tab" type="tab4">产品规格</a></li>
+						<li><a href="#tab3" data-toggle="tab" type="tab3">日程</a></li>
+						<li><a href="#tab2" data-toggle="tab" type="tab2">产品附件</a></li>
+					</ul>
+					<div class="tab-content ">
+						<div class="tab-pane in active " id="tab1">
+							<div class="panel-body ">
+								<include file="Public:alert" />
+								<div class="form-horizontal view-group " >
+				                    <div class="form-group">
+				                        <label class="col-lg-2 control-label">{:L('CREATION_TIME')}</label>
+				                        <div class="col-lg-4">
+				                            <p class="form-p">
+				                                <if condition="$product['create_time'] neq 0">{$product.create_time|date='Y-m-d H:i:s',###}</if>
+				                            </p>
+				                        </div>
+				                        <label class="col-lg-2 control-label">{:L('ADD_THE_INFORMATION_ON_PRODUCTS')}</label>
+				                        <div class="col-lg-4">
+				                            <p class="form-p">
+				                                <a class="role_info" href="javascript:void(0)" rel="{$product.owner.role_id}">{$product.owner.user_name}</a>
+				                            </p>
+				                        </div>
+				                    </div>
+		                            <div id="list-show" rel="false" class="">
+		                            	<php>$j=0;</php>
+				                        <volist name="field_list" id="vo" key="k">
+				                        <php>$j++;</php>
+				                        <?php 
+					                        if($vo['form_type'] == 'datetime' && $product[$vo['field']] != 0){
+					                            $product[$vo['field']] = date('Y-m-d H:i', $product[$vo['field']]);
+					                        }elseif ($vo['form_type'] == 'datetime' && $product[$vo['field']] == 0) {
+					                            $product[$vo['field']] = ' ';
+					                        }
+				                        ?>
+				                        <?php if ($k%2 == 0): ?>
+				                            <label class="col-lg-2 control-label">{$vo['name']}</label>
+				                            <div class="col-lg-4">
+				                                <?php if ($vo['field'] != null): ?>
+				                                <p class="form-p">
+				                                    <span style="color:#{$vo['color']}">{$product[$vo['field']]}</span>
+				                                </p>
+				                                <?php endif; ?>
+				                            </div>
+				                        </div>
+				                        <?php else: ?>
+					                        <div class="form-group">
+					                            <label class="col-lg-2 control-label">{$vo['name']}</label>
+					                            <div class="col-lg-4">  
+					                                <p class="form-p">
+					                                    <span style="color:#{$vo['color']}">{$product[$vo['field']]}</span>
+					                                </p>
+					                            </div>
+					                        <?php if (count($field_list) == $j): ?>
+					                        	<div class="col-lg-6">
+					                            </div>
+					                        </div>
+					                        <?php endif; ?>                   
+				                        <?php endif; ?>
+				                        </volist>
+				                        <div class="form-group">
+					                        <label class="col-lg-2 control-label">是否有SN码</label>
+					                        <div class="col-lg-4">
+					                            <p class="form-p">
+					                                <if condition="$product['has_sn'] eq 1">是<else />否</if>
+					                            </p>
+					                        </div>
+					                        <div class="col-lg-6"></div>
+					                        <label class="col-lg-2 control-label">启用多规格</label>
+					                        <div class="col-lg-4">
+					                            <p class="form-p">
+					                                <if condition="$product['enable_spec'] eq 1">是<else />否</if>
+					                                <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="启用或禁用多规格操作请切换到“产品规格”菜单中设置"></i>
+					                            </p>
+					                        </div>
+					                        <div class="col-lg-6"></div>
+					                    </div>
+
+					                    <!-- <div class="form-group">
+					                        <label class="col-lg-2 control-label">库存</label>
+					                        <div class="col-lg-4">
+					                            <p class="form-p">
+					                                {$product['stock_count']}
+					                            </p>
+					                        </div>
+					                        <div class="col-lg-6"></div>
+					                    </div> -->
+					                    <div class="form-group">
+					                        <label class="col-lg-2 control-label">产品图片</label>
+					                        <div class="col-lg-4 ">
+					                            <a class="litebox" href="{$product['images']['main']['path']}" title="点击查看大图"><img src="{$product.images.main.thumb_path}" style="max-width: 200px;height: auto;"/></a>
+					                        </div>
+					                        <div class="col-lg-6 "></div>
+					                    </div>
+				                    </div>
+								</div>
+							</div>
+						</div>
+						<div id="tab4" class="tab-pane fade in">
+					        <div class="panel-body">
+					            <div class="ibox">
+					            	<if condition="$product['enable_spec'] eq 0">
+						            	<div class="pull-left" style="padding-top: 10px;color: red;">
+						            		注：您未启用多规格，下方相关商码、价格信息即可看做是和产品添加或编辑时的同一信息
+						            	</div>
+					            	</if>
+					    			<div class="pull-right" style="padding-bottom: 15px"> 
+				                    	<if condition="$product['enable_spec'] eq 1">
+				                    		<a class="btn btn-primary btn-sm" href="javascript:void(0);" id="add_spec">添加产品规格</a>
+				                    		<a class="btn btn-primary btn-sm" href="javascript:void(0);" id="multi_spec" enable_spec="0">禁用多规格</a>
+				                    	<else />
+				                    		<a class="btn btn-primary btn-sm" href="javascript:void(0);" id="multi_spec" enable_spec="1">启用多规格</a>
+				                    	</if>
+				                    </div>
+					                <empty name="product_info_list">
+					                    <include file="Public:nodata" />
+					                <else />
+					                    <table class="table select-table table-bordered">
+					                        <tr class="tabTh" style="border-right: 1px solid #e7eaec;text-align:center;background-color:#f9fafc;padding:14px;color:#999">
+					                            <td>序号</td>
+					                            <td>产品规格</td>
+					                            <td>商品编码</td>
+					                            <td>条形码</td>
+					                            <td>成本价 <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="统计时，作为计算实际销售成本的依据"></i></td>
+					                            <td>采购价 <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="建议的采购价格，与成本计算无关，如不需要可不填"></i></td>
+					                            <td>建议售价</td>
+					                            <td>状态</td>
+					                            <td></td>
+					                        </tr>
+					                        <tbody>
+					                            <volist name="product_info_list" id="vo">
+					                            <tr style="text-align:center;padding:14px;color:#666;border-right: 1px solid #e7eaec;">
+					                                <td>{$key+1}</td>
+					                                <td>{$vo['spec']}</td>
+					                                <td>{$vo['number']}</td>
+					                                <td>{$vo['bar_code']}</td>
+					                                <td>{$vo['price_cost_avg']}</td>
+					                                <td>{$vo['price_cost']}</td>
+					                                <td>{$vo['price']}</td>
+					                                <td>
+					                                	<if condition="$vo['state'] eq 1">
+															<span style="color: red;">下架</span>
+					                                	<else />
+															上架
+					                                	</if>
+					                                </td>
+					                                <td class="dropdown">
+					                                	<span class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;color:#8FA1B2">
+					                                        <i class="fa fa-angle-down fa-lg"></i>
+					                                    </span>
+					                                    <ul class="dropdown-menu">
+						                                    <if condition="$vo['state'] eq 1">
+							                                    <li><a href="javascript:void(0);" class="oper_type upper" rel="{$vo.product_info_id}">上架</a></li>
+						                                    <else />
+																<li><a href="javascript:void(0);" class="product_edit" rel="{$vo.product_info_id}">修改</a></li>
+																<li><a href="javascript:void(0);" class="oper_type lower" rel="{$vo.product_info_id}">下架</a></li>
+						                                    </if>
+					                                    </ul>
+					                                </td>
+					                            </tr>
+					                            </volist>
+					                        </tbody>
+					                    </table>
+					                </empty>
+					            </div> 
+					        </div>
+					    </div>
+						<div class="tab-pane fade back_box" id="tab3">
+							<div class="panel-body">
+								 <div class="ibox">
+								   <empty name="event_list">
+										<include file="Public:nodata" />
+									<else />
+										<volist name="event_list" id="vo">
+											<div style="padding-bottom:20px;border-left:1px solid #ccc;margin: 5px 0 0 15px;">
+												<if condition="$vo['color']">
+													<i class="fa fa-circle pull-left" style="margin-left:-5px;color:{$vo['color']};font-size:12px;"></i>
+												<else />
+													<i class="fa fa-circle pull-left" style="margin-left:-5px;color:#FB8F7A;font-size:12px;"></i>
+												</if>
+												<div class="pull-left" style="margin-left:25px;color:#999">
+													<div>{$vo['start_date']|date="H:i",###}</div>
+													<div>{$vo['start_date']|date="Y/m/d",###}</div>
+												</div>
+												<div class="pull-left" style="margin-left:25px;color:#999">
+													<div style="margin-top:11px;">~</div>
+												</div>
+												<div class="pull-left" style="margin-left:25px;color:#999">
+													<div>{$vo['end_date']|date="H:i",###}</div>
+													<div>{$vo['end_date']|date="Y/m/d",###}</div>
+												</div> 
+												<div class="pull-left" style="margin-left:25px;"><img src="{$vo['img']}" style="width:30px;height:30px;border-radius:50px;margin-top:5px;"></div>
+												<div class="pull-left" style="margin-left:10px;width:60%">
+													<div>{$vo['create_role_name']} &nbsp;<if condition="$vo['bus_num']">({$vo['bus_num']})</if></div>
+													<div>{$vo['subject']}</div> 
+												</div>
+												<div style="clear:both"></div>
+											</div>
+										</volist>
+									</empty>
+								</div> 
+							</div>
+						</div>
+						<div class="tab-pane " id="tab2">
+							<div class="panel-body">
+								<div class="header1">
+									<div class="pull-right">
+										<a href="javascript:void(0);" type="button" class="add_file btn btn-primary"><i class="fa fa-upload"></i>&nbsp;&nbsp;上传</a>
+									</div>
+									<div style="clear:both;"></div>
+								</div>
+								<table class="table product-table">
+									<if condition="$product.file eq null">
+										<div style="background-color:#fff;"><include file="Public:nodata" /></div>
+									<else /> 
+										<tr>
+											<td>{:L('FILENAME')}</td>
+											<td>{:L('SIZE')}</td>
+											<if condition="C('ismobile') neq 1"><td>上传人</td>
+											<td>上传时间</td><td>操作</td></if>
+										</tr>
+										<volist name="product.file" id="vo">
+											<tr>
+												<td>
+													<img src="__PUBLIC__/productImg/{$vo['pic']}" alt="">
+													<a <if condition="in_array(getExtension($vo['name']),imgFormat())">class="litebox_file" href="{$vo['file_path']}" data-litebox-group="group-{$product['product_id']}" title="点击查看大图"<else/>href="javascript:;" file="{$vo.file_path}" filename="{$vo.name}" onclick="filedown(this);"</if>>{$vo.name}</a>
+												</td>
+												<td>
+													{$vo.size}KB
+												</td>
+												<if condition="C('ismobile') neq 1"><td>
+													<notempty name="vo.owner.user_name">{$vo.owner.user_name}</notempty>
+												</td>
+												<td>
+													<notempty name="vo.create_date">{$vo.create_date|date="Y-m-d H:i",###}</notempty>
+												</td>
+												<td class="tdleft">
+													<a href="javascript:void(0);" class="del_product" rel="{$vo['file_id']}">{:L('DELETE')}</a>
+													<a href="javascript:;" file="{$vo.file_path}" filename="{$vo.name}" onclick="filedown(this);">下载</a>
+												</td>
+												</if>
+											</tr>
+										</volist>
+									</if>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="" style="display:none;" id="dialog-file" title="{:L('ADD_ATTACHMENT')}">
+	<include file="Public:loading" />
+</div>
+
+<div class="" style="display:none;" id="dialog-role-info" title="{:L('EMPLOYEE_INFORMATION')}">
+	<include file="Public:loading" />
+</div>
+
+<div id="dialog-add-spec" style="display:none" title="增加产品规格">
+    <include file="Public:loading" />
+</div>
+<div style="display:none" id="dialog-edit-spec" title="编辑产品规格">
+	<include file="Public:loading" />
+</div>
+<link href="__PUBLIC__/css/litebox.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/js/litebox.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/images-loaded.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	//页面加载时执行Tab start
+	$(function(){
+		var thisId = window.location.hash; 
+		var atype = thisId.substr(1);
+		$('#left_list a[type="'+atype+'"]').tab('show');
+	 });
+	// 页面加载时执行Tab end
+	$('#left_list a').click(function (e) {
+		var maodian = '#'+$(this).attr('type');
+		url_jump(maodian);
+	});
+	function url_jump(maodian){
+	    var product_id = "{$product['product_id']}";;
+	    var url = "{:U('product/view','id=')}"+product_id+maodian;
+	    window.history.replaceState({},0,'http://'+window.location.host+url);
+	}
+
+	//初始化图片查看插件
+	$('.litebox').liteBox({
+	  revealSpeed: 400,
+	  background: 'rgba(0,0,0,.8)',
+	  overlayClose: true,
+	  escKey: true,
+	  navKey: true,
+	  errorMessage: '图片加载失败.'
+	});
+	/**
+	 * 如果是图片时 双击可查看大图
+	 */
+	$('.litebox_file').liteBox({
+	  revealSpeed: 400,
+	  background: 'rgba(0,0,0,.8)',
+	  overlayClose: true,
+	  escKey: true,
+	  navKey: true,
+	  errorMessage: '图片加载失败.'
+	});
+
+	//排序
+	$(".ui-sortable").sortable({
+		connectWith: ".box-secondary",
+		stop:function() {
+			var images_arr = new Array();
+			$(".box-secondary").each(function(key, val){
+				images_arr.push($(val).attr('rel'));
+			});
+
+			$.post('{:U("product/sortImg")}',{images_arr:images_arr.join(',')},'json');
+		}
+	});
+
+	if ("{:C('isMobile')}" == "1") {
+		width = $('.container').width() * 0.9;
+	} else {
+		width = 800;
+	}
+	$(".role_info").click(function(){
+		$role_id = $(this).attr('rel');
+		$('#dialog-role-info').dialog('open');
+		$('#dialog-role-info').load('{:U("user/dialoginfo","id=")}'+$role_id);
+	});
+	$("#dialog-role-info").dialog({
+	    autoOpen: false,
+	    modal: true,
+		width: 600,
+		maxHeight: 550,
+		position: ["center",100]
+	});
+	$("#dialog-file").dialog({
+	    autoOpen: false,
+	    modal: true,
+		width: width,
+		maxHeight: 400,
+		position: ["center",100],
+		buttons: {
+			"确定": function () {
+			   location.reload();
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		}
+	});
+	$(".add_file").click(function(){
+		$('#dialog-file').dialog('open');
+		$('#dialog-file').load('{:U("file/add","r=RFileProduct&module=product&id=".$product["product_id"])}');
+	});
+	$(".more").click(function(){
+		log_id = $(this).attr('rel');
+		$('#llog_'+log_id).attr('class','');
+		$('#slog_'+log_id).attr('class','hide');
+	});
+	$('.del_product').click(function(){
+		var file_id = $(this).attr('rel');
+		swal({
+			title: "您确定要删除这个附件吗？",
+			text: "删除后将无法恢复，请谨慎操作！",
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "是的，我要删除！",
+	        cancelButtonText:'让我再考虑一下…',
+	        closeOnConfirm:false,
+	        closeOnCancel:false
+		},
+		function(isConfirm){
+	        if (isConfirm) {
+	        	$.ajax({
+		            type:'get',
+		            url: "{:U('file/delete','r=RFileProduct&id=')}"+file_id,
+		            async: false,
+		            success: function (data) {
+						if (data.status == 1) {
+							swal("删除成功！", "您已经永久删除了信息！", "success");
+							location.reload();
+						}else{
+							swal({
+								title: "操作失败！",
+								text:data.info,
+								type: "error"
+							})
+							return false;
+						}
+		            },
+		            dataType: 'json'
+		        });
+	        } else {
+	            swal("已取消","您取消了删除操作！","error");
+	        }
+	    });
+	});
+
+	// 下架
+	$('#delete_product').click(function(){
+		var product_id = "{$product['product_id']}";
+		swal({
+			title: "温馨提示",
+			text: "您确定要下架这个产品吗？",
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "是的，我要下架！",
+	        cancelButtonText:'让我再考虑一下…',
+	        closeOnConfirm:false,
+	        closeOnCancel:false
+		},
+		function(isConfirm){
+	        if (isConfirm) {
+	        	$.ajax({
+		            type:'get',
+		            url: "{:U('product/delete','id=')}"+product_id,
+		            async: false,
+		            success: function (data) {
+						if (data.status == 1) {
+							swal("下架成功！", "您已经下架了该产品！", "success");
+							location.reload();
+						}else{
+							swal({
+								title: "操作失败！",
+								text:data.info,
+								type: "error"
+							})
+							return false;
+						}
+		            },
+		            dataType: 'json'
+		        });
+	        } else {
+	            swal("已取消","您取消了下架操作！","error");
+	        }
+	    });
+	});
+
+	//上架产品
+	$('#revert_product').click(function(){
+		var product_id = "{$product['product_id']}";
+		swal({
+			title: "温馨提示",
+			text: "您确定要上架这个产品吗？",
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "是的，我要上架！",
+	        cancelButtonText:'让我再考虑一下…',
+	        closeOnConfirm:false,
+	        closeOnCancel:false
+		},
+		function(isConfirm){
+	        if (isConfirm) {
+	        	$.ajax({
+		            type:'get',
+		            url: "{:U('product/revert','product_id=')}"+product_id,
+		            async: false,
+		            success: function (data) {
+						if (data.status == 1) {
+							swal("上架成功！", "您已经上架了该产品！", "success");
+							location.reload();
+						}else{
+							swal({
+								title: "操作失败！",
+								text:data.info,
+								type: "error"
+							})
+							return false;
+						}
+		            },
+		            dataType: 'json'
+		        });
+	        } else {
+	            swal("已取消","您取消了下架操作！","error");
+	        }
+	    });
+	});
+
+	//增加产品多规格dialog
+    $("#dialog-add-spec").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 1200,
+        maxHeight: 700,
+        position: ["center", 100],
+        buttons: {
+            "确认": function () {
+            	//js提交场景，form表单必填验证
+				if (!$("#form").valid()) {
+					swal('信息未完善', '请检查必填项', 'warning');
+					return false;
+				}
+
+                $.ajax({
+                    type:'post',
+                    url: "{:U('product_info/product_spec_add')}",
+                    data:$('#form').serialize(),// 你的formid
+                    async:false,
+                    success:function(data){
+                        if(data.status == 1){
+                            alert_crm(data.info);
+                            window.location.reload();
+                        } else if(data.status == 0) {
+                        	//标记有规格重复的行
+							$.each(data.repeat_row,function(k, v){
+								$('.spec_tr_'+v).find('td').first().css('color','red');
+							});
+
+                            swal({
+								title: '不能添加已存在的规格产品，是否移除？',
+								type: "warning",
+								showCancelButton: true,
+								confirmButtonColor: "#DD6B55",
+								confirmButtonText: "确认",
+								cancelButtonText: "取消",
+								closeOnConfirm: true,
+								closeOnCancel:  true
+							}, function(isConfirm){
+								if (isConfirm) {
+									$.each(data.repeat_row,function(k, v){
+										$('.spec_tr_'+v).remove();
+									});
+									return false;
+								} else {
+									return false;
+								} 
+							});
+                        } else {
+                        	alert_crm(data.info);
+                        }
+                    },
+                    dataType:'json'
+                });
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        },
+		close: function () { 
+	    	dialog_destroy($(this));
+	    }
+    });
+    //增加产品多规格
+    $('#add_spec').click(function(){
+        var product_id = "{$product['product_id']}";
+        var category_id = "{$product['category_id']}";
+        var spec_arr = new Array();
+
+        $('#dialog-add-spec').dialog('open');
+        $('#dialog-add-spec').load("{:U('product_info/product_spec_add','product_id=')}"+product_id+"&category_id="+category_id);
+    });
+
+    //规格产品单个上下架
+    $('.oper_type').click(function(){
+    	var product_info_id = $(this).attr('rel');
+    	if ($(this).hasClass('upper')) {
+    		//上架
+    		var state = 0;
+    	} else if ($(this).hasClass('lower')){
+    		//下架
+    		var state = 1;
+    	}
+    	swal({
+			title: '您确认此操作吗',
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "确认",
+			cancelButtonText: "取消",
+			closeOnConfirm: true,
+			closeOnCancel:  true
+		}, function(isConfirm){
+			if (isConfirm) {
+				 $.ajax({
+                    type:'post',
+                    url:"{:U('product_info/upper_or_lower')}",
+                    data:{product_info_id:product_info_id,state:state},
+                    async:false,
+                    success:function(data){
+                        if(data.status == 1){
+                            rtal(data.info);
+                            window.location.reload();
+                        } else {
+                        	rtal(data.info,'warning');
+                        }
+                    },
+                    dataType:'json'
+                });
+			} else {
+				return false;
+			} 
+		});
+    });
+
+    //编辑产品
+    $("#dialog-edit-spec").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 500,
+		maxHeight: 450,
+		position: ["center", 100],
+		buttons: {
+			"确定": function () {
+				$('#form_dialog').submit();
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function () { 
+	    	dialog_destroy($(this));
+	    }
+	});
+	$(".product_edit").click(function () {
+		var product_info_id = $(this).attr('rel');
+		$('#dialog-edit-spec').dialog('open');
+		$('#dialog-edit-spec').load('{:U("product_info/edit","product_info_id=")}'+product_info_id);
+	});
+
+	//启用产品多规格
+	$('#multi_spec').click(function(){
+		var enable_spec = $(this).attr('enable_spec');
+		window.location.href = "{:U('product/multi_spec','product_id='.$product['product_id'].'&enable_spec=')}"+enable_spec;
+	});
+</script>
+<include file="Public:footer" />

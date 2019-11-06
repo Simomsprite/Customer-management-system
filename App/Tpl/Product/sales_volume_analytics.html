@@ -1,0 +1,488 @@
+<include file="Public:header" />
+<script type="text/javascript" src="__PUBLIC__/style/js/TableFreeze.js"></script>
+<script src="__PUBLIC__/style/js/plugins/nice-scroll/jquery.nicescroll.min.js" type="text/javascript"></script>
+
+<script src="__PUBLIC__/js/chart/highcharts.js"></script>
+<script src="__PUBLIC__/js/chart/modules/exporting.js"></script>
+<!-- daterangepicker -->
+<!-- <link href="__PUBLIC__/css/daterangepicker.css" rel="stylesheet"> -->
+<!-- <script src="__PUBLIC__/js/daterangepicker/daterangepicker.js"></script> -->
+<!--jQuery导出插件-->
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jquery.base64.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/tableExport.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/libs/sprintf.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/jspdf.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/libs/base64.js"></script>
+<!--jQuery导出插件-->
+<style>
+	body {
+        overflow-y: hidden;
+    }
+    .form-horizontal .form-group {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    /*该属性若不设为默认属性会影响到"select2"的效果*/
+
+    .input-group .form-control {
+        position: static;
+    }
+    #tab_Test3 tbody tr td {
+        border: 0px;
+        border-top: 1px solid #e7eaec;
+        height: 50px;
+    }
+    /*这个是为了固定左上角那个td*/
+
+    #oDivL_tab_Test3 {
+        background-color: #fff;
+        z-index: inherit !important;
+    }
+    .adjust {
+        position: absolute;
+        right: 10px;
+        display: none;
+    }
+    .adjust_td:hover .adjust {
+        display: inline-block;
+    }
+    .analytics {
+        color:#fff
+    }
+    .overflow_hide {
+        width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space:nowrap;
+    }
+	#charts_data .fa-long-arrow-up {
+		color: green;
+	}
+	#charts_data .fa-long-arrow-down {
+		color: red;
+	}
+	.fa-info-circle {
+		font-size: 16px;
+		color: rgb(249, 94, 0);
+		cursor: pointer;
+	}
+	.popover {
+	 	color: rgb(249, 94, 0);
+	}
+</style>
+<script>
+	$(function () {
+		var scroll_width = 10;
+		$(".nicescroll").niceScroll({
+			cursorcolor: "#999",//#CC0071 光标颜色 
+			cursoropacitymax: 0.4, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
+			touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
+			cursorwidth: scroll_width + "px", //像素光标的宽度 
+			cursorborder: "0", //     游标边框css定义 
+			cursorborderradius: "3px",//以像素为光标边界半径 
+			autohidemode: false, //是否隐藏滚动条 
+			zindex: 100,
+			background: "#F3F3F5",//滚动条背景色
+		});
+	})
+
+</script>
+<div class="wrapper wrapper-content ">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<include file="Public:analytics_left" />
+				<input type="hidden" id="content_id" value="{$content_id}">
+				<div class="col-lg-10">
+					<div class="ibox-content" style="padding-bottom:10px;border-bottom:none;">
+						<include file="Public:alert" />
+						<form id="search_form" class="form-group" method="get" style="margin-bottom: 0px;">
+							<input type="hidden" name="m" value="product" />
+							<input type="hidden" name="a" value="sales_volume_analytics" />
+							<input type="hidden" name="product_info_id" id="product_info_id" value="{$product_info_id}" />
+							<div class="row" style="height: 45px;">
+								<div class="col-lg-4">
+									<div class="pull-left">
+										<span style="font-size: 18px;color: #000;">
+											产品销售统计
+										</span>
+										<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="数据均以审批通过合同为准。" data-original-title="" title=""></i>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="nav pull-left" style="margin:2px 15px 0 0px;width: 165px;">
+										<div class="input-group">
+											<input class="form-control required" placeholder="请点击选择" type="text" id="product_info_name" value="{$product_info['product_name']}" readonly="true" style="cursor:pointer;" title="请点击选择产品">
+										</div>
+									</div>
+									<div class="nav pull-left" style="margin:2px 15px 0 0px;width: 225px;">
+										<div class="input-group">
+											<input type="text" id="start_date" name="start_date" class="form-control pull-left" placeholder="开始时间" autocomplete="off" style="width: 85px;" onFocus="WdatePicker({dateFmt:'yyyy-MM', maxDate: '<?php echo date("Y-m"); ?>'})"/>
+											<select id="month_length" name="month_length" class="form-control" style="width: 140px;border-left: 0px;" title="月份长度">
+												<option value="1">向后查1个月</option>
+												<option value="2">向后查2个月</option>
+												<option value="3">向后查3个月</option>
+												<option value="4">向后查4个月</option>
+												<option value="5">向后查5个月</option>
+												<option value="6">向后查6个月</option>
+												<option value="7">向后查7个月</option>
+												<option value="8">向后查8个月</option>
+												<option value="9">向后查9个月</option>
+												<option value="10">向后查10个月</option>
+												<option value="11">向后查11个月</option>
+												<option value="12">向后查12个月</option>
+											</select>
+										</div>
+									</div>
+									<div class="nav pull-left" style="margin:2px 0 0 0px;width: 165px;">
+										<div class="input-group">
+											<select class="form-control input-sm select2" style="min-width:165px;max-width: 165px;height: 0px;" name="department_id"
+											 id="department" onchange="changeRole()">
+												<option class="all" value="all">{:L('ALL')}</option>
+												<volist name="departmentList" id="vo">
+													<option value="{$vo.department_id}" <if condition="$vo['department_id'] eq $_GET['department_id']">selected</if>
+														>{$vo.name}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+									<div class="nav pull-left" style="margin:2px 0 0 15px;width: 165px;">
+										<div class="input-group">
+											<select class="form-control input-sm select2" style="min-width:165px;max-width: 165px;height: 0px;" name="role_id"
+											 id="role" onchange="changeCondition()">
+												<option class="all" value="all">{:L('ALL')}</option>
+												<volist name="roleList" id="vo">
+													<option value="{$vo.role_id}" <if condition="$_GET['role_id'] eq $vo['role_id']">selected</if>>{$vo.role_name}-{$vo.user_name}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+									<div class="pull-left" style="margin-left: 20px;">
+										<button type="submit" id="analytics_search" class="btn btn-primary">{:L('SEARCH')}</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="ibox-content nicescroll" id="right_height" style="border-top: none;padding-top: 0px;">
+						<div id="charts_data">
+							<table class="table table-hover table-bordered">
+								<tr>
+									<th>月</th>
+									<th>当月销量</th>
+									<th>去年月销量</th>
+									<th>销量环比</th>
+									<th>销量同比</th>
+									<th>当月销售额</th>
+									<th>去年月销售额</th>
+									<th>销售额环比</th>
+									<th>销售额同比</th>
+								</tr>
+								<volist name="list" id="val">
+									<tr>
+										<td>{$val['month']}</td>
+										<td>{$val['count']}</td>
+										<td>{$val['y_count']}</td>
+										<td>
+											{$val['count_h']}
+											<if condition="$val['count_h'] gt 0">
+												<i class="fa fa-long-arrow-up" title="上升"></i>
+											<elseif condition="$val['count_h'] lt 0" />
+												<i class="fa fa-long-arrow-down" title="下降"></i>
+											</if>
+										</td>
+										<td>
+											{$val['count_t']}
+											<if condition="$val['count_t'] gt 0">
+												<i class="fa fa-long-arrow-up" title="上升"></i>
+											<elseif condition="$val['count_t'] lt 0" />
+												<i class="fa fa-long-arrow-down" title="下降"></i>
+											</if>
+										</td>
+										<td>{$val['price']}</td>
+										<td>{$val['y_price']}</td>
+										<td>
+											{$val['price_h']}
+											<if condition="$val['price_h'] gt 0">
+												<i class="fa fa-long-arrow-up" title="上升"></i>
+											<elseif condition="$val['price_h'] lt 0" />
+												<i class="fa fa-long-arrow-down" title="下降"></i>
+											</if>
+										</td>
+										<td>
+											{$val['price_t']}
+											<if condition="$val['price_t'] gt 0">
+												<i class="fa fa-long-arrow-up" title="上升"></i>
+											<elseif condition="$val['price_t'] lt 0" />
+												<i class="fa fa-long-arrow-down" title="下降"></i>
+											</if>
+										</td>
+									</tr>
+								</volist>
+							</table>
+						</div>
+						<hr>
+						<div id="charts_count"></div>
+						<hr>
+						<div id="charts_price"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="dialog-product-list" title="选择产品">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(() => {
+
+	
+	$('#start_date').val('{$start_time}');
+	$('#month_length').val('{$month_length}');
+
+	$("#product_info_name").click(function () {
+		$('#dialog-product-list').dialog('open');
+		$('#dialog-product-list').load('{:U("product/mutildialog")}&radio=1');
+	});
+	//商品浮动层
+	$("#dialog-product-list").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 100],
+		buttons: {
+			'{:L("OK")}': function () {
+				if ($('#mutidialog_data input.product_id:checked').length == 0) {
+					swal('必须选择一件产品');
+					return false;
+				}
+				let product_info_id = $('#mutidialog_data input.product_id:checked').val();
+				let product_info_name = $('#mutidialog_data input.product_id:checked').parents('tr').find('.name').html();
+				$('#search_form [name="product_info_id"]').val(product_info_id);
+				$('#product_info_name').val(product_info_name);
+				$('#search_form').submit();
+				ajax_loading();
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}': function () {
+				var product_info_id = $('#product_info_id').val();
+				if (!product_info_id) {
+					swal('必须选择一件产品');
+					return false;
+				}
+				$(this).dialog('close');
+			}
+		},
+		close: function () {
+			$(this).html('');
+			var product_info_id = $('#product_info_id').val();
+			if (!product_info_id) {
+				swal('必须选择一件产品');
+				$("#product_info_name").click();
+			}
+		}
+	});
+	
+	setTimeout(() => {
+		var product_info_id = $('#product_info_id').val();
+		if (!product_info_id) {
+			$("#product_info_name").click();
+		} else {
+			$('#charts_count').highcharts({
+				chart: {
+					zoomType: 'xy'
+				},
+				title: {
+					text: '产品月销量数据'
+				},
+				xAxis: [{
+					// categories: ['月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+					categories: {$month_list|default="[]"},
+					crosshair: true
+				}],
+				yAxis: [{ // Primary yAxis
+					labels: {
+						format: '{value} 件',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+					title: {
+						text: '销量',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+				}, { // Secondary yAxis
+					title: {
+						text: '百分比',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					},
+					labels: {
+						format: '{value} %',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					},
+					opposite: true
+				}],
+				tooltip: {
+					shared: true
+				},
+				legend: {
+					layout: 'vertical',
+					align: 'left',
+					x: 80,
+					verticalAlign: 'top',
+					y: 55,
+					floating: true,
+					backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+				},
+				series: [{
+					name: '当月销量',
+					type: 'column',
+					yAxis: 0,
+					data: {$count|default="[]"},
+					tooltip: {
+						valueSuffix: ' 件'
+					}
+				}, {
+					name: '去年当月销量',
+					type: 'column',
+					yAxis: 0,
+					data: {$y_count|default="[]"},
+					tooltip: {
+						valueSuffix: ' 件'
+					}
+				}, {
+					name: '环比增长',
+					type: 'spline',
+					yAxis: 1,
+					data: {$count_h|default="[]"},
+					marker: {
+						enabled: false
+					},
+					dashStyle: 'shortdot',
+					tooltip: {
+						valueSuffix: ' %'
+					}
+				}, {
+					name: '同比增长',
+					type: 'spline',
+					yAxis: 1,
+					data: {$count_t|default="[]"},
+					tooltip: {
+						valueSuffix: ' %'
+					}
+				}]
+			});
+			
+			$('#charts_price').highcharts({
+				chart: {
+					zoomType: 'xy'
+				},
+				title: {
+					text: '产品月销售额数据'
+				},
+				xAxis: [{
+					// categories: ['月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+					categories: {$month_list|default="[]"},
+					crosshair: true
+				}],
+				yAxis: [{ // Primary yAxis
+					labels: {
+						format: '{value} 件',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+					title: {
+						text: '销售额',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+				}, { // Secondary yAxis
+					title: {
+						text: '百分比',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					},
+					labels: {
+						format: '{value} %',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					},
+					opposite: true
+				}],
+				tooltip: {
+					shared: true
+				},
+				legend: {
+					layout: 'vertical',
+					align: 'left',
+					x: 80,
+					verticalAlign: 'top',
+					y: 55,
+					floating: true,
+					backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+				},
+				series: [{
+					name: '当月销售额',
+					type: 'column',
+					yAxis: 0,
+					data: {$price|default="[]"},
+					tooltip: {
+						valueSuffix: ' 件'
+					}
+				}, {
+					name: '去年当月销售额',
+					type: 'column',
+					yAxis: 0,
+					data: {$y_price|default="[]"},
+					tooltip: {
+						valueSuffix: ' 件'
+					}
+				}, {
+					name: '环比增长',
+					type: 'spline',
+					yAxis: 1,
+					data: {$price_h|default="[]"},
+					marker: {
+						enabled: false
+					},
+					dashStyle: 'shortdot',
+					tooltip: {
+						valueSuffix: ' %'
+					}
+				}, {
+					name: '同比增长',
+					type: 'spline',
+					yAxis: 1,
+					data: {$price_t|default="[]"},
+					tooltip: {
+						valueSuffix: ' %'
+					}
+				}]
+			});
+			
+		}
+		$('#right_height').height($('#left_height').height() - 108);
+	}, 200);
+});
+</script>
+<include file="Public:footer" />

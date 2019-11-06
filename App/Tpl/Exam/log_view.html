@@ -1,0 +1,76 @@
+<div style="font-size:13px;font-weight:700;margin-top:20px;margin-bottom:15px;">
+	<span style="border-left:5px solid #19AA8D;padding-left:10px;height:10px;"></span>审核信息
+</div>
+<div>
+	<if condition="$exam_log">
+		<volist name="exam_log" id="vo">
+			<if condition="$key gt 0">
+				<div class="pull-left" style="margin-top:32px;margin-left:15px;font-size:22px;color:#ccc;">
+					<i class="fa fa-long-arrow-right" style="font-size:30px;"></i>
+				</div>
+			</if>
+			<volist name="vo['role_list']" id="v" key="k">
+				<div class="pull-left" style="margin-top:20px;">
+					<div style="clear:both;">
+						<img class="img-circle" style="width:50px;height:50px;border-radius:50%;margin-left:15px;" src="{$v['thumb_path']}"/>
+					</div>
+					<div style="clear:both;text-align:center;margin-left:15px;margin-top:5px;">
+						{$v['full_name']}
+						<switch name="v.result">
+							<case value="0">
+								<span style="color:#ED5565;">(驳回)</span>
+							</case>
+							<case value="1">
+								<span style="color:#46a949;">(通过)</span>
+							</case>
+							<case value="2">
+								<span style="color:#46a949;">(通过且结束)</span>
+							</case>
+							<case value="3">
+								<span style="color:#FACB42;">(撤销)</span>
+							</case>
+							<case value="4">
+								<span style="color:#FACB42;">(待审)</span>
+							</case>
+							<default />
+						</switch>
+					</div>
+				</div>
+				<?php if ($k < count($vo['role_list'])) { ?>
+					<span class="pull-left" style="margin-top: 45px;">
+						( <?php echo $vo['relation'] == 1 ? '并' : '或'; ?> )
+					</span>
+				<?php } ?>
+			</volist>
+		</volist>
+	<else />
+		本轮次暂无审批记录
+	</if>
+	<div style="clear:both"></div>
+</div>
+<div style="margin-top:20px;margin-left:15px;">
+	<a href="javascript:void(0);" id="exam_log_list"><i class="fa fa-history"></i>&nbsp;&nbsp;查看更多审核历史</a>
+</div>
+
+<div style="display:none;" id="dialog-exam-list" title="审核记录">
+	<include file="Public:loading" />
+</div>
+
+<script type="text/javascript">
+	//审批日志
+	$("#dialog-exam-list").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 600,
+		maxHeight: 400,
+		position: ["center",100],
+	});
+	$(function(){
+		$("#exam_log_list").click(function(){
+			var type_id = "{$type_id}";
+			var order_id = "{$order_id}";
+			$('#dialog-exam-list').dialog('open');
+			$('#dialog-exam-list').load('{:U("exam/log_list", "order_id=")}' + order_id + '&type_id=' + type_id);
+		});
+	});
+</script>

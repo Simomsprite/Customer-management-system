@@ -1,0 +1,885 @@
+[ 2019-10-17T09:55:28+08:00 ] 127.0.0.1 /index.php?m=index&a=index
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 76 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 75 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 74 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-17T09:55:36+08:00 ] 127.0.0.1 /index.php?m=index&a=index
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 76 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 75 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 74 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-17T09:55:45+08:00 ] 127.0.0.1 /index.php?m=indexm&a=index
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 76 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 75 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 74 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571241600 AND 1571328000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: Table 'wkcrm.pd_banner' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_banner`
+ERR: Table 'wkcrm.pd_banner' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_banner` WHERE ( `status` <> 2 ) ORDER BY `order` desc 
+
+[ 2019-10-17T09:55:48+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T09:55:57+08:00 ] 127.0.0.1 /index.php?m=userm&a=index
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_user_category`
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SELECT user.user_id AS user_id,user.name AS name,user.sex AS sex,user.img AS img,user.email AS email,user.telephone AS telephone,user.address AS address,user.status AS status,user_category.name AS category_name,user_category.category_id AS category_id,role.role_id AS role_id,role.position_id AS position_id,position.name AS role_name,position.parent_id AS parent_id,position.department_id AS department_id,position.description AS description,role_department.name AS department_name FROM pd_user user LEFT JOIN pd_user_category user_category ON user.category_id=user_category.category_id LEFT JOIN pd_role role ON user.user_id=role.user_id LEFT JOIN pd_position position ON position.position_id=role.position_id LEFT JOIN pd_role_department role_department ON role_department.department_id=position.department_id WHERE ( user.user_id = 1 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SELECT user.user_id AS user_id,user.name AS name,user.sex AS sex,user.img AS img,user.email AS email,user.telephone AS telephone,user.address AS address,user.status AS status,user_category.name AS category_name,user_category.category_id AS category_id,role.role_id AS role_id,role.position_id AS position_id,position.name AS role_name,position.parent_id AS parent_id,position.department_id AS department_id,position.description AS description,role_department.name AS department_name FROM pd_user user LEFT JOIN pd_user_category user_category ON user.category_id=user_category.category_id LEFT JOIN pd_role role ON user.user_id=role.user_id LEFT JOIN pd_position position ON position.position_id=role.position_id LEFT JOIN pd_role_department role_department ON role_department.department_id=position.department_id WHERE ( user.user_id = 2 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SELECT user.user_id AS user_id,user.name AS name,user.sex AS sex,user.img AS img,user.email AS email,user.telephone AS telephone,user.address AS address,user.status AS status,user_category.name AS category_name,user_category.category_id AS category_id,role.role_id AS role_id,role.position_id AS position_id,position.name AS role_name,position.parent_id AS parent_id,position.department_id AS department_id,position.description AS description,role_department.name AS department_name FROM pd_user user LEFT JOIN pd_user_category user_category ON user.category_id=user_category.category_id LEFT JOIN pd_role role ON user.user_id=role.user_id LEFT JOIN pd_position position ON position.position_id=role.position_id LEFT JOIN pd_role_department role_department ON role_department.department_id=position.department_id WHERE ( user.user_id = 3 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_user_category` 
+
+[ 2019-10-17T09:56:00+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T09:56:02+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T09:56:03+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T09:56:13+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:18:52+08:00 ] 127.0.0.1 /index.php?m=leads&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-17T10:24:51+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=82&by=me
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-17T10:24:53+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=82&by=me
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-17T10:30:52+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E4%BA%94%E5%93%A5
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:31:01+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:31:20+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:31:24+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:31:26+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:31:29+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:31:30+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:35:51+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=82&by=me
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-17T10:35:54+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=81&by=me
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-17T10:41:06+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:41:08+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:41:11+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:41:14+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%99%BE%E5%BA%A6
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T10:58:46+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-17T11:14:22+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T11:18:50+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T11:29:32+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T14:41:30+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T14:48:48+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T14:48:50+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T14:48:51+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T14:50:11+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T14:50:15+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T14:50:16+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T14:52:31+08:00 ] 127.0.0.1 /index.php?m=Leads&a=index&by=public&position%5Bform_type%5D=text&position%5Bcondition%5D=is&position%5Bvalue%5D=%E9%A3%8E%E6%A0%BC%E5%92%8C%E9%83%A8%E5%88%86%E5%B9%B2%E9%83%A8
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-17T14:52:34+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-17T15:04:45+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:09:11+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:09:14+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:09:16+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:09:26+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:09:31+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&contacts_name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:10:52+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:11:33+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:12:04+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:12:35+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:13:07+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:16:25+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:24:21+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:25:00+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:25:08+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:29:40+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:29:42+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:29:44+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:29:50+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E9%BA%A6%E8%BF%AA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:29:54+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:31:43+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:31:44+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:31:49+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:32:46+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:33:05+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:33:11+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:33:12+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T15:33:21+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:33:22+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:33:23+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:33:23+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:33:25+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:33:26+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:33:27+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:33:27+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:33:28+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:33:29+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:34:04+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) LIMIT 1  
+ERR: Unknown column '1ame' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( 1ame like "%湖人%" or mobile like "%湖人%"or contacts_name like "%湖人%" ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T15:43:59+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:00:40+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:00:44+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:00:48+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:01:03+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:01:21+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:02:22+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:02:33+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:07:02+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:07:12+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:07:57+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:07:58+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:08:08+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:08:34+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:08:39+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:08:57+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:08:58+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:08:59+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:23+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:24+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:25+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:29+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:30+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:33+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:34+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:36+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:37+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:38+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:38+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:53+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:09:59+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:10:13+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:11:24+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:11:26+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:11:26+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:11:37+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:15:00+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:15:04+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:15:05+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:16:05+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:16:11+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:16:14+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:16:26+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:16:29+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:16:31+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:16:34+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:16:43+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:17:48+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T16:32:17+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( Arraycontacts_name like%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T16:32:19+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( Arraycontacts_name like%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T16:32:20+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( Arraycontacts_name like%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T16:32:21+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( Arraycontacts_name like%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T16:32:22+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( Arraycontacts_name like%湖人%or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T17:11:37+08:00 ] ERR: (ThinkException) Model:whereOr您所请求的方法不存在！
+[ 2019-10-17T17:18:50+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%湖人% or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( `name` LIKE '%湖人%' ) AND ( `have_time` >= 1570699130 ) AND ( `is_deleted` = 0 ) AND ( `is_transformed` = 0 ) AND ( `owner_role_id` = 1 ) AND ( contacts_name like%湖人% or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T17:18:52+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%湖人% or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( `name` LIKE '%湖人%' ) AND ( `have_time` >= 1570699132 ) AND ( `is_deleted` = 0 ) AND ( `is_transformed` = 0 ) AND ( `owner_role_id` = 1 ) AND ( contacts_name like%湖人% or mobile like%湖人% ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T17:18:55+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%% or mobile like%% ) ORDER BY create_time desc LIMIT 0,15' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( `name` LIKE '%%' ) AND ( `have_time` >= 1570699135 ) AND ( `is_deleted` = 0 ) AND ( `is_transformed` = 0 ) AND ( `owner_role_id` = 1 ) AND ( contacts_name like%% or mobile like%% ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T17:18:57+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%科比% or mobile like%科比% ) ORDER BY create_time desc LIMIT 0,15' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_leads` WHERE ( `name` LIKE '%科比%' ) AND ( `have_time` >= 1570699137 ) AND ( `is_deleted` = 0 ) AND ( `is_transformed` = 0 ) AND ( `owner_role_id` = 1 ) AND ( contacts_name like%科比% or mobile like%科比% ) ORDER BY create_time desc LIMIT 0,15  
+
+[ 2019-10-17T17:32:17+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:32:21+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:32:32+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:32:38+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%85%88%E7%94%9F
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:32:46+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%A7%91%E6%AF%94
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:32:50+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:32:55+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E8%A9%B9%E5%A7%86%E6%96%AF
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:33:03+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=1526
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:33:27+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=1526
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:34:02+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:34:04+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:34:06+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:34:12+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E9%BA%A6%E8%BF%AA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:34:18+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E4%BA%94%E5%93%A5
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:34:24+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%AF%B9%E6%96%B9
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:34:28+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%99%BE%E5%BA%A6
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:34:30+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:34:38+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E4%BA%8B%E5%AE%9E%E4%B8%8A
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:36:36+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:36:39+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T17:43:32+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=1627
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:03:19+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%A4%A7%E5%B8%88%E5%82%85
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:03:55+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E4%B8%80%E6%9D%A1%E5%B0%8F%E5%9B%A2%E5%9B%A2
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:16:55+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:17:00+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:17:06+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:17:12+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:17:18+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E9%BA%A6%E8%BF%AA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:17:20+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:17:23+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:17:24+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:18:20+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%96%97%E9%B1%BC
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:18:29+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:21:27+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:21:31+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:21:33+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T18:30:57+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76&content=
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571241600 AND 1571327999 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-17T19:51:10+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T19:51:10+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T19:51:10+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T19:51:11+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T19:51:28+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T19:52:13+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-17T19:52:15+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+

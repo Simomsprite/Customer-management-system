@@ -1,0 +1,39 @@
+<include file="Public:headerm" />
+<div class="wrap-box">
+	<header class="abe-header am-header-default"> <a href="javascript:history.go(-1)" class="return iconfont">&#xe612;</a>
+		<h1 class="abe-header-title">个人中心</h1>
+	</header>
+	<div class="uc-top">
+		<a href="{:U('Userm/userimgs')}" class="abe-block">
+			<i href="" class="iconfont">&#xe607;</i>
+			<span class="uhead">
+				<volist name="user_list" id="vo">
+					<if condition="$vo['thumb_path']"><img src="{$vo.img}" alt="">
+						<else/><img class="img-circle" style="width:32px;height:32px;" src="__PUBLIC__/img/avatar_default.png"/>
+					</if>
+				</volist>
+			</span>
+
+			<h1>{$_SESSION['full_name']}</h1>
+			<h2>{$_SESSION['role_name']}</h2></a>
+	</div>
+	<ul class="uc-nav">
+		<li><a href="{:U('Userm/edit')}"><i class="iconfont mrg_5">&#xe660;</i>个人资料<i class="iconfont arrow-r">&#xe607;</i></a></li>
+		<li><a href="{:U('Userm/editpwd')}"><i class="iconfont mrg_5">&#xe62f;</i>更改密码<i class="iconfont arrow-r">&#xe607;</i></a></li>
+		<li><a href="{:U('Eventm/index')}"><i class="iconfont mrg_5">&#xe62f;</i>我的日程<i class="iconfont arrow-r">&#xe607;</i></a></li>
+		<li><a href="{:U('Leadsm/analytics')}"><i class="iconfont mrg_5">&#xe62f;</i>我的报表<i class="iconfont arrow-r">&#xe607;</i></a></li>
+		<li><a href="{:U('Indexm/brielog')}"><i class="iconfont mrg_5">&#xe62f;</i>简报<i class="iconfont arrow-r">&#xe607;</i></a></li>
+		<li><a href="{:U('Userm/logout')}"><i class="iconfont mrg_5">&#xe62f;</i>退出登录<i class="iconfont arrow-r">&#xe607;</i></a></li>
+	</ul>
+<include file="Public:footerm"/>
+</div>
+</body>
+</html>
+<script>
+	function logout(){
+		showtab(3,'是否退出登录');
+	}
+	function　closetab(){
+		window.location.href="{:U('userm/logout')}";
+	}
+</script>

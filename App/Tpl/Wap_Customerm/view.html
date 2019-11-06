@@ -1,0 +1,131 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+  <header class="abe-header am-header-default"> <a href="javascript:history.go(-1)" class="return iconfont">&#xe612;</a>
+    <h1 class="abe-header-title">客户操作</h1>
+  </header>
+    <div class="clue">
+        <input type="hidden" id="contents" name="{$content}" value="{$content}"/>
+        <ul class="clue-head">
+            <input type="hidden" id="customer_id" name="{$customer_id}" value="{$customer_id}"/>
+            <li class="pd0">
+               <div class="info"> <a href="{:U('Customerm/indexctm',array('customer_id'=>$customer_id))}" class="abe-block vi-blue"><i class="iconfont abe-ft24 mrg_10">&#xe608;</i>{$customer['name']}</a><em class="arrow iconfont">&#xe607;</em></div>
+            </li>
+            <li><span class="tit">客户负责人:</span><div class="info">{$customer['owner']['full_name']}</div></li>
+            <li><span class="tit">联系人姓名:</span><div class="info">{$customer['contacts_name']}</div></li>
+            <li><span class="tit">联系电话:</span><div class="info"><a href="tel:10086" class="abe-block"><em class="iconfont ztpos vi-blue abe-ft24 mrg_10">&#xe606;</em>{$customer['contacts_telephone']}</a></div></li>
+        </ul>
+        <div class="tab-box clue-tab">
+        <ul class="tab-title">
+            <li><a href="#.html" class="active">沟通日志</a></li>
+            </ul>
+        <div class="clue-faq tab-content">
+            <div class="clue-item item" style="display: ">
+                <volist name="log_list" id="vo">
+                    <ul class="bop-list">
+                        <li class="uhbox"><em class="uhead"><img src="{$vo['owner']['thumb_path']}">alt=""></em><div><span class="pdr_10">{$vo['owner']['full_name']}</span></div></li>
+                        <li><span class="abe-gray3">联系时间：</span>{$vo.create_date|date="Y-m-d H:i",###}</li>
+                        <li class="vi-blue">{$vo['content']}</li>
+                        <li><span class="abe-gray3">下次联系时间：</span><?php if($vo['nextstep_time']): ?>{$vo['nextstep_time']|date="Y-m-d H:i",###}<?php endif; ?></li>
+                        <li><span class="abe-gray3">联系方式：{$vo['status_name']}</span></li>
+                    </ul>
+                </volist>
+            </div>
+            <!--<div class="clue-item item" style="display: "><ul class="bop-list">
+                    <li class="uhbox"><em class="uhead"><img src="images/uhead.jpg" alt=""></em><div><span class="pdr_10">Fivege</span><span>销售经理</span></div></li>
+                    <li><span class="abe-gray3">新建合同时间：</span>2019-09-03 15:16:00</li>
+                    <li><span class="abe-gray3">客户名称：</span>王泽鉴</li>
+                    <li><span class="abe-gray3">合同金额：</span>23000.00</li>
+                    <li><span class="abe-gray3">截止时间：</span>2019-09-03 15:16:00</li>
+                </ul><ul class="bop-list">
+                    <li class="uhbox"><em class="uhead"><img src="images/uhead.jpg" alt=""></em><div><span class="pdr_10">Fivege</span><span>销售经理</span></div></li>
+                    <li><span class="abe-gray3">新建合同时间：</span>2019-09-03 15:16:00</li>
+                    <li><span class="abe-gray3">客户名称：</span>王泽鉴</li>
+                    <li><span class="abe-gray3">合同金额：</span>23000.00</li>
+                    <li><span class="abe-gray3">截止时间：</span>2019-09-03 15:16:00</li>
+                </ul><ul class="bop-list">
+                    <li class="uhbox"><em class="uhead"><img src="images/uhead.jpg" alt=""></em><div><span class="pdr_10">Fivege</span><span>销售经理</span></div></li>
+                    <li><span class="abe-gray3">新建合同时间：</span>2019-09-03 15:16:00</li>
+                    <li><span class="abe-gray3">客户名称：</span>王泽鉴</li>
+                    <li><span class="abe-gray3">合同金额：</span>23000.00</li>
+                    <li><span class="abe-gray3">截止时间：</span>2019-09-03 15:16:00</li>
+                </ul></div>
+            <div class="clue-item item" style="display: ">4</div>
+            <div class="clue-item item">
+                <ul class="file">
+                    <li><em class="thum iconfont">&#xe62c;</em><div><span class="filename abe-fl vi-blue">logo.png</span><span class="abe-fr abe-gray3">18.8KB</span></div></li>
+                    <li><em class="thum iconfont">&#xe602;</em><div><span class="filename abe-fl vi-blue">我是一个兵.exl</span><span class="abe-fr abe-gray3">18.8KB</span></div></li>
+                    <li><em class="thum iconfont">&#xe62d;</em><div><span class="filename abe-fl vi-blue">我是一个兵.doc</span><span class="abe-fr abe-gray3">18.8KB</span></div></li>
+                    <li><em class="thum iconfont">&#xe7a2;</em><div><span class="filename abe-fl vi-blue">我是一个兵.ppt</span><span class="abe-fr abe-gray3">18.8KB</span></div></li>
+                </ul>
+</div>
+
+            </div>-->
+
+        </div>
+        </div>
+    </div>
+    <a class="faq-btn iconfont">&#xe60b;</a>
+    <div class="faq-btn-box">
+        <a href="{:U('Customerm/log_add', array('id' => $business_id[0],'customer_id' => $customer_id))}"><i class="iconfont">&#xe6b3;</i>添加日志</a>
+        <a href="#"><i class="iconfont">&#xe651;</i>添加签到</a>
+        <if condition="$content neq 'resource'"><a href="{:U('Customerm/edit',array('customer_id'=>$customer_id))}"><i class="iconfont">&#xe600;</i>编辑</a>
+            <else/><a href="javascript:showtab(3,'是否领取该条客户数据')"><i class="iconfont">&#xe600;</i>领取</a>
+            <input type="hidden" name="operating_type" id="operating_type" value=""/></if>
+        <a href="javascript:showtab(3,'是否删除该条数据')"><i class="iconfont">&#xe609;</i>删除</a>
+    </div>
+    <div class="popup-bg" id="heimu" style="display: none;"></div>
+    <script>
+        function closetab(){
+            $('#operating_type').attr('value', 'receive');
+            var content=$("#contents").val();
+            var customer_id=$("#customer_id").val()
+            $.ajax({
+                url:"{:U('Customerm/delete')}",
+                type:"POST",
+                data:{'content':content,'customer_id':customer_id},
+                async: true,
+                success:function(){
+                    var str="{:U('Customerm/index')}"+'&content='+content;
+                    window.location.href=str;
+                }
+            });
+        }
+
+        function closetab(){
+            var content=$("#contents").val();
+            var customer_id=$("#customer_id").val()
+            $.ajax({
+                url:"{:U('Customerm/receive')}",
+                type:"POST",
+                data:{'content':content,'customer_id':customer_id},
+                async: true,
+                success:function(){
+                    var str="{:U('Customerm/index')}"+'&content='+content;
+                    window.location.href=str;
+                }
+            });
+        }
+
+        $(function(){
+            $("#heimu").css({top:"-100%"});
+            $(".faq-btn").click(function(){
+                $(".faq-btn-box").animate({bottom:"0"});
+                $("#heimu").show();
+                $("#heimu").animate({top:"0"},300);
+            });
+            $("#heimu").click(function(){
+                $(this).animate({top:"-100%"},300);
+                $(".faq-btn-box").animate({bottom:"-200px"});
+            });
+            $(".faq-btn-box a").click(function(){
+                $(".faq-btn-box").animate({bottom:"-200px"});
+                $("#heimu").animate({top:"-100%"},300);
+            });
+            $(".clue-tab").tabs();
+            
+        });
+    
+    </script>
+</div>
+</body>
+</html>

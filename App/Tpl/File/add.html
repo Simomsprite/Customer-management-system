@@ -1,0 +1,200 @@
+<input type="hidden" id="allowExts" value="{$allowExts}" />
+<script type="text/javascript">
+	function add_file(id) {
+		$("#add_more").before('<p id="attachment' + id + '"><input type="file" name="file[]"/> <a href=\'javascript:void(0)\'  onclick=\'javascript:$(\"#attachment' + id + '\").remove();\'>{:L('DELETE')}</a></p>');
+		$("#add_more").attr('href', 'javascript:add_file(' + (id + 1) + ');');
+	}
+</script>
+<!-- 引用控制层插件样式 -->
+<link rel="stylesheet" href="__PUBLIC__/uploadjs/control/css/zyUpload.css" type="text/css" />
+<!-- 引用核心层插件 -->
+<script type="text/javascript" src="__PUBLIC__/uploadjs/core/zyFile.js"></script>
+<!-- 引用控制层插件 -->
+<script type="text/javascript" src="__PUBLIC__/uploadjs/control/js/zyUpload.js"></script>
+
+<div id="demo" class="demo"></div>
+<!-- <input type="file" id="file"> -->
+<style type="text/css">
+	.upload_drag_area {
+		height: 40px;
+		line-height: 40px;
+	}
+</style>
+<script type="text/javascript">
+	__file_max_size = '{$file_max_size_num}';
+	var form_data = {};
+	$.ajax({
+		url: '{:U("file/aliOssKey")}',
+		type: 'GET',
+		async: false,
+		success: function (res) {
+			if (res.status == 1) {
+				form_data = res.data;
+				form_data.oss = 1;
+			} else {
+				if ('{$module}' != '' && '{$r}' != '' && '{$id}' != '') {
+					form_data.host = "./index.php?m=file&a=add&module={$module}&r={$r}&id={$id}";
+				} else {
+					form_data.host = "./index.php?m=file&a=addlogfile&module={$module}&r={$r}&id={$id}";
+				}
+				form_data.oss = 0;
+			}
+		}
+	});
+
+	$(function () {
+		// 初始化插件
+		$("#demo").zyUpload({
+			width: "97%",                 // 宽度
+			height: "230px",                 // 宽度
+			itemWidth: "120px",                 // 文件项的宽度
+			itemHeight: "100px",                 // 文件项的高度
+			//url              :   "/Uploads",  // 上传文件的路径
+			url: form_data.host,
+			multiple: false,                    // 是否可以多个文件上传
+			dragDrop: true,                    // 是否可以拖动上传文件
+			del: true,                    // 是否可以删除文件
+			finishDel: false,  				  // 是否在上传文件完成后删除预览
+			/* 外部获得的回调接口 */
+			onSelect: function (selectFiles, allFiles) {    // 选择文件的回调方法  selectFile:当前选中的文件  allFiles:还没上传的全部文件
+				if (form_data.oss === 1) {
+					var exceeds_limit = 0;	// 是否超出限制
+					var msg = '';
+					$.ajax({
+						url: '{:U("file/check_max_size")}',
+						data: {new_file_size: selectFiles[0].size},
+						type: 'GET',
+						dataType: 'JSON',
+						async: false,
+						success: function (res) {
+							exceeds_limit = res.status;
+							msg = res.msg;
+						}
+					});
+					if (!exceeds_limit) {
+						swal({
+							title: '服务器容量超过上限！',
+							text: msg,
+							type: 'error'
+						}, function () {
+							let file_id = $('#uploadForm #preview tr').length - 2;
+							$('tr#uploadList_' + file_id).find('.file_progress').hide();
+							$('tr#uploadList_' + file_id).find('.file_failure').html('上传失败！');
+							$('tr#uploadList_' + file_id).find('.file_failure').show();
+						});
+						return false;
+					}
+					var oldname = selectFiles[0].name;
+					var path_info = oldname.split('.');
+					var ext = path_info[path_info.length - 1];
+					if ($.inArray(ext, $('#allowExts').val().split(',')) == -1) {
+						swal({
+							title: '不支持的文件类型！',
+							text: '支持的文件类型：' + $('#allowExts').val(),
+							type: 'error'
+						}, function () {
+							let file_id = $('#uploadForm #preview tr').length - 2;
+							$('tr#uploadList_' + file_id).find('.file_progress').hide();
+							$('tr#uploadList_' + file_id).find('.file_failure').html('上传失败！');
+							$('tr#uploadList_' + file_id).find('.file_failure').show();
+						});
+						return false;
+					}
+					var newname = reset_name() + '.' + ext;
+					var formdata = new FormData();
+					formdata.append('key', form_data.dir + '${filename}');
+					formdata.append('callback', form_data.callback);
+					formdata.append('OSSAccessKeyId', form_data.accessid);
+					formdata.append('policy', form_data.policy);
+					formdata.append('signature', form_data.signature);
+					formdata.append('x:oldname', oldname);
+					formdata.append('x:module', '{$module}');
+					formdata.append('x:r', '{$r}');
+					formdata.append('x:id', '{$id}');
+					formdata.append('x:role_id', '{:session("role_id")}');
+					formdata.append('file', selectFiles[0], newname);
+					$.ajax({
+						url: form_data.host,
+						type: 'POST',
+						processData: false,
+						contentType: false,
+						dataType: 'json',
+						data: formdata,
+						success: function (res) {
+							let file_id = $('#uploadForm #preview tr').length - 2;
+							$('tr#uploadList_' + file_id).find('.file_progress').hide();
+							if (res.status == 1) {
+								$('tr#uploadList_' + file_id).find('.file_success').show();
+								var inp = $('<input type="hidden" id="file_' + file_id + '" name="file[]" value="' + res.file_id + ' 上传成功！" />');
+								$('#uploadForm').append(inp);
+							} else {
+								$('tr#uploadList_' + file_id).find('.file_failure').show();
+							}
+						},
+						error: function (res) {
+							swal('上传失败！', '服务器异常，稍后重试！', 'error');
+							let file_id = $('#uploadForm #preview tr').length - 2;
+							$('tr#uploadList_' + file_id).find('.file_progress').hide();
+							$('tr#uploadList_' + file_id).find('.file_failure').html('上传失败！');
+							$('tr#uploadList_' + file_id).find('.file_failure').show();
+						}
+					});
+				} else {
+					$("#fileSubmit").click();
+				}
+			},
+			onProgress: function (file, loaded, total) {    // 正在上传的进度的回调方法
+				// console.info("当前正在上传此文件：");
+				// console.info(file.name);
+				// console.info("进度等信息如下：");
+				// console.info(loaded);
+				// console.info(total);
+			},
+			onDelete: function (file, files, btn) {              // 删除一个文件的回调方法 file:当前删除的文件  files:删除之后的文件
+				var index = $(btn).attr('data-index');
+				var val = $('#file_' + index).val();
+				var file_id = val.split(' ')[0];
+				var r = "{$r}";
+				$.ajax({
+					url: '{:U("file/delete")}',
+					type: 'GET',
+					data: { id: file_id, r: r },
+					dataType: 'JSON'
+				});
+				// console.log($(this).attr('data-index'));
+				// console.info("当前删除了此文件：");
+				// console.info(file.name);
+			},
+			onSuccess: function (file, response) {          // 文件上传成功的回调方法
+				// console.info("此文件上传成功：");
+				// console.info(file.name);
+				console.info(response);
+			},
+			onFailure: function (file, response) {          // 文件上传失败的回调方法
+				// console.info("此文件上传失败：");
+				// console.info(file.name);
+			},
+			onComplete: function (response) {           	  // 上传完成的回调方法
+				// console.info("文件上传完成");
+				// console.info(response);
+			}
+		});
+		// 单个文件最大支持5M, 允许的类型
+		$('#uploadInf').html('单个文件最大支持{$file_max_size}, 允许的类型: <span id="allowExts_js"></span>');
+		
+		$('#allowExts_js').html($('#allowExts').val());
+	});
+	function reset_name() {
+		var myDate = new Date;
+		var year = myDate.getFullYear();//获取当前年
+		var yue = myDate.getMonth() + 1;//获取当前月
+		var date = myDate.getDate();//获取当前日
+		var h = myDate.getHours();//获取当前小时数(0-23)
+		var m = myDate.getMinutes();//获取当前分钟数(0-59)
+		var s = myDate.getSeconds();//获取当前秒
+		var now_time = String(year) + String(yue) + String(date) + String(h) + String(m) + String(s);
+		var code = Math.floor(Math.random() * 9000) + 1000;
+		return now_time + code;
+	}
+
+</script>

@@ -1,0 +1,196 @@
+<!-- 地址插件 -->
+<script src="__PUBLIC__/js/PCASClass.js" type="text/javascript"></script>
+
+<div style="display:none" id="dialog-field-search" title="高级搜索">
+	<form class="form-inline" id="searchForm" action="" method="get">
+		<input type="hidden" name="m" value="{:MODULE_NAME}">
+		<input type="hidden" name="a" value="{:ACTION_NAME}">
+		<volist name="single_list" id="vo">
+			<!-- 保留特殊参数，如果有的话，如act、by、me等 -->
+			<input type="hidden" name="{$key}" value="{$vo}">
+		</volist>
+		<div id="search_add" style="width:650px;float:left;">
+			<empty name="fields_search">
+				<!-- 默认首次搜索 -->
+				<div id="con_search_1" style="float:left;width:650px;margin:0px 10px 10px 10px;">
+					<div id="rem_1" class="pull-left" style="line-height:30px;">
+						<a href="javascript:void(0);" class="rem_search" rel="1" title="移除">
+							<span class="fa fa fa-times-circle"></span>
+						</a>
+					</div>
+					<ul class="nav pull-left" style="margin:0px 0 0 5px;width:620px">
+						<li class="pull-left">
+							<select id="field_1" style="width:auto" class="form-control input-sm field_name new-select" onchange="changeCondition(1)" >
+								<volist name="field_list" id="vo">
+									<option class="{$vo['form_type']}" value="{$vo['field']}" rel="{$module ?: strtolower(MODULE_NAME)}">{$vo['name']}</option>
+								</volist>
+							</select>&nbsp;&nbsp;
+						</li>
+						<!-- 默认首个搜索字段的表单类型 -->
+						<input type="hidden" id="form_type_1" name="" value="">
+
+						<!-- js 动态加载condition条件和输入表单 -->
+						<script>
+                            $(function(){
+								$('#field_1').val("{$field_list['0']['field']}");
+                                $('#field_1').change();
+							});
+                        </script>
+						<li class="pull-left" id="conditionContent_1"></li>
+						<li class="pull-left" id="searchContent_1" style="margin-left:5px;"></li>
+					</ul>
+				</div>
+			<else />
+				<!-- 记录上次的搜索记录 -->
+				<volist name="fields_search" key="key1" id="vo">
+					<div id="con_search_{$key1}" style="float:left;width:650px;margin:0px 10px 0 10px;padding-top:10px;">
+						<div id="rem_{$key1}" class="pull-left" style="line-height:30px;">
+							<a href="javascript:void(0);" class="rem_search" rel="{$key1}" title="移除">
+								<span class="fa fa fa-times-circle"></span>
+							</a>
+						</div>
+						<ul class="nav pull-left" style="margin:0px 0 0 5px;width:620px;">
+							<li class="pull-left">
+								<select id="field_{$key1}" style="width:auto" class="form-control input-sm field_name new-select" onchange="changeCondition({$key1})" >
+									<volist name="field_list" id="vv">
+										<option class="{$vv['form_type']}" value="{$vv['field']}" rel="{$module ?: strtolower(MODULE_NAME)}" <if condition="$vo['field'] eq $vv['field']">selected="selected"</if> >{$vv['name']}</option>
+									</volist>
+								</select>&nbsp;&nbsp;
+							</li>
+							<!-- 搜索字段的表单类型隐藏域 -->
+							<input type="hidden" id="form_type_{$key1}" name="" value="">
+							
+							<!-- js 动态加载condition条件和输入表单 -->
+							<script>
+                                $(function(){
+									$('#field_{$key1}').val('{$vo["field"]}');
+                                    $('#field_{$key1}').change();
+                                    setTimeout(function(){
+                                        if ('{$vo["form_type"]}' == 'address'){
+                                        	// 地址类型
+                                            $('#condition_{$key1}').val('{$_GET[$vo["field"]]["condition"]}');
+                                            $('#searchContent_{$key1}').find('#{$vo["field"]}_state').val('{$_GET[$vo["field"]]["state"]}');
+                                            $('#searchContent_{$key1}').find('#{$vo["field"]}_state').change();
+                                            $('#searchContent_{$key1}').find('#{$vo["field"]}_city').val('{$_GET[$vo["field"]]["city"]}');
+                                            $('#searchContent_{$key1}').find('#{$vo["field"]}_city').change();
+                                            $('#searchContent_{$key1}').find('#{$vo["field"]}_area').val('{$_GET[$vo["field"]]["area"]}');
+                                            $('#search_{$key1}').val('{$vo["value"]}');
+                                        } else if ('{$vo["form_type"]}' == 'datetime' || '{$vo["form_type"]}' == 'date') {
+                                        	// 时间类型
+                                            $('#searchContent_{$key1}').find('#start_{$key1}').val('{$_GET[$vo["field"]]["start"]}');
+                                            $('#searchContent_{$key1}').find('#end_{$key1}').val('{$_GET[$vo["field"]]["end"]}');
+                                        } else if ('{$vo["form_type"]}' == 'box') {
+                                        	// box【下拉选择】
+                                            $('#search_{$key1}').val('{$_GET[$vo["field"]]["value"]}');
+                                        } else if ('{$vo["form_type"]}' == 'role') {
+                                        	// 单选系统用户
+                                            $('#conditionContent_{$key1}').find('select').val('{$_GET[$vo["field"]]["condition"]}');
+                                            $('#searchContent_{$key1}').find('select').val('{$_GET[$vo["field"]]["value"]}');
+                                            $('#searchContent_{$key1}').find('select').change();
+                                        } else if ('{$vo["form_type"]}' == 'role_s') {
+                                        	// 多选系统用户
+                                            $('#condition_{$key1}').val('{$_GET[$vo["field"]]["condition"]}');
+                                            $('#inp_executor_role_ids_{$key1}').val('{$_GET[$vo["field"]]["value"]}');
+                                            $('#inp_executor_role_ids_{$key1}').next().val('{$full_name_str}');
+                                        } else {
+                                        	// 其他类型
+                                            $('#condition_{$key1}').val('{$_GET[$vo["field"]]["condition"]}');
+                                            $('#search_{$key1}').val('{$_GET[$vo["field"]]["value"]}');
+                                        }
+                                    }, 1);
+								});
+                            </script>
+							<li class="pull-left" id="conditionContent_{$key1}"></li>
+							<li class="pull-left" id="searchContent_{$key1}" style="margin-left:5px;"></li>
+						</ul>
+					</div>
+					<?php $max_key = ++$key1;?>
+				</volist>
+			</empty>
+		</div>
+		<div class="clearfix"></div>
+		<div style="margin-left: 35px;margin-top: 5px;">
+			<a href="javascript:void(0);" id="add_btn"><i class="fa fa-plus"></i> 添加筛选条件</a>
+			&#12288;&#12288;
+			<if condition="$fields_search">
+				<a href="{:U(MODULE_NAME/ACTION_NAME)}"><i class="fa fa-undo"></i> 清空并重新加载</a>
+			</if>
+		</div>
+
+	</form>
+</div>
+
+<script type="text/javascript">
+	// 添加筛选条件
+	var num = {$max_key ?: 1};
+	$('#add_btn').click(function(){
+		num += 1;
+		// 获取第一个包含自身的所有html内容的搜索信息，然后根据num值替换
+		var con_search_1 = $('#con_search_1').prop("outerHTML");
+
+		// 单个处理需要替换特殊字符
+		con_search_1 = con_search_1.replace('changeCondition(1)','changeCondition('+ num +')');
+		con_search_1 = con_search_1.replace('changeSearch(1)','changeSearch('+ num +')');
+		con_search_1 = con_search_1.replace('rel="1"','rel="'+ num +'"');
+
+		// 定义正则表达式 第一个参数是要替换掉的内容，第二个参数"g"表示替换全部（global）。
+		re = new RegExp("_1", "g");
+		var new_str = con_search_1.replace(re, "_" + num); //第一个参数是正则表达式。
+		$('#search_add').append(new_str);
+	});
+	$(document).on('click','.rem_search',function(){
+		if ($('.rem_search').length > 1) {
+			var num = $(this).attr('rel');
+			$('#con_search_'+num).remove();
+		} else {
+			alert_crm('至少保留一个搜索条件');
+		}
+	});
+	// 筛选重复判断
+	var dosearch = 1;
+	function doh(){
+		var ary = new Array();
+		var field_name = '';
+		var is_submit = 1;
+		$('.field_name').each(function(k, v){
+			field_name = $(this).find("option:selected").val();
+			if(jQuery.inArray(field_name,ary) >= 0){
+				is_submit = 0;
+				swal({
+					title: "筛选条件中有重复项！",
+					text: '请移除重复项',
+					type: "error"
+				});
+				dosearch = 0;
+				return false;
+			}
+			ary[k] = field_name;
+		})
+		if(is_submit == 1){
+			$("#searchForm").submit();
+		}
+	}
+
+	// 高级搜索dialog
+	$("#dialog-field-search").dialog({
+		autoOpen: false,
+		width: 700,
+		modal: true,
+		height: 500,
+		position: ["center",100],
+		buttons: {
+			"确定": function () {
+				doh();
+				if(dosearch == 1){
+					$(this).dialog("close");
+				}
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		}
+	});
+	$("#search_type").click(function(){
+		$("#dialog-field-search").dialog('open');
+	});
+</script>

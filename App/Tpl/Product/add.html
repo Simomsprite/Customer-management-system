@@ -1,0 +1,299 @@
+<include file="Public:header" />
+<style>
+	body{overflow-y:hidden; }
+	#main_pic_prev{width: 120px;height: 120px;border: 1px dashed #d3d3d6;}
+	.add_body_title{
+		margin:15px auto 30px auto;
+	}
+</style>
+<script type="text/javascript" src="__PUBLIC__/js/PCASClass.js" ></script>
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.fileupload.css" type="text/css" />
+<script>
+$(function(){
+	$(".add_body").height(window.innerHeight-$("#add_body").offset().top-$("#tfoot_div").height()-40);
+	$(window).resize(function(){
+		$(".add_body").height(window.innerHeight-$("#add_body").offset().top-$("#tfoot_div").height()-40);
+	})
+})
+</script>
+<include file="Public:alert"/>
+<div class="wrapper wrapper-content animated fadeIn">
+	<form class="form-horizontal" id="form" role="form" action="{:U('product/add')}" method="post" enctype="multipart/form-data">
+		<input type='hidden' name="r" <present name="r">value="{$r}"</present>/>
+		<input type='hidden' name="module" <present name="r">value="{$module}"</present>/> 
+		<input type='hidden' name="id" <present name="r">value="{$model_id}"</present>/> 
+		<div class="ibox-content add_body" id="add_body">
+			<div class="row">
+				<div class="col-md-5 add_body" >
+					<div class="full-height-scroll">
+						<div class="row" >
+							<div class="col-md-12 add_body_title">
+								<div class="all-inline">
+									<span class="sq-tag"></span>
+									<div class="text-tag">
+										<span>基础信息</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-11 add_body_form" style="margin-left:15px;">
+								<volist name="field_list['main']" id="vo" key="key">
+									<div class="form-group <if condition="in_array($vo['field'], array('cost_price','suggested_price'))">no_spec_show</if>">
+										<label class="col-md-4 control-label">{$vo.name}：</label>
+										<if condition="$vo['form_type'] == 'textarea'">
+											<if condition = "$vo['tip_start'] eq 1">
+												<div class="col-md-6">
+													<textarea class="form-control" rows="5"></textarea>
+												</div>
+												<div class="col-md-2"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-8">
+													<textarea class="form-control" rows="5"></textarea>
+												</div>	
+											</if>
+										<elseif condition="$vo['form_type'] == 'address'"/>
+											<if condition = "$vo['tip_start'] eq 1">
+												<div class="col-md-7">
+													{$vo.html}
+												</div>
+												<div class="col-md-1"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-8">
+													{$vo.html}
+												</div>	
+											</if>
+										<else/>
+											<div class="col-md-6">
+												{$vo.html}
+											</div>
+											<if condition = "$vo['tip_start'] eq 1">
+												<div class="col-md-2"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-2"></div>
+											</if>
+										</if>
+									</div>
+								</volist>
+								<div class="form-group no_spec_show">
+									<label class="col-md-4 control-label">采购价：</label>
+									<div class="col-md-6">
+										<input class="form-control" type="text" name="price_cost">
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group no_spec_show">
+									<label class="col-md-4 control-label">商品编码：</label>
+									<div class="col-md-6">
+										<input class="form-control" type="text" name="number">
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group no_spec_show">
+									<label class="col-md-4 control-label">条形码：</label>
+									<div class="col-md-6">
+										<input class="form-control" type="text" name="bar_code">
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label">是否有SN码：</label>
+									<div class="col-md-6">
+										&#12288;
+										<div class="radio radio-info radio-inline">
+											<input type="radio" name="has_sn" id="has_sn1" value="1" >
+											<label for="has_sn1">是</label>
+										</div>&#12288;&#12288;
+										<div class="radio radio-info radio-inline">
+											<input type="radio" name="has_sn" id="has_sn2" value="0" checked="checked">
+											<label for="has_sn2">否</label>
+										</div>
+									</div>
+									<div class="col-md-2"><span style="color: red;line-height: 32px;margin-left: 10px;"></span></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label">产品图片：</label>
+									<div class="col-md-4">
+										<img id="main_pic_prev" class="thumb80" />
+									</div>
+									<div class="col-md-4">
+										<div class="btn btn-success fileinput-button">
+											<span>选择图片</span>
+											<input type="file" name="main_pic[]" id="main_pic"/>
+										</div>
+									</div>
+								</div>
+								<volist name="field_list['data']" id="vo" key="key">
+									<div class="form-group">
+										<label class="col-md-4 control-label">{$vo.name}：</label>
+										<if condition="$vo['form_type'] == 'address' || $vo['form_type'] == 'box' || $vo['form_type'] == 'textarea'">
+											<div class="col-md-7">
+												{$vo.html}
+											</div>
+											<if condition = "$vo['tip_start'] eq 1">
+												<div class="col-md-1"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-1"></div>
+											</if>
+										<else/>
+											<div class="col-md-6">
+												{$vo.html}
+											</div>
+											<if condition = "$vo['tip_start'] eq 1">
+												<div class="col-md-2"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+											<else/>
+												<div class="col-md-2"></div>
+											</if>
+										</if>
+									</div>
+								</volist>
+							</div>
+							<div class="col-md-1 pull-right">
+								<!-- <div style="height: 100%; border-right: 1px dashed gray;">&nbsp;sadf</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-7 add_body" >
+					<div class="full-height-scroll">
+						<div class="row" >
+							<div class="col-md-12 add_body_title">
+								<div class="all-inline">
+									<span class="sq-tag"></span>
+									<div class="text-tag">
+										<span>产品设置</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 add_body_form" style="margin-left:15px;">
+								<div class="form-group">
+									<label class="col-md-4 control-label" style="margin-left: -15px;width: 120px;">商品多规格：</label>
+									<div class="col-md-4">
+										<div class="radio radio-info radio-inline multi_spec">
+											<input type="radio" name="enable_spec" id="enable1" value="1">
+											<label for="enable1">启用</label>
+										</div>&#12288;&#12288;
+										<div class="radio radio-info radio-inline multi_spec">
+											<input type="radio" name="enable_spec" id="enable12" value="0" checked="checked">
+											<label for="enable12">禁用</label>
+										</div>
+									</div>
+									<div class="col-md-4"><span style="color: red;line-height: 32px;margin-left: 10px;">*</span></div>
+								</div>
+								<div id="multi_spec_content" style="display: none;">
+									<div class="form-group" id="spec_name_tab"></div>
+									<div class="form-group" id="spec_tab" style="overflow-x: auto;padding-bottom: 15px;width: 100%;"></div>
+								</div>
+								<script src="__PUBLIC__/js/call/jquerysession.js"></script>
+								<script type="text/javascript">
+									//页面加载初始化
+									$(document).ready(function(){
+										//默认加载的规格属性
+										//load_spec_name();
+
+										//点击多规格启用或禁用
+										$('.multi_spec').bind("click",function(e){
+											if(e.target.tagName != "INPUT") return;
+
+											var category_id = $('#category_id').val();
+											load_spec_name(category_id);
+
+											var enable = $(this).children('input[type=radio]').val();		
+											if (enable == 1) {
+												//启用
+												$('#multi_spec_content').show();
+												$('.no_spec_show').hide();
+											} else if (enable == 0){
+												//禁用
+												$('#multi_spec_content').hide();
+												$('.no_spec_show').show();
+											} else {
+												alert_crm('参数错误');
+												return false;
+											}
+										});
+
+										//点击规格值显示
+										$(document).on('click','.spec_val',function(e){
+
+											//解决radio、checkbox点击会响应两次的问题，这是radio、checkbox本身和js的问题
+											if(e.target.tagName != "INPUT") return;
+
+											//每次选择规格时，把当前的表单值存入js session中
+											var data_arr = new Array();
+											$('.data_record').each(function(key, val){
+												var id_name = $(this).attr('id');
+												var val = $(this).val();
+												//data_arr.push({id_name : val});
+												data_arr[id_name] = val;
+ 											});
+											//console.log(data_arr);
+											$.session.set('data_arr',data_arr);		
+
+											//动态加载不同规格的tabel格式
+											$('#spec_tab').load("{:U('product_info/spec_val')}", $('#form').serialize(),function(){
+
+												//重新加载table格式后，填充原来对应的值
+												var data_arr = $.session.get('data_arr');			
+												for(var key in data_arr){  
+												    // console.log("键:",key);  
+												    // console.log("值:",data_arr[key]);
+												    $('#'+key).val(data_arr[key]);
+												}
+											});
+										});
+									});
+
+									//根据选择的产品分类查询对用的规格属性
+									$('#category_id').change(function(){
+										var category_id = $(this).val();
+										load_spec_name(category_id);
+									});
+									//加载规格属性
+									function load_spec_name(category_id = 0){
+										$('#spec_name_tab').load("{:U('product_info/spec_name')}",{category_id:category_id},function(){
+											$('#spec_tab').html('');
+										});
+									}
+								</script>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="tfoot_div" class="clearfix">
+			<div class="clearfix" id="tfoot_page">
+				<div class="ibox-content" style="border-top: none;">
+					<div class="col-sm-offset-2" style="text-align:center;margin-left:0px;"><button type="submit" id="save_submit" class="btn btn-primary">创建产品</button></div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="" style="display:none;" id="dialog-validate" title="{:L('TEST_RESULTS')}">
+	{:L('HAVE_THE_FOLLOWING_PRODUCTS_ARE_SIMILAR_TO_THE_PRODUCT_NAME')}
+	<div id="search_content"></div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/js/uploadPreview.js"></script>
+<script type="text/javascript">
+//初始化上传图片
+$("body").on('click','input[type="file"]', function(){
+	var selector = $(this).attr('id');
+	$("#"+selector).uploadPreview({ Img: selector+"_prev", Width: 120, Height: 120 });
+});
+$(document).ready(function(){
+	$('#save_submit').prop('disabled',false);
+	/*form表单验证*/
+	$("#form").validate({
+		submitHandler:function(form){
+            $('#save_submit').click(function(){	
+				$('#save_submit').prop('disabled',true);
+			});
+            form.submit();
+        }    
+	});
+});
+</script>
+<include file="Public:footer" />	

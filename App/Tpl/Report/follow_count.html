@@ -1,0 +1,29 @@
+<div id="report_content" class="th_content" style="position:relative;">
+	<div id="table_div" class="nicescroll" style="left:0px;top:0px;">
+		<table class="table table-hover table-striped table_thead_fixed table-bordered" id="tab_Test3">
+			<tr>
+				<td>员工姓名</td>
+				<td>所属部门</td>
+				<td>新增联系人数（个）</td>
+				<td>排名</td>
+			</tr>
+			<empty name="list">
+				<tr>
+					<td colspan="4"><include file="Public:nodata" /></td>
+				</tr>
+			<else />
+				<volist name="list" id="vo">
+					<tr>
+						<td>
+							<a href="javascript:void(0)" class="role_info" rel="{$vo['role_id']}">{$vo['user_name']}</a>
+						</td>
+						<td>{$vo['department_name']}</td>
+						<td>{$vo['count']}</td>
+						<td>{$key+1}</td>
+					</tr>
+				</volist>
+			</empty>
+		</table>
+	</div>
+	<div id="tfoot_div" class="clearfix"></div>
+</div>

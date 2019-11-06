@@ -1,0 +1,68 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+  <header class="abe-header am-header-default"> <a href="javascript:history.go(-1);" class="return iconfont">&#xe612;</a>
+    <h1 class="abe-header-title">线索详情</h1>
+  </header>
+<div id="pagetwo" style="display: block">
+    <ul class="cust-form">
+        <li class="titbox"><span class="tit">来源：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$leads['source']}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">职位：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$leads.crm_gzcqgt}">
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">联系人姓名：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$leads.contacts_name}">
+            </div>
+        </li>
+
+        <li class="titbox"><span class="tit">下次联系时间：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="<if condition="$leads.nextstep_time neq '0'">{$leads.nextstep_time|date='Y-m-d H:i',###}"<else/>无</if>">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">公司名：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$leads.name}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">尊称：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$leads.saltname}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">手机：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$leads.mobile}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">邮箱：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$leads.email}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">地址：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly" value="{$leads.address}">
+            </div>
+        </li>
+        <li class="titbox"><span class="tit">下次联系内容：</span>
+            <div class="txtbox">
+                <input type="text" class="txt ptxt100p" readonly="readonly"  value="{$leads.nextstep}">
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/waps/style/style.css">
+<script src="__PUBLIC__/waps/js/mobiscroll_date.js" charset="gb2312"></script>
+<script src="__PUBLIC__/waps/js/mobiscroll.js"></script>
+
+</body>
+</html>

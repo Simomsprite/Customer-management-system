@@ -1,0 +1,63 @@
+<form class="form-inline" action="{:U('business/advance')}" method="post">	
+	<table class="table table-no">
+		<input type='hidden' name='business_id' value="{$_GET['id']}"/>
+		<input type="hidden" name="status_id" value="">
+		<tr>
+			<div class="form-group row" style="margin: 0; width: 100%;">
+				<div class="col-md-4">
+					<label for="possibility" style="line-height: 32px;">成交几率：</label>
+				</div>
+				<div class="col-md-8">
+					<select name="possibility" id="possibility" class="form-control" style="width: 100%;">
+						<option value="10%">10%</option>
+						<option value="20%">20%</option>
+						<option value="30%">30%</option>
+						<option value="40%">40%</option>
+						<option value="50%">50%</option>
+						<option value="60%">60%</option>
+						<option value="70%">70%</option>
+						<option value="80%">80%</option>
+						<option value="90%">90%</option>
+						<option value="100%">100%</option>
+					</select>
+				</div>
+			</div>
+		</tr>
+		<volist name="statusList" id="vo">
+			<if condition="$vo.status_id neq 99">
+				<tr>
+					<td>
+						<button class="btn btn-outline btn-default btn-jieduan" rel="{$vo.status_id}" style="width:100%;height:39px;text-align: left;" type="button"><span>{$vo.name}</span><i class="fa fa-check hide" style="position: relative; color: green; left: 177px; top: 0px;"></i></button>
+					</td>
+				</tr>
+			</if>
+		</volist>
+		<tr>
+			<td class="text-right">
+				<div class="checkbox checkbox-primary pull-left" style="margin-top:-4px;padding-left:3px;">
+					<input value="{$fail_status_id}" id="status_check" name="status_check" type="checkbox"/>
+					<label for="status_check">项目失败</label>
+				</div>
+				<input class="btn btn-primary" type="submit" name="submit" value="确定"/> &nbsp; <input class="btn" onclick="javascript:$('#dialog-advance').dialog('close');" type="button" value="{:L('CANCEL')}"/>
+			</td>
+		</tr>
+	</table>
+</form>
+
+<script>
+	$(document).ready(function(){
+		var select = $('.btn-jieduan:first');
+		var rel = select.attr('rel');
+		select.addClass('active');
+		$('[name="status_id"]').val(rel);
+		select.find('i').removeClass('hide');
+	});
+	$('.btn-jieduan').click(function(){
+		$('.btn-jieduan').removeClass('active');
+		$('.btn-jieduan i').addClass('hide');
+		$(this).addClass('active');
+		$(this).find('i').removeClass('hide');
+		$('[name="status_id"]').val($(this).attr('rel'));
+	});
+	$('#possibility').val('{$possibility}');
+</script>

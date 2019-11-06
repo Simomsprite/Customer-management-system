@@ -1,0 +1,33 @@
+<form id="bq_form">
+    <input type="hidden" name="date" value="{$date}" />
+    <div class="form-group row" style="width: 100%;">
+        <label class="control-label col-sm-4" for="type" style="width:110px;"><span style="color:#FF0011;">*</span>类型：</label>
+        <div class="col-sm-8">
+            <div class="radio radio-info radio-inline" style="margin-left: 25px;">
+                <input type="radio" id="sex_1" name="status" value="1" checked="checked">
+                <label for="sex_1">签到</label>
+            </div>
+            <div class="radio radio-info radio-inline" style="margin-left: 25px;">
+                <input type="radio" id="sex_2" name="status" value="4">
+                <label for="sex_2">签退</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row" style="width: 100%;">
+        <label class="control-label col-sm-4" for="type" style="width:110px;"><span style="color:#FF0011;">*</span>时间：</label>
+        <div class="col-sm-8">
+            <input class="form-control Wdate" type="text" name="time" onfocus="WdatePicker({dateFmt:'HH:mm'})" value="{$sb_time}" id="bq_time" style="width: 120px;" placeholder="">
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        $('#bq_form [name="status"]').on('change', function () {
+            if ($(this).is('#sex_1')) {
+                $('#bq_time').val('{$sb_time}');
+            } else {
+                $('#bq_time').val('{$xb_time}');
+            }
+        });
+    });
+</script>

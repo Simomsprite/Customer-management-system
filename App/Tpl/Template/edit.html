@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>编辑模板</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link href="__PUBLIC__/style/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/style/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <script src="__PUBLIC__/style/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        //实例化编辑器
+        window.UEDITOR_UPLOAD_URL = "{:U('file/editor')}";
+        var template_print = false;
+    </script>
+    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/ueditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="__PUBLIC__/style/js/jquery-2.1.1.js"></script>
+    <script src="__PUBLIC__/js/layer/layer.js"></script>
+    <style type="text/css">
+        * { list-style: none; }
+        a { text-decoration: none; }
+        #nav { height: 50px; background-color: #2F4050; }
+        #nav .pull-left span { font-size: 20px; color: #FFF; line-height: 50px; margin-left: 30px; }
+        #nav .pull-right { line-height: 50px; margin-right: 20px; }
+        #nav .pull-right #close { color: #efefef; }
+        #menu { width: 14%; overflow:auto; background: #5F5F64; }
+        #content {width: 85%;}
+        #content,#menu {float: left;}
+        #menu ul { padding: 0; }
+        #menu ul>li { width: 100%; height: 50px; line-height: 50px; background: #5F5F64; padding-left: 10px; border-bottom: 1px solid #333;  }
+        #menu ul>li>i,#menu ul>li>span { color: #CCC; margin-left: 10px; font-size: 18px; }
+        #menu ul>ol { padding: 0; }
+        #menu ul>ol>li { background: #4D4D50; line-height: 50px; height: 50px; border-bottom: 1px solid #333; width: 50%; color: #ccc; text-align: center; font-size: 16px;text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+        #menu ul>ol>li:nth-child(2n+0) { border-right: 1px solid #333; }
+        #menu ul>ol>li:first-child { width: 100%; font-size: 14px; color: #aaa; }
+        #menu li { float: left; cursor:pointer; }
+        form .form-inline label { margin: 10px 10px; }
+        #edui1_iframeholder { background: #ccc; overflow: auto; }
+        .edui-editor-iframeholder iframe {
+            width: 842px;
+            min-height: -webkit-calc(100% - 40px * 2);
+            min-height: calc(100% - 40px * 2);
+            margin: 20px 85px;
+            padding: 35px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border-radius: 3px;
+            background-color: #fff;
+            -webkit-box-shadow: 0 5px 10px 0 rgba(0,0,0,.2);
+            box-shadow: 0 5px 10px 0 rgba(0,0,0,.2);
+        }
+        #edui1_bottombar {display: none;}
+        #content { background: #E6E9F0; }
+        #content>#editor{ margin: 0 auto; width: 1000px; }
+        #tpl_name { margin-left: 14%; }
+        #tpl_name>div { margin: 0 auto; width: 1000px; }
+    </style>
+</head>
+<body>
+<div id="nav">
+    <div class="pull-left">
+        <span>编辑模板</span>
+    </div>
+    <div class="pull-right">
+        <button id="save" class="btn btn-primary">保存</button>
+        <button id="preview" class="btn btn-default">预览</button>
+        <a id="close" href="javascript:void(0);">退出</a>
+    </div>
+</div>
+<div>
+    <div id="menu" class="ibox-title">
+        <ul class="field-block">
+            <li>
+                <i class="glyphicon glyphicon-menu-down"></i>
+                <span href="javascript:void(0);">对象集合</span>
+                <ol hidden hide="true">
+                    <li>对象集合</li>
+                    <volist name="field['block']" id="val" key="key">
+                        <li title="{$val.name}">{$val.name}</li>
+                        <div hidden>{$val.content}</div>
+                        <?php echo ((count($field['block']) % 2 == 1) && ($key == count($field['block']))) ? '<li></li>' : ''; ?>
+                    </volist>
+                </ol>
+            </li>
+        </ul>
+        <ul class="field">
+            <volist name="field['field']" id="vo" key="key">
+                <li>
+                    <i class="glyphicon glyphicon-menu-down"></i>
+                    <span href="javascript:void(0);">{$vo.name}</span>
+                    <ol hidden hide="true">
+                        <li>{$vo.name}字段</li>
+                        <volist name="vo.fields" id="val" key="key">
+                            <li title="<php>echo $val['model']?$val['model'].'.':'';</php>{$val.field}">{$val.name}</li>
+                            <?php echo ((count($vo['fields']) % 2 == 1) && ($key == count($vo['fields']))) ? '<li></li>' : ''; ?>
+                        </volist>
+                    </ol>
+                </li>
+            </volist>
+        </ul>
+    </div>
+    <div id="form">
+        <form id="tpl_add_form" method="post" action="{:U('template/edit')}" onkeydown="if(event.keyCode==13){return false;}">
+            <script id="default" type="text/plain" name="default" style="display: none;">{$template.content}</script>
+            <input type="hidden" name="template_id" value="{$template.template_id}">
+            <div id="tpl_name" class="form-inline">
+                <div>
+                    <label>
+                        <span class="text-danger">*</span><span>模板名称</span> &nbsp;&nbsp;
+                        <input type="text" name="title" value="{$template.title}" class="form-control" required>
+                    </label>
+                </div>
+            </div>
+            <div id="content">
+                <script name="content" id="editor" type="text/plain">{$template.content}</script>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $('#menu').height($(window).height() - 50);
+    $(window).resize(function(){
+        $('#menu').height($(window).height() - 50);
+    });
+    $(window).resize(function(){
+        $('#edui1_iframeholder').height($(window).height() - 185);
+    });
+    var preview_page;
+    $("#preview").on('click', function(){
+        var is_IE = IEVersion();
+        if (is_IE != 'edge' && is_IE != -1) {
+            swal('抱歉，IE浏览器暂不支持预览、打印功能', '可换用谷歌，360，edge等浏览器\n（360浏览器须切换极速模式）', 'warning');
+            return false;
+        }
+        preview_page = layer.open({
+            type: 2,
+            title: '模板预览',
+            shadeClose: true,
+            area: ['100%', '100%'],
+            content: '{:U("template/preview")}' //iframe的url
+        }); 
+        $('.layui-layer-title,.layui-layer-close').remove();
+    });
+    function IEVersion() {
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+        var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器  
+        var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器  
+        var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+        if (isIE) {
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+            reIE.test(userAgent);
+            var fIEVersion = parseFloat(RegExp["$1"]);
+            if (fIEVersion == 7) {
+                return 7;
+            } else if (fIEVersion == 8) {
+                return 8;
+            } else if (fIEVersion == 9) {
+                return 9;
+            } else if (fIEVersion == 10) {
+                return 10;
+            } else {
+                return 6;//IE版本<=7
+            }
+        } else if (isEdge) {
+            return 'edge';//edge
+        } else if (isIE11) {
+            return 11; //IE11  
+        } else {
+            return -1;//不是ie浏览器
+        }
+    }
+    $("#menu>ul>li").on('click', function(){
+        var hide = $(this).find('ol').attr('hide');
+        if (hide == 'true') {
+            var tthis = $(this);
+            $.each($('#menu>ul>li'), function(k, v){
+                var hide = $(v).find('ol').attr('hide');
+                if (hide == 'false') li_o_c($(v), 'false');
+            });
+        }
+        li_o_c($(this), hide);
+    });
+    function li_o_c(li, hide)
+    {
+        li.find('i').toggleClass('glyphicon-menu-down');
+        li.find('i').toggleClass('glyphicon-menu-up');
+        if (hide == 'true') {
+            li.find('ol').attr('hide', 'false');
+            var field = li.find('ol').clone(true);
+            field.attr('hidden', false);
+            li.after(field);
+        } else {
+            li.find('ol').attr('hide', 'true');
+            li.next('ol').eq(0).remove();
+        }
+    }
+    $('#menu .field-block ol li').on('click', function(){
+        var prev = $(this).prev('li');
+        if (prev.length == 0) {
+            return false;
+        }
+        var model = $(this).siblings('div').clone(1);
+        model = model[0].outerHTML;
+
+        UE.getEditor('editor').execCommand('insertHtml', model);
+    });
+    $('#menu .field ol li').on('click', function(){
+        var prev = $(this).prev('li');
+        if (prev.length == 0) {
+            return false;
+        }
+        var title = $(this).html();
+        var val = $(this).attr('title');
+        if (!val) return false;
+        var model = '<span class="variable-wrapper" contenteditable="false" title="'+ title +'" data-original="'+ val +'">{{'+ val +'}}</span>';
+        UE.getEditor('editor').execCommand('insertHtml', model);
+    });
+    $("#print").on('click', function(){
+        $("#edui4_body").click();
+    });
+    $("#save").on('click', function(){
+        var status = $(this).attr('status');
+        if (status == 'false') return false;
+        $("#tpl_add_form").submit();
+    });
+    $("#tpl_add_form").on('submit', function(){
+        var this_btn = $("#save");
+        var form = $("#tpl_add_form");
+        var title = form.find('[name="title"]');
+        if (title.val().length == 0) {
+            swal('模板名称不能为空','',"error");
+            layer.closeAll('loading');
+            return false;
+        }
+        var name_unique;
+        $.ajax({
+            async: false,
+            url: '{:U("template/ajax_template_check_name")}&template_id='+{$template.template_id},
+            data: {'title': $.trim(title.val())},
+            type: "GET",
+            dataType: 'JSON',
+            scriptCharset: 'utf-8',
+            success: function(json) {
+                if (json.unique) {
+                    swal('模板名称已存在','',"error");
+                    name_unique = true;
+                    return false;
+                }
+            },
+            beforeSend: function(){
+                layer.load();
+                this_btn.attr('status', 'false');
+            },
+            complete: function(){
+                layer.closeAll('loading');
+                this_btn.attr('status', 'true');
+            }
+        });
+        if (name_unique) {
+            return false;
+        }
+        data = form.serializeArray(); 
+        $.ajax({
+            url: '{:U("template/edit")}',
+            data: data,
+            type: 'POST',
+            dataType: 'JSON',
+            success: function(json){
+                if (json.status == 1) {
+                    parent.layer.close(parent.edit_page);
+                    parent.swal(json.msg, '', 'success');
+                } else {
+                    parent.swal(json.msg, '', 'error');
+                }
+            },
+            beforeSend: function(){
+                layer.load();
+            },
+            complete: function(){
+                layer.closeAll('loading');
+            }
+        });
+        return false;
+    });
+    $("#close").on('click', function(){
+        var form = $("#tpl_add_form");
+        var def = $('[name="default"]');
+        var content = form.find('[name="content"]');
+        if (def.val() != content.val()) {
+            swal({ 
+                title: "退出页面时，是否要保存您的更改？", 
+                type: "warning",
+                showCancelButton: true, 
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "保存退出", 
+                cancelButtonText: "直接退出",
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    layer.load();
+                    form.submit();
+                } else {
+                    parent.layer.close(parent.edit_page);
+                }
+            });
+        } else {
+            parent.layer.close(parent.edit_page);
+        }
+    });
+    var ued = UE.getEditor('default');
+    var ue = UE.getEditor('editor',  {
+        toolbars: [
+            [ /* 'source', */ 'print', 'preview', 'undo', 'redo', 'bold','indent','italic','underline','strikethrough','subscript','fontborder', 'superscript', 'formatmatch', 'blockquote','pasteplain', 'selectall', 'horizontal', 'removeformat', 'time', 'date', 'unlink', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow', 'deletecol', 'splittorows', 'splittocols', 'splittocells', 'deletecaption', 'inserttitle', 'mergecells', 'deletetable', 'cleardoc', 'insertparagraphbeforetable', 'fontfamily', 'fontsize', 'paragraph', 'simpleupload', 'insertimage', 'edittable', 'edittd', 'spechars', 'searchreplace', 'map', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'fullscreen', 'directionalityltr', 'directionalityrtl', 'rowspacingtop', 'rowspacingbottom', 'imagenone', 'imageleft', 'imageright', 'imagecenter', 'lineheight', 'edittip ', 'customstyle', 'autotypeset', 'touppercase', 'tolowercase', 'background', 'inserttable', 'charts',
+            ]
+        ],
+        initialFrameHeight: $(window).height() - 160,//设置编辑器高度
+        initialFrameWidth: 1000,//设置编辑器高度
+        wordCount: false ,
+        scaleEnabled:true ,//设置不自动调整高度
+        elementPathEnabled: false,
+    });
+    $('#edui1_bottombar').hide();
+</script>
+</body>
+</html>

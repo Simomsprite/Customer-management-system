@@ -1,0 +1,227 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+  <header class="abe-header am-header-default"> <a href="javascript:history.go(-1);" class="return iconfont">&#xe612;</a>
+    <h1 class="abe-header-title">日程</h1>
+    <a href="javascript:getdates();"  class="next-btn" id="addevent"><i class="iconfont mrg_5">&#xe63f;</i>{:L('NEW_SCHEDULE')}</a> </header>
+  <div class="time" style="display: ">
+    <div class="timebox">
+      <div id="time-date" style="max-width:640px;"></div>
+    </div>
+  </div>
+  <div class="schedule">
+    <ul class="zcml kcpp pdt_10" id="ul">
+        <div id="infone">
+        <volist name="event" id="vo" >
+            <a href="{:U('Eventm/view',array('event_id'=>$vo['event_id']))}">
+            <li id="infotwo">
+                <input type="hidden" id="event_id" name="{$vo.event_id}" value="{$vo.event_id}"/>
+        <div class="tbt"><em class="tip"></em><span class="abe-fl" >
+            <i id="start_time"> {$vo.start_date}</i>
+          <em class="abe-space">-</em>
+            <i id="end_time"> {$vo.end_date}</i>
+        </span><!--<a href="{:U('Eventm/delete',array('event_id'=>$vo['event_id']))}" onclick="return confirmd()" class="abe-fr pbtn pb-red pbtn-sxm">删除</a>-->
+            <!--<a href="javascript:showtab(3,'是否删除该条数据')"  class="abe-fr pbtn pb-red pbtn-sxm">删除</a>
+          <a href="{:U('Eventm/edit',array('event_id'=>$vo['event_id']))}" class="abe-fr pbtn pbtn-sxm mrg_10">编辑</a>-->
+        </div>
+        <a href="{:U('Eventm/view',array('event_id'=>$vo['event_id']))}" class="pdl_15 pdr_15 pdt_5 pdt_5 abe-block">
+          <div id="description"> {$vo.description}</div></a>
+            </li></a>
+        </volist>
+        </div>
+    </ul>
+  </div>
+    <include file="Public:footerm"/>
+  <script src="__PUBLIC__/waps/js/calendar.js"></script>
+</div>
+<div class="popup-bg" style="display: none"></div>
+<script>
+    function getdates(){
+        var days=$('.selected').text();
+        var day=days.substr(0,2);
+        console.log(day);
+        var year=$('.calendar-display:first').text();
+        if(!day){
+            var nowDate=new Date();
+            var days=nowDate.getDate();
+            day=days;
+        }
+        var dates=year+'/'+day;
+        /*var str="/index.php?m=Eventm&a=add&start_date="+dates;*/
+        var str="{:U('Eventm/add')}"+'&start_date='+dates;
+        /*str=str.replace("[c]",dates);*/
+        window.location.href=str;
+    }
+
+
+   $(function(){
+	   //日期
+	   var date_width = $(".timebox").width();
+
+		if(date_width>640)
+		{
+			$('#time-date').calendar({
+			width: 640,
+			height: 640,
+		});
+		}else
+		{
+			$('#time-date').calendar({
+			width: date_width,
+			height: date_width,
+		});
+		}
+		$('#time-date').height(date_width);
+	    $(".rw-tab").tabs();
+	   //其他
+   });
+
+
+    $(function(){
+       $('.days li').click(function () {
+           if ($('#infotwo').length>0) {
+               $('li').remove('#infotwo');
+           }
+          var day=$(this).text();
+          var year=$('.calendar-display:first').text();
+           $.ajax({
+               url : "{:U('Eventm/eveInfo')}",
+               type: "POST",
+               data:{"year": year, "day" : day },
+               async: true,
+               success: function(msg) {
+                   var data='';
+                   if (msg!=''){
+                       data=eval("("+msg+")");
+                   }
+                   var html="";
+                   if (data){
+                       for(var i=0;i<data.length;i++){
+                       var ls = data[i];
+                       html+='<a href="{:U(\'eventm/view\',array(\'event_id\'=>"'+ls.event_id+'"))}"><li id="infotwo"><input type="hidden" id="event_id" name="'+ls.event_id+'" value="'+ls.event_id+'"/><div class="tbt">'+'<em class="tip"></em>'+'<span class="abe-fl" >'+
+                       '<i id="start_time">'+ls.start_date+'</i>'+
+                       '<em class="abe-space">'+'&#45;'+'</em>'+
+                       '<i id="end_time">'+ls.end_date +'</i>'+
+                       '</span>'+''+''+
+                       ''+''+''+
+                       '</div>'+
+                       '<a href="{:U(\'eventm/view\',array(\'event_id\'=>"'+ls.event_id+'"))}" class="pdl_15 pdr_15 pdt_5 pdt_5 abe-block">'+
+                       '<div id="description">'+ls.description +'</div>'+'</a></li></a>';
+                       }
+                       $("#infone").html(html);
+                   }
+               }
+           });
+       });
+    });
+
+   $(function(){
+       $.ajax({
+           url: "{:U('Eventm/evePoint')}",
+           success: function (msg) {
+               var data = '';
+               var month=$('.m').text();
+               if (msg != '') {
+                   data = eval("(" + msg + ")");
+               }
+               console.log("我好难啊");
+               if (data) {
+                   for (var i = 0; i < data.length; i++) {
+                       var ls = data[i];
+                       var m=ls.start_date;
+                       var n=ls.end_date;
+
+                       $('.days:eq(1) li').each(function(){
+                           var dayone=$(this).text();
+                           var daytwo=parseInt($(this).text())+1;
+                           var year=$('.calendar-display:first').text();
+                           var dateone=year+'/'+dayone;
+                           var datetwo=year+'/'+daytwo;
+                           var datesone=Math.round(Date.parse(dateone)/1000);
+                           var datestwo=Math.round(Date.parse(dateone)/1000)+86399;
+                           if ((m<=datesone && n>=datestwo) ||
+                               (m>=datesone && n<=datestwo) ||
+                               (m<=datesone && n>=datesone && n<=datestwo) ||
+                               (m>=datesone && m<=datestwo && n>=datestwo)
+                           ){
+                               if(!$(this).attr('class') ) {
+                                   $(this).addClass('rc-tag');
+                               }
+                               if ($(this).attr('class')==" now") {
+                                   $(this).addClass('rc-tag');
+                               }
+                           }
+                       });
+
+                       $('.days:eq(2) li').each(function(){
+                           var dayone=$(this).text();
+                           var daytwo=parseInt($(this).text())+1;
+                           var years=$('.calendar-display:first').text();
+                           var month=parseInt(years.substr(5))+1;
+                           var year=years.substr(0,5);
+                           var dateone=year+month+'/'+dayone;
+                           var datetwo=year+month+'/'+daytwo;
+                           var datesone=Math.round(Date.parse(dateone)/1000);
+                           var datestwo=Math.round(Date.parse(dateone)/1000)+86399;
+                           if ((m<=datesone && n>=datestwo) ||
+                               (m>=datesone && n<=datestwo) ||
+                               (m<=datesone && n>=datesone && n<=datestwo) ||
+                               (m>=datesone && m<=datestwo && n>=datestwo)
+                           ){
+                               if(!$(this).attr('class')) {
+                                   $(this).addClass('rc-tag');
+                               }
+                               if ($(this).attr('class')==" now") {
+                                   $(this).addClass('rc-tag');
+                               }
+                           }
+                       });
+
+                       $('.days:eq(0) li').each(function(){
+                           var dayone=$(this).text();
+                           var daytwo=parseInt($(this).text())+1;
+                           var years=$('.calendar-display:first').text();
+                           var month=parseInt(years.substr(5))-1;
+                           var year=years.substr(0,5);
+                           var dateone=year+month+'/'+dayone;
+                           var datetwo=year+month+'/'+daytwo;
+                           var datesone=Math.round(Date.parse(dateone)/1000);
+                           var datestwo=Math.round(Date.parse(dateone)/1000)+86399;
+                           if ((m<=datesone && n>=datestwo) ||
+                               (m>=datesone && n<=datestwo) ||
+                               (m<=datesone && n>=datesone && n<=datestwo) ||
+                               (m>=datesone && m<=datestwo && n>=datestwo)
+                           ){
+                               if(!$(this).attr('class')) {
+                                   $(this).addClass('rc-tag');
+                               }
+                               if ($(this).attr('class')==" now") {
+                                   $(this).addClass('rc-tag');
+                               }
+                           }
+                       });
+
+                   }
+               }
+           }
+       });
+   });
+
+   function closetab(){
+       var event_id=$("#event_id").val()
+       $.ajax({
+           url:"{:U('Eventm/delete')}",
+           type:"POST",
+           data:{'event_id':event_id},
+           async: true,
+           success:function(){
+               var str="{:U('Eventm/index')}";
+               window.location.href=str;
+           }
+       });
+   }
+
+
+
+</script>
+</body>
+</html>

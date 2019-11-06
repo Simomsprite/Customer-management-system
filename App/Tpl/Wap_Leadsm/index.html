@@ -1,0 +1,88 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+  <header class="abe-header am-header-default"> <a href="javascript:history.go(-1);" class="return iconfont">&#xe612;</a>
+    <h1 class="abe-header-title">线索</h1>
+    <a href="{:U('Leadsm/add')}" class="next-btn"><i class="iconfont mrg_5">&#xe63f;</i>添加线索</a>
+  </header>
+
+  <div class="ku-search">
+    <div class="ksinfo" id="kspop">
+      <form id="customer_search" action="" method="get">
+        <input type="hidden" name="m" value="leadsm"/>
+        <input type="hidden" name="a" value="index"/>
+        <input type="hidden" name="by" value="{$by}"/>
+        <input type="hidden" name="name[condition]" value="contains"/>
+        <input type="hidden" name="name[form_type]" value="text">
+        <input type="text" class="txt" name="name[value]" placeholder="线索名/联系人/联系号码" onkeydown='if(event.keyCode==13) {$("#short_search_btn").trigger("click");return false;}'   <if condition="$_GET['name']['condition'] eq 'contains'">value="{$_GET['name']['value']}"</if> />
+        <button class="pbtn pb-blue" type="submit" id="short_search_btn"><em>搜索</em></button>
+      </form>
+    </div>
+  </div>
+
+  <div class="pbtab pbtab4 mbg_10">
+    <a href="{:U('Leadsm/index')}" <if condition="$by neq 'public'"> class="active" </if> id="leads">线索</a>
+    <a href="{:U('leadsm/index','by=public')}"  <if condition="$by eq 'public'"> class="active" </if> id="leadspool">线索池</a></div>
+    <input type="hidden" id="by" name="{$by}" value="{$by}"/>
+  <div class="zcmlbox">
+    <ul class="zcml kcpp">
+      <volist name="leadslist" id="vo">
+        <li>
+          <div class="tbt"><em class="tip"></em>
+            <span class="abe-fl">
+              <input type="hidden" id="leads_id" name="{$vo.leads_id}" value="{$vo.leads_id}"/>
+              <a href="{:U('leadsm/view',array('id'=>$vo['leads_id'],'by'=>$by))}" class="vi-blue"><if condition="$vo.name neq ''">{$vo.name}<else/>线索操作</if></a></span>
+            <!--<a href="{:U('leadsm/view',array('id'=>$vo['leads_id'],'by'=>$by))}" class="abe-fr vi-blue"><i class="iconfont mrg_5">&#xe6a7;</i>联系人:{$vo.contacts_name}{$vo.saltname}</a></div>-->
+          <a href="{:U('leadsm/view',array('id'=>$vo['leads_id'],'by'=>$by))}" class="abe-fr vi-blue"><i class="iconfont mrg_5 ">&#xe6a7;</i>联系人:{$vo.contacts_name}{$vo.saltname}</a></div>
+          <a href="{:U('Leadsm/leadsdetail',array('leads_id'=>$vo['leads_id']))}"> <div class="item"><span class="">手机号码</span>
+            <div class="info">{$vo.mobile}</div>
+          </div>
+          <div class="item"><span class="">创建人</span>
+            <div class="info">{$vo.creator.user_name}</div>
+          </div>
+          <div class="item"><span class="">创建时间</span>
+            <div class="info">{$vo['create_time']|date='Y-m-d H:i',###}</div>
+          </div>
+          <div class="item"><span class="">下次联系时间</span>
+            <div class="info"><if condition="$vo['nextstep_time'] gt 0">{$vo['nextstep_time']|date='Y-m-d H:i',###}<else/></if></div>
+          </div>
+          <div class="item"><span class="">下次联系内容</span>
+            <div class="info">{$vo.nextstep}</div>
+          </div>
+          </a>
+        </li>
+      </volist>
+    </ul>
+  </div>
+  <include file="Public:footerm"/>
+</div>
+<script>
+  function closetab(){
+      var by=$('#by').val();
+      var leads_id=$('#leads_id').val();
+      $.ajax({
+          url : "{:U('Leadsm/delete')}",
+          type: "POST",
+          data:{"by": by, "leads_id" : leads_id },
+          async: true,
+          success:function(){
+              var str="{:U('Leadsm/index')}"+'&by='+by;
+              window.location.href=str;
+          }
+      });
+  }
+/*$("#leads").click(function(){
+    $(this).addClass("class","active");
+    $("#leadspool").attr("class","");
+});
+$("#leadspool").click(function(){
+    $(this).attr("class","active");
+    $("#leads").attr("class","");
+});*/
+
+$("#leadspool").click(function(){
+   if ($($(this)).href==String(window.location))
+       $(this).addClass("active");
+});
+</script>
+</body>
+</html>

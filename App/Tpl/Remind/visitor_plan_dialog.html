@@ -1,0 +1,28 @@
+<volist name="list" id="val">
+    <div class="ibox-content" style="border:none;margin-top: 5px;border-top: 1px dashed #d3d3d6;">
+        <div class="social-feed-separated clearfix">
+            <div class="social-feed-box">
+                <div class="social-avatar">
+                    <img alt="image" style="width:35px;height:35px;" class="img-circle" src="{$val['owner_role_info']['img']}">
+                    <a class="role_info name-colors" rel="{$val['owner_role_info']['role_id']}" href="javascript:void(0);">{$val['owner_role_info']['full_name']}</a>&nbsp;&nbsp;
+                    <span class="text-muted" style="margin-right: 20px;">计划时间：{$val['plan_time']}</span>
+                    <div class="pull-right">
+                        <div style="width: 12px; height: 12px; border-radius: 50%; background-color: {$val['status_color']}; float: left; margin: 3px 3px 0 0;"></div>
+                        <span>{$val['status']}</span>
+                    </div>
+                </div>
+                <div class="social-body">
+                    <span style="word-wrap:break-word;line-height: 21px;color: #000;">{$val['content']}</span>
+                    <div class="row" style="margin-top: 10px;">
+                        <?php if ($val['delay_time'] != '-') { ?>
+                            <span class="text-muted pull-right">延期时间：{$val['delay_time']}</span>
+                        <?php } ?>
+                    </div>
+                    <?php if ($val['customer_id']) { ?>
+                        <div class="log-relation"><i class="fa fa-bookmark"></i>&nbsp;<span>相关客户 : <a href="{:U('customer/view', array('id' => $val['customer_id']))}" target="_blank">{$val['customer_name']}</a></span></div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</volist>

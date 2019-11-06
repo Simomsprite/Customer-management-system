@@ -1,0 +1,157 @@
+/*
+v-name:new add style
+v:1.0
+time:2019/05/20
+contact-qq:815203021
+by:brother.five
+*/
+/*浮动、间距、溢位隐藏*/
+.abe-fl { float: left; }
+.abe-fr { float: right; }
+.abe-block { display: block; }
+.abe-in-block { display: inline-block; }
+.abe-ofl { overflow: hidden; }
+.abe-hide { display: none; }
+.abe-mg { margin: 0 auto; }
+.abe-space { font-style: normal; padding: 0 10px; }
+/*字体设置*/
+.abe-fb { font-weight: bold; }
+.abe-fnb { font-weight: 100; }
+.abe-txtl { text-align: left; }
+.abe-txtr { text-align: right; }
+.abe-txtc { text-align: center; }
+.abe-ft12 { font-size: 12px; }
+.abe-ft13 { font-size: 13px; }
+.abe-ft14 { font-size: 14px; }
+.abe-ft15 { font-size: 15px; }
+.abe-ft16 { font-size: 16px; }
+.abe-ft17 { font-size: 17px; }
+.abe-ft18 { font-size: 18px; }
+.abe-ft19 { font-size: 19px; }
+.abe-ft20 { font-size: 20px; }
+.abe-ft22 { font-size: 22px; }
+.abe-ft24 { font-size: 24px; }
+.abe-ft28 { font-size: 28px; }
+.abe-ft30 { font-size: 30px; }
+.abe-ft32 { font-size: 32px; }
+.abe-ft34 { font-size: 34px; }
+.abe-ft36 { font-size: 36px; }
+.abe-ft40 { font-size: 40px; }
+/*margin-right*/
+.mrg_5 { margin-right: 5px; }
+.mrg_10 { margin-right: 10px; }
+.mrg_15 { margin-right: 15px; }
+.mrg_20 { margin-right: 20px; }
+.mrg_25 { margin-right: 25px; }
+.mrg_30 { margin-right: 30px; }
+.mrg_35 { margin-right: 35px; }
+.mrg_40 { margin-right: 40px; }
+.mrg_45 { margin-right: 45px; }
+.mrg_50 { margin-right: 50px; }
+.mrg_100 { margin-right: 100px; }
+.mrg_150 { margin-right: 150px; }
+.mrg_200 { margin-right: 200px; }
+/*margin-left*/
+.mlg_5 { margin-left: 5px; }
+.mlg_10 { margin-left: 10px; }
+.mlg_13 { margin-left: 13px; }
+.mlg_15 { margin-left: 15px; }
+.mlg_20 { margin-left: 20px; }
+.mlg_25 { margin-left: 25px; }
+.mlg_30 { margin-left: 30px; }
+.mlg_35 { margin-left: 35px; }
+.mlg_40 { margin-left: 40px; }
+.mlg_45 { margin-left: 45px; }
+.mlg_50 { margin-left: 50px; }
+/*margin-top*/
+.mtg_5 { margin-top: 5px; }
+.mtg_10 { margin-top: 10px; }
+.mtg_15 { margin-top: 15px; }
+.mtg_25 { margin-top: 20px; }
+.mtg_30 { margin-top: 25px; }
+.mtg_35 { margin-top: 30px; }
+.mtg_40 { margin-top: 35px; }
+.mtg_45 { margin-top: 40px; }
+.mtg_50 { margin-top: 45px; }
+.mtg_55 { margin-top: 50px; }
+/*padding-top*/
+.pdt_5 { padding-top: 5px; }
+.pdt_10 { padding-top: 10px; }
+.pdt_15 { padding-top: 15px; }
+.pdt_20 { padding-top: 20px; }
+.pdt_25 { padding-top: 25px; }
+.pdt_30 { padding-top: 30px; }
+.pdt_35 { padding-top: 35px; }
+.pdt_40 { padding-top: 40px; }
+.pdt_45 { padding-top: 45px; }
+.pdt_50 { padding-top: 50px; }
+/*padding-bottom*/
+.pdb_5 { padding-bottom: 5px; }
+.pdb_10 { padding-bottom: 10px; }
+.pdb_15 { padding-bottom: 15px; }
+.pdb_20 { padding-bottom: 20px; }
+.pdb_25 { padding-bottom: 25px; }
+.pdb_30 { padding-bottom: 30px; }
+.pdb_35 { padding-bottom: 35px; }
+.pdb_40 { padding-bottom: 40px; }
+.pdb_45 { padding-bottom: 45px; }
+.pdb_50 { padding-bottom: 50px; }
+/*padding-left*/
+.pdl_5 { padding-left: 5px; }
+.pdl_10 { padding-left: 10px; }
+.pdl_15 { padding-left: 15px; }
+.pdl_20 { padding-left: 20px; }
+.pdl_25 { padding-left: 25px; }
+.pdl_30 { padding-left: 30px; }
+.pdl_35 { padding-left: 35px; }
+.pdl_40 { padding-left: 40px; }
+.pdl_45 { padding-left: 45px; }
+.pdl_50 { padding-left: 50px; }
+/*padding-right*/
+.pdr_5 { padding-right: 5px; }
+.pdr_10 { padding-right: 10px; }
+.pdr_15 { padding-right: 15px; }
+.pdr_20 { padding-right: 20px; }
+.pdr_25 { padding-right: 25px; }
+.pdr_30 { padding-right: 30px; }
+.pdr_35 { padding-right: 35px; }
+.pdr_40 { padding-right: 40px; }
+.pdr_45 { padding-right: 45px; }
+.pdr_50 { padding-right: 50px; }
+.menu-btn{ color: #fff; overflow: hidden; line-height: 28px; padding: 14px 0; cursor: pointer;}
+.menu-btn a{padding: 0!important; margin: 0 0 0 19px;}
+.menu-btn span{padding-left: 10px; font-size: 16px; color:#00bee7;}
+.nav > li.menu-btn > a i{margin: 6px 6px;}
+.mini-navbar .navbar-default .nav li.menu-btn span{display: none;}
+
+.sys-name{ line-height: 68px; padding-left: 30px; font-size: 30px; font-weight: bold; color: #00acff;}
+.sys-name span{position: relative; top: -2px;}
+
+.login-box { width: 100%; height: 100%; background: url(../../img/login-bg.jpg) no-repeat center center; background-size: 100% 100%; position: relative; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

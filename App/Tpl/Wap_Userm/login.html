@@ -1,0 +1,79 @@
+<include file="Public:headerm" />
+<div class="wrap-box">
+    <header class="abe-header am-header-default"><a href="#" class="return iconfont">&#xe612;</a>
+        <h1 class="abe-header-title">登录</h1>
+    </header>
+    <div class="login-box">
+        <div class="abe-txtc abe-ft32 vi-blue pdb_30 pdt_40">用户登录</div>
+        <form class="formtheme" id="form3">
+            <ul class="login-form">
+                <li class="txtbox"><i class="iconfont">&#xe63b;</i>
+                    <input type="text" class="txt" name="name" id="name"  placeholder="请输入账号">
+                </li>
+                <li class="txtbox"><i class="iconfont">&#xe626;</i>
+                    <input type="password" class="txt" name="password" id="password" placeholder="请输入密码">
+                </li>
+                <li class="abe-txtc pdt_10">
+                    <input id="loginsub" value="登录" class="pbtn ptxt100p">
+                </li>
+                <li class="clearfix pdt_10 pdl_10 pdr_10"><a href="#" class="abe-fr">忘记密码?</a></li>
+            </ul>
+        </form>
+    </div>
+</div>
+<script>
+    $('#loginsub').click(function() {
+        $.base64.utf8encode = true;
+        if($('#name').val() == ''){
+            showtab('3','账号不能为空');
+            return false;
+        }
+        if($('#password').val() == ''){
+            showtab('3','密码不能为空');
+            return false;
+        }
+        if($('#password').val()){
+            $('#password').val($.md5($.trim($('#password').val())));
+        }
+
+        $.ajax({
+            url : "{:U('Userm/login')}",
+            type: "POST",
+            data:$("#form3").serialize(),
+            async: true,
+            success: function(data) {
+                if(data == 1){
+                    //showtab('1',"登录成功");
+                    //window.location.reload();
+                    window.location.href="{:U('Indexm/index')}";
+                }else if (data == 2){
+                    $('#password').val("");
+                    showtab('2',"请正确输入用户名和密码");
+                    return false;
+                }else if (data == 3){
+                    $('#password').val("");
+                    showtab('2',"您的账号未通过审核，请联系管理员");
+                    return false;
+                }else if (data == 4){
+                    $('#password').val("");
+                    showtab('2',"您的账号正在审核中，请耐心等待");
+                    return false;
+                }else if (data == 5){
+                    $('#password').val("");
+                    showtab('2',"此账号已停用");
+                    return false;
+                }else if (data == 6){
+                    $('#password').val("");
+                    showtab('2',"系统没有给您分配任何岗位，请联系管理员");
+                    return false;
+                }else if (data == 7){
+                    $('#password').val("");
+                    showtab('2',"用户名或密码错误");
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

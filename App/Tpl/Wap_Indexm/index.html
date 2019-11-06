@@ -1,0 +1,61 @@
+<include file="Public:headerm"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/waps/style/swiper.min.css">
+<script type="text/javascript" src="__PUBLIC__/waps/js/swiper3.06.jquery.min.js"></script>
+
+
+<div class="wrap-box" style="padding-top: 0;">
+  
+    <div class="swiper-container abe-pic-slider">
+        <div class="swiper-wrapper">
+        <volist name="list" id="vo">
+            <div class="swiper-slide"><a href="{$vo.url}"><<img src="{:headPathHandle($vo['img_path'])}"></a></div>
+        </volist>
+        </div>
+        <div class="swiper-pagination swp1"></div>
+    </div>
+<script>
+  $(document).ready(function(e) {
+	  var mySwiper = new Swiper('.abe-pic-slider',{
+	  loop: false,
+	  autoplay: 3000, 
+	  pagination : '.swp1',
+	});
+  });
+
+  </script>
+    <include file="Public:footerm"/>
+
+</div>
+</body>
+
+<script>
+    $('#chat').click(function () {
+        var user_id = $("#chat1").val();
+        var name = $("#chat2").val();
+        $.ajax({
+            url : "{:U('Indexm/chatReg')}",
+            type: "POST",
+            data:{user_id,name},
+            success: function(msg) {
+                if (msg) {
+                    console.log("五哥最帅");
+                } else {
+                    console.log("五个最胖");
+                }
+            }
+        });
+    });
+
+    $('#addFriend').click(function(){
+        var user_id = $("#chat1").val();
+       $.ajax({
+           url:"{:U('Indexm/chatAddFriends')}",
+           type: "POST",
+           data:{user_id},
+           success:function (msg) {
+            showtab(msg);
+           }
+       });
+    });
+</script>
+</html>

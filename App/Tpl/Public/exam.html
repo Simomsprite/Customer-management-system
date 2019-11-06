@@ -1,0 +1,66 @@
+<div style="display:none" id="dialog-check" title="审核">
+	<include file="Public:loading" />
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//加载日志信息模版,只在相关“订单”详情生效
+		var type_id = "{$type_id}";
+		var order_id = "{$order_id}";
+		dialog_destroy($('#log_view'));
+		$('#log_view').load("{:U('exam/log_view','type_id=')}" + type_id + '&order_id=' + order_id);
+	});
+
+	//审核、撤销审核
+	$(".examine_order").click(function(){
+		var type_id = "{$type_id}";		
+		var order_id = "{$order_id}";
+		if (order_id == '') {
+			order_id = $('.check_list:checked').val();
+		}
+		var is_pass = $(this).find('.is_pass').val();
+		if(is_pass == 1){
+			$('#dialog-check').dialog('open');
+			$('#dialog-check').load('{:U("exam/exam", "order_id=")}' + order_id + '&type_id=' + type_id);
+		}else{
+			swal({   
+				title: "确定要撤销审核吗？",   
+				type: "warning",   
+				showCancelButton: true,  
+				confirmButtonColor: "#DD6B55",   
+				confirmButtonText: "确定",   
+				closeOnConfirm: false 
+			},
+			function(){
+				window.location.href="{:U('exam/revoke', 'order_id=')}"+order_id + '&type_id=' + type_id;
+			});
+		}
+	});
+	$("#dialog-check").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 444,
+		maxHeight: 460,
+		position: ["center",100] ,
+		buttons: {
+			"确定": function () {
+				var is_agree = $('#is_agree').val();
+				var examine_is_end = $('input[name="examine_is_end"]:checked').val();
+				var examine_role_id = $('#examine_role_id').val();
+				if (is_agree == 1 && examine_is_end != 1) {
+					if (examine_role_id == '') {
+						alert_crm('请选择下一审批人！');
+						return false;
+					}
+				}
+				$('#dialog_check').submit();
+				$(this).dialog("close");
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function() {
+	    	$(this).html('');
+	    }
+	});
+</script>

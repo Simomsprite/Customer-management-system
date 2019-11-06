@@ -1,0 +1,318 @@
+<include file="Public:header" />
+<script src="__PUBLIC__/style/js/plugins/nice-scroll/jquery.nicescroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/chart/highcharts.js"></script>
+<script src="__PUBLIC__/js/chart/modules/exporting.js"></script>
+
+<!--jQuery导出插件-->
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jquery.base64.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/tableExport.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/libs/sprintf.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/jspdf.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/libs/base64.js"></script>
+<!--jQuery导出插件-->
+<style>
+	/*悬浮提示信息框样式*/
+	.fa-info-circle {
+		font-size: 16px;
+		color: rgb(249, 94, 0);
+		cursor: pointer;
+	}
+	.popover {
+	 	color: rgb(249, 94, 0);
+	}
+	/*悬浮提示信息框样式*/
+</style>
+<script>
+	$(window).resize(function() {   
+	    var height_frm = $(document.body).height();
+	    var height_div = height_frm/2;
+	    $('#container').css("height", height_div); 
+	});
+</script>
+<div class="wrapper wrapper-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<include file="Public:alert" />
+			<div class="ibox float-e-margins">
+				<include file="Public:analytics_left" />
+				<input type="hidden" id="content_id" value="{$content_id}">
+				<div class="col-lg-10">
+					<div class="ibox-content" style="padding-bottom:10px;border-bottom: none;">
+						<form id="" class="form-group" method="get" style="margin-bottom: 0px;">
+							<div class="row" style="height: 45px;">
+								<div class="col-lg-4">
+									<div class="pull-left" >
+										<span style="font-size: 18px;color: #000;">
+											<?php
+												switch($_GET['content_id']){
+													case 1:$content_name = '合同金额统计';break;
+													case 2:$content_name = '回款金额统计';break;
+													case 3:$content_name = '合同金额TOP10';break;
+													default :$content_name = '合同金额统计';break;
+												}
+												echo $content_name;
+											?>
+										</span>
+										<if condition="$_GET['content_id'] eq 2">
+											<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="注：点击下方的金额类型可隐藏或显示对应的柱状图。" data-original-title="" title=""></i>
+										<elseif condition="$_GET['content_id'] eq 3" />
+											<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="如果排行不够10位，说明其他员工暂无合同数据。" data-original-title="" title=""></i>
+										</if>
+									</div>
+								</div>
+								<div class="col-lg-8">
+									<if condition="$_GET['content_id'] eq 1 || $_GET['content_id'] eq 2">
+										<div class="pull-right">
+											<span class="fa fa-download" style="color:#75899D;"></span>
+											<a style="color: #75899D;" onClick ="$('#export').tableExport({type: 'excel', escape: 'false', self: $(this)});">导出</a>
+										</div>
+									</if>
+								</div>
+							</div>
+							<div class="row" >
+								<input type="hidden" name="m" value="contract" />
+								<input type="hidden" name="a" value="analytics" />
+								<input type="hidden" name="content_id" value="<php>echo $content_id = $_GET['content_id'] ? intval($_GET['content_id']) : 1;</php>" />
+								<div class="col-lg-12" >
+									<ul class="nav pull-left" style="margin:2px 0 0 0px;">
+										<li>
+											<div class="input-group">
+												<input class="form-control required Wdate" aria-required="true" type="text" name="year" onFocus="WdatePicker({dateFmt:'yyyy'})" autocomplete="off" value="{$_GET['year']}" />
+												<i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;bottom: 10px;right: 24px;top: auto;cursor: pointer;"></i>
+											</div>
+										</li>
+									</ul>
+									<ul class="nav pull-left" style="margin:2px 0 0 15px;">
+										<li>
+											<div class="input-group">
+												<select class="form-control input-sm " style="min-width:165px;max-width: 165px;" name="department" id="department" onchange="changeRole()">
+													<option class="all" value="all">{:L('ALL')}</option>
+													<volist name="departmentList" id="vo">
+														<option value="{$vo.department_id}">{$vo.name}</option>
+													</volist>
+												</select>
+											</div>
+										</li>
+									</ul>
+									<if condition = "$_GET['content_id'] neq 3">
+									<ul class="nav pull-left" style="margin:2px 0 0 15px;">
+										<li>
+											<div class="input-group">
+												<select class="form-control input-sm " style="min-width:165px;max-width: 165px;" name="role" id="role" onchange="changeCondition()">
+													<option class="all" value="all">{:L('ALL')}</option>
+													<volist name="roleList" id="vo">
+														<option value="{$vo.role_id}" <if condition="$_GET['role'] eq $vo['role_id']">selected</if>>{$vo.role_name}-{$vo.user_name}</option>
+													</volist>
+												</select>
+											</div>
+										</li>
+									</ul>
+									</if>
+									<div class="pull-left" style="margin-left: 20px;">
+										<button type="submit" id="analytics_search" class="btn btn-primary">{:L('SEARCH')}</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="ibox-content" id="right_height" style="border-top: none;padding-top: 0px;">
+						<if condition="$_GET['content_id'] eq 1 || $_GET['content_id'] eq 2">
+							<div id="content_1" class="th_content full-height-scroll" style="position:relative;">
+								<div id="container" style="max-width:inherit;max-height: 450px;margin: 0 auto">
+									<include file="Public:loading" />
+								</div>
+								<!-- 表格 -->
+								<div class="col-lg-12" style="margin-left: 5px;">
+									<div style="overflow: auto;">
+										<table class="table table-hover table-striped table_thead_fixed table-bordered" id="export" style="margin-top: 20px;">
+											<tr class="tabTh">
+												<td style="min-width: 90px;">{$_GET['year']}年度</td>
+												<volist name="tab_info.month_list" id="vo">
+													<td style="min-width: 80px;">{$vo}</td>
+												</volist>
+												<td style="min-width: 80px;">合计</td>
+											</tr>
+											<tbody>
+												<tr>
+													<td>{$type_name}金额</td>
+													<volist name="tab_info.count_list" id="vo">
+														<td>{:number_format($vo, 2)}</td>
+													</volist>
+													<td>{:number_format($tab_info['total_count'], 2)}</td>
+												</tr>
+												<tr>
+													<td>
+														环比增长 <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="相较于上个月"></i>
+													</td>
+													<volist name="tab_info.ring_list" id="vo">
+														<td>{$vo}</td>
+													</volist>
+													<td></td>
+												</tr>
+												<tr>
+													<td>
+														同比增长 <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="相较于去年同月"></i>
+													</td>
+													<volist name="tab_info.same_list" id="vo">
+														<td>{$vo}</td>
+													</volist>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</if>
+						<if condition="$_GET['content_id'] eq 3">
+							<div id="content_3" class="th_content" style="position:relative;">
+								<div id="container3" style="max-width:inherit;max-height: 450px;margin: 0 auto">
+									<include file="Public:loading" />
+								</div>
+							</div>
+						</if>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	// 切换全部或只统计销售
+	$("#user_type").click(function(){
+		var user_type = $(this).is(':checked');
+		var date = $('#reservation').val();
+		if(user_type == true){
+			window.location.href = "{:U('contract/analytics','content_id=1'.'&date=')}"+date;
+		}else{
+			window.location.href = "{:U('contract/analytics','&content_id=1'.'&date=')}"+date+'&user_type=1';
+		}
+	});
+
+	$(function () {
+		// 合同金额或回款金额统计
+		$('#container').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: '{$type_name}金额统计'
+	        },
+	        xAxis: {
+	            categories: {$js_categories ?: '[]'},
+	            // crosshair: true
+	        },
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: '金额（元）'
+	            }
+	        },
+	        tooltip: {
+	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+	            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+	            '<td style="padding:0"><b>{point.y:.2f} 元</b></td></tr>',
+	            footerFormat: '</table>',
+	            shared: true,
+	            useHTML: true,
+	        },
+	        plotOptions: {
+	            column: {
+	                pointPadding: 0.2,
+	                borderWidth: 0,
+	            }
+	        },
+	        series: {$js_series ?: '[]'},
+	        // 设置颜色
+	        colors: ["#4472C4", "#ED7D31", "#2b908f",]
+	    });
+
+		// 合同金额TOP10
+	    $('#container3').highcharts({
+	        chart: {
+	            type: 'bar'
+	        },
+	        title: {
+	            text: '员工合同金额TOP10排行榜'
+	        },
+	        xAxis: {
+	            categories: {$js_categories ?: '[]'},
+	            title: {
+	                text: null
+	            }
+	        },
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: '合同金额 (元)',
+	                align: 'high'
+	            },
+	            labels: {
+	                overflow: 'justify'
+	            }
+	        },
+	        tooltip: {
+	            valueSuffix: ' 元'
+	        },
+	        plotOptions: {
+	            bar: {
+	                dataLabels: {
+	                    enabled: true,
+	                    allowOverlap: true
+	                }
+	            }
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'top',
+	            x: -40,
+	            y: 100,
+	            floating: true,
+	            borderWidth: 1,
+	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	            shadow: true
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: [{
+	            name: '合同金额',
+	            data: {$js_data ?: '[]'}
+	        }]
+	    });
+	});
+	
+	function changeRole(){
+		department_id = $("#department option:selected").val();
+		$.ajax({
+			type:'get',
+			url:'index.php?m=user&a=getrolebydepartment&department_id='+department_id,
+			async:true,
+			success:function(data){
+				options = '<option value="all">{:L('ALL')}</option>';
+				if(data.data != null){
+					$.each(data.data, function(k, v){
+						options += '<option value="'+v.role_id+'">'+v.role_name+"-"+v.user_name+'</option>';
+					});
+				}
+				$("#role").html(options);
+				<if condition="$_GET['role']">
+					$("#role option[value='{$Think.get.role}']").prop("selected", true);
+				</if>
+			},
+			dataType:'json'
+		});
+	}
+	
+	<if condition="$_GET['department'] and $_GET['department'] neq 'all'">
+		$("#department option[value='{$Think.get.department}']").prop("selected", true); 
+		changeRole();
+	</if>
+	<if condition="$_GET['department'] eq 'all'">
+		$("#role option[value='{$Think.get.role}']").prop("selected", true);
+	</if>
+</script>
+<include file="Public:footer" />

@@ -1,0 +1,57 @@
+<style>
+    .dialog-view-SN tr td {
+        text-align: center;
+    }
+
+    .dialog-view-SN tr th:first-child {
+        text-align: center;
+    }
+
+    .dialog-view-SN .col-md-12.bg-info {
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+
+    .dialog-view-SN .col-md-12.bg-info .close {
+        line-height: 100%;
+    }
+
+    .dialog-view-SN tbody tr {
+        cursor: pointer;
+    }
+</style>
+<div class="dialog-view-SN">
+    <div class="col-md-12" style="margin-bottom: 10px;">
+        <span class="pull-left">产品：</span>
+        <a href="javascript:void(0);" rel="{$product_info_id}" title="{$name}">
+            <p style="width: 300px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis; float: left;">
+                {$name}
+            </p>
+        </a>
+    </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">序号</th>
+                    <th>
+                        SN
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <empty name="list">
+                    <tr><td colspan="2">暂无数据</td></tr>
+                <else />
+                    <volist name="list" id="vo" key="key">
+                        <tr>
+                            <td>{$key}</td>
+                            <td>
+                                <input type="text" value="{$vo['sn']}" class="form-control" readonly required>
+                            </td>
+                        </tr>
+                    </volist>
+                </empty>
+            </tbody>
+        </table>
+    </form>
+</div>

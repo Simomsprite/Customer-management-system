@@ -1,0 +1,101 @@
+<!-- 市场活动 -->		
+<style>
+	#market_table_{$id} td .omit { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width: 150px; line-height: 28px; margin: 0; }
+	.span_market { width: 7px; height: 7px; border-radius: 50%; }
+	.market_time { color: #888; margin-right: 20px; }
+</style>
+<div class="col-sm-6 sort-item" rel="{$id}" style="padding: 0px; border: 1px solid #ddd;">
+	<div class="dash-border" id="dash-border_{$id}" style=" position: relative;">
+		<div class="dash-title" style="padding-left:15px;padding-right:15px;">
+			<img src="__PUBLIC__/img/chart.png" style="width:17.5px;" />&nbsp;&nbsp;{$title}&nbsp;
+			<small>
+				<a rel="{$id}" class="update" href="javascript:void(0)" id="update_widget"><i class="icon-pencil"></i></a> &nbsp;
+				<a rel="{$id}" class="delete_loudou" style="cursor:pointer"><i class="icon-remove"></i></a> &nbsp; 
+			</small>
+			<a href="{:U('market/index')}" class="dash-swtich"> 切换到市场活动>></a>
+		</div>
+		<div class="nicescroll" id="market_index_{$id}" style="padding: 0 10px; width: 99%; height: 230px;">
+            <div class="spiner-example">
+				<div class="sk-spinner sk-spinner-three-bounce">
+					<div class="sk-bounce1"></div>
+					<div class="sk-bounce2"></div>
+					<div class="sk-bounce3"></div>
+				</div>
+			</div>
+            <div class="hide content">
+	            <table id="market_table_{$id}" class="table" style="width: 100%;">
+	              	<tbody></tbody>
+	            </table>
+	            <div id="market_page_{$id}" style="position: absolute; bottom: 6px; right: 10px; width: 180px;"></div>
+            </div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var widget_page_{$id} = 1;
+	marketWidgetGetData_{$id}();
+	function marketWidgetGetData_{$id}(){
+		var data = new Object();
+		data['widget_id'] = {$id};
+		data['p'] = widget_page_{$id};
+		$('#market_main').html('<span class="error_msg">拼命加载中...</span>')
+		$.ajax({
+			type: "get",
+			url: "{:U('market/widget')}",
+			data: data,
+			dataType: "json",
+			success: function(result){
+				if(result.data != null && result.data != ''){
+					$('#market_main').remove();
+					var list_html = '';
+					$.each(result.data.data, function(item,val) {
+						list_html += '<tr>';
+						list_html += '<td style="width: 10%;"><span class="span_market text-center" style="background: #ccc; margin: 0 px;"></span></td>';
+						list_html += '<td style="width: 60%;"><a rel="'+val.market_id+'" class="market_view" href="javascript:void(0);" onclick="market_view(this)"><p class="omit" style="width: 130px; margin: 0;">'+val.name;
+						list_html += '</p></a></td><td style="width: 30%;"><p class="market_time omit pull-right" style="text-align:right;margin-right: 15px; max-width: 145px !important;">'+ val.create_time +'</p></td>';
+						list_html += '</tr>';
+					});
+					$('#market_table_{$id} tbody').html(list_html);
+					$('#market_page_{$id}').html(result.data.page);
+				}else{
+					$('#market_table_{$id} tbody').html('<tr><td colspan="5" style="text-align: center; color: #888;">暂无市场活动！</td></tr>');
+				}
+			},
+			error: function(errorMsg){
+				$('#market_table_{$id} tbody').html('<span class="error_msg">获取信息失败...</span>');
+			},
+			beforeSend: function(){
+	        	$('#market_index_{$id} .content').addClass('hide');
+	        	$('#market_index_{$id} .spiner-example').removeClass('hide');
+	        },
+	        complete: function(){
+	        	$('#market_index_{$id} .content').removeClass('hide');
+	        	$('#market_index_{$id} .spiner-example').addClass('hide');
+	        }
+		});
+	}
+	$(function(){
+	    //删除控件
+		$('.delete_loudou').click(function(){
+			var id = $(this).attr('rel');
+			swal({
+				title: "",
+				text: "确定要删除吗？",
+				type: "warning",
+				showCancelButton: true,
+				closeOnConfirm: false
+			},
+			function(){
+				window.location.href = "index.php?m=index&a=widget_delete&id="+id;
+			});
+		});
+	});
+    function market_view (self) {
+        var market_id = $(self).attr('rel');
+        if ($("#right_market_view").css('right') != '0px') {
+            $("#right_market_view").animate({ right: '0px' }, 600);
+        }
+        $('#sidebar-container-market').load("{:U('market/view','market_id=')}" + market_id);
+    }
+</script>
+<!-- 市场活动 END-->

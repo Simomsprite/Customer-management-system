@@ -1,0 +1,90 @@
+<style>
+    .dialog-select-SN tr td {
+        text-align: center;
+    }
+    .dialog-select-SN tr th:nth-child(2) {
+        text-align: center;
+    }
+    .dialog-select-SN tr th:first-child {
+        text-align: center;
+    }
+    .dialog-select-SN .col-md-12.bg-info {
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+    .dialog-select-SN .col-md-12.bg-info .close {
+        line-height: 100%;
+    }
+    .dialog-select-SN tbody tr { cursor: pointer; }
+    .dialog-select-SN .return { opacity:0.5; color: brown; }
+</style>
+<div class="dialog-select-SN">
+    <div class="col-md-12" style="margin-bottom: 10px;">
+        <span class="pull-left">产品：</span>
+        <a href="javascript:void(0);" rel="{$product_info_id}" title="{$name}">
+            <p style="width: 300px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis; float: left;">
+                {$name}
+            </p>
+        </a>
+        <?php if (isset($returnGood) && $returnGood) { ?>
+        已入库：<span class="text-danger" id="SN_select_surplus">{$surplus}</span>
+        已选择：<span class="text-danger" id="SN_count">{:count($sn_ids)}</span>
+        <?php } else { ?>
+        已选择：<span class="text-danger" id="SN_count">{:count($sn_ids)}</span>
+        可选择：<span class="text-danger" id="SN_select_surplus">{$surplus}</span>
+        <?php } ?>
+    </div>
+    <form id="select_SN_form">
+        <input type="hidden" name="product_info_id" value="{$product_info_id}">
+        <input type="hidden" name="purchase_id" value="{$purchase_id}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 50px;" title="选择所有">
+                        <input type="checkbox" id="select_all_SN">
+                    </th>
+                    <th style="width: 50px;">序号</th>
+                    <th>
+                        SN
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <empty name="list">
+                    <tr>
+                        <td colspan="3">无可用SN</td>
+                    </tr>
+                </empty>
+                <volist name="list" id="vo" key="key">
+                    <tr <?php echo $vo['status'] == 2 ? 'title="采购退货" class="return"' : ''; ?>>
+                        <td>
+                            <input class="SN" type="checkbox" value="{$vo.sn_id}" <?php echo in_array($vo['sn_id'], $sn_ids) ? 'checked' : ''; ?>>
+                        </td>
+                        <td>{$key}</td>
+                        <td>
+                            <input type="text" value="{$vo['sn']}" class="form-control" readonly required>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+    </form>
+</div>
+<script>
+    $('tbody tr').on('click', function () {
+        $(this).find('input.SN').click();
+    });
+    $('input.SN').on('click', function () {
+        $(this).click();
+        select_SN_count();
+    });
+    $('#select_all_SN').on('click', function () {
+        $('.dialog-select-SN input.SN').prop('checked', $(this).prop('checked'));
+        select_SN_count();
+    })
+    function select_SN_count() {
+        var count = $('.dialog-select-SN input.SN:checked').length;
+        console.log(count);
+        $('.dialog-select-SN #SN_count').html(count);
+    }
+</script>

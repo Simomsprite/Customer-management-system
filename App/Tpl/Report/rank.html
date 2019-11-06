@@ -1,0 +1,192 @@
+<include file="Public:header" />
+<script type="text/javascript" src="__PUBLIC__/style/js/TableFreeze.js"></script>
+<script src="__PUBLIC__/style/js/plugins/nice-scroll/jquery.nicescroll.min.js" type="text/javascript"></script>
+
+<!--jQuery导出插件-->
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jquery.base64.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/tableExport.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/libs/sprintf.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/jspdf.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/table-export/jspdf/libs/base64.js"></script>
+<!--jQuery导出插件-->
+
+<!-- daterangepicker -->
+<link href="__PUBLIC__/css/daterangepicker.css" rel="stylesheet">
+<script src="__PUBLIC__/js/daterangepicker/daterangepicker.js"></script>
+<style>
+	body{
+		overflow-y: hidden;
+	}
+	.fa-info-circle {
+		font-size: 16px;
+		color: rgb(249, 94, 0);
+		cursor: pointer;
+	}
+	.popover {
+	 	color: rgb(249, 94, 0);
+	}
+</style>
+<script>
+	$(function(){
+		$("#table_div").height(window.innerHeight-$("#table_div").offset().top-$("#tfoot_div").height()-30);
+		$(window).resize(function(){
+			$("#table_div").height(window.innerHeight-$("#table_div").offset().top-$("#tfoot_div").height()-30);
+			$("#oDivL_tab_Test3").height($("#table_div").height()).width($("#oTableLH_tab_Test3").width());
+			$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width());
+			$('#oDivH_tab_Test3 table').width($("#table_div").width());
+		});
+		var scroll_width = 10;
+		$(".nicescroll").niceScroll({
+			cursorcolor: "#999",//#CC0071 光标颜色 
+		    cursoropacitymax: 0.4, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
+		    touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
+		    cursorwidth: scroll_width+"px", //像素光标的宽度 
+		    cursorborder: "0", //     游标边框css定义 
+		    cursorborderradius: "3px",//以像素为光标边界半径 
+		    autohidemode: false, //是否隐藏滚动条 
+		    zindex:100,
+		    background:"#F3F3F5",//滚动条背景色
+		});
+
+		//table固定，对应 上、下、左
+		$("#tab_Test3").FrozenTable(1,0,0);
+		$("#oDivL_tab_Test3").height($("#table_div").height()).width($("#oTableLH_tab_Test3").width());
+		$("#oDivH_tab_Test3").height($("#oTableLH_tab_Test3").height()).width($("#table_div").width());
+	});
+</script>
+<div class="wrapper wrapper-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<include file="Public:analytics_left" />
+				<div class="col-lg-10">
+					<div class="ibox-content" style="padding-bottom:10px;border-bottom: none;">
+						<include file="Public:alert" />
+						<form id="search_form" class="form-group" method="get" style="margin-bottom: 0px;">
+							<input type="hidden" name="m" value="report" />
+							<input type="hidden" name="a" value="rank" />
+							<input type="hidden" name="rank_type" value="{$_GET['rank_type']}" />
+							<div class="row" style="height: 45px;">
+								<div class="col-lg-4">
+									<div class="pull-left" >
+										<span style="font-size: 18px;color: #000;">{$rank_name}</span>
+										<if condition="$_GET['rank_type'] eq 'contract_amount'">
+											<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="注：按创建时间，负责人且审核通过的合同统计。" data-original-title="" title=""></i>
+										<elseif condition="$_GET['rank_type'] eq 'receive_amount'" />
+											<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="注：按收款时间，负责人且审核通过的回款单统计。" data-original-title="" title=""></i>
+										<elseif condition="$_GET['rank_type'] eq 'contract_count'" />
+											<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="注：按签约时间，负责人且审核通过的合同统计。" data-original-title="" title=""></i>
+										<elseif condition="$_GET['rank_type'] eq 'contract_product_count'" />
+											<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="注：按创建时间且审核通过的合同所关联的产品信息统计。" data-original-title="" title=""></i>
+										<elseif condition="$_GET['rank_type'] eq 'customer_add'" />
+											<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="注：按客户的创建时间，创建人统计。" data-original-title="" title=""></i>
+										<elseif condition="$_GET['rank_type'] eq 'contacts_add'" />
+											<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="注：按联系人的创建时间，创建人统计。" data-original-title="" title=""></i>
+										<elseif condition="$_GET['rank_type'] eq 'follow_count'" />
+											<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="注：按跟进记录的创建时间，创建人统计。" data-original-title="" title=""></i>
+										</if>
+									</div>
+								</div>
+								<div class="col-lg-8">
+									<div class="pull-right">
+										<span class="fa fa-download" style="color:#75899D;"></span>
+										<a style="color: #75899D;" onClick ="$('#tab_Test3').tableExport({type: 'excel', escape: 'false', self: $(this)});">导出</a>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12" >
+									<div class="nav pull-left" style="margin:2px 0 0 0x;width: 165px;">
+										<div class="input-group">
+											<select class="form-control select2" style="min-width:165px;max-width: 165px;height: 0px;" name="department">
+												<option class="all" value="all"> -- 全公司 -- </option>
+												<volist name="departmentList" id="vo">
+													<option value="{$vo.department_id}" <if condition="$_GET['department'] eq $vo['department_id']">selected</if>>{$vo.name}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+									<div class="nav pull-left" style="margin:2px 0 0 15px;">
+										<div class="input-group">
+											<input type="text" name="between_date" id="reservation" autocomplete="off" class="form-control" style="width:300px;"/>
+											<i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;bottom: 10px;right: 24px;top: auto;cursor: pointer;"></i>
+										</div>
+									</div>
+									<div class="pull-left" style="margin-left: 20px;">
+										<button type="submit" id="analytics_search" class="btn btn-primary">{:L('SEARCH')}</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="ibox-content" id="right_height" style="border-top: none;padding-top: 0px;">
+						<include file="$rank_template" />
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="display:none;" id="dialog-role-info" title="{:L('DIALOG_USER_INFO')}">
+	<include file="Public:loading" />
+</div>
+<script type="text/javascript">
+	//查看员工信息
+	$("#dialog-role-info").dialog({
+	    autoOpen: false,
+	    modal: true,
+		width: 650,
+		maxHeight:600,
+		position: ["center",100]
+	});
+	$(".role_info").click(function(){
+		$role_id = $(this).attr('rel');
+		$('#dialog-role-info').dialog('open');
+		$('#dialog-role-info').load('{:U("user/dialoginfo","id=")}'+$role_id);
+	});
+
+	// 时间插件  
+    $('#reservation').daterangepicker({
+        startDate: '{$start_date}', 
+        endDate: '{$end_date}',  
+    	// minDate: '01/01/2012',    //最小时间  
+        maxDate : moment(), //最大时间
+        showDropdowns : true,  
+        showWeekNumbers : false, //是否显示第几周  
+	    // timePicker : true, //是否显示小时和分钟  
+	    // timePickerIncrement : 60, //时间的增量，单位为分钟  
+        timePicker12Hour : false, //是否使用12小时制来显示时间  
+        ranges : {
+        	// subtract() 减去函数，add() 加上函数，有的再减1天的情况是为了保持统一，方便后台取范围都包含截至日期的当天
+        	'今天': [moment().startOf('day'), moment()],
+        	'本月': [moment().startOf('month'), moment()],
+        	'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+        	'本年': [moment().startOf('year'), moment().endOf('year')],
+            '去年': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
+            '第一季度': [moment().startOf('year'), moment().startOf('year').add(3, 'month').subtract(1, 'day')],
+            '第二季度': [moment().startOf('year').add(3, 'month'), moment().startOf('year').add(6, 'month').subtract(1, 'day')],
+            '第三季度': [moment().startOf('year').add(6, 'month'), moment().startOf('year').add(9, 'month').subtract(1, 'day')],
+            '第四季度': [moment().startOf('year').add(9, 'month'), moment().endOf('year')],
+            '上半年': [moment().startOf('year'), moment().startOf('year').add(6, 'month').subtract(1, 'day')],
+            '下半年': [moment().startOf('year').add(6, 'month'), moment().endOf('year')],
+        },
+        opens : 'right', //日期选择框的弹出位置 
+        locale : {  
+            applyLabel : '确定',  
+            cancelLabel : '取消',  
+            customRangeLabel : '自定义',  
+            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],  
+            monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+            // firstDay : 1, // 日历周一至周日从周几开始显示，默认0从周日开始
+            format : 'YYYY-MM-DD', //控件中from和to 显示的日期格式
+            // separator : '至',
+        },
+        alwaysShowCalendars: false, // 默认是否显示日历
+    }, function (start, end, label) {
+    	// 回调函数【选择时间关闭弹窗时，会回调此匿名函数】
+    	// alert('callback_fun');
+	});
+</script>
+<include file="Public:footer" />

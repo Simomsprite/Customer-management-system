@@ -1,0 +1,57 @@
+<style type="text/css">
+	#form_contacts table tr td:nth-child(odd){
+		text-align:right;
+		border:none;
+		width: 120px;
+	}
+	#form_contacts table tr td:nth-child(even){
+		border:none;
+	}
+</style>
+<form action="{:U('product_info/spec_add')}" id="form_dialog" method="post">
+	<table class="table" style="border:none;">
+		<tr>
+			<td style="border: none;">规格名称：</td>
+			<td style="border: none;">
+				<input type="text" name="name" class="form-control" style="width: 85%;">
+			</td>
+		</tr>
+		<tr>
+			<td style="border: none;">产品分类：</td>
+			<td style="border: none;">
+				<select name="category_id" class="form-control" style="width: 85%;">
+					<volist name="category_list" id="category">
+						<option value="{$category.category_id}">{$category.name}</option>
+					</volist>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td style="border: none;">规格值：</td>
+			<td style="border: none;">
+				<input type="text" name="spec_val[]" class="form-control spec_val" style="display: inline-block;width: 85%;" >
+				<a href="javascript:void(0);" id="add_num">+增加</a>
+			</td>
+		</tr>
+		<input type="hidden" id="add_flag">
+	</table>
+</form>
+<script type="text/javascript">
+	//增加规格值
+	var num = 1;
+	$('#add_num').click(function(){
+		num++;
+		$('#add_flag').before('<tr>\
+			<td>规格值：</td>\
+			<td>\
+				<input type="text" name="spec_val[]" class="form-control spec_val" style="display: inline-block;width: 85%;" >\
+				<a href="javascript:void(0);" class="remove_num">-移除</a>\
+			</td>\
+		</tr>');
+	});
+
+	//移除规格值
+	$(document).on('click','.remove_num',function(){
+		$(this).parent().parent().remove();
+	});
+</script>

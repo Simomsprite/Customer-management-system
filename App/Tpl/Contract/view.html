@@ -1,0 +1,1261 @@
+<include file="Public:header" />
+<style>
+    #right_market_view {
+		width: 50% !important;
+		right: -60%;
+		background-color: #fff;
+	    overflow: hidden;
+	    position: fixed;
+	    top: 0px;
+	    z-index: 1009;
+	    bottom: 0;
+	    box-shadow: 0px 2px 1px #888888;
+	}
+
+	.table_view>thead>tr {background-color:#f9fafc;text-align:center;}
+	.table_view>thead>tr>td {background-color:#f9fafc;padding:14px;color:#999;}
+	.table_view>tbody>tr>td {text-align:center;padding:14px;color:#666;}
+
+	#vertical-timeline::before{
+        width:0px !important;
+    }
+</style>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+	    <div class="col-lg-12">
+			<div class="title-bar">
+				<div class="row " id="title-show">
+					<ul class="nav pull-left" style="margin:0px 10px 0px 20px;">
+						<span>
+							<img src="__PUBLIC__/img/contract_view_icon.png" style="margin-bottom:9px;" alt="">
+						</span>
+						<span style="font-size:21px;margin-left:5px">&nbsp;&nbsp;&nbsp;{$info.number}</span>&nbsp;&nbsp; 
+						<if condition="$info['is_checked'] eq 1">
+							<span class="badge badge-success check_badge" style="padding:5px 20px;margin-top:-8px;background:#8BC34A;color:#fff;">通过</span>&nbsp;
+						<elseif condition="$info['is_checked'] eq 2"/>
+							<span class="badge badge-error check_badge" style="color:#fff;padding:5px 20px;margin-top:-8px;background:#F5715F">拒绝</span>&nbsp;
+						<elseif condition="$info['is_checked'] eq 3"/>
+							<span class="badge badge-error check_badge" style="color:#fff;padding:5px 20px;margin-top:-8px;background:#FF6600">审批中</span>&nbsp;
+						<else />
+							<span class="badge badge-warning" style="color:#fff;padding:5px 20px;margin-top:-8px;background:#F5CA00;">待审</span>
+						</if>
+					</ul>
+					
+					<if condition="$info['is_checked'] eq 0 || $info['is_checked'] eq 2">
+						<a href="{:U('contract/edit','id='.$info['contract_id'])}" class="btn btn-outline btn-default pull-right" style="margin-right: 15px;"><i class="fa fa-pencil"></i>&nbsp;&nbsp;编辑</a>
+					</if>
+					<if condition="$info['is_checked'] eq 0 || $info['is_checked'] eq 3">
+						<if condition = "$check_per">
+							<a href="javascript:void(0);" id="check_contract" style="margin-right:15px;" rel="{$info['contract_id']}" class="btn btn-primary pull-right">审核</a>
+						</if>
+					</if>
+					<if condition="$info['is_checked'] neq '0'">
+						<if condition = "$re_check_per">
+							<a href="javascript:void(0);" id="recheck_contract" style="margin-right:15px;" rel="{$info['contract_id']}" class="btn btn-primary pull-right">撤销</a>
+						</if>
+					</if>
+					<a href="javascript:void(0);" id="print" class="btn btn-info pull-right" style="margin-right: 15px;"><i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;打印</a>
+				</div>
+			</div>
+			<div class="tabs-container">
+				<div class="con-md-12" >
+					<div class="ibox-content" style="padding:15px 0 0 20px;background:#fff;" id="left-content">
+						<ul class="nav nav-tabs" id="left_list" style="height:40px;">
+							<li class="active" ><a href="#tab1" data-toggle="tab" type="tab1">基本信息</a></li>
+							<li><a href="#tab2" data-toggle="tab" type="tab2">产品信息</a></li>
+							<?php if (C('PSS_STATUS')) { ?>
+							<li><a href="#tab7" data-toggle="tab" type="tab7">出库记录</a></li>
+							<?php } ?>
+							<li><a href="#tab8" data-toggle="tab" type="tab8">收款记录</a></li>
+							<li><a href="#tab3" data-toggle="tab" type="tab3">合同附件</a></li>
+							<li><a href="#tab4" data-toggle="tab" type="tab4">发票信息</a></li>
+							<li><a href="#tab5" data-toggle="tab" type="tab5">沟通日志</a></li>
+							<li><a href="#tab6" data-toggle="tab" type="tab6">签约历史</a></li>
+							<li><a href="#tab9" data-toggle="tab" type="tab9">操作记录</a></li>
+						</ul>
+						<div class="tab-content ">
+							<div class="tab-pane in active" id="tab1">
+								<div class="panel-body">
+									<include file="Public:alert" />
+									<div style="font-size:13px;font-weight:700;margin:15px auto;">
+										<span style="border-left:5px solid #19AA8D;padding-left:10px;height:10px;"></span>基本信息
+									</div>
+									<div class="form-horizontal view-group ">
+										<div class="form-group">
+											<label class="col-lg-2 control-label">{:L('CONTRACT_NO')}</label>
+											<div class="col-lg-4">
+												<p class="form-p">
+													{$info.number}
+												</p>
+											</div>
+											<label class="col-lg-2 control-label">合同名称</label>
+											<div class="col-lg-4">
+												<p class="form-p">
+													{$info.contract_name}  
+												</p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-2 control-label">签约时间</label>
+											<div class="col-lg-4">
+												<p class="form-p">
+													{$info.due_time|date="Y-m-d",###}
+												</p>
+											</div>
+											<label class="col-lg-2 control-label">合同签约人</label>
+											<div class="col-lg-4">
+												<p class="form-p">
+													<a href="javascript:void(0)" rel="{$info['owner_role_id']}" class="role_info">{$info['owner_name']}</a>
+												</p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-2 control-label">创建时间</label>
+											<div class="col-lg-4">
+												<p class="form-p">
+													{$info.create_time|date="Y-m-d",###}
+												</p>
+											</div>
+											<label class="col-lg-2 control-label">合同创建人</label>
+											<div class="col-lg-4">
+												<p class="form-p">
+													<a href="javascript:void(0)" rel="{$info['creator_role_id']}" class="role_info">{$info['creator_info']['full_name']}</a>
+												</p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-2 control-label">关联市场活动</label>
+											<div class="col-lg-4">
+												<p class="form-p">
+													<a href="javascript:void(0);" class="market_view" rel="{$info['market_id']}">{$info['market_name']}</a>
+												</p>
+											</div>
+										</div>
+										<?php $tag = 0; ?>
+					                    <volist name="field_list" key="key" id="vo">
+					                        <if condition="$vo['form_type'] == 'textarea'">
+					                            <if condition="$tag%2 neq 0">
+					                                </div>
+					                            </if>
+					                            <div class="form-group">
+					                                <label class="col-sm-2 control-label">{$vo.name}</label>
+					                                <div class="col-sm-10">
+					                                    <p class="form-p color-a-edit">
+					                                        <span style="color:#{$vo['color']}">{$info[$vo['field']]}</span>
+					                                    </p>
+					                                </div>
+					                            </div>
+					                            <?php $tag = 0; ?>
+					                        <else/>
+					                            <if condition="$tag%2 eq 0">
+					                                <div class="form-group">
+					                            </if>
+					                            <label class="col-sm-2 control-label">{$vo.name}</label>
+					                            <div class="col-sm-4">
+					                                <p class="form-p">
+					                                    <span style="color:#{$vo['color']}">
+					                                        <if condition="$vo['form_type'] eq 'datetime'">
+					                                            <if condition="$info[$vo['field']] neq '0'">{:newTimeDate($info[$vo['field']])}</if>
+					                                        <elseif condition="$vo['form_type'] eq 'address'" />
+					                                            {$info[$vo['field']]}
+					                                            <a href="javascript:void(0);" class="getMap" rel="{$info[$vo['field']]}">
+					                                                <span class="fa fa-map-marker" style="font-size:16px;"></span>
+					                                            </a>
+					                                        <elseif condition="$vo['field'] eq 'customer_id'" />
+					                                            <a href="{:U('customer/view','id='.$info['customer_id'])}">{$info['customer_name']}</a>
+					                                        <elseif condition="$vo['field'] eq 'contacts_id'" />
+					                                            <a href="{:U('contacts/view','id='.$info['contacts_id'])}">{$info['contacts_name']}</a>
+					                                        <elseif condition="$vo['field'] eq 'business_id'" />
+					                                            <a href="{:U('business/view','id='.$info['business_id'])}">{$info['business_code']}</a>
+					                                        <else />
+					                                            {$info[$vo['field']]}
+					                                        </if>
+					                                    </span>
+					                                </p>
+					                            </div>
+					                            <if condition="$tag%2 neq 0 || $key eq count($field_list)">
+					                                </div>
+					                            </if>
+					                            <?php $tag += 1; ?>
+					                        </if>
+					                    </volist>
+									</div>
+									<div style="font-size:13px;font-weight:700;margin-top:20px;margin-bottom:15px;">
+										<span style="border-left:5px solid #19AA8D;padding-left:10px;height:10px;"></span>审核信息
+									</div>
+									<div>
+										<if condition = "$contract_examine && !in_array($info['is_checked'],array('1','2'))">
+											<volist name="check_list" key="k1" id="vo">
+												<if condition="$k1 gt 1">
+													<div class="pull-left" style="margin-top:32px;margin-left:15px;font-size:22px;color:#ccc;"><i class="fa fa-long-arrow-right" style="font-size:30px;"></i></div>
+												</if>
+												<div class="pull-left" style="margin-top:20px;">
+													<volist name="vo['role_list']" key="key1" id="voo">
+														<div class="pull-left">
+															<div style="clear:both;">
+																<if condition="$voo['thumb_path']">
+																	<img class="img-circle" style="width:50px;height:50px;border-radius:50%;margin-left:15px;" src="{$voo['thumb_path']}"/>
+																<else/>
+																	<img class="img-circle" style="width:50px;height:50px;border-radius:50%;margin-left:15px;" src="__PUBLIC__/img/avatar_default.png"/>
+																</if>
+															</div>
+															<div style="clear:both;text-align:center;margin-left:15px;margin-top:5px;">{$voo['full_name']}
+																<if condition = "$voo['is_checked_name'] eq '待审'">
+																	<span style="color:#FACB42;">({$voo['is_checked_name']})</span>
+																<elseif condition = "$voo['is_checked_name'] eq '同意'" />
+																	<span style="color:#72CE56;">({$voo['is_checked_name']})</span>
+																</if>
+															</div>
+														</div>
+														<if condition = "$key1 lt count($vo['role_list'])">
+															<span class="pull-left" style="line-height: 50px;">( {$vo['relation_name']} )</span>
+														</if>
+													</volist>
+												</div>
+											</volist>
+										<else />
+											<!-- <div class="pull-left">
+												<if condition="$info['creator_info']['thumb_path']">
+													<img src="{$info['creator_info']['thumb_path']}" style="width:45px;height:45px;margin:10px 0 0 10px;border-radius:50px;">
+												<else/>
+													<img src="__PUBLIC__/img/moren.png" style="width:45px;height:45px;margin:10px 0 0 10px;border-radius:50px;">
+												</if>
+											</div>
+											<div class="pull-left" style="margin:10px 0 0 10px;">
+												<div class="control-label" style="margin-top:2px;font-size:14px;color:#B4B1C2"><a href="javascript:void(0)" rel="{$info['creator_role_id']}" class="role_info" style="color: #B4B1C2;">{$info['creator_info']['full_name']}</a></div>
+												<div class="control-label" style="margin-top:2px;font-size:13px;">{$info.create_time|date="Y-m-d H:i",###}</div>
+											</div>
+											<div class="pull-left" style="margin-left:10px;margin-top:25px;">
+												<span class="fa fa-circle" style="color:#B4B1C2;font-size:12px;"></span>
+												<span class="fa fa-circle" style="color:#B4B1C2;font-size:12px;"></span>
+												<span class="fa fa-circle" style="color:#B4B1C2;font-size:12px;"></span>
+											</div> -->
+											<div class="pull-left" style="margin-left:10px;">
+												<if condition="$info['is_checked'] eq 0">
+													<img src="__PUBLIC__/img/moren.png" style="width:45px;height:45px;margin:10px 0 0 10px;border-radius:50px;" />
+												<else/>
+													<empty name="info['examine_role_info']['thumb_path']">
+														<img src="__PUBLIC__/img/moren.png" style="width:45px;height:45px;margin:10px 0 0 10px;border-radius:50px;" />
+													<else />
+														<img src="{$info['examine_role_info']['thumb_path']}" style="width:45px;height:45px;margin:10px 0 0 10px;border-radius:50px;" />
+													</empty>
+												</if>
+											</div>
+											<div class="pull-left" style="margin:10px 0 0 10px;">
+												<div class="control-label" style="margin-top:2px;font-size:14px;color:#B4B1C2">
+													<if condition="$info['is_checked'] neq 0">
+														<a href="javascript:void(0)" rel="{$info['examine_role_id']}" class="role_info" style="color: #B4B1C2;">{$info['examine_role_info']['full_name']}</a>
+													<else/>
+														合同审核员
+													</if>
+												</div>
+												<div class="control-label check_badge" style="margin-top:2px;font-size:13px;">
+													<if condition="$info['is_checked'] eq 1">
+														<span style="color:#19AA8D">通过（已结束）</span>
+													<elseif condition="$info['is_checked'] eq 2"/>
+														<span style="color:#F5715F">拒绝</span>
+													<elseif condition="$info['is_checked'] eq 3"/>
+														<span style="color:#FF6600">审批中</span>
+													<else />
+														<span style="color:#F5CA00">待审</span>
+													</if>
+													<if condition="$re_check_per eq 1">
+														&nbsp;<a class="backbtn control" href="{:U('contract/revokecheck', 'id='.$info['contract_id'])}"><i class="icon-repeat"></i> 撤销</a>
+													</if>
+												</div>
+											</div>
+										</if>
+										<div style="clear:both"></div>
+									</div>
+									<div style="margin-top:20px;margin-left:15px;"><a href="javascript:void(0);" id="check_list"><i class="fa fa-history"></i>&nbsp;&nbsp;查看合同审核历史</a></div>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab2">
+								<div class="panel-body" style="padding-left:0px;">
+									<table class="table table-bordered table_view" id="no-input-border" width="95%" border="0" cellspacing="1" cellpadding="0">
+										<thead>
+											<tr>
+												<td>序号</td>
+												<td>产品名称</td>
+												<td>规格</td>
+												<td>价格(元)</td>
+												<td>折扣(%)</td>
+												<td>销售单价(元)</td>
+												<td>订单数量</td>
+												<?php if (C('PSS_STATUS')) { ?>
+													<?php if ($return_product) { ?>
+														<td>退货数</td>
+													<?php } ?>
+													<td>已出库数量</td>
+													<td>待出库数量</td>
+												<?php } ?>
+												<td>单位</td>
+												<td>小计</td>
+											</tr>
+										</thead>
+										<tbody>
+											<volist name="sales_product" id="vo">
+												<tr id="row_{$key+1}">
+													<td>{$key+1}</td>
+													<td>{$vo.product_name}</td>
+													<td>{$vo.spec}</td>
+													<td>{$vo.ori_price|number_format=2}</td>                                     
+													<td>{$vo.discount_rate}</td>                                    
+													<td>{$vo.unit_price|number_format=2}</td>
+													<td>{$vo.amount}</td>    
+													<?php if (C('PSS_STATUS')) { ?>
+														<?php if ($return_product) { ?>
+															<td>
+																<?php echo $return_product[$vo['product_info_id']] ?: 0; ?>
+															</td>
+														<?php } ?>
+														<td>
+															<?php if ($vo['has_sn']) { ?>
+																<a href="javascript:void(0);" class="view_SN contract" rel="{$vo.product_info_id}" name="{$vo.product_name}({$vo.spec})">
+																	<span class="label label-success">SN</span>
+																</a>
+															<?php } ?>
+															{$vo['out_count']}
+														</td>
+														<td>{$vo['amount'] + ($return_product[$vo['product_info_id']] ?: 0) - $vo['out_count']}</td>
+													<?php } ?>
+													<td>{$vo['unit']}</td>
+													<td>{$vo.subtotal}</td>
+												</tr>
+											</volist>
+										</tbody>
+									</table>
+									<div style="text-align:center;margin-top:10px;">
+										<div class="pull-right">销售订单金额(元) :<span style="color:#FF9900;">&nbsp;{$sales['sales_price']|number_format=2}</span></div>&nbsp;&nbsp;
+										<div class="pull-right">整单折扣(%) :<span style="color:#999;">&nbsp;{$sales['final_discount_rate']}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+										<div class="pull-right">产品合计(元) :<span style="color:#999;">&nbsp;{$sales['prime_price']|number_format=2}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>&nbsp;&nbsp;
+										<div class="pull-right"><i class="fa fa-bookmark" style="color: #19aa8d;"></i>&nbsp;相关商机:<span style="color:#999;">&nbsp;{$info['business_code']}&nbsp;</span></div>&nbsp;&nbsp;
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab7">
+								<div class="panel-body" id="stock_out_list" style="padding-left:0px;">
+									
+								</div>
+							</div>
+							<div class="tab-pane" id="tab8">
+								<div class="panel-body" style="padding-left:0px;">
+									<div class="header1">
+										<div class="pull-right">
+											<a href="javascript:void(0);" class="btn btn-primary" id="add_yingshou"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;添加应收款</a>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+
+									<!-- <if condition="$info['is_checked'] eq 1">
+										<div style="font-size:16px;margin:10px 5px;">合计：{:number_format($price_all,2)}&nbsp;元 / <span style="color:#FB8C57">未收款:  {:number_format($un_price_all,2)}&nbsp;元</span></div>
+									<else/>
+										<div style="font-size:16px;margin:10px 5px;">合计：0&nbsp;元 / <span style="color:#FB8C57">未收款:  0&nbsp;元</span></div>
+									</if> -->
+									<volist name="receivables_list" id="vo">
+										<table class="table table-bordered table_view" id="no-input-border" width="95%" border="0" cellspacing="1" cellpadding="0">
+											<thead>
+												<tr>
+													<td>回款单编号</td>
+													<td>回款金额</td>
+													<td>回款时间</td>
+													<td>负责人</td>
+													<td>状态</td>
+													<td>操作</td>
+													<td style="width:30px;"><a href="javascript:void(0);" class="pull-right add_receivingorder" rel="{$vo['receivables_id']}" title="添加回款" style="width:30px;height:100%;"><i class="fa fa-plus" style="font-size:16px;color:#B4B1C2"></i></a></td>
+												</tr>
+											</thead>
+											<tbody>
+												<volist name="vo['receivingorder']" id="vo1">
+													<tr>
+														<td>{$vo1['name']}</td>
+														<td>{$vo1['money']|number_format=2}</td>
+														<td>{$vo1['pay_time']|date="Y-m-d",###}</td>
+														<td><a class="role_info" rel="{$vo1['owner_role_id']}" href="javascript:void(0);">{$vo1['owner_name']}</a></td>
+														<td>
+															<if condition="$vo1['status'] eq '2'">
+																<span class="fa fa-circle" style="color:#F5715F"></span>拒绝
+															<elseif condition="$vo1['status'] eq '1'"/> 
+																<span class="fa fa-circle" style="color:#7CCA4E"></span>通过
+															<else />
+																<span class="fa fa-circle" style="color:#F5CA00"></span>待审
+															</if> 
+														</td>
+														<td>
+															<div >
+																<span class="dropdown">
+																	<span class="dropdown-toggle fa-stack fa-lg" data-toggle="dropdown" style="cursor:pointer;height:3rem;color:#8FA1B2">
+																		<i class="fa fa-angle-down" style="margin-left:12px;"></i>
+																	</span>
+																	<ul class="dropdown-menu">
+																		<li><a href="{:U('finance/view',array('t'=>'receivingorder','id'=>$vi['receivingorder_id']))}">详情</a></li>
+																		<li><a href="{:U('finance/edit',array('t'=>'receivingorder','id'=>$vi['receivingorder_id']))}">编辑</a></li>
+																		<li><a href="javascript:void(0);" rel="{$vi['receivingorder_id']}" class="not_rel_contacts" >删除</a></li>
+																	</ul>
+																</span>
+															</div>
+														</td>
+														<td></td>
+													</tr>
+												</volist>
+											</tbody>
+										</table>
+										<div style="text-align:center;margin-top:10px;">
+											<div class="pull-right" style="margin-left:10px;">应收金额(元) : <span style="color:#FF9900;">{$vo['price']|number_format=2}</span></div>
+											<div class="pull-right" style="margin-left:10px;">实收金额(元) : <span style="color:#999;">{$vo['ys_price']|number_format=2}</span></div>
+											<div class="pull-right" style="margin-left:10px;">应收款时间 : <span style="color:#999;"><if condition="$vo['pay_time'] gt 0">{$vo['pay_time']|date="Y-m-d",###}</if></span></div>
+											<div class="pull-right" style="margin-left:10px;"><i class="fa fa-bookmark" style="color: #19aa8d;"></i>应收款编号 : <span style="color:#999;"><a target="_blank" href="{:U('finance/view','t=receivables&id='.$vo['receivables_id'])}" >{$vo['name']}</a></span></div>
+										</div>
+									</volist>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab3">
+								<div class="panel-body">
+									<div class="header1">
+										<div class="pull-right">
+											<a href="javascript:void(0);" type="button" class="add_file btn btn-primary"><i class="fa fa-upload"></i>&nbsp;&nbsp;上传</a>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+									<if condition="$info.file eq null">
+										<include file="Public:nodata" />
+									<else /> 
+										<table class="table product-table table_view">
+											<tr>
+												<td>附件名称</td>
+												<td>{:L('SIZE')}</td>
+												<td>上传人</td>
+												<td>上传时间</td>
+												<td>操作</td>
+											</tr>
+											<volist name="info.file" id="vo">
+												<tr>
+													<td>
+														<img src="__PUBLIC__/productImg/{$vo['pic']}" alt="">&nbsp;&nbsp;&nbsp;
+														<a <if condition="in_array(getExtension($vo['name']),imgFormat())">class="litebox_file" href="{$vo['file_path']}" data-litebox-group="group-{$info['contract_id']}" title="点击查看大图"<else/>href="javascript:;" file="{$vo.file_path}" filename="{$vo.name}" onclick="filedown(this);"</if>>{$vo.name}</a>
+													</td>
+													<td>
+														{$vo.size}KB
+													</td>
+													<td>
+														<notempty name="vo.owner.user_name">{$vo.owner.user_name}</notempty>
+													</td>
+													<td>
+														<notempty name="vo.create_date">{$vo.create_date|date="Y-m-d H:i",###}</notempty>
+													</td>
+													<td >
+														<a href="javascript:void(0);" rel="{$vo['file_id']}" class="del_file">{:L('DELETE')}</a>
+														<a href="javascript:;" file="{$vo.file_path}" filename="{$vo.name}" onclick="filedown(this);">下载</a>
+													</td>
+												</tr>
+											</volist>
+										</table>
+									</if>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab4">
+								<div class="panel-body" style="padding-left:0px;">
+									<div class="header1">
+										<div class="pull-right">
+											<a href="{:U('invoice/add','contract_id='.$info['contract_id'])}" class="btn btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;添加发票</a>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+									<if condition = "$invoice_list">
+										<table class="table table-bordered table_view" id="no-input-border" width="95%" border="0" cellspacing="1" cellpadding="0">
+											<thead>
+												<tr>
+													<td>发票编号</td>
+													<td>开票金额（元）</td>
+													<td>开票类型</td>
+													<td>开票日期</td>
+													<td>状态</td>
+													<td>负责人</td>
+												</tr>
+											</thead>
+											<tbody>
+												<volist name="invoice_list" id="vo">
+													<tr id="row_{$key+1}">
+														<td><a href="{:U('invoice/view','id='.$vo['invoice_id'])}">{$vo['name']}</a></td>
+														<td>{$vo['price']|number_format=2}</td>
+														<td>{$vo['type_name']}</td>                                    
+														<td>{$vo['create_time']|date="Y-m-d H:i",###}</td>
+														<td>{$vo.check_name}</td>                              
+														<td><a class="role_info" rel="{$vo['create_role_id']}" href="javascript:void(0);">{$vo.create_name}</a></td>
+													</tr>
+												</volist>
+											</tbody>
+										</table>
+										<div style="text-align:center;margin-top:10px;">
+											<div class="pull-right">合计发票金额（元） :<span style="color:#FF9900;">&nbsp;{$invoice_sum}</span></div>&nbsp;&nbsp;
+										</div>
+									</if>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab5">
+								<div class="panel-body">
+						            <div id="form-div">
+						                <form id="add-form" action="{:U('Log/add')}" method="post">
+											<input type='hidden' name="r" value="rContractLog"/>
+											<input type='hidden' name="module" value="contract"/> 
+											<input type='hidden' name="id" value="{$info['contract_id']}"/>
+											<textarea name="content" placeholder="添加跟进记录" id="log-text" style="resize:none;" class="form-control" cols="30" rows="1"></textarea>
+											<div>
+												<div class="text-right" id="log-btn" style="padding-top:8px;display:none;">
+													<button class="btn btn-primary" id="add_log" type="button">添加</button>&nbsp;
+												</div>
+												<br>
+											</div>
+						                </form>
+						            </div>
+						            <div id="log-list">
+							            <volist name="info['log']" id="vo">
+							                <div class="ibox-content gray-log" log-rel="{$vo['log_id']}" >
+							                    <div class="social-feed-separated clearfix">
+							                        <div class="social-feed-box">
+							                            <div class="pull-right social-action dropdown">
+							                                <span data-toggle="dropdown" class="dropdown-toggle">
+							                                    <i style="font-size:20px;cursor:pointer" class="fa fa-angle-down"></i>
+							                                </span>
+							                                <ul class="dropdown-menu m-t-xs" >
+							                                    <li><a rel="{$vo['log_id']}" href="javascript:void(0);" type="{$vo['log_type']}" onclick="del_confirm(this);">{:L('DELETE')}</a></li>
+							                                </ul>
+							                            </div>
+							                            <div class="social-avatar">
+							                                <img alt="image" style="width:35px;height:35px;" class="img-circle" src="{$vo['owner']['img']}">
+							                                <a class="role_info name-colors"  rel="{$vo.owner.role_id}" href="javascript:void(0);">{$vo['owner']['full_name']}</a>&nbsp;&nbsp;
+							                                <span class="text-muted">发布了一条快速记录</span>&nbsp;&nbsp;&nbsp;
+							                                <span class="text-muted" >{$vo.create_date|date="Y-m-d  H:i",###}&nbsp;&nbsp;<a title="沟通类型" href="javascript:void(0);">{$vo['status_name']}</a></span>
+							                            </div>
+							                            <div class="social-body">
+							                                <span style="word-wrap:break-word;line-height: 21px;color: #000;">{$vo['content']}</span>
+							                            </div>
+							                        </div>
+							                    </div>
+							                </div>
+							            </volist>
+						            </div>
+						        </div>
+							</div>
+							<div class="tab-pane" id="tab6">
+								<div class="panel-body" style="padding-left:0px;">
+									<div class="header1">
+										<div class="pull-right">
+											<a href="{:U('contract/add','old_contract_id='.$info['contract_id'])}" class="btn btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;续约</a>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+									<if condition = "$history_list">
+										<table class="table table-bordered table_view" id="no-input-border" width="95%" border="0" cellspacing="1" cellpadding="0">
+											<thead>
+												<tr>
+													<td>合同编号</td>
+													<td>合同名称</td>
+													<td>客户名称</td>
+													<td>到期时间</td>
+													<td>合同金额</td>
+													<td>签约人</td>
+												</tr>
+											</thead>
+											<tbody>
+												<volist name="history_list" id="vo">
+													<tr id="row_{$key+1}">
+														<td><a target="_blank" href="{:U('contract/view','id='.$vo['contract_id'])}">{$vo['number']}</a></td>
+														<td><a target="_blank" href="{:U('contract/view','id='.$vo['contract_id'])}">{$vo['contract_name']}</a></td>
+														<td><a target="_blank" href="{:U('customer/view','id='.$vo['customer_id'])}">{$vo['customer_name']}</td>
+														<td>{$vo['end_date']|date="Y-m-d H:i",###}</td>
+														<td>{$vo.price|number_format=2}</td>                              
+														<td><a class="role_info" rel="{$vo['owner_role_id']}" href="javascript:void(0);">{$vo.owner_name}</a></td>
+													</tr>
+												</volist>
+											</tbody>
+										</table>
+										<!-- <div style="text-align:center;margin-top:10px;">
+											<div class="pull-right">合计发票金额（元） :<span style="color:#FF9900;">&nbsp;{$invoice_sum}</span></div>&nbsp;&nbsp;
+										</div> -->
+									</if>
+								</div>
+							</div>
+							<!-- 操作记录 -->
+							<div class="tab-pane" id="tab9">
+							    <div class="panel-body" style="padding-left:0px;">
+									<div id="vertical-timeline" class="vertical-container light-timeline" style="width:100%;">
+										<volist name="group_list" id="vo1">
+											<div class="col-sm-12">
+												<div class="pull-left">
+													<span style="line-height:32px;margin-right: 10px;">
+														<small>{$vo1['create_date']}&nbsp;{$vo1['week_name']}</small>
+													</span>
+												</div>
+												<div class="pull-left">
+													<volist name="vo1['action_list']" id="vo">
+														<div class="vertical-timeline-block" style="margin:0px;border-left:1px solid #ccc;margin-left:20px;">
+															<i class="fa fa-circle pull-left" style="margin-left:-6px;color:#CAD7EF;margin-top:9px;font-size:12px;"></i>
+															<div class="vertical-timeline-content" style="padding-top: 0px;margin-left:20px;">
+																<div class="pull-left">
+																	<span class="pull-left" style="line-height:32px;margin-right: 10px;">
+																		<small>{$vo['create_time']|date='H:i',###}</small>
+																	</span>
+																	<a class="role_info pull-left" rel="{$vo['create_role_info']['role_id']}" href="javascript:void(0)" style="margin-right:5px;">
+																		<img alt="image" class="img-circle" style="width:32px;height:32px;" <if condition = "$vo['create_role_info']['thumb_path']" >src="{$vo['create_role_info']['thumb_path']}"<else />src="__PUBLIC__/img/avatar_default.png"</if>>
+																	</a>
+																	<span class="pull-left" style="line-height:32px;">
+																		<div class="pull-left">{$vo['create_role_info']['full_name']}&nbsp;&nbsp;</div>
+																		<div class="pull-left">{$vo['duixiang']}</div>
+																		<div style="clear:both;"></div>
+																	</span>
+																	<volist name="vo['role_list']" id="vo1">
+																		<a class="role_info" rel="{$vo1['role_id']}" href="javascript:void(0)" style="margin-right:5px;">
+																			<img alt="image" class="img-circle" style="width:32px;height:32px;" <if condition = "$vo1['thumb_path']">src="{$vo1['thumb_path']}"<else />src="__PUBLIC__/img/avatar_default.png"</if>>
+																		</a>
+																		<span style="line-height:32px;">{$vo1['full_name']}</span>
+																	</volist>
+																</div>
+															</div>
+														</div>
+													</volist>
+												</div>
+											</div>
+										</volist>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display:none;" id="dialog-role-info" title="{:L('DIALOG_USER_INFO')}">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none;" id="dialog-receivables" title="{:L('ADD_THE_ACCOUNTS_RECEIVABLE')}">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none;" id="dialog-payables" title="{:L('ADD_THE_ACCOUNTS_RECEIVABLE')}">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none;" id="dialog-file" title="{:L('ADD_ACCESSORY')}">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none" id="dialog-view-SN" title="SN码查看">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none;" id="dialog-check-info" title="销售合同审核">
+	<form action="{:U('contract/check')}" id="deny_form" method="post">
+		<input name="contract_id" type="hidden" value="{$info['contract_id']}" />
+		<textarea style="width:400px;height:200px;" name="description" placeholder="填写理由(必填)"></textarea>
+		<div style="margin-top:10px;margin-right:5px;">
+		<a href="javascript:void(0);" onclick="javascript:$('#dialog-check-info').dialog('close');" class="pull-right btn btn-primary">取消</a>
+		<button type="submit" name="submit1" value="deny" class="pull-right btn btn-primary" style="margin-right:10px;padding:6px 13px;">确认拒绝</button>&nbsp;&nbsp;
+		</div>
+	</form>
+</div>
+
+<div style="display:none;" id="dialog-receivingorder" title="添加回款单">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none;" id="dialog-yingshou" title="添加应收款">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none;" id="dialog-check-list" title="审核记录">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none;" id="dialog-rececheck-info" title="收款单审核">
+	<form action="{:U('finance/check','t=receivingorder')}" method="post">
+	<input id="dialog_order_id" name="receivingorder_id" type="hidden" value="{$id}" />
+	<input name="t" type="hidden" value="receivingorder"/>
+		<table class="table">
+			<tr>
+				<td>
+					收款单号：<a href="javascript:;" target="_blank" id="dialog_check_order_no"></a>
+					<br/>
+					<br/>
+					<textarea tabindex="0" style="width:400px;height:200px;" class="form-control" id="dialog_description" name="description" placeholder="填写理由(非必填)"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:center;">
+					<button type="submit" name="submit1" value="agree" class="btn btn-primary btn-sm">同意</button> &nbsp; &nbsp; 
+					<button type="submit" name="submit1" value="deny" class="btn btn-warning btn-sm">拒绝</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<div style="display:none" id="dialog-check-contract" title="合同审核">
+	<include file="Public:loading" />
+</div>
+
+<div style="display:none;" id="dialog-map" title="{:L('MAP')}">
+	<include file="Public:loading" />
+</div>
+
+<link href="__PUBLIC__/css/litebox.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/js/litebox.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/images-loaded.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=grWGxlWOpGc1D0kVToxUgD6bwwjo35Tr"></script>
+<div id="right_market_view">
+	<!--the css for jquery.mCustomScrollbar-->
+	<link rel="stylesheet" href="__PUBLIC__/emoji/css/jquery.mCustomScrollbar.min.css" />
+	<!--the css for this plugin-->
+	<link rel="stylesheet" href="__PUBLIC__/emoji/css/jquery.emoji.css" />
+	<!--(Optional) the js for jquery.mCustomScrollbar's addon-->
+	<script src="__PUBLIC__/emoji/js/jquery.mousewheel-3.0.6.min.js"></script>
+	<!--the js for jquery.mCustomScrollbar-->
+	<script src="__PUBLIC__/emoji/js/jquery.mCustomScrollbar.min.js"></script>
+	<!--the js for this plugin-->
+	<script src="__PUBLIC__/emoji/js/jquery.emoji.js"></script>
+
+	<div class="sidebar-container" id="sidebar-container">
+
+	</div>
+</div>
+<script type="text/javascript">
+//鼠标点击空白处，隐藏右侧滑出
+document.onmousedown = function (event) {
+	if ($(".litebox-overlay").length > 0) return;
+	if ($("#dialog_open").val() == 1) return;
+	if (event.target.className == 'right-sidebar-toggle-task') return;
+
+	var div = document.getElementById("right_market_view");
+	var x = event.clientX;
+	var y = event.clientY;
+	var divx1 = div.offsetLeft;
+	var divy1 = div.offsetTop;
+	var divx2 = div.offsetLeft + div.offsetWidth;
+	var divy2 = div.offsetTop + div.offsetHeight;
+	if (x < divx1 || x > divx2 || y < divy1 || y > divy2) {
+		if ($("#right_market_view").css('right') == '0px') {
+			$("#right_market_view").animate({ right: '-60%' }, 400);
+		}
+	}
+}
+$(function(){
+	$('.market_view').on('click', function () {
+		var market_id = $(this).attr('rel');
+		if ($("#right_market_view").css('right') != '0px') {
+			$("#right_market_view").animate({ right: '0px' }, 600);
+		}
+		$('#sidebar-container').load("{:U('market/view','market_id=')}" + market_id);
+	});
+});
+// 打印按钮。
+var preview_page ; // 弹出窗口
+$("#print").on('click', function(){
+	var is_IE = IEVersion();
+	if (is_IE != 'edge' && is_IE != -1) {
+		swal('抱歉，IE浏览器暂不支持预览、打印功能', '可换用谷歌，360，edge等浏览器\n（360浏览器须切换极速模式）', 'warning');
+		return false;
+	}
+	var count_tpl = 0;
+	$.ajax({
+		async: false,
+		url: '{:U("template/preview")}',
+		data: {object: 'contract'},
+		type: 'POST',
+		dataType: 'json',
+		success: function(json){
+			if (json.count != 0) {
+				count_tpl = json.count;
+			}
+		}
+	});
+	if (count_tpl < 1) {
+		swal('没有可用的合同模板！', '', 'warning');
+		return false;
+	}
+    preview_page = layer.open({
+        type: 2,
+        title: '模板预览',
+        shadeClose: true,
+        area: ['100%', '100%'],
+        content: '{:U("template/preview")}&object=contract&id={$contract_id}' // iframe的url
+    }); 
+    $('.layui-layer-title,.layui-layer-close').remove();
+});
+
+
+function IEVersion() {
+	var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+	var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器  
+	var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器  
+	var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+	if (isIE) {
+		var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+		reIE.test(userAgent);
+		var fIEVersion = parseFloat(RegExp["$1"]);
+		if (fIEVersion == 7) {
+			return 7;
+		} else if (fIEVersion == 8) {
+			return 8;
+		} else if (fIEVersion == 9) {
+			return 9;
+		} else if (fIEVersion == 10) {
+			return 10;
+		} else {
+			return 6;//IE版本<=7
+		}
+	} else if (isEdge) {
+		return 'edge';//edge
+	} else if (isIE11) {
+		return 11; //IE11  
+	} else {
+		return -1;//不是ie浏览器
+	}
+}
+
+// 页面加载时执行Tab start
+$(function(){
+	var thisId = window.location.hash; 
+	var atype = thisId.substr(1);
+	$('#left_list a[type="'+atype+'"]').tab('show');
+	url_jump('#'+atype);
+});
+// 页面加载时执行Tab end
+$('#left_list a').click(function (e) {
+	var maodian = '#'+$(this).attr('type');
+	url_jump(maodian);
+});
+function url_jump(maodian){
+    var contract_id = "{$info['contract_id']}";;
+    var url = "{:U('contract/view','id=')}"+contract_id+maodian;
+    if (maodian == '#tab7') {
+    	var sales_id = "{$sales['sales_id']}"
+    	$('#stock_out_list').load("{:U('sales/stock_list','id=')}"+sales_id+'&contract_id='+contract_id);
+    }
+    window.history.replaceState({},0,'http://'+window.location.host+url);
+}
+
+var is_receivables = '{$is_receivables}';
+$('#is_agree').change(function(){
+	var agree_id = $(this).val();
+	if(agree_id == 1){
+		$('.is_show').show();
+		if(is_receivables == 0 || is_receivables == ''){
+			$('#pay_times').hide();
+		}
+	}else{
+		$('.is_show').hide();
+	}
+});
+$('.openrecycle').click(function(){
+	var is_receivables = $("input[name='is_receivables']:checked").val();
+	if(is_receivables == 1){
+		$('#pay_times').show();
+	}else{
+		$('#pay_times').hide();
+	}
+});
+//审核合同
+$("#check_contract").click(function(){
+	var id = $(this).attr('rel');
+	$('#dialog-check-contract').dialog('open');
+	$('#dialog-check-contract').load('{:U("contract/check","contract_id=")}'+id);
+});
+$("#dialog-check-contract").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 600,
+	maxHeight: 550,
+	position: ["center",100] ,
+	buttons: {
+		"确定": function () {
+			var is_agree = $('#is_agree').val();
+			var openrecycle2 = $('#openrecycle2:checked').val();
+			var examine_role_id = $('#examine_role_id').val();
+			if (is_agree == 1 && openrecycle2 == 1) {
+				if (examine_role_id == '') {
+					alert_crm('请选择下一审批人！');
+					return false;
+				}
+			}
+			$('#contract_dialog').submit();
+			$(this).dialog("close");
+		},
+		"取消": function () {
+			$(this).dialog("close");
+		}
+	}
+});
+//撤销审核
+$("#recheck_contract").click(function(){
+	var id = $(this).attr('rel');
+	swal({   
+		title: "确定要撤销审核吗？",   
+		type: "warning",   
+		showCancelButton: true,  
+		confirmButtonColor: "#DD6B55",   
+		confirmButtonText: "确定",   
+		closeOnConfirm: false 
+	},
+	function(){ 
+		window.location.href="{:U('contract/revokeCheck', 'id=')}"+id; 
+	});
+});
+
+/**
+ * 如果是图片时 双击可查看大图
+ */
+$('.litebox_file').liteBox({
+	revealSpeed: 400,
+	background: 'rgba(0,0,0,.8)',
+	overlayClose: true,
+	escKey: true,
+	navKey: true,
+	errorMessage: '图片加载失败.'
+});
+var pm_heigth = window.screen.height * 0.57;
+$('#left-content').css('min-height',pm_heigth+'px');
+$(".check_badge").hover(function(){
+	$(this).find('.control').toggle();
+});
+
+$("#dialog-check-list").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 600,
+	maxHeight: 400,
+	position: ["center",100],
+});
+$(function(){
+	$("#check_list").click(function(){
+		$('#dialog-check-list').dialog('open');
+		$('#dialog-check-list').load('{:U("Contract/check_list","id=".$info["contract_id"])}');
+	});
+});
+//删除回款单
+$('.not_rel_contacts').click(function(){
+	var receivingorder_id = $(this).attr('rel');
+	if(receivingorder_id == 0){
+		alert_crm('您没有选择任何回款单！');
+		return false;
+	}
+	swal({
+		title: "您确定要删除这条信息吗？",
+			text: "删除后将无法恢复，请谨慎操作！",
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",   
+		confirmButtonText: "是的，我要删除！",
+        cancelButtonText:'让我再考虑一下…',
+        closeOnConfirm:false,
+        closeOnCancel:false
+	},
+	function(isConfirm){
+        if (isConfirm) {
+        	$.ajax({
+	            type:'post',
+	            url: "{:U('finance/delete','t=receivingorder')}",
+	            data: {id:receivingorder_id,t:'receivingorder'},
+	            async: false,
+	            success: function (data) {
+					if (data.status == 1) {
+						swal("删除成功！", "您已经永久删除了信息！", "success");
+						location.reload();
+					}else{
+						swal({
+							title: "操作失败！",
+							text:data.info,
+							type: "error"
+						})
+						return false;
+					}
+	            },
+	            dataType: 'json'
+	        });
+        } else {
+            swal("已取消","您取消了删除操作！","error");
+        }
+    });
+});
+
+/*跟进记录*/
+function btnHide(){
+    $('#log-text').attr('rows',1);
+    $('#log-btn').hide();
+    $('#product-radio').hide();
+    $('#log-text').val('');
+}
+$('#log-text').focus(function(){
+    $(this).attr('rows',4);
+    $('#log-btn').show();
+    $('#product-radio').show();
+    $('#add_log').prop('disabled',false);
+});
+$('#log-text').focusout(function(){
+    var code_id = $("input[name='id']:checked").val();
+    if($(this).val() == '' && code_id == ''){
+        btnHide();
+    }
+});
+$('#quxiao').click(function(){
+    btnHide();
+    return false;
+});
+/*ajax 提交记录*/
+$('#add_log').click(function(){
+    var log_type = 'rContractLog';
+    $(this).prop('disabled',true);
+    $.post("{:U('Log/add')}", $("#add-form").serialize(), function(data){
+        if(data.status == 1){
+            var content = $('#log-text').val().replace('&nbsp','&NBSP');
+            var log_html = "<div class='ibox-content gray-bg' log-rel='"+data.data.log_id+"' style='margin-bottom: 18px'><div class='social-feed-separated clearfix'><div class='social-feed-box'><div class='pull-right social-action dropdown'><span data-toggle='dropdown' class='dropdown-toggle'><i style='font-size:20px;cursor:pointer' class='fa fa-angle-down'></i></span><ul class='dropdown-menu m-t-xs' ><li><a  rel='"+data.data.log_id+"' href='javascript:void(0);' type='"+log_type+"' onclick='del_confirm(this);'>{:L('DELETE')}</a></li></ul></div><div class='social-avatar'><img alt='image' style='width:35px;height:35px;' class='img-circle' src='"+data.data.owner.thumb_path+"'><a class='role_info name-colors'  rel='"+data.data.owner.role_id+"' href='javascript:void(0)'>"+data.data.owner.full_name+"</a>&nbsp;&nbsp;<span class='text-muted'>添加了一条快快速记录</span>&nbsp;&nbsp;<span class='text-muted' >"+data.data.date+"</span></div><div class='social-body'><span style='word-wrap:break-word;line-height: 21px;color: #000;'>"+content+"</span></div></div></div></div>";
+            $('#log-list').prepend(log_html);
+            btnHide();
+        }else{
+            alert_crm('添加失败, 请重试');
+        }
+    });
+});
+/*删除日志*/
+function del_confirm(e){
+    swal({
+        title: "确定要删除沟通日志吗？",
+        text: "删除后将无法恢复，请谨慎操作！",
+        type: "warning",   
+        showCancelButton: true,   
+        confirmButtonColor: "#DD6B55",   
+        confirmButtonText: "是的，我要删除！",
+        cancelButtonText:'让我再考虑一下…',
+        closeOnConfirm:false,
+        closeOnCancel:false
+    },
+    function(isConfirm){
+        if (isConfirm) {
+            var log_id = $(e).attr('rel');
+            var type = $(e).attr('type');
+            $.get("{:U('log/delete')}", {r:type, id:log_id}, function(data){
+                if(data != 0){
+                    swal({
+                        title: "删除成功！",
+                        text: "",
+                        type: "success"
+                    });
+                    $("[log-rel='"+log_id+"']").remove();
+                }else{
+                    swal({
+                        title: "操作失败！",
+                        text:data.info,
+                        type: "error"
+                    })
+                    return false;
+                }
+            });
+        } else {
+            swal("已取消","您取消了删除操作！","error");
+        }
+    });
+};
+</script>
+<script>
+if ("{:C('isMobile')}" == "1") {
+	width = $('.container').width() * 0.9;
+} else {
+	width = 800;
+}
+
+$("#dialog-role-info").dialog({
+    autoOpen: false,
+    modal: true,
+	width: 650,
+	maxHeight:600,
+	position: ["center",100]
+});
+$("#dialog-receivables").dialog({
+    autoOpen: false,
+    modal: true,
+	width: width,
+	maxHeight:400,
+	position: ["center",100]
+});
+$("#dialog-payables").dialog({
+    autoOpen: false,
+    modal: true,
+	width: width,
+	maxHeight:400,
+	position: ["center",100]
+});
+$("#dialog-file").dialog({
+    autoOpen: false,
+    modal: true,
+	width: width,
+	maxHeight: 400,
+	position: ["center",100],
+	buttons: {
+		"确认": function () {
+		   location.reload();
+		},
+		"取消": function () {
+			$(this).dialog("close");
+		}
+	}
+});
+$("#dialog-check-info").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 432,
+	maxHeight: 400,
+	position: ["center",100],
+});
+$("#dialog-rececheck-info").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 450,
+	maxHeight: 400,
+	position: ["center",100]
+});
+$("#dialog-map").dialog({
+    autoOpen: false,
+    modal: true,
+	width: 800,
+	minHeight: 450,
+	position: ["center",100]
+});
+
+$(function(){
+	$(".role_info").click(function(){
+		$role_id = $(this).attr('rel');
+		$('#dialog-role-info').dialog('open');
+		$('#dialog-role-info').load('{:U("user/dialoginfo","id=")}'+$role_id);
+	});
+	$(".add_file").click(function(){
+		$('#dialog-file').dialog('open');
+		$('#dialog-file').load('{:U("file/add","r=RContractFile&module=contract&id=".$info["contract_id"])}');
+	});
+	$(".add_receivingorder").click(function(){
+		var receivables_id = $(this).attr('rel');
+		$('#dialog-receivingorder').dialog('open');
+		$('#dialog-receivingorder').load('{:U("finance/adddialog","t=receivingorder&contract_id=".$info['contract_id']."&receivables_id=")}'+receivables_id);
+	});
+	$("#add_yingshou").click(function(){
+		$('#dialog-yingshou').dialog('open');
+		$('#dialog-yingshou').load('{:U("finance/adddialog","t=receivables&contract_id=".$info['contract_id'])}');
+	});
+	$("#dialog-yingshou").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 540,
+		maxHeight: 600,
+		position: ["center",100],
+		buttons: {
+			"确定": function () {
+				$('#form_receivables').submit();
+				$(this).dialog("close");
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		}
+	});
+	$("#dialog-receivingorder").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 540,
+		maxHeight: 600,
+		position: ["center",100],
+		buttons: {
+			"确定": function () {
+				var money = $('#money').val();
+				if(0 >= money){
+					alert_crm('金额不能为空！请重新填写收款金额！');
+				}else{
+					$('#receivingorder_dialog').submit();
+					$(this).dialog("close");
+				}
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		}
+	});
+	$(".receivingorder_check").click(function(){
+		var order_id = $(this).attr('rel');
+		var order_name = $(this).attr('rel2');
+		$("#dialog_check_order_no").text(order_name);
+		$("#dialog_check_order_no").attr('href', '{:U('finance/view','t=receivingorder&id=')}'+order_id);
+		$("#dialog_order_id").val(order_id);
+		$("#dialog_description").focus();
+		$('#dialog-rececheck-info').dialog('open');
+	});
+	$(".checkbtn").click(function(){
+		$('#dialog-check-info').dialog('open');
+		$("#dialog_description").focus();
+	});
+	$(".getMap").click(function(){
+		var map = $(this).attr('rel');
+		$('#dialog-map').dialog('open');
+		$('#dialog-map').load('{:U("setting/mapdialog","map=")}'+map);
+	});
+});
+$('.del_file').click(function(){
+	var file_id = $(this).attr('rel');
+	swal({
+		title: "您确定要删除这个附件吗？",
+		text: "删除后将无法恢复，请谨慎操作！",
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",   
+		confirmButtonText: "是的，我要删除！",
+        cancelButtonText:'让我再考虑一下…',
+        closeOnConfirm:false,
+        closeOnCancel:false
+	},
+	function(isConfirm){
+        if (isConfirm) {
+        	$.ajax({
+	            type:'get',
+	            url: "{:U('file/delete','r=RContractFile&id=')}"+file_id,
+	            async: false,
+	            success: function (data) {
+					if (data.status == 1) {
+						swal("删除成功！", "您已经永久删除了信息！", "success");
+						location.reload();
+					}else{
+						swal({
+							title: "操作失败！",
+							text:data.info,
+							type: "error"
+						})
+						return false;
+					}
+	            },
+	            dataType: 'json'
+	        });
+        } else {
+            swal("已取消","您取消了删除操作！","error");
+        }
+    });
+});
+
+$('#dialog-view-SN').dialog({
+	autoOpen: false,
+	modal: true,
+	width: 800,
+	maxHeight: 600,
+	position: ["center", 100],
+	buttons: {
+		'确认': function () {
+			$(this).dialog('close');
+		}
+	}
+})
+$('.view_SN.contract').on('click', function () {
+	var product_info_id = $(this).attr('rel');
+	var name = $(this).attr('name');
+	$('#dialog-view-SN').dialog('open');
+	$('#dialog-view-SN').load('{:U("sales/contract_sn_list")}&product_info_id=' + product_info_id + '&sales_id=' + "{$sales['sales_id']}" + '&name=' + encodeURIComponent(name));
+});
+
+</script>
+<include file="Public:footer" />	

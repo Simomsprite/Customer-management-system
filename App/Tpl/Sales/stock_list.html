@@ -1,0 +1,448 @@
+<div class="pull-left" style="font-size:13px;font-weight:700;margin:15px auto;">
+	<span style="border-left:5px solid #19AA8D;padding-left:10px;height:10px;"></span>出库记录
+</div>
+<div class="pull-right">
+	<button class="btn btn-success" id="stock_out" rel="{$_GET['id']}" rel1="{$_GET['contract_id']}" type="button">出库</button>&nbsp;
+	<button class="btn btn-success" id="return_sales" rel="{$_GET['id']}" rel1="{$_GET['contract_id']}" type="button">退货</button>&nbsp;
+	<if condition="$return_count gt 0">
+		<a class="btn btn-success" href="{:U('sales/return_index','sales_id='.$_GET['id'])}">退货记录</a>
+	</if>
+</div>
+<br><br>
+<empty name="stock_out_list">
+	<tr>
+		<td colspan="8">
+			<div style="background-color:#fff;">
+				<include file="Public:nodata" />
+			</div>
+		</td>
+	</tr>
+<else />
+	<volist name="stock_out_list" id="vo" key="key">
+		<table class="table table-bordered" id="no-input-border" width="95%">
+			<tr>
+				<td colspan="6">
+					<div class="pull-left" style="width: 50%;">出库日期 :
+						{$vo['update_time']}
+					</div>
+					<span class="stock_del btn btn-xs btn-danger pull-right" object="stock_out" pid="{$vo['stock_out_id']}">删除</span>
+					<span style="margin: 5px 10px; float: right; color: #999;">|</span>
+					<span class="print btn btn-xs btn-info pull-right" object="stock_out" pid="{$vo['stock_out_id']}">打印</span>
+					<div class="pull-right" style="line-height: 30px; margin-right: 30px;">
+						<!-- <a href="javascript:void(0);">
+							<button class="btn btn-primary">打印发货单</button>
+						</a> -->
+						<a href="javascript:void(0);" class="express_edit" rel="{$vo['stock_out_id']}">
+							<i class="fa fa-edit"></i> 修改物流
+						</a>
+					</div>
+				</td>
+			</tr>
+			<tr align="center">
+				<td>序号</td>
+				<td>产品名称</td>
+				<td>规格</td>
+				<td>单位</td>
+				<td>本次出库数量</td>
+				<td>备注</td>
+			</tr>
+			<volist name="vo['product_info_list']" id="vo1" key="k">
+				<tr align="center">
+					<td>{$k}</td>
+					<td>{$vo1['product_name']}</td>
+					<td>{$vo1['spec']}</td>
+					<td>{$vo1['unit']}</td>
+					<td>
+						<?php if ($vo1['has_sn'] == 1) { ?>
+							<a href="javascript:void(0);" class="view_SN sales" product-info-id="{$vo1['product_info_id']}" stock-out-id="{$vo['stock_out_id']}" name="{$vo1['product_name']}({$vo1['spec']})">
+								<span class="label label-success">SN</span>
+							</a>
+						<?php } ?>
+						{$vo1['count']}
+					</td>
+					<td>{$vo1['remark']}</td>
+				</tr>
+			</volist>
+			<tr>
+				<td colspan="6">
+					<div style="margin: 10px 0;">
+						<div style="width: 20%;display: inline-block;">
+							<span>出库编号:{$vo['number']}</span>
+						</div>
+						<div style="width: 20%;display: inline-block;">
+							<span>经办人:
+								<a href="javascript:void(0);" class="role_info" rel="{$vo['owner_role_id']}">{$vo['owner_role_nane']}</a>
+							</span>
+						</div>
+						<div style="width: 20%;display: inline-block;">
+							<span>出库仓:
+								<a href="javascript:void(0);" rel="{$vo['warehouse_id']}">
+									{$vo['warehouse_name']}
+								</a>
+							</span>
+						</div>
+						<div style="width: 20%;display: inline-block;">
+							<span>物流单号:
+								{$vo['express']}
+							</span>
+						</div>
+						<div style="display: inline-block;">
+							<span>备注:
+								{$vo['remark']}
+							</span>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<hr>
+	</volist>
+</empty>
+
+
+<div style="display:none;" id="dialog-return-sales" title="创建退货单">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none;" id="dialog-stock-out" title="创建出库单">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="dialog-view-SN" title="SN码查看">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="dialog-express-edit" title="修改物流信息">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script>
+var preview_page; // 弹出窗口
+$(function(){
+	var width = $('#wrapper').width() * 0.7;
+	$("#dialog-return-sales").dialog({
+		autoOpen: false,
+		modal: true,
+		width: width,
+		maxHeight: 600,
+		position: ["center",100],
+		buttons: {
+			"确定": function () {
+				//js提交场景，form表单必填验证
+				if (!$("#form_dialog").valid()) {
+					swal('信息未完善', '请检查必填项', 'warning');
+					return false;
+				}
+
+				var product_count = 0;
+				$('#form_dialog .count .form-control').each(function (key, val) {
+					product_count += $(val).val();
+				});
+				$('input[name="subject"]').val($.trim($('input[name="subject"]').val()));
+				if ($('input[name="subject"]').val() == '') {
+					swal({
+						title: '退货标题不能为空',
+						type: 'warning'
+					}, function () {
+						setTimeout(function () {
+							$('input[name="subject"]').focus();
+						}, 1);
+					});
+					return false;
+				}
+				if (product_count == 0) {
+					swal('最少选择一件产品才可退货！');
+					return false;
+				}
+				swal({
+					title: '数据提交中',
+					text: '......',
+					type: 'info',
+					showConfirmButton: false
+				});
+				var data = $('#form_dialog').serializeArray();
+				$.ajax({
+					url: '{:U("sales/return_add")}',
+					data: data,
+					type: 'POST',
+					dataType: 'JSON',
+					success: function (res) {
+						type = (res.status == 1) ? 'success' : 'error';
+						swal({
+							title: res.info,
+							type: type
+						}, function () {
+							$("#dialog-return-sales").dialog('close');
+						});
+					}
+				});
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function () { 
+	    	dialog_destroy($(this));
+	    }
+	});
+	//添加退货单
+	$("#return_sales").click(function(){
+		var id = $(this).attr('rel1');
+		$('#dialog-return-sales').dialog('open');
+		$('#dialog-return-sales').load('{:U("sales/return_add","contract_id=")}'+id);
+	});
+
+	$("#dialog-stock-out").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 1200,
+		maxHeight: 600,
+		position: ["center",100],
+		buttons: {
+			'确定' : function () {
+				var count = 0;
+				$('#form_add_out .count').each(function (key, val) {
+					count += Number($(val).val());
+				});
+				if (count == 0) {
+					swal('信息未完善', '至少选择一件产品!', 'warning');
+					return false;
+				}
+				if ($('#form_add_out [name="owner_role_id"]') == '') {
+					swal('信息未完善', '请选择负责人', 'warning');
+					return false;
+				}
+				if ($('#form_add_out [name="number"]') == '') {
+					swal('信息未完善', '请填写出库单号', 'warning');
+					return false;
+				}
+				swal({
+					title: '数据提交中',
+					text: '......',
+					type: 'info',
+					showConfirmButton: false
+				});
+				var data = $('#form_add_out').serializeArray();
+				$.ajax({
+					url: '{:U("sales/addStockOut")}',
+					data: data,
+					type: 'POST',
+					dataType: 'JSON',
+					success: function (res) {
+						console.log(res);
+						if (res.status == 1) {
+							type = 'success';
+						} else {
+							type = 'error';
+						}
+						swal({
+							title: res.msg,
+							type: type,
+						}, function () {
+							swal({
+								title: '页面刷新中',
+								text: '......',
+								type: 'info',
+								showConfirmButton: false
+							});
+							history.go(0);
+						});
+					}
+				})
+			},
+			'取消' : function () {
+				$(this).dialog('close');
+			}
+		},
+		close:function(){
+			dialog_destroy($(this));
+		}
+	});
+	// 添加出库单
+	$("#stock_out").click(function(){
+		var sales_id = $(this).attr('rel');
+		var contract_id = $(this).attr('rel1');
+		$('#dialog-stock-out').dialog('open');
+		$('#dialog-stock-out').load('{:U("sales/addstockout","sales_id=")}'+sales_id+'&contract_id='+contract_id);
+	});
+
+	$('#dialog-view-SN').dialog({
+		autoOpen: false,
+		modal: true,
+		width: 800,
+		maxHeight: 600,
+		position: ["center", 100],
+		buttons: {
+			'确认': function () {
+				$(this).dialog('close');
+			}
+		}
+	})
+
+	// 出库SN码查看
+	$('.view_SN.sales').on('click', function () {
+		var product_info_id = $(this).attr('product-info-id');
+		var stock_out_id = $(this).attr('stock-out-id');
+		var name = $(this).attr('name');
+		$('#dialog-view-SN').dialog('open');
+		$('#dialog-view-SN').load('{:U("sales/stockOutSnView")}&product_info_id=' + product_info_id + '&stock_out_id=' + stock_out_id + '&name=' + encodeURIComponent(name));
+	});
+
+	//编辑物流信息
+	$("#dialog-express-edit").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 500,
+		maxHeight: 450,
+		position: ["center", 100],
+		buttons: {
+			"确定": function () {
+				$.ajax({
+					type:'post',
+					url: "{:U('warehouse/express_edit')}",
+					data:$('#form_dialog').serialize(),
+					async:false,
+					success:function(data){
+						if(data.status == 1){
+							rtal(data.info);
+							window.location.reload();
+						} else {
+							alert_crm(data.info);
+						}
+					},
+					dataType:'json'
+				});
+				$(this).dialog("close");
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function () { 
+	    	dialog_destroy($(this));
+	    }
+	});
+	$(".express_edit").click(function () {
+		var stock_out_id = $(this).attr('rel');
+		$('#dialog-express-edit').dialog('open');
+		$('#dialog-express-edit').load('{:U("warehouse/express_edit","stock_out_id=")}' + stock_out_id);
+	});
+
+
+	// 打印按钮。
+	$(".print").on('click', function () {
+		var is_IE = IEVersion();
+		if (is_IE != 'edge' && is_IE != -1) {
+			swal('抱歉，IE浏览器暂不支持预览、打印功能', '可换用谷歌，360，edge等浏览器\n（360浏览器须切换极速模式）', 'warning');
+			return false;
+		}
+		let object = $(this).attr('object');
+		let id = $(this).attr('pid');
+		preview_page = layer.open({
+			type: 2,
+			title: '模板预览',
+			shadeClose: true,
+			area: ['100%', '100%'],
+			content: '{:U("template/preview")}&object=' + object + '&id=' + id
+		});
+		$('.layui-layer-title,.layui-layer-close').remove();
+	});
+
+
+	function IEVersion() {
+		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+		var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器  
+		var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器  
+		var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+		if (isIE) {
+			var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+			reIE.test(userAgent);
+			var fIEVersion = parseFloat(RegExp["$1"]);
+			if (fIEVersion == 7) {
+				return 7;
+			} else if (fIEVersion == 8) {
+				return 8;
+			} else if (fIEVersion == 9) {
+				return 9;
+			} else if (fIEVersion == 10) {
+				return 10;
+			} else {
+				return 6;//IE版本<=7
+			}
+		} else if (isEdge) {
+			return 'edge';//edge
+		} else if (isIE11) {
+			return 11; //IE11  
+		} else {
+			return -1;//不是ie浏览器
+		}
+	}
+
+	// 出入库删除
+	$('.stock_del').on('click', function () {
+		let self = $(this);
+		swal({
+			title: "您确定要删除这条数据吗？",
+			text: "删除后将无法恢复，请谨慎操作！",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "是的，我要删除！",
+			cancelButtonText: '让我再考虑一下…',
+			closeOnConfirm: false,
+			closeOnCancel: false
+		}, function (isConfirm) {
+			if (isConfirm) {
+				ajax_loading();
+				let type = self.attr('object');
+				let id = self.attr('pid');
+				$.ajax({
+					type: 'post',
+					url: "{:U('stock/delete')}",
+					data: { id: id, type: type },
+					success: function (res) {
+						if (res.status == 1) {
+							swal({
+								title: "删除成功！",
+								text: "您已经永久删除了信息！",
+								type: "success"
+							}, () => {
+								location.reload();
+							});
+						} else {
+							swal({
+								title: "操作失败！",
+								text: res.info,
+								type: "error"
+							})
+							return false;
+						}
+					}
+				});
+			} else {
+				swal.close();
+			}
+		});
+	});
+});
+</script>

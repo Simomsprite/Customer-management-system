@@ -1,0 +1,118 @@
+<form action="{:U('stock/transfer_in')}" id="form_in" method="post">
+	<input type="hidden" name="transfer_id" value="{$transfer['transfer_id']}">
+	<input type="hidden" name="warehouse_id" value="{$transfer['in_warehouse_id']}">
+	<table class="table table-bordered" width="95%">
+		<tr style="background-color:#f9fafc;text-align:center;">
+			<td style="background-color:#f9fafc;padding:14px;color:#999">商品名称</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">规格</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">单位</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">调拨数量</td>
+			<td style="background-color:#f9fafc;padding:14px;color:#999">备注</td>
+		</tr>
+		<volist name="transfer.product_list" id="vo">									
+			<tr style="text-align:center;padding:14px;color:#666">
+				<td>{$vo['product_name']}</td>
+				<td>{$vo['spec']}</td>
+				<td>{$vo['unit']}</td>
+				<td>
+					<!-- 只能查看已出库sn -->
+					<?php if ($vo['has_sn']) { ?>
+						<a href="javascript:void(0);" class="view_SN out_sn" product-info-id="{$vo['product_info_id']}" stock-out-id="{$vo['stock_out_id']}" name="{$vo['product_name']}({$vo['spec']})">
+							<span class="label label-success">SN</span>
+						</a>
+						<input type="hidden" class="sn_ids" name="product_info_list[{$vo.product_info_id}][sn]" value="{$vo.sn_ids}" >
+					<?php } ?>
+					<input type="number" min="0" max="{$vo['count']}" class="form-control count" name="product_info_list[{$vo.product_info_id}][count]" value="{$vo['count']}" style="width: 80px;display: inline-block;" readonly="readonly">
+				</td>
+				<td>{$vo['remark']}</td>
+			</tr>
+		</volist>
+	</table>
+	<div style="margin: 10px 0;">
+		<div style="width: 45%;display: inline-block;">
+			入库日期：<input type="text" class="form-control Wdate" style="display: inline-block;width: 250px;" name="update_time" value="{:date('Y-m-d')}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" required="">
+		</div>
+		<div style="width: 45%;display: inline-block;">
+			入库单号：<input class="form-control" style="display: inline-block;width: 250px;" type="text" name="number" value="{$number}" required >
+		</div>
+	</div>
+	<div>
+		<div style="width: 45%;display: inline-block;">
+			负责人&#12288;：
+			<input type="hidden" name="owner_role_id" value="{:session('role_id')}" required="">
+			<input class="form-control" type="text" id="owner_role_id" readonly="true" value="{:session('full_name')}" style="cursor:pointer;display: inline-block;width: 250px;" placeholder="请点击选择" required="">
+		</div>
+		<div style="width: 45%;display: inline-block;">
+			入库备注：<input class="form-control" style="display: inline-block;width: 250px;" type="text" name="remark" placeholder="填写备注">
+		</div>
+	</div>
+</form>
+
+<div style="display:none" id="dialog-view-SN" title="SN码查看">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+
+<div style="display:none" id="dialog-owner_role-list" title="选择负责人">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	//已出库sn查看
+	$('.view_SN.out_sn').on('click', function () {
+		var product_info_id = $(this).attr('product-info-id');
+		var stock_out_id = $(this).attr('stock-out-id');
+		var name = $(this).attr('name');
+		$('#dialog-view-SN').dialog('open');
+		$('#dialog-view-SN').load('{:U("sales/stockOutSnView")}&product_info_id=' + product_info_id + '&stock_out_id=' + stock_out_id + '&name=' + encodeURIComponent(name));
+	});
+	$('#dialog-view-SN').dialog({
+		autoOpen: false,
+		modal: true,
+		width: 800,
+		maxHeight: 600,
+		position: ["center", 100],
+		buttons: {
+			'确认': function () {
+				$(this).dialog('close');
+			}
+		}
+	});
+
+	//选择负责人
+	$("#dialog-owner_role-list").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 100],
+		buttons: {
+			'{:L("OK")}': function () {
+				var role_info = $('input[type="radio"].owner:checked');
+				$('input[name="owner_role_id"]').val(role_info.val());
+				$('#owner_role_id').val(role_info.attr('rel'));
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}': function () {
+				$(this).dialog('close');
+			}
+		},
+		close: function () {
+			$(this).html('');
+		}
+	});
+	$('#owner_role_id').on('click', function () {
+		$("#dialog-owner_role-list").dialog('open');
+		$("#dialog-owner_role-list").load('{:U("user/listDialog")}&id=' + $('input[name="owner_role_id"]').val());
+	});
+</script>

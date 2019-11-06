@@ -1,0 +1,118 @@
+<!-- 待办任务 -->
+<style type="text/css">
+	#task_table_{$id} td p { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width: 150px; line-height: 28px; margin: 0; }
+	.span_priority { width: 10px; height: 10px; border-radius: 50%; }
+</style>
+<div class="col-sm-6 sort-item" rel="{$id}" style="padding:0px;">
+	<div class="dash-border" style="position: relative;">
+		<div class="dash-title" style="padding-left:15px;padding-right:15px;">
+			<img src="__PUBLIC__/img/chart.png" style="width:17.5px;" />&nbsp;&nbsp;{$title}&nbsp;
+			<small>
+				<a rel="{$id}" class="update" href="javascript:void(0)" id="update_widget"><i class="icon-pencil"></i></a> &nbsp;
+				<a rel="{$id}" class="delete_loudou" style="cursor:pointer"><i class="icon-remove"></i></a> &nbsp; 
+			</small>
+			<a href="{:U('task/index')}" class="dash-swtich"> 切换到任务>></a>
+		</div>
+		<div class="nicescroll" id="task_index_{$id}" style="padding: 0 10px; width: 99%; height: 230px;">
+            <div class="spiner-example">
+				<div class="sk-spinner sk-spinner-three-bounce">
+					<div class="sk-bounce1"></div>
+					<div class="sk-bounce2"></div>
+					<div class="sk-bounce3"></div>
+				</div>
+			</div>
+            <div class="hide content">
+	            <table id="task_table_{$id}" class="table" style="width: 100%;">
+	              	<tbody></tbody>
+	            </table>
+	            <div id="task_page_{$id}" style="position: absolute; bottom: 6px; right: 10px; width: 180px;"></div>
+            </div>
+		</div>
+	</div>
+</div>
+<script src="__PUBLIC__/style/js/plugins/nice-scroll/jquery.nicescroll.min.js" type="text/javascript"></script>
+<!--the css for jquery.mCustomScrollbar-->
+<link rel="stylesheet" href="__PUBLIC__/emoji/css/jquery.mCustomScrollbar.min.css"/>
+<script type="text/javascript">
+    var task_page_{$id} = 1;
+	// 后台数据查询
+    taskWidgetGetData_{$id}();
+    function taskWidgetGetData_{$id}() {
+    	var TW = $('#task_table_{$id}').width();
+    	var data = new Object();
+    	data['p'] = task_page_{$id};
+    	data['widget_id'] = {$id};
+        $.ajax({
+            // async: false,
+            type: 'POST',
+            url: '{:U("task/widget")}',
+            data: data,
+            dataType: 'JSON',
+            success: function(json){
+            	if (json.data.task !== null) {
+            		var html = '';
+            		$.each(json.data.task, function(k, v){
+                        var done = '';
+                        if (v.done <= 33) {
+                            done = 'progress-bar-danger';
+                        } else if (v.done <= 66) {
+                            done = 'progress-bar-warning';
+                        } else if (v.done <= 99) {
+                            done = '';
+                        } else {
+                            done = 'progress-bar-success';
+                        }
+            			html += '<tr>';
+            			html += '<td style="width: 10%;max-width: 26px;"><span class="span_priority" title="'+ v.priority +'" style="background: #'+ v.p_color +'; margin: 0 15px;"></span></td>';
+            			html += '<td style="width: 60%;"><a class="task_view" rel="' + v.task_id + '"><p style="width: 220px;">' + v.subject + '</p></a></td>';
+            			html += '<td style="width: 30%;max-width: 100px;"><div title="'+ v.done +'%" class="progress progress-mini" style="background: #ccc; margin-top: 3px;"><div style="width: '+ v.done +'%;" class="progress-bar ' + done + '"></div></div></td>';
+            			html += '</tr>';
+            		});
+            		$('#task_table_{$id}').find('tbody').html(html);
+            		$('#task_page_{$id}').html(json.data.page);
+            	} else {
+            		$('#task_table_{$id}').html('<tr><td colspan="5" style="text-align: center; color: #888;">暂无任务！</td></tr>');
+            	}
+            },beforeSend: function(){
+            	$('#task_index_{$id} .content').addClass('hide');
+            	$('#task_index_{$id} .spiner-example').removeClass('hide');
+            },
+            complete: function(){
+            	$('#task_index_{$id} .content').removeClass('hide');
+            	$('#task_index_{$id} .spiner-example').addClass('hide');
+            }
+        });
+    }
+
+	$(function () {
+        task_resize();
+        $(window).on('resize', function(){
+    		task_resize();
+        });
+        function task_resize() {
+        	var td_2_W = $('#task_table_{$id}').find('tr').find('td').eq(1).width();
+        	$('#task_table_{$id}').find('p').width(td_2_W - 30);
+        }
+
+		//删除控件
+		$('.delete_loudou').click(function(){
+			var id = $(this).attr('rel');
+			swal({
+				title: "",
+				text: "确定要删除吗？",
+				type: "warning",
+				showCancelButton: true,
+				closeOnConfirm: false
+			},
+			function(){
+				window.location.href = "index.php?m=index&a=widget_delete&id="+id;
+			});
+		});
+
+		// var h = $('#task_index_{$id}').parents('.dash-border').height();
+		// var w = $('#task_index_{$id}').parents('.dash-border').width();
+		// $('#task_index_{$id}').height(h - 50);
+		// $('#task_index_{$id}').width(w - 30);
+	});
+</script>
+<!-- 待办任务 END-->

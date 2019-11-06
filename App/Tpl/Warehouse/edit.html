@@ -1,0 +1,191 @@
+<style type="text/css">
+	#form_contacts table tr td:nth-child(odd){
+		text-align:right;
+		border:none;
+		width: 120px;
+	}
+	#form_contacts table tr td:nth-child(even){
+		border:none;
+	}
+	.re_role_info{
+        float:left;
+        width: 30px;
+        height: 30px;
+		margin: 2px 3px;
+    }
+	.addMember-remove{
+        position: relative;
+        margin-right:-10px;
+        top: -35px;
+        right: -25px;
+        display:none;
+        font-size: 10px;
+        line-height: 1;
+        color: #fa7a7a;
+        cursor: pointer;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+	.addMember-trigger-button{
+        float:left;
+        width: 30px;
+        height: 30px;
+        line-height: 28px;
+		margin: 2px 3px;
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+        background-color: #dcdfe3;
+        border-radius: 50%;
+    }
+</style>
+<form action="{:U('warehouse/edit')}" id="form_dialog" method="post">
+	<input type="hidden" name="warehouse_id" value="{$_GET['warehouse_id']}" />
+	<input type="hidden" id="owner_role_id" name="owner_role_id" value="{$warehouse['owner_role_id']}">
+	<table class="table" style="border:none;">
+		<tr>
+			<td>状态：</td>
+			<td>
+				<select name="status" class="form-control">
+					<option value="1" <if condition="$warehouse['status'] eq 1">selected</if> >已启用</option>
+					<option value="2" <if condition="$warehouse['status'] eq 2">selected</if> >已禁用</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>仓库名称：</td>
+			<td>
+				<input type="text" name="name" value="{$warehouse['name']}" class="form-control" required>
+			</td>
+		</tr>
+		<tr>
+			<td>仓库编号：</td>
+			<td>
+				<input type="text" name="number" value="{$warehouse['number']}" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<td>地址：</td>
+			<td>
+				<input type="text" name="address" value="{$warehouse['address']}" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<td>库管</td>
+			<td id="role_list">
+				<volist name="role_list" id="val">
+					<div class="re_role_info" rel="{$val['role_id']}">
+						<a class="right_role_info" title="{$val['full_name']}" rel="{$val['role_id']}" href="javascript:void(0)" style="margin-right:5px;">
+							<img alt="image" class="img-circle" src="{$val['img']}">
+						</a>
+						<span class="addMember-remove">
+							<i class="fa fa-minus-circle"></i>
+						</span>
+					</div>
+				</volist>
+				<a id="add_executor_role" href="javascript:void(0);">
+					<div class="addMember-trigger-button">
+						<i class="fa fa-plus"></i>
+					</div>
+				</a>
+			</td>
+		</tr>
+	</table>
+</form>
+<div style="display:none;" class="re_role_info" id="role_info_model" rel="">
+	<a class="right_role_info" title="" rel="" href="javascript:void(0)" style="margin-right:5px;">
+		<img alt="image" class="img-circle" src="">
+	</a>
+	<span class="addMember-remove">
+		<i class="fa fa-minus-circle"></i>
+	</span>
+</div>
+<div style="display:none;" id="dialog_add_executor_roles" title="选择活动参与人">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script>
+$(function (){
+	$('.re_role_info').hover(function () {
+		$(this).find('.addMember-remove').show();
+	}, function () {
+		$(this).find('.addMember-remove').hide();
+	});
+	$('.addMember-remove').on('click', function () {
+		var self = $(this);
+		swal({
+			title: "您确定要删除吗?",
+			text: '删除后数据无法恢复！',
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "确认",
+			cancelButtonText: "取消",
+			closeOnConfirm: false,
+			closeOnCancel: false
+		},
+		function (isConfirm) {
+			if (isConfirm) {
+				self.parents('.re_role_info').remove();
+				role_id_list();
+			}
+			swal.close();
+		});
+	});
+
+	$('#dialog_add_executor_roles').dialog({
+		autoOpen: false,
+		modal: true,
+		width: 800,
+		maxHeight: 400,
+		draggable: false,
+		position: ["center", 100],
+		buttons: {
+			"确定": function () {
+				var executor_role_ids = ',';
+				$('#role_list .re_role_info').remove();
+				$('.muti_role_id:checked').each(function (key, val) {
+					var role_id = $(val).val();
+					var full_name = $(val).attr('rel');
+					var img = $(val).attr('rel1');
+					executor_role_ids += role_id + ',';
+					var model = $('#role_info_model').clone(1);
+					model.show();
+					model.removeAttr('id');
+					model.attr('rel', role_id);
+					model.find('.right_role_info').attr('title', full_name);
+					model.find('.right_role_info').attr('rel', role_id);
+					model.find('img').attr('src', img);
+					$('#add_executor_role').before(model);
+				});
+				role_id_list();
+				$(this).dialog("close");
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function () {
+			$(this).html('');
+		}
+	});
+	$('#add_executor_role').on('click', function () {
+		var ids = $('#owner_role_id').val();
+		$('#dialog_add_executor_roles').dialog('open');
+		$('#dialog_add_executor_roles').load("{:U('user/mutiListDialog')}&check_ids=" + ids);
+	});
+	
+	function role_id_list() {
+		var owner_role_id = ',';
+		$('#role_list .re_role_info').each(function (key, val) {
+			owner_role_id += $(val).attr('rel') + ',';
+		})
+		$('#owner_role_id').val(owner_role_id);
+	}
+});
+</script>

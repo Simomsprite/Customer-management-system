@@ -1,0 +1,405 @@
+{:W('Record')}
+	</div>
+</div>
+<script src="__PUBLIC__/js/animate/index.js"></script>
+<script src="__PUBLIC__/js/animate/notification.js"></script>
+<!-- layer -->
+<script src="__PUBLIC__/js/layer/layer.js"></script>
+<script src="__PUBLIC__/js/call/jquerysession.js"></script>
+
+<!-- author by pdcrm -->
+<script src="__PUBLIC__/style/js/inspinia.js"></script>
+<?php
+    $call_setting = C('CALL_SETTING');
+    $call_status = M('User')->where(array('role_id'=>session('role_id')))->getField('call_status');
+    $call_server_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["SCRIPT_NAME"];
+    $call_server_url = str_replace('index.php','',$call_server_url);
+    $config_call_record = M('Config')->where(array('name'=>'call_record'))->getField('value');
+?>
+<?php if ($call_setting['CENTER'] == 1 && $call_status == 1): ?>
+<script src="__PUBLIC__/js/call/socket.io-1.2.0.js"></script>
+<script src="__PUBLIC__/js/call/call.js"></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+    var call_server_url = "{$call_server_url}";
+    var call_bit = "{:intval($call_setting['BIT'])}";
+    var call_upload = "{:intval($call_setting['UPLOAD'])}";
+    var is_record = "{:intval($config_call_record)}";
+    var sync_file_url = "{:U('call/ossRecord')}";
+    if (!$.session.get('call_server_url')) {
+        $.session.set('call_server_url', call_server_url);
+    }
+    if (!$.session.get('call_bit')) {
+       $.session.set('call_bit', call_bit);
+    }
+    if (!$.session.get('call_upload')) {
+        $.session.set('call_upload', call_upload);
+    }
+    if (!$.session.get('is_record')) {
+        $.session.set('is_record', is_record);
+    }
+    if (!$.session.get('sync_file_url')) {
+        $.session.set('sync_file_url', sync_file_url);
+    }
+});
+</script>
+<?php endif; ?>
+<script type='text/javascript'>
+$(document).ready(function(){
+    /*复选框选择效果*/
+    if($('.check_all').size() > 0){
+        var icheck_num = 0;
+        var all_check_num = 0;
+        /*选择所有and取消所有*/
+        $(".check_all").change(function(){
+            $("input[class='check_list']").prop('checked', $(this).prop("checked"));//选中
+            // if($(".check_all").prop("checked")){
+            if($(this).is(":checked")){ //jQuery方式判断
+                $(".single_btn").hide().children().each(function(){
+                    $(this).attr('rel','');
+                })
+                $('#title-hide').show();
+                $('#title-show').hide();
+                all_check_num = $("input[class='check_list']:checked").length;
+            }else{
+                $('#title-hide').hide();
+                $('#title-show').show();
+                all_check_num = 0;
+            }
+
+            if(document.getElementById("oDivL_tab_Test3")){
+                if ($(".check_all:checked").size()>0 && icheck_num % 2 == 0) {
+                    icheck_num = all_check_num/2;
+                    $("#icheck_num").text(all_check_num/2);
+                } else {
+                    icheck_num = all_check_num;
+                    $("#icheck_num").text(all_check_num);
+                }
+            } else {
+                icheck_num = all_check_num;
+                // all_check_num = $("input[class='check_list']:checked").length;
+                // icheck_num = all_check_num;
+                $("#icheck_num").text(icheck_num);
+            }
+        });
+        /*让隐藏标签显示*/
+        $('.check_list').click(function(){
+            var thiss = $(this);
+            icheck_num = check_num();
+            $("#icheck_num").text(icheck_num);
+            //处理单选时才有的操作
+            if (icheck_num == 1) {
+                $(".single_btn").show().children().each(function(){
+                    $(this).attr('rel',$("input.check_list:checked").val());
+                    $('#log_customer').attr('rel1',$("input.check_list:checked").attr('rel'));
+
+                    $('#log_business').attr('rel',$("input.check_list:checked").attr('rel'));
+                    $('.business_btn').children().attr('rel1',$("input.check_list:checked").attr('rel'));
+
+                    $('#examine_type').val($("input.check_list:checked").attr('rel'));
+                    var next_examine_role = $("input.check_list:checked").parents('tr').find('.check_badge').attr('rel');
+                    if($("input.check_list:checked").attr('rel1') == 1){
+                        $('#to_top_span').html('&nbsp;取消置顶');
+                        $('#to_check').html('<input type="hidden" class="is_checked" value="2">&nbsp;撤销');
+                        if (next_examine_role == 1) {
+                            $('#admin_examine').show();
+                        } else {
+                            $('#admin_examine').hide();
+                        }
+                        $('#user_span').html('<a id="delete" href="javascript:void(0)" onclick="del_user(2)"><i class="fa fa-check"></i>&nbsp;启用账号</a>');
+                    }else{
+                        if (next_examine_role == 1) {
+                            $('#to_top_span').html('&nbsp;置顶');
+                            var rel_name = $("input.check_list:checked").attr('rel3');
+                            $('#to_check').html('<input type="hidden" class="is_checked" rel="' + rel_name + '" value="1">&nbsp;审核');
+                            $('#not_admin').show();
+                        } else {
+                            $('#not_admin').hide();
+                        }
+                        $('#admin_examine').hide();
+                    }
+                    if ($("input.check_list:checked").attr('rel2') == 1) {
+                        $('#call_span').html('<a href="javascript:void(0);" onclick="call_form(2)"><i class="fa fa-headphones"></i>&nbsp;停用呼叫中心</a>');
+                    } else {
+                        $('#call_span').html('<a href="javascript:void(0);" onclick="call_form(1)"><i class="fa fa-headphones"></i>&nbsp;启用呼叫中心</a>');
+                    }
+
+                    //进销存的审核、撤销
+                    var do_examine = thiss.attr('do_examine');
+                    var do_revoke = thiss.attr('do_revoke');
+                    if (do_examine != 1) {
+                        $('.do_examine').hide();
+                    }
+                    if (do_revoke != 1) {
+                        $('.do_revoke').hide();
+                    }
+                    // 仓库禁用启用
+                    if ($('.check_list:checked').attr('status') == 1) {
+                        $('.edit_status[status="enable"]').parents('li').hide();
+                        $('.edit_status[status="disable"]').parents('li').show();
+                    } else if ($('.check_list:checked').attr('status') == 2) {
+                        $('.edit_status[status="enable"]').parents('li').show();
+                        $('.edit_status[status="disable"]').parents('li').hide();
+                    } else {
+                        $('.edit_status[status="enable"]').parents('li').hide();
+                        $('.edit_status[status="disable"]').parents('li').hide();
+                    }
+                })
+            } else {
+                $(".single_btn").hide().children().each(function(){
+                    $(this).attr('rel','');
+                })
+            }
+            if(icheck_num <= 0){
+                $('#title-hide').hide();
+                $('#title-show').show();
+            }else{
+                $('#title-hide').show();
+                $('#title-show').hide();
+            }
+        });
+        /*点插 取消所有选中*/
+        $('#back-show').click(function(){
+            icheck_num = 0;
+            $("#icheck_num").text(icheck_num);
+            $('#title-hide').hide();
+            $('#title-show').show();
+            $(".check_list,.check_all").attr("checked",false);
+        });
+
+        var rows = ($('input[class="check_list"]').parents('tbody').find('tr').length / 2) - 1;
+        function check_num () { 
+            all_check_num = $("input[class='check_list']:checked").length;
+            if (document.getElementById("oDivL_tab_Test3") && $('.check_all').is(':checked')) {
+                all_check_num -= rows;
+            }
+            return all_check_num;
+        }        
+    }
+    // $('form').on('keydown', function (e) { if (e.keyCode == 13) { return false; } });
+
+    /*退出提示*/
+    $('.logout').click(function () {
+        swal({
+            title: "确定退出登录?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            closeOnConfirm: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    window.location="{:U('user/logout')}";
+                }
+            }
+        );
+    });
+
+    /*提交失败返回前一页*/
+    var href = "{$error}";
+    if(href != '' && href != null){
+        swal({
+            title: "添加失败!",type: "error",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "返回",
+            closeOnConfirm: false 
+        }, 
+        function(){
+            location.href = 'javascript:history.back(-1)';
+        });
+    }
+
+    //授权信息查询
+    $('#authorize').click(function () {
+        $.ajax({
+            type: "POST",
+            url: "{:U('system/anthorize')}",
+            data:'',
+            async: true,
+            success: function(data) {
+                if (data.status == 1) {
+                    var url = "{:U('system/anthorize')}";
+                    $('#Modal_anthorize').modal('show');
+                    $('#anthorize_modal').load(url);
+                } else {
+                    alert_crm(data.info);
+                }
+            }
+        });
+    });
+});
+
+/*站内信*/
+login_tips();
+message_tips();
+
+var login_show = 0;
+function login_tips(){
+    $.get("{:U('message/logintips')}", function(data){
+        var is_login = data.data['is_login'];
+        if(is_login == 0 && login_show != 1){
+             $.ajax({
+                type: "GET",
+                url: "{:U('user/loginajax')}",
+                async: true,
+                success: function(data) {
+                    if(data.status != 2){
+                        $("#login_modal").parent().removeClass("modal-lg").addClass("modal-md");
+                        $url = "{:U('user/loginajax')}";
+                        $('#Modal_login').modal('show');
+                        login_show = 1;
+                        $('#login_modal').load($url);
+                    }else{
+                        login_show = 1;
+                    }
+                }  
+            });
+        }
+    },'json')
+    setTimeout('login_tips()',600000);
+}
+
+/*轮询*/
+var mark_count = 1;//标记第一次弹出
+function message_tips(){
+    $.ajax({
+        type: "get",
+        url: "{:U('message/tips')}",
+        async: true,
+        success: function(data) {
+            var is_lock = data.data['is_lock'];
+             if(is_lock == 1){
+                location.href = "{:U('setting/lockscreen')}";
+            } else {
+                //卡片提醒显示与隐藏
+                var message_html = '';
+                var new_num = data.data['message']+','+data.data['contract_count'];
+
+                //待办事项
+                $('#header_check_contract_num').html(data.data['check_contract_num']);
+                $('#header_dqcontact_num').html(data.data['contract_num']);
+                $('#header_examine_num').html(data.data['examine_num']);
+                $('#header_receivables_num').html(data.data['receivingorder_num']);
+                $('#receivables_num').html(data.data['receivables_num']);
+                $('#header_follow_customer_num').html(data.data['today_customer']);
+                $('#check_invoice_num').html(parseInt(data.data.check_invoice_num) > 0 ? data.data.check_invoice_num : '');
+                // 进销存相关待办事项
+                $('#check_purchase_num').html(parseInt(data.data.check_purchase_num) > 0 ? data.data.check_purchase_num : '');
+                $('#check_purchase_return_num').html(parseInt(data.data.check_purchase_return_num) > 0 ? data.data.check_purchase_return_num : '');
+                $('#check_sales_return_num').html(parseInt(data.data.check_sales_return_num) > 0 ? data.data.check_sales_return_num : '');
+                $('#check_transfer_num').html(parseInt(data.data.check_transfer_num) > 0 ? data.data.check_transfer_num : '');
+                // 待办总数
+                $('#todo_num').html(parseInt(data.data.todo_num) > 0 ? data.data.todo_num : '');
+
+                //导航提醒实时写入数值
+                if(data.data['message'] != 0 && data.data['message'] != ''){
+                    $('#message_group').show();
+                    //桌面提醒
+                    if(data.data['data_list']){
+                        $(data.data['data_list']).each(function(k, v){
+                            if (data.data['data_list_count'] < 3) {
+                                animateMessage(v.role_info.thumb_path, v.role_info.full_name, v.content_msubstr);
+                            }
+                            aaa(v.role_info.thumb_path, v.role_info.full_name, v.content, v.url_link);
+                        });
+                    }
+                    $('#message_num').html(data.data['message']);
+                    $('#message_list').html('');
+                    if(data.data['message_num'] != 0 && data.data['message_num'] != ''){
+                        message_html += '<a href="{:U('message/index')}" style="width:100%;color:#676a6c;padding:5px !important;border-bottom:1px dashed #ddd;float:left;margin-bottom:5px;">\
+                                    <div style="padding:0 10px;">\
+                                        <img src="__PUBLIC__/img/wukong.png" title="小助手"> 您有<strong>'+data.data['message_num']+'</strong>条消息待查看\
+                                        <span class="pull-right text-muted small" style="line-height:30px;">'+data.data['message_time']+'前</span>\
+                                    </div>\
+                                </a>';
+                    }
+
+                    if(data.data['message_announcement_count'] != 0 && data.data['message_announcement_count'] != ''){
+                        message_html += '<a href="{:U('message/index','by=announcement')}" style="width:100%;color:#676a6c;padding:5px !important;border-bottom:1px dashed #ddd;float:left;margin-bottom:5px;">\
+                                    <div style="padding:0 10px;">\
+                                        <img src="__PUBLIC__/img/announcement.png" title="系统公告"> 您有<strong>'+data.data['message_announcement_count']+'</strong>条公告信息待查看\
+                                        <span class="pull-right text-muted small" style="line-height:30px;">'+data.data['announcement_time']+'前</span>\
+                                    </div>\
+                                </a>';
+                    }
+                    if(data.data['role_message_list']){
+                        $(data.data['role_message_list']).each(function(k, v){
+                            message_html += '<a href="{:U('message/message_view','to_role_id=')}'+v.role_id+'" title="点击回复" style="width:100%;color:#676a6c;padding:5px !important;border-bottom:1px dashed #ddd;float:left;margin-bottom:5px;" >\
+                                        <div class="dropdown-messages-box" style="padding:0 10px;">\
+                                            <div class="pull-left">\
+                                                <img alt="image" class="img-circle" src="'+v.thumb_path+'">&nbsp;\
+                                            </div>\
+                                            <div style="overflow:hidden;">\
+                                                <span>'+v.full_name+'</span><span class="label label-warning pull-right" style="margin-right: 3px;border-radius:50% !important;">'+v.unread_num+'</span><br>\
+                                                <span style="word-wrap: break-word;word-break: normal;float:left;margin-top:10px;width:100%;">'+v.content+'</span><br>\
+                                                <small class="text-muted pull-right" style="margin-top: 5px;">'+v.send_time+'</small>\
+                                            </div>\
+                                        </div>\
+                                    </a>';
+                        });
+                    }
+                    $('#message_list').append(message_html);
+                }else{
+                    $('#message_group').hide();
+                }
+                //日程提醒
+                var event_temp = '';
+                if(data.data['event_list'] != 0 && data.data['event_list'] != ''){
+                    $('#event_group').show();
+                    $('#event_list').html('');
+                    $('#event_num').html(data.data['event_num']);
+                    $.each(data.data['event_list'], function(k, v){
+                        event_temp += '<a href="{:U('event/index')}" title="点击查看" style="padding:5px !important;border-bottom:1px dashed #ddd;float:left;margin-bottom:5px;width:100%;">\
+                                            <div style="overflow:hidden;padding:0 10px;">\
+                                                <span class="pull-left" style="color:'+v.color+';line-height:26px;"><i class="fa fa-circle"></i>&nbsp;&nbsp;'+v.subject+'</span><br>\
+                                                <small class="text-muted pull-right" style="margin-top: 5px;">'+v.between_date+'</small>\
+                                            </div>\
+                                        </a>';
+                    });
+                    $('#event_list').append(event_temp);
+                }else{
+                    $('#event_group').hide();
+                }
+            }
+        },
+        dataType:'json'
+    });
+    setTimeout('message_tips()',500000);
+}
+
+function aaa(icon, name, content, url_link){
+    var t = new Date().toLocaleString();
+    var options={
+        dir: "ltr",
+        lang: "utf-8",
+        icon: icon,
+        body: content
+    };
+    if(Notification && Notification.permission === "granted"){
+        var n = new Notification(name + t, options);
+        //5秒后自动关闭 
+        n.onshow = function(){
+            setTimeout(function () {
+                n.close();
+            }, 5000)
+        };
+        n.onclick = function() {
+            window.location = url_link;
+            n.close();
+        };
+        n.onclose = function(){
+            console.log("notification closed!");
+        };        
+        n.onerror = function() {
+            console.log("An error accured");
+        }        
+    }
+}
+    // overflow_hide
+    // 时间选择禁用浏览器缓存
+    $('input.Wdate').attr('autocomplete', 'off');
+</script>
+</body>
+</html>

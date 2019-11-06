@@ -1,0 +1,260 @@
+<include file="Public:header" />
+
+<!-- 百度地图api -->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=grWGxlWOpGc1D0kVToxUgD6bwwjo35Tr"></script>
+<style type="text/css">
+    #allmap img { 
+        max-width: inherit; 
+    }
+
+    body{
+        overflow-y: hidden;
+    }
+</style>
+<script>
+	$(function(){
+		$(".table_container").height(window.innerHeight-$(".table_container").offset().top-10);
+	});
+	$(window).resize(function(){
+		$(".table_container").height(window.innerHeight-$(".table_container").offset().top-10);
+	});
+</script>
+<div class="wrapper wrapper-content">
+	<include file="Public:alert" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins"> 
+				<div class="title-bar">
+					<div class="row" id="title-show">
+                        <div class="pull-left" style="padding-left: 25px;padding-top: 10px;">
+                            <if condition="$list">共在范围内找到<span style="color: red;"> {:count($list)} </span>名客户</if>
+                        </div>
+						<form id="search_form" class="form-inline" action="{:U('customer/nearby')}" method="get">
+                            <input type="hidden" name="m" value="customer"/>
+                            <input type="hidden" name="a" value="nearby"/>
+							<ul class="breadcrum pull-right" style="margin-bottom: 0px">
+								<li>
+									<select class="form-control" name="act">
+										<option value="1" <if condition="$_GET['act'] eq 1 || $_GET['act'] eq ''">selected</if> >跟进中客户</option>
+										<option value="2" <if condition="$_GET['act'] eq 2">selected</if> >客户池客户</option>
+									</select>
+                                    &nbsp;&nbsp;
+                                    <span id="address_show" style="color: #03b924;font-weight: bolder;">{$map_info['address']}</span>
+                                    <input type="hidden" name="address" value="{$map_info['address']}">
+                                    <input type="hidden" name="lng_lat" value="{$map_info['lng_lat']}">
+                                    <a href="javascript:void(0);" id="nearby_map" style="color: #337ab7;font-weight: bolder;">[选择地址]</a>
+                                    附近
+                                    <input type="number" name="raidus" value="{$map_info['raidus'] ?: 5000}" min="1" max="500000" class="form-control" style="width:120px;"/>米的客户
+									<button class="btn btn-primary btn-sm" type="submit" id="submit" style="margin-bottom: 0px;">搜索</button>
+								</li>
+							</ul>
+						</form>
+					</div>
+				</div>
+				<div class="row" style="margin: 0">
+					<div class="pull-left" style="width:26.222%;margin-bottom: 10px;">
+						<div class="ibox-content table_container full-height-scroll" style="padding:0px;">
+							<empty name="list">
+								<div style="background-color:#fff;"><include file="Public:nodata" /></div>
+							<else />
+								<volist name="list" id="vo">
+									<div class="ibox-content sign-list" rel="{$vo['role_id']}" rel1="{$vo['sign_id']}" style="padding:0px;width: 100%;cursor:pointer;border:none;float:left;">
+										<div class="social-feed-separated clearfix" style="margin:0 auto;width:90%;border-bottom:1px dashed #ccc;">
+								            <div class="social-feed-box" style="padding:10px;">
+								                <div class="social-avatar">
+								                    客户名称：
+                                                    <a class="name-colors" href="{:U('customer/view','id='.$vo['customer_id'])}" target="_blank">{$vo['name']}</a>&nbsp;&nbsp;
+                                                    负责人：
+                                                    <a class="role_info name-colors"  rel="{$vo['owner_role_id']}" href="javascript:void(0);">{$vo['owner_name']}</a>
+                                                    <span class="text-muted"></span>
+								                </div>
+								                <div class="social-body position_info" rel="{$vo.content}" lng="{$vo.lng}" lat="{$vo.lat}" style="padding:10px 15px 0 0;">
+								                    <div class="log-relation">
+                                                        <i class="fa fa-map-pin"></i>&nbsp;
+                                                        <span>{$vo['address']}</span>
+                                                    </div>
+								                    <div class="log-relation">
+                                                        距离选择地址约<span>{$vo.distance}</span>公里
+                                                    </div>
+								                </div>
+								            </div>
+								        </div>
+							        </div>
+								</volist>
+							</empty>
+						</div>
+					</div>
+					<div class="pull-right" style="width:72.7%;margin-bottom: 10px;">
+						<div class="ibox-content table_container" id="allmap" style="padding:0px;"></div>
+					</div>
+				</div>
+    		</div>
+        </div>
+    </div>
+</div>
+
+<div style="display:none" id="dialog-map" title="搜索地址">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div> 
+        </div>
+    </div>
+</div>
+<div style="display:none" id="dialog-role-info" title="{:L('EMPLOYEE_INFORMATION')}">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //选择地址dialog
+    $("#dialog-map").dialog({
+        autoOpen: false,
+        modal: true,
+        width: $(window).width()*0.8,
+        maxheight: 600,
+        resizable: false,
+        position:["center",100],
+        buttons: {
+            "保存": function () {
+                var lng_lat = $('#lng_lat').val();
+                var address = $('#address').val();
+                if (!lng_lat || !address) {
+                    alert_crm('请先选择地址');
+                    return false;
+                } else {
+                    $('#address_show').html(address);
+                    $('input[name=address]').val(address);
+                    $('input[name=lng_lat]').val(lng_lat);
+                    $('#submit').click();
+
+                    $(this).dialog("close");
+                }
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        },
+        close:function(){
+            $(this).html('');
+        }
+    }); 
+    $('#nearby_map').click(function(){
+        var lng =  "{$map_info['center_lng']}";
+        var lat =  "{$map_info['center_lat']}";
+        var address =  $('input[name=address]').val();
+
+        $('#dialog-map').dialog('open');
+        $('#dialog-map').load("{:U('customer/nearby_map','lng=')}"+lng+'&lat='+lat+'&address='+address);
+    });
+
+    //提交form表单检测
+    $('#submit').click(function(){
+        var lng_lat = $('input[name=lng_lat]').val();
+        var address = $('input[name=address]').val();
+        if (!lng_lat || !address) {
+            alert_crm('请先选择地址！');
+            return false;
+        }
+    });
+
+    //员工、负责人弹窗信息
+    $(".role_info").click(function(){
+        $role_id = $(this).attr('rel');
+        $('#dialog-role-info').dialog('open');
+        $('#dialog-role-info').load('{:U("user/dialoginfo","id=")}'+$role_id);
+    });
+    $("#dialog-role-info").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 800,
+        maxHeight: 550,
+        position: ["center",100]
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var center_lng = "{$map_info['center_lng']}" ? "{$map_info['center_lng']}" : '116.404';
+        var center_lat = "{$map_info['center_lat']}" ? "{$map_info['center_lat']}" : '39.915';
+
+        // 百度地图API功能    
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(center_lng,center_lat); //设置位置中心点
+        map.centerAndZoom(point, 13);
+
+        map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+        map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁
+
+        //创建信息窗体
+        var data_info = eval({$map_info['data_info']}); //{$map_info['data_info']}是php代码，eval函数让字符串作为js代码执行
+        if (data_info) {
+            var opts = {
+                width : 300,     // 信息窗口宽度
+                height: 90,      // 信息窗口高度
+                title : "" ,     // 信息窗口标题
+                enableMessage:true//设置允许信息窗发送短息
+            };
+            for(var i=0;i<data_info.length;i++){
+                var marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));  // 创建标注
+                var content = data_info[i][2];
+                map.addOverlay(marker);               // 将标注添加到地图中
+                addClickHandler(content,marker);
+            }
+            function addClickHandler(content,marker){
+                marker.addEventListener("click",function(e){
+                    openInfo(content,e)}
+                );
+            }
+            function openInfo(content,e){
+                var p = e.target;
+                var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+                var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+                map.openInfoWindow(infoWindow,point); //开启信息窗口
+            }
+        }
+
+        //地图中心点标记信息
+        // var opts2 = {
+        //     width : 300,     // 信息窗口宽度
+        //     height: 20,      // 信息窗口高度
+        //     title : "所选择地址：" ,     // 信息窗口标题
+        //     enableMessage:true//设置允许信息窗发送短息
+        // };
+        // var myIcon = new BMap.Icon("__PUBLIC__/ico/marker.png", new BMap.Size(32,64));
+        // var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+        // map.addOverlay(marker2); // 将标注添加到地图中
+        // var infoWindow = new BMap.InfoWindow($('input[name=address]').val(), opts2);  // 创建信息窗口对象 
+        // marker2.addEventListener("click", function(){          
+        //     map.openInfoWindow(infoWindow,point); //开启信息窗口
+        // });
+
+        //创建圆对象
+        circle = new BMap.Circle(point, {$map_info['raidus'] ?: 0}, {
+            strokeColor: "blue",
+            strokeWeight: 1,
+            fillColor: "#65b8ff",
+            fillOpacity: 0.6
+        });
+        //画到地图上面
+        map.addOverlay(circle);
+
+        //点击左边地址信息，触发地图信息窗口展示
+        $('.position_info').click(function(){
+            var content = $(this).attr('rel');
+            var lng = $(this).attr('lng');
+            var lat = $(this).attr('lat');
+
+            var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象，这里的变量opts即为上面已声明的opts
+            var point = new BMap.Point(lng,lat);
+            map.openInfoWindow(infoWindow,point); //开启信息窗口
+        });
+    });
+</script>
+
+<include file="Public:footer" />	

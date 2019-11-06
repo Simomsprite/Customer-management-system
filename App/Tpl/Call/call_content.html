@@ -1,0 +1,111 @@
+<style>
+	.row{
+		float:left;
+		padding:5px;
+		font-family: "Microsoft Yahei";
+		background-color: #ffffff;
+	}
+	.ibox-title{
+		float: left;
+		width:100%;
+		padding: 5px 0px;
+		min-height: 35px;
+		line-height: 35px;
+		border-bottom:1px solid #ccc;
+		margin-bottom: 5px;
+	}
+	.ibox-content{
+		width:100%;
+		float:left;
+		padding: 5px 0px;
+		line-height: 30px;
+		margin:0 10px;
+	} 
+	.pull-left{
+		float:left;
+	}
+	.form-group{
+		width:100%;
+		float: left;
+	}
+	.btn{
+		padding: 5px 12px;
+		border-radius: 3px;
+	    display: inline-block;
+	    margin-bottom: 0;
+	    font-size: 14px;
+	    font-weight: 400;
+	    line-height: 1.42857143;
+	    text-align: center;
+	    white-space: nowrap;
+	    vertical-align: middle;
+	    -ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	    cursor: pointer;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-image: none;
+	    border: 1px solid transparent;
+	}
+	.btn-primary {
+	    background-color: #1ab394;
+	    border-color: #1ab394;
+	    color: #FFFFFF;
+	}
+	.btn-danger {
+	    background-color: #ed5565;
+	    border-color: #ed5565;
+	    color: #FFF;
+	}
+	.btn-white {
+	    color: inherit;
+	    background: #fff;
+	    border: 1px solid #e7eaec;
+	}
+</style>
+<div class="row" id="call_content">
+	<input type="hidden" id="tel_model" value="{$info['model']}" />
+	<input type="hidden" id="tel_model_id" value="{$info['model_id']}" />
+	<input type="hidden" id="tel_type" value="{$info['type']}" />
+	<div class="ibox-title">
+		<div class="pull-left" style="margin-left:12px;"><img src="__PUBLIC__/img/phone.png" style="width:30px;height:30px;" alt="" /></div>
+	    <span class="pull-left" style="margin-left:10px;font-size:16px;font-weight:400;color: #000;">来电信息</span>
+	</div>
+	<if condition = "$info['type'] eq 1">
+		<div class="ibox-content">
+		    <div class="pull-left"><img src="__PUBLIC__/img/customer_view_icon.png" style="margin-bottom:9px;" alt="" /></div>
+		    <span class="pull-left" style="margin-left:10px;font-size:18px;font-weight:400;color: #000;">{$info['name']}</span>
+		</div>
+		<div class="ibox-content">
+		    <div class="form-group">
+		    	<div style="width:100px;float: left;">
+		    		<span style="font-size:14px;color:#999;">联系人姓名</span>
+		    	</div>
+		    	<div style="width:auto;float: left;">
+		    		<span>{$info['contacts_name']}</span>
+		    	</div>
+		    </div>
+		    <div class="form-group">
+		    	<div style="width:100px;float: left;">
+		    		<span style="font-size:14px;color:#999;">联系电话</span>
+		    	</div>
+		    	<div style="width:auto;float: left;">
+		    		<span style="color:#00CC98;font-size:18px;font-weight: bold;">{$info['telephone']}</span>
+		    	</div>
+		    </div>
+		</div>
+	<else />
+		<div class="ibox-content">
+		    <div class="form-group">
+		    	<div style="width:100px;float: left;">
+		    		<span style="font-size:14px;color:#999;">未知来电</span>
+		    	</div>
+		    	<div style="width:auto;float: left;">
+		    		<span style="color:#00CC98;font-size:18px;font-weight: bold;">{$info['telephone']}</span>
+		    	</div>
+		    </div>
+		</div>
+	</if>
+</div>

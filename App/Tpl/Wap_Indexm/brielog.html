@@ -1,0 +1,125 @@
+<include file="Public:headerm"/>
+<head>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style type="text/css">
+    .tabone {
+        width: 100%;
+        height: 30%;
+        text-align: center;
+        border: 1px deepskyblue;
+        padding: 50px;
+        margin: 10px;
+        font-size: 13px;
+        color: powderblue;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 10px;
+    }
+
+    .tabone td {
+        border-radius: 10px;
+    }
+
+    .tabone th {
+        font-size: 15px;
+        border-radius: 10px;
+    }
+
+    .abe-header-title {
+        margin-top: 15px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+    }
+
+</style>
+<div class="wrap-box">
+    <header class="abe-header am-header-default"><a href="javascript:history.go(-1);"
+                                                    class="return iconfont">&#xe612;</a>
+        <h1 class="abe-header-title">简报</h1>
+    </header>
+
+        <table border="1px" class="tabone  table-hover">
+
+            <thead class="th">
+            <tr>
+                <th>简报</th>
+                <th>新增客户</th>
+                <th>新增联系人</th>
+                <th>新增商机</th>
+                <th>访客计划</th>
+                <th>新增沟通日志</th>
+                <th>工作日志</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>本日新增</td>
+                <td>{$anly_count['customer_count'][0]}个</td>
+                <td>{$anly_count['contacts_count'][0]}个</td>
+                <td>{$anly_count['business_count'][0]}个</td>
+                <td><span title="已完成访客计划">{$anly_count['done_visitor_plan_count'][0]}</span> /
+                    <span title="待完成访客计划">{$anly_count['visitor_plan_count'][0]}</span></td>
+                <td>{$anly_count['log_count'][0]}篇</td>
+                <td>
+                    <if condition="$mylog_count_today gt 0">
+                        <span style="font-size:15px;"><i class="fa fa-check-circle" style="color:#19AA8D;"></i>&nbsp;&nbsp;今日已完成</span>
+                        <else/>
+                        <span style="font-size:15px;"><i class="fa fa-exclamation-circle" style="color:#FFCC00;"></i>&nbsp;&nbsp;今日未填写</span>
+                    </if>
+                </td>
+            </tr>
+            <tr>
+                <td>本周新增</td>
+                <td>{$anly_count['customer_count'][1]}个</td>
+                <td>{$anly_count['contacts_count'][1]}个</td>
+                <td>{$anly_count['business_count'][1]}个</td>
+                <td>
+                    <div>
+                        <span title="已完成访客计划">{$anly_count['done_visitor_plan_count'][1]}</span> /
+                        <span title="待完成访客计划">{$anly_count['visitor_plan_count'][1]}</span>
+                    </div>
+                <td><span style="font-size:15px;">{$anly_count['log_count'][1]}篇</span></td>
+                <td>{$anly_count['log_count'][1]}篇</td>
+            </tr>
+            <tr>
+                <td>本月新增</td>
+                <td>{$anly_count['customer_count'][2]}个</td>
+                <td>{$anly_count['contacts_count'][2]}个</td>
+                <td>{$anly_count['business_count'][2]}个</td>
+                <td>
+                    <div>
+                        <span title="已完成访客计划">{$anly_count['done_visitor_plan_count'][2]}</span> /
+                        <span title="待完成访客计划">{$anly_count['visitor_plan_count'][2]}</span>
+                    </div>
+                </td>
+                <td><span style="font-size:15px;">{$anly_count['log_count'][2]}篇</span></td>
+                <td>{$anly_count['log_count'][2]}篇</td>
+            </tr>
+            <tr>
+                <td>本年新增</td>
+                <td>{$anly_count['customer_count'][3]}个</td>
+                <td>{$anly_count['contacts_count'][3]}个</td>
+                <td>{$anly_count['business_count'][3]}个</td>
+                <td>
+                    <div>
+                        <span title="已完成访客计划">{$anly_count['done_visitor_plan_count'][3]}</span> /
+                        <span title="待完成访客计划">{$anly_count['visitor_plan_count'][3]}</span>
+                    </div>
+                </td>
+                <td><span style="font-size:15px;">{$anly_count['log_count'][3]}篇</span></td>
+                <td>{$anly_count['log_count'][3]}篇</td>
+            </tr>
+            </tbody>
+        </table>
+
+</div>

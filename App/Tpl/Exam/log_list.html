@@ -1,0 +1,45 @@
+<div>
+	<empty name="list">
+		<include file="Public:nodata" />
+	<else />
+		<volist name="list" id="vo">
+			<div style="padding-bottom:20px;border-left:1px solid #ccc;margin: 5px 0 0 15px;">
+				<if condition="$vo['result'] eq 1 || $vo['result'] eq 2">
+					<i class="fa fa-circle pull-left" style="margin-left:-4.5px;color:#72CE56;font-size:10px;"></i>
+				<else />
+					<i class="fa fa-circle pull-left" style="margin-left:-4.5px;color:#FB8F7A;font-size:10px;"></i>
+				</if>
+				<div class="pull-left" style="margin-left:10px;color:#999">
+					<div>{$vo['create_time']|date="H:i",###}</div>
+					<div>{$vo['create_time']|date="Y/m/d",###}</div>
+				</div>
+				<div class="pull-left" style="margin-left:10%">
+					<img src="{$vo['thumb_path']}" style="width:30px;height:30px;border-radius:50px;margin-top:5px;">
+				</div>
+				<div class="pull-left" style="margin-left:10px;">
+					<div>{$vo['full_name']}</div>
+					<div>
+						<switch name="vo.result">
+					    	<case value="0">
+					    		<span style="color:#FACB42;">驳回了审批</span>
+					    	</case>
+					    	<case value="1">
+					    		<span style="color:#72CE56;">通过了审批</span>
+					    	</case>
+					    	<case value="2">
+					    		<span style="color:#72CE56;">结束了审批</span>
+					    	</case>
+					    	<case value="3">
+					    		<span style="color:#FACB42;">撤销了审批</span>
+					    	</case>
+					    	<default />
+					    </switch>
+						<if condition="$vo['remark']">,备注：{$vo['remark']}</if>
+					</div>
+				</div>
+				<div style="clear:both"></div>
+			</div>
+		</volist>
+	</empty>
+</div>
+	

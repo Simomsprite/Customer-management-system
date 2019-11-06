@@ -1,0 +1,201 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 1373636 */
+  src: url('//at.alicdn.com/t/font_1373636_9gfp7croqlc.eot');
+  src: url('//at.alicdn.com/t/font_1373636_9gfp7croqlc.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1373636_9gfp7croqlc.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1373636_9gfp7croqlc.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1373636_9gfp7croqlc.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1373636_9gfp7croqlc.svg#iconfont') format('svg');
+}
+.ptxt100p{width: 100%;}
+.pbtnw80p{width: 80%;}
+.pbtnw30p{width: 30%;}
+.sub-box{text-align: center;}
+.ztpos{ vertical-align: middle; position: relative; top: 2px;}
+/*日程*/
+.schedule{ margin:0 15px 15px 15px;}
+/*会员中心*/
+.uc-top{ position: relative; min-height: 110px; padding-left: 100px; background: #000; overflow: hidden;}
+.uc-top .uhead{width: 60px; height:60px; border-radius: 100%; overflow: hidden; position: absolute; left: 20px; top: 50%; margin-top: -30px;}
+.uc-top .uhead img{display: block; width: 100%; height: 100%;}
+.uc-top h1{font-size: 16px; margin-bottom:6px; margin-top: 32px; color: #00a7da; }
+.uc-top h2{font-size: 12px; font-weight: normal; margin: 0; color: #fff;}
+.uc-top i{width: 40px; height: 40px; text-align: center; line-height: 40px; position: absolute; right: 0; top: 50%; margin-top: -20px;}
+/*个人中心菜单*/
+.uc-nav li { background: #22232a; font-size: 16px; margin:1px 0 0 0; }
+.uc-nav li a { display: block; padding: 10px 0 10px 12px; position: relative; color: #fff; }
+.uc-nav li a:active { color: #39a1e8; }
+.uc-nav li em { vertical-align: middle; margin-right: 10px; font-size: 18px; position: relative; top: -1px; }
+.uc-nav li i.arrow-r { position: absolute; right: 10px; top: 50%; margin-top: -11px; }
+/*参考表单*/
+.address-edit {background:#000;}
+.address-edit li { padding: 0 10px 0 80px; min-height: 47px; line-height: 47px; position: relative; border-bottom: 1px solid #515259; }
+.address-edit li:last-of-type{border: 0;}
+.address-edit li input[type="text"] { border: 0; width: 95%; height: 45px; line-height: 45px; padding-left: 5%; font-size: 15px; background:none; }
+.address-edit li textarea { border: 0; width: 95%; height:80px; padding-top: 13px; line-height: 22px; padding-left: 5%; font-size: 15px; }
+.address-edit li .tit { color: #fff; font-size: 14px; display: block; height: 22px; width: 80px; position: absolute; left: 15px; top: 13px; line-height: 22px; text-align: left; }
+.address-edit li.check-add { padding: 10px 10px 10px 50px; color: #686868; line-height: 20px; }
+.address-edit li .check { position: absolute; left: 15px; top: 50%; margin-top: -10px; }
+.address-edit li .active { background: #ff7800; border-color: #ff7800; }
+.address-edit li .active i { display: block; color: #fff; }
+.address-edit li .form-sele { overflow: hidden; display: block; position: relative; padding-left: 5%; font-size: 14px; }
+.address-edit li .form-sele .arrow { width: 20px; height: 20px; font-size: 20px; line-height: 20px; position: absolute; right: 0px; top: 50%; margin-top: -10px; }
+/*编辑新地址*/
+.addnew-pop { padding-bottom: 0!important; padding-top: 51px; z-index: 999; }
+.add-new-box { height: 100%; background: #313540; box-sizing: border-box; padding-bottom: 0; padding-top: 40px; position: relative; }
+.add-new-box ul { height: 100%; overflow: auto; }
+.add-new-box ul li { padding: 7px 10px; border-bottom: 1px solid #515259; font-size: 14px; }
+.add-new-info { padding: 8px 10px; box-sizing: border-box; font-size: 15px; border-bottom: 1px solid #515259; position: absolute; left: 0; top: 0; width: 100%;  }
+.order-pb-pop { width: 100%; height: 100%; position: fixed; left: -100%; top: 0; background: #f1f1f1; z-index: 999; padding-bottom: 60px; box-sizing: border-box; }
+.order-pb-pop .foot-btn { left: 0; bottom: 0; position: absolute; }
+.addnew-pop .abe-header{position: absolute;}
+/*表单新样式*/
+.cust-form { padding: 0 0; background:#000; }
+.cust-form li { padding: 0 10px 0 80px; min-height: 47px; line-height: 47px; position: relative; border-bottom: 1px solid #515259; font-size: 13px; }
+.cust-form li.titbox { padding-left: 90px; }
+.cust-form li.tit-mbgn { margin-bottom: 0; }
+.cust-form li .tit { height: 47px; display: inline-block; width: 70px; position: absolute; left: 10px; top: 50%; margin-top: -24px; white-space: nowrap; color: #c9c9cb; }
+.cust-form li .pbsele { border: 0; width: 95%; height: 45px; line-height: 45px; padding: 0; padding-left: 5%; font-size: 13px; background:#000; appearance:none; -webkit-appearance: none; -moz-appearance: none;  }
+.cust-form li .txt { border: 0; width: 95%; height: 45px; line-height: 45px; padding-left: 5%; font-size: 13px; background:none; }
+.cust-form li .txtbox .arrow { width: 20px; height: 20px; font-size: 20px; line-height: 20px; position: absolute; right: 10px; top: 50%; margin-top: -10px; }
+.cust-form li:last-of-type{border: 0;}
+.cust-form li .w100p { width: 100%; }
+.cust-form li .w70p { min-width: 70%; }
+.cust-form li .w50p { width: 48%; }
+.cust-form2 { padding-bottom: 0; }
+.cust-form3 li.titbox { padding-left: 95px; }
+.cust-form li.txtbg { border-radius: 5px; background: #282a32; }
+.cust-form li.txtbg img { width: 100%; border-radius: 5px; display: block; }
+.cust-form li .txt-pos { position: relative; }
+.cust-form li .txt-pos .txt { padding-left: 30px; width: 100%; }
+.cust-form li .txt-pos em { width: 32px; text-align: center; height: 34px; line-height: 34px; font-size: 16px; color: #fff; position: absolute; left: 0; top: 0; }
+.cust-form li.titbox95 { padding-left: 105px; }
+.cust-form li.titbox95 .tit { width: 105px; }
+.cust-form li.titbox110 { padding-left: 110px; }
+.cust-form li.titbox110 .tit { width: 110px; }
+.cust-form li.titbox90 { padding-left: 95px; }
+.cust-form li.titbox90 .tit { width: 95px; }
+/*上传头像*/
+.cust-form li .up-img { width: 60px; height: 60px; border-radius: 100%; overflow: hidden; float: right; position: relative; margin: 10px 40px 10px 0; }
+.cust-form li .up-img img { height: 100%; width: 100%; }
+.cust-form li .up-img input { width: 100%; height: 100%; opacity: 0; position: absolute; left: 0; top: 0; }
+/*2018年3月1日15点59分 修改*/
+.cust-form4 { }
+.cust-form4 li .tit { color: #777c91; }
+.cust-form4 li { min-height: 20px; line-height: 20px; color: #dddddd; }
+/*登录*/
+.login-box { padding-bottom: 30px; }
+.login-form { padding: 0 20px; }
+.login-form li { position: relative; margin-bottom: 15px; font-size: 14px; }
+.login-form li .iconfont { width: 32px; height: 32px; line-height: 32px; text-align: center; position: absolute; left: 8px; top: 50%; margin-top: -16px; font-size: 24px; color: #00a8dc; }
+.login-form .txt { width: 100%; height: 42px; line-height: 42px; background:none; border-radius: 5px; border: 0; box-sizing: border-box; padding-left: 46px; border: 1px #83889d solid; color: #00c3ff; position: relative; z-index: 2; }
+.login-form .btn { width: 100%; height: 42px; line-height: 42px; background: #fca844; border-radius: 5px; border: 0; font-size: 16px; color: #fff; }
+.login-form li.txtbox{position: relative;}
+.login-form li.txtbox:before{content: ''; display: block; width: 100%; height: 42px; border-radius: 5px; background: #000; opacity: 0.2; position: absolute; left: 0; top: 0; z-index: 1;}
+/*警告提示窗*/
+.warning{width: 70%; min-height: 36%; background: #fff; border-radius: 10px; position: absolute; left: 0; top: 50%; margin-top: -40%; left: 15%; z-index: 999; color: #333; text-align: center; box-sizing: border-box; padding: 30px 0; font-size: 14px;}
+.warning .tit-ico{ padding: 0 0 10px 0; }
+.warning .tit-ico i{ font-size:80px; height: 80px; width: 80px; text-align: center; line-height: 80px; display: block; margin: 0px auto; }
+.warning .tit{font-weight: bold; font-size: 15px;}
+.warning .winfo{ padding:10px 20px; color: #999; font-size: 12px; line-height: 16px;}
+.warning .ok{ color: #00c36e;}
+.warning .error{ color: #f64441;}
+.warning .noun{ color: #ffd200;}
+.warning .pbtn{ box-shadow:0 0 0 0; font-size: 12px;}
+.warning .close{ width: 30px; height: 30px; line-height: 30px; background: #e1e1e1; position: absolute; right: 20px; top: 0; color: #000; border-radius: 0 0 30px 30px;}
+/*幻灯片*/
+.abe-pic-slider{ height: 100%;}
+.abe-pic-slider .swiper-wrapper{ height: 100%;}
+.abe-pic-slider .swiper-wrapper img{height: 100%;}
+/*2018年1月5日16点31分 新版修改*/
+.pbtab4 { box-sizing: border-box; padding: 0 10px; }
+.pbtab4 a { width: 50%; float: left; }
+.pbtab42 a{ width: 20%;}
+/*线索详情*/
+.clue-head{ background: #000;}
+.clue-head ul{overflow: hidden;}
+.clue-head li{position: relative; padding:0 15px 0 106px; border-bottom: 1px solid #515259; min-height: 48px; line-height: 48px; font-size: 13px;}
+.clue-head li.pd0{padding-left: 13px;}
+.clue-head li.pd0 i{height: 26px; line-height: 26px; position: relative; top: 3px;}
+.clue-head li .tit{min-height: 30px; line-height: 30px; position: absolute; left: 15px; top: 50%; margin-top: -15px; color: #c9c9cb;}
+.clue-head li .arrow { width: 20px; height: 20px; font-size: 20px; line-height: 20px; position: absolute; right: 10px; top: 50%; margin-top: -10px; }
+.clue-head li:last-of-type{border: 0;}
+
+.bop-list{ padding-bottom: 8px; background: #272a33; margin: 0px 10px 10px 10px; border-radius: 5px;}
+.bop-list li{ padding:2px 15px;}
+.bop-list li .uhead{width: 40px; height: 40px; border-radius: 100%; display: block; overflow: hidden; position: absolute; left: 15px; top: 50%; margin-top: -20px; }
+.bop-list li .uhead img{display: block; width: 100%; height: 100%;}
+.bop-list li.uhbox{ position: relative; min-height: 40px; line-height: 40px; border-bottom: 1px solid #515259; padding:5px 0 8px 70px; margin-bottom: 8px; font-size: 14px; color:#00a8dc; font-weight: bold;}
+/*操作按钮*/
+.faq-btn{width: 60px; height: 60px; display: block; border-radius: 100px; background: #0cf; text-align: center; line-height: 60px; font-size: 36px; color: #fff; position: fixed; right: 20px; bottom: 20px;}
+.faq-btn-box{ width: 100%; height: 80px; background: #232323; position: fixed; left: 0; bottom: -200px; padding: 10px 0; z-index: 999;}
+.faq-btn-box a{display: block; float: left; width: 25%; text-align: center; padding-top: 8px;}
+.faq-btn-box a i{display:block; width: 40px; height: 40px; border-radius: 100px; background:#ff8a00; color: #fff; text-align: center; line-height: 40px; font-size: 24px; margin: 0px auto 5px auto; }
+.faq-btn-box a .icolor1{background: #3582d0;}
+.faq-btn-box a .icolor2{background: #8b98ec;}
+.faq-btn-box a .icolor3{background: #ab8cfb;}
+.faq-btn-box a .icolor4{background: #3bc9a1;}
+.faq-btn-box a .icolor5{background: #f54b4c;}
+
+
+/*上传文件列表*/
+.clue-item .file{}
+.clue-item .file li{ position: relative; padding-left: 40px; padding-right: 15px; min-height: 32px; line-height: 32px; font-size: 13px;}
+.clue-item .file li .thum{ display: block; width: 24px; height: 24px; position: absolute; left: 10px; top:50%; margin-top: -12px;}
+.clue-item .file li .thum img{display: block; width: 100%; height: 100%;}
+.clue-item .file li .thum{font-size: 20px; line-height: 24px; text-align: center;}
+/*线索选项卡*/
+.clue-tab{}
+.clue-tab {  }
+.clue-tab .tab-title{ background: #31333b; border-bottom: 1px solid #515259; padding: 0px 0; text-align: center; margin: 10px 0; height: 42px; line-height: 42px;}
+.clue-tab .tab-title li { display: inline-block; width: 19%; color: #FFF; font-size: 14px; position: relative; }
+.clue-tab .tab-title li a{display: block; }
+.clue-tab .tab-title li.actived { color: #0cf; }
+.clue-tab .tab-title li.actived:before { display: block; content: ''; width: 100%; height: 2px; position: absolute; left: 0; bottom: 0; background: #00ccff; }
+
+/*日历标记*/
+.rc-tag:before{display: block; content: ""; width: 6px; height: 6px; border-radius: 6px; background: #cc3300; position: absolute; top: 6px; left: 50%; margin-left: -3px;}
+
+/*搜索*/
+.ku-search{ margin: 0 0 10px 0; padding: 15px 15px;}
+.ku-search .ksinfo{padding-right:90px;}
+.ku-search .ksinfo .pbtn {  position: absolute; right: 2px; top: 50%; margin-top: -18px; height: 36px; line-height: 38px; background: none; border: 0; }
+.ku-search .ksinfo .txt{padding-left: 12px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

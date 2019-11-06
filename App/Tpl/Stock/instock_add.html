@@ -1,0 +1,130 @@
+<include file="Public:header" />
+<style>
+	#form1 .form-control {
+		display: inline-block;
+	}
+</style>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+	    <div class="col-lg-12">
+			<div class="title-bar">
+				<div class="row " id="title-show">
+					<ul class="nav pull-left" style="margin:0px 10px 0px 20px;">
+						<span>
+							<img src="__PUBLIC__/img/contract_view_icon.png" style="margin-bottom:9px;" alt="">
+						</span>
+						<span style="font-size:21px;margin-left:5px">&nbsp;&nbsp;&nbsp;添加库存入库</span>&nbsp;&nbsp; 
+					</ul>
+					<if condition="$type eq 'out'">
+						<a href="{:U('stock/outstock')}" class="btn btn-info pull-right" style="margin-right: 15px;">
+							<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;保存
+						</a>
+					<else />
+						<a href="{:U('stock/instock')}" class="btn btn-info pull-right" style="margin-right: 15px;">
+							<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;保存
+						</a>
+					</if>
+				</div>
+			</div>
+			<div class="tabs-container">
+				<div class="pull-left" style="width:100%;" >
+					<div class="ibox-content" style="padding:15px 0 0 20px;background:#fff;" id="left-content">
+						<div class="tab-content ">
+							<div class="tab-pane in active" id="tab1">
+								<div class="panel-body">
+									<include file="Public:alert" />
+									<form id="form1" action="{:U('purchase/into_warehouse')}" method="post">
+										<table class="table table-bordered" width="95%">
+											<tr>
+												<td colspan="7">
+													<div class="pull-left">仓库&#12288;
+														<select name="warehouse_id" class="form-control" style="width: 250px;">
+															<volist name="warehouse_list" id="vo">
+																<option value="{$vo['warehouse_id']}">{$vo['name']}</option>
+															</volist>
+														</select>
+													</div>
+													<div class="pull-left" style="margin-left: 20px;">入库日期&#12288;
+														<input type="text" class="form-control Wdate" style="width: 250px;" name="into_date" value="{:date('Y-m-d')}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" required >
+													</div>
+												</td>
+											</tr>
+											<tr style="background-color:#f9fafc;text-align:center;">
+												<td style="background-color:#f9fafc;padding:14px;color:#999">&#12288;&#12288;</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">商品编码</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">商品名称</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">规格</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">单位</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">入库数量</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">备注</td>
+											</tr>										
+											<tr style="text-align:center;padding:14px;color:#666">
+												<td>1</td>
+												<td>P8478358347</td>
+												<td>刘小萌</td>
+												<td>内存：8G，存储：64G</td>                                
+												<td>个</td>
+												<td>
+													<input type="number" class="form-control" name="list[{$k}][amount_in]" style="width: 100px;padding: 3px 0!important;">
+												</td>
+												<td>
+													<input type="text" class="form-control" name="list[{$k}][amount_in]" style="width: 100px;padding: 3px 0!important;">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="7">
+													<div style="margin: 10px 0;">
+														<div style="width: 45%;display: inline-block;">入库单号&#12288;
+															<input type="text" class="form-control" style="width: 250px;" name="into_date" value="" required >
+														</div>
+														<div style="width: 45%;display: inline-block;">入库单号&#12288;
+															<select name="into_role_id" class="form-control select2" style="width: 250px;">
+																<volist name="user_list" id="vo">
+																	<option value="{$vo['role_id']}">{$vo['user_name']} - {$vo['role_name']}</option>
+																</volist>
+															</select>
+														</div>
+													</div>
+													<div style="margin-bottom: 10px;">
+														<div style="width: 45%;display: inline-block;">经办人&#12288;&#12288;
+															<select name="into_role_id" class="form-control select2" style="width: 250px;">
+																<volist name="user_list" id="vo">
+																	<option value="{$vo['role_id']}">{$vo['user_name']} - {$vo['role_name']}</option>
+																</volist>
+															</select>
+														</div>
+														<div style="width: 45%;display: inline-block;">制单人&#12288;&#12288;
+															<select name="into_role_id" class="form-control select2" style="width: 250px;">
+																<volist name="user_list" id="vo">
+																	<option value="{$vo['role_id']}">{$vo['user_name']} - {$vo['role_name']}</option>
+																</volist>
+															</select>
+														</div>
+													</div>
+													<div>
+														<div style="width: 45%;display: inline-block;">
+															<div style="display: inline-block;position: relative;width: 65px;">
+																<div style="position: absolute;top: -53px;">备注</div>
+															</div>
+															<textarea rows="3" class="form-control" name="reason" style="width: 250px;"></textarea>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</table>
+									</form>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<include file="Public:footer" />	

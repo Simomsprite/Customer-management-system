@@ -1,0 +1,255 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+    <header class="abe-header am-header-default"> <a href="javascript:goIndex();" class="return iconfont">&#xe612;</a>
+        <h1 class="abe-header-title">新建日程</h1>
+    </header>
+    <form action="{:U('eventm/add')}" method="post">
+        <ul class="cust-form">
+            <li class="titbox">
+                <span class="tit">日程内容：</span>
+                    <div class="txtbox">
+                        <input type="text" class="txt ptxt100p" name="subject" placeholder="请输入日程内容"/>
+                    </div>
+            </li>
+            <li class="titbox">
+                <span class="tit">开始时间：</span>
+                <div class="txtbox">
+                    <input type="text" class="txt ptxt100p" placeholder="请选择开始时间" value="{$start_date}"  name="start_date" id="USER_AGE">
+                </div>
+            </li>
+            <li class="titbox">
+                <span class="tit">结束时间：</span>
+                <div class="txtbox">
+                    <input type="text" class="txt ptxt100p" placeholder="请选择结束时间" value="{$end_date}" name="end_date" id="USER_AGE1">
+                </div>
+            </li>
+            <li class="titbox">
+                <div class="col-sm-1"></div>
+                <span class="tit" for="people">相关：</span>
+                <?php if ($module) { ?>
+                <div class="col-sm-3">
+                    <input type="hidden" name="module" value="{$module['module_name']}" />
+                    <input type="text" class="txt ptxt100p " name="" readonly="true" value="{$module['module']}" />
+                </div>
+                <div class="col-sm-5" style="padding-left: 5px;">
+                    <input type="hidden" id="module_id" name="module_id" value="{$module['id']}">
+                    <input type="text" class="txt ptxt100p " name="module_name" readonly="true" value="{$module['name']}" style="cursor:pointer;" title="请点击选择" placeholder="请点击选择" />
+                </div>
+                <?php } else { ?>
+                <div class="col-sm-3">
+                    <select name="module" class="pbsele w100p " onchange="changeContent()" id="select" style="padding-right: 0px;">
+                        <option value="">--请选择--</option>
+                        <option value="contacts">联系人</option>
+                        <option value="leads">线索</option>
+                        <option value="customer">客户</option>
+                        <option value="business">商机</option>
+                        <option value="product">产品</option>
+                    </select>
+                </div>
+                <!--<div class="col-sm-5" style="padding-left: 5px;">
+                    <input type="hidden" id="module_id" name="module_id">
+                    <a href="{:U('customer/listdialog')}"><input type="text" class="form-control" name="module_name" id="module_name" readonly="true" style="cursor:pointer;" title="请点击选择" placeholder="请点击选择" /></a>
+                </div>-->
+                <?php } ?>
+            </li>
+            <li class="titbox">
+                <span class="tit">描述：</span>
+                <div class="txtbox">
+                    <textarea type="textarea" class="txt ptxt100p" rows="5" name="description"></textarea>
+                </div>
+            </li>
+        </ul>
+        <div class="sub-box">
+            <input type="submit" style="cursor:pointer;" id="button" value="创建日程" onclick="return checkdate();" class="pbtn pbtn-sm pbtnw30p mrg_15">
+            <input type="button" name="button" onclick="goIndex()" value="取消" class="pbtn  pbtnw30p pbtn-sm " >
+        </div>
+    </form>
+</div>
+</div>
+<script src="__PUBLIC__/waps/js/mobiscroll_date.js" charset="gb2312"></script>
+<script src="__PUBLIC__/waps/js/mobiscroll.js"></script>
+<script type="text/javascript">
+    function checkdate(){
+        var start_date=$("#USER_AGE").val();
+        var end_date=$("#USER_AGE1").val();
+        var start=new Date(start_date.replace(/-/g, "/"));
+        var end=new Date(end_date.replace(/-/g, "/"));
+        console.log(end);
+
+        if (start.getTime()>end.getTime()){
+            showtab1(2,'开始时间不能大于结束时间');
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        console.log( opt.datetime);
+        opt.time = {preset : 'time'};
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yy-mm-dd',
+            dateOrder : 'yyyymmdd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#USER_AGE").mobiscroll($.extend(opt['datetime'], opt['default']));
+
+    });
+
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yy-mm-dd',
+            dateOrder : 'yyyymmdd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#USER_AGE1").mobiscroll($.extend(opt['datetime'], opt['default']));
+
+    });
+
+
+
+    function checkinfo(param){
+        var field_value = $('#'+param).val();
+        if(field_value){
+            $.post('{:U("customer/checkinfo")}',
+                {
+                    field_value:field_value,
+                    field_name:param,
+                },
+                function(data){
+                    if(data.status == 1){
+                        $('#'+param+'-error').remove('');
+                        $('#'+param).after('<label id="'+param+'-error" class="error" for="source"><i class="fa fa-times-circle"></i></label>');
+                        $('#'+param+'-error').html('<i class="fa fa-times-circle"></i>'+data.data);
+                    }else{
+                        $('#'+param+'-error').remove('');
+                    }
+                },
+                'json');
+        }
+    }
+
+    function getnext(i){
+        let gn=new Array("pageone","pagetwo");
+        for (let j=0;j<gn.length;j++){
+            if (i==gn[j]){
+                document.getElementById(i).style.display="none";
+            } else{
+                document.getElementById(gn[j]).style.display="block";
+            }
+        }
+
+    }
+
+    /*星星特效*/
+    $('.fa-star').mousemove(function(){
+        $(this).addClass("star-orange");
+        $(this).prevAll().addClass("star-orange");
+        $(this).nextAll().removeClass("star-orange");
+    });
+    $('.fa-star').mouseout(function(){
+        var star = $('#star').val();
+        if(star == '' || star == null){
+            $('.fa-star').removeClass("star-orange");
+        }else{
+            $('.fa-star').removeClass("star-orange");
+            $('.fa-star:lt('+star+')').addClass("star-orange");
+        }
+    });
+    $('.fa-star').click(function(){
+        var num = $(this).index() + 1;
+        $('#star').val(num);
+    });
+    /*地区联动*/
+    //new PCAS("province","city","area")//三级联动，有默认值，有文字提示信息
+
+
+    $('#name').blur(function(){
+        name = $('#name').val();
+        var is_check = $(this).attr('is_check');
+        if(name != '' && is_check == 1){
+            $.post('{:U("customer/check")}',
+                {
+                    name:name
+                },
+                function(data){
+                    if(data.data != 0){
+                        $result = '';
+                        $.each(data.data, function(k, v){
+                            $result += (k+1)+'、'+v+'</br>';
+                        });
+                        $('#dialog-validate').dialog('open');
+                        $("#search_content").html($result);
+                        // alert_crm($result,"","warning");
+                    }
+                },
+                'json');
+        }
+    });
+
+    function changeContent(){
+        $('#module_id').val("");
+        $('#module_name').val("");
+    }
+
+
+    $('#module_name').click(function(){
+        a = $("#select1 option:selected").val();
+        if (a == "contacts"){
+            $('#dialog-contacts-list').dialog('open');
+            $('#dialog-contacts-list').load('{:U("contacts/radioListDialog")}');
+        }else if(a == "leads"){
+            $('#dialog-leads').dialog('open');
+            $('#dialog-leads').load('{:U("leads/listDialog")}');
+        }else if(a == "business"){
+            $('#dialog-business').dialog('open');
+            $('#dialog-business').load('{:U("business/listDialog")}');
+        }else if(a == "customer"){
+            $('#dialog-customer-list').dialog('open');
+            $('#dialog-customer-list').load('{:U("customer/listDialog")}');
+        }else if(a == "product"){
+            $('#dialog-product').dialog('open');
+            $('#dialog-product').load('{:U("product/allProductDialog")}');
+        }
+    });
+
+    $("form").submit(function(){
+        $(":submit",this).attr("disabled","disabled");
+    });
+
+    function goIndex(){
+        showtab(3,'是否退出新建日程')
+    }
+
+    function　closetab(){
+        window.location.href="javascript:history.go(-1);";
+    }
+</script>
+
+</body>
+</html>

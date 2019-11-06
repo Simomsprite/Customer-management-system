@@ -1,0 +1,309 @@
+<form id="form_transfer" action="{:U('stock/transfer_edit')}" method="post">
+	<input type="hidden" name="transfer_id" value="{$transfer['transfer_id']}">
+	<table class="table table-bordered" id="no-input-border" width="95%">
+		<thead>
+			<tr>
+				<td colspan="9">
+					<input type="hidden" name="process_status" value="{$process_status}">
+					<if condition="$process_status eq 1">
+						<div class="pull-left" style="width: 50%;">审批流
+							<select name="temp_id" class="form-control" style="display: inline-block;width: 250px;" required>
+								<option value="">--请选择--</option>
+								<volist name="process_list" id="vo">
+									<option value="{$vo['process_id']}" <if condition="$order_exam['process_id'] eq $vo['process_id']">selected</if> >{$vo['name']}</option>
+								</volist>
+							</select>
+						</div>
+					<else />
+						<div class="pull-left" style="width: 50%;">审批人
+							<input type="hidden" name="temp_id" id="exam_role_id" value="{$order_exam['role_list'][0]['role_id']}" required />
+							<input class="form-control" type="text" id="exam_role_name" value="{$order_exam['role_list'][0]['full_name']}" readonly="true" style="cursor:pointer;display: inline-block;width: 250px;" placeholder="请点击选择" required />
+						</div>
+					</if>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="9">
+					<div class="pull-left" style="width: 50%;">调出仓
+						<select id="warehouse_id" name="out_warehouse_id" class="form-control dialog_val" style="display: inline-block;width: 250px;">
+							<volist name="warehouse_list" id="vo">
+								<option value="{$vo['warehouse_id']}" <if condition="$transfer['out_warehouse_id'] eq $vo['warehouse_id']">selected</if> >{$vo['name']}</option>
+							</volist>
+						</select>
+					</div>
+					<div class="pull-right" style="width: 50%;text-align: right;">调入仓
+						<select name="in_warehouse_id" class="form-control dialog_val" style="display: inline-block;width: 250px;">
+							<volist name="warehouse_list" id="vo">
+								<option value="{$vo['warehouse_id']}" <if condition="$transfer['in_warehouse_id'] eq $vo['warehouse_id']">selected</if> >{$vo['name']}</option>
+							</volist>
+						</select>
+					</div>
+					<div class="pull-right">库存小于1的不予展示；本次调拨数设为0表示此商品暂不调拨</div>
+				</td>
+			</tr>
+			<tr align="center">
+				<td>产品名称</td>
+				<td>规格</td>
+				<td>单位</td>
+				<td>库存总数</td>
+				<td>调拨中数量</td>
+				<td>本次调拨数量</td>
+				<td>备注</td>
+			</tr>										
+		</thead>
+		<tbody>
+			<tr class="tr_goods_model" hidden align="center">
+				<td class="product_name"></td>
+				<td class="spec"></td>
+				<td class="standard"></td>
+				<td class="amount"></td>
+				<td class="transfer_count"></td>
+				<td>
+					<a href="javascript:void(0);" class="select_SN" hidden rel="" name="">
+						<span class="label label-success">SN</span>
+					</a>
+					<input type="hidden" class="sn_ids">
+					<input type="number" min="0" max="" class="form-control count" name="" value="0" style="width: 100px;display: inline-block;padding: 3px 0!important;">
+					&nbsp;&nbsp;
+				</td>
+				<td>
+					<input type="text" class="form-control remark" name="" style="width: 100px;">
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="9">
+					<div>
+						<div style="width: 45%;display: inline-block;">调出时间&#12288;
+							<input type="text" class="form-control Wdate" style="display: inline-block;width: 250px;" name="transfer_out_date" value="{$transfer['transfer_out_date'] > 0 ? date('Y-m-d',$transfer['transfer_out_date']) : ''}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" required >
+						</div>
+						<div style="width: 45%;display: inline-block;">调拨单号&#12288;
+							<input class="form-control" style="display: inline-block;width: 250px;" type="text" name="number" value="{$transfer['number']}" required />
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="9">
+					<div>
+						<div style="width: 45%;display: inline-block;">负责人&#12288;&#12288;
+							<input type="hidden" name="owner_role_id" value="{$transfer['owner_role_id']}" required />
+							<input class="form-control" type="text" id="owner_role_id" readonly="true" value="{$transfer['owner_role_name']}" style="cursor:pointer;display: inline-block;width: 250px;" placeholder="请点击选择" required />
+						</div>
+						<div style="width: 45%;display: inline-block;">备注&#12288;&#12288;&#12288;
+							<input class="form-control" style="display: inline-block;width: 250px;" type="text" name="remark" value="{$transfer['remark']}" placeholder="填写备注" />
+						</div>
+					</div>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</form>
+<div style="display:none" id="dialog-owner_role-list" title="选择负责人">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="dialog-exam-rolelist" title="选择审批人">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="dialog-select-SN" title="选择SN码">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		warehouse_stock_list();
+	});
+
+	// 是否允许超库存销售
+	var over_stock_sales = "{$over_stock_sales}";
+	// 选择审批人
+	$("#dialog-exam-rolelist").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 160],
+		buttons: {
+			'{:L("OK")}': function () {
+				var role_info = $('input[type="radio"].owner:checked');
+				$('#exam_role_id').val(role_info.val());
+				$('#exam_role_name').val(role_info.attr('rel'));
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}': function () {
+				$(this).dialog('close');
+			}
+		},
+		close: function () {
+			$(this).html('');
+		}
+	});
+	$('#exam_role_name').on('click', function () {
+		$("#dialog-exam-rolelist").dialog('open');
+		$("#dialog-exam-rolelist").load('{:U("user/listDialog")}&id=' + $('#exam_role_id').val());
+	});
+	
+	$("#dialog-owner_role-list").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 850,
+		maxHeight: 500,
+		position: ["center", 160],
+		buttons: {
+			'{:L("OK")}': function () {
+				var role_info = $('input[type="radio"].owner:checked');
+				$('input[name="owner_role_id"]').val(role_info.val());
+				$('#owner_role_id').val(role_info.attr('rel'));
+				$(this).dialog('close');
+			},
+			'{:L("CANCEL")}': function () {
+				$(this).dialog('close');
+			}
+		},
+		close: function () {
+			$(this).html('');
+		}
+	});
+	$('#owner_role_id').on('click', function () {
+		$("#dialog-owner_role-list").dialog('open');
+		$("#dialog-owner_role-list").load('{:U("user/listDialog")}&id=' + $('input[name="owner_role_id"]').val() + '&by=all');
+	});
+	
+	//选择仓库，获取该仓库下的产品信息
+	$('#warehouse_id').on('change', function () {
+		warehouse_stock_list();
+	});
+
+	//获取单个仓库的库存信息
+	function warehouse_stock_list() {
+		swal({
+			title: '数据获取中',
+			text: '......',
+			type: 'info',
+			showConfirmButton: false
+		});
+		var warehouse_id = $('#warehouse_id').val();
+		var transfer_id = {$_GET['transfer_id']};
+		$.ajax({
+			url: "{:U('stock/warehouse_stock_list')}",
+			data: { warehouse_id: warehouse_id, transfer_id: transfer_id},
+			type: 'GET',
+			dataType: 'JSON',
+			success: function (res) {
+				if (res.status == 1) {
+					swal.close();
+					$('.tr_goods').remove();
+					$.each(res.data, function (key, val) {
+						var model = $('.tr_goods_model').clone(1);
+						model.find('.product_name').html(val.product_name);
+						model.find('.spec').html(val.spec_list.spec);
+						model.find('.standard').html(val.standard);
+						model.find('.amount').html(val.count);
+						model.find('.transfer_count').html(val.transfer_count);
+						/*if (val.spec_list.has_sn == 1) {
+							model.find('.select_SN').show();
+							model.find('.select_SN').attr('name', val.product_name + '(' + val.spec + ')');
+							model.find('.select_SN').attr('product_info_id', val.product_info_id);
+							model.find('.select_SN').attr('warehouse_id', warehouse_id);
+							model.find('.sn_ids').attr('name', 'product_info_list[' + val.product_info_id + '][sn]');
+							model.find('.count').prop('readonly', true);
+							model.find('.count').on('click', function(){
+								model.find('.select_SN').click();
+							});
+						}*/
+						model.find('.count').attr('max', parseInt(val.count) - parseInt(val.transfer_count));
+						model.find('.count').attr('name', 'product_info_list[' + val.product_info_id + '][count]');
+						model.find('.remark').attr('name', 'product_info_list[' + val.product_info_id + '][remark]');
+						model.removeClass('tr_goods_model');
+						model.show();
+						model.addClass('tr_goods');
+
+						//编辑的时候，添加对应产品数量等信息
+						var product_list = {:json_encode($transfer['product_list'])};
+						product_list = eval(product_list);
+						$.each(product_list, function(k, v){
+							if (val.product_info_id == v.product_info_id) {		
+								model.find('.count').val(v.count);
+								model.find('.remark').val(v.remark);
+							}
+						});
+
+						$('.tr_goods_model').before(model);
+					});
+				} else {
+					swal(res.msg, '', 'error');
+				}
+			}
+		})
+	}
+	$('input.count').on('blur', function () {
+		var val = $(this).val();
+		val = Number(val);
+		var max = $(this).attr('max');
+		if (val > max) {
+			swal('本产品本次最多调拨' + max + '件');
+			$(this).val(max);
+		} else {
+			$(this).val(val);
+		}
+	});
+	$('#dialog-select-SN').dialog({
+		autoOpen: false,
+		modal: true,
+		width: 800,
+		maxHeight: 600,
+		position: ["center", 80],
+		buttons: {
+			"确认": function () {
+				var count = Number($('#SN_count').html());
+				var surplus = Number($('#SN_select_surplus').html());
+				var product_info_id = $('#select_SN_form input[name="product_info_id"]').val();
+				if (count > surplus) {
+					swal('选择SN码数量超调拨可选择数量！', '可选择' + surplus + ',超出' + (count - surplus), 'warning');
+					return false;
+				}
+				SN_arr = [];
+				$('#select_SN_form input.SN:checked').each(function (key, val) {
+					SN_arr.push($(val).val());
+				});
+				$('input[name="product_info_list[' + product_info_id + '][sn]"]').val(SN_arr);
+				$('input[name="product_info_list[' + product_info_id + '][count]"]').val(SN_arr.length);
+				$(this).dialog("close");
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		}
+	});
+	$('.select_SN').on('click', function () {
+		if ($(this).parent('td').find('.count').attr('max') < 1) {
+			swal('无库存', '本仓库该产品库存量为0', 'warning');
+			return false;
+		}
+		var warehouse_id = $('#warehouse_id').val();
+		var product_info_id = $(this).attr('product_info_id');
+		var name = $(this).attr('name');
+		var surplus = $(this).parent('td').find('.count').attr('max');
+		var sn_ids = $('input[name="product_info_list[' + product_info_id + '][sn]"]').val();
+		$('#dialog-select-SN').dialog('open');
+		$('#dialog-select-SN').load('{:U("sales/stockOutSnSelect")}&product_info_id=' + product_info_id + '&name=' + encodeURIComponent(name) + '&surplus=' + surplus + '&sn_ids=' + sn_ids + '&warehouse_id=' + warehouse_id);
+	});
+</script>

@@ -1,0 +1,19 @@
+<style>
+	.re_role_info{
+        float:left;
+        width: 30px;
+        height: 30px;
+		margin: 2px 3px;
+    }
+</style>
+<div>
+    <b>{$info['name']}-库管列表:</b>
+    <hr>
+    <volist name="role_list" id="val">
+        <div class="re_role_info" rel="{$val['role_id']}">
+            <a class="right_role_info" title="{$val['full_name']}" rel="{$val['role_id']}" href="javascript:void(0)" style="margin-right:5px;">
+                <img alt="image" class="img-circle" src="{$val['img']}">
+            </a>
+        </div>
+    </volist>
+</div>

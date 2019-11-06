@@ -1,0 +1,550 @@
+<include file="Public:header" />
+<style>
+	#form1 .form-control {
+		display: inline-block;
+	}
+</style>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+	    <div class="col-lg-12">
+			<div class="title-bar"> 
+				<div class="row " id="title-show">
+					<ul class="nav pull-left" style="margin:0px 10px 0px 20px;">
+						<span>
+							<img src="__PUBLIC__/img/contract_view_icon.png" style="margin-bottom:9px;" alt="">
+						</span>
+						<span style="font-size:21px;margin-left:5px">&nbsp;&nbsp;&nbsp;库存调拨</span>&nbsp;&nbsp; 
+					</ul>
+					<switch name="transfer.status" id="vo">
+						<case value="0">
+							<a href="javascript:void(0);" id="transfer_out" class="btn btn-info pull-right" style="margin-right: 15px;">
+								出库
+							</a>
+							<a href="javascript:void(0);" id="transfer_edit" class="btn btn-info pull-right" style="margin-right: 15px;">
+								编辑
+							</a>
+						</case>
+						<case value="1">
+							<a href="javascript:void(0);" id="transfer_in" class="btn btn-info pull-right" style="margin-right: 15px;">
+								入库
+							</a>
+						</case>
+						<default />
+					</switch>
+					<if condition="$transfer['do_examine'] eq 1">
+						<a href="javascript:void(0);" class="btn btn-info pull-right examine_order" style="margin-right: 15px;">
+							审核<input type="hidden" class="is_pass" value="1">
+						</a>
+					</if>
+					<if condition="$transfer['do_revoke'] eq 1">
+						<a href="javascript:void(0);" class="btn btn-info pull-right examine_order" style="margin-right: 15px;">
+							撤销<input type="hidden" class="is_pass" value="2">
+						</a>
+						<!-- <a href="{:U('stock/preview','transfer_id='.$transfer['transfer_id'])}" class="btn btn-info pull-right" style="margin-right: 15px;">打印</a> -->
+					</if>
+				</div>
+			</div>
+			<form id="form_submit" action="" method="post">
+				<div class="tabs-container">
+					<div class="pull-left" style="width:100%;" >
+						<div class="ibox-content" style="padding:15px 0 0 20px;background:#fff;" id="left-content">
+							<div class="tab-content ">
+								<div class="tab-pane in active" id="tab1">
+									<div class="panel-body">
+										<include file="Public:alert" />
+										<form id="form1" action="{:U('purchase/into_warehouse')}" method="post">
+											<div style="font-size:13px;font-weight:700;margin-bottom:15px;">
+												<span style="border-left:5px solid #19AA8D;padding-left:10px;height:10px;"></span>库存调拨信息
+												<span class="print btn btn-xs btn-info pull-right" object="transfer" pid="{$transfer['transfer_id']}">打印</span>
+											</div>
+											<div style="margin-bottom: 10px;">
+												<div style="width: 45%;display: inline-block;">调拨单号：
+													{$transfer['number']}
+													<switch name="transfer.status">
+														<case value="0">
+															<span style="color: green;">（未出库）</span>
+														</case>
+														<case value="1">
+															<span style="color: green;">（在途）</span>
+														</case>
+														<case value="2">
+															<span style="color: green;">（已入库）</span>
+														</case>
+														<default />
+													</switch>
+												</div>
+												<div style="width: 45%;display: inline-block;"></div>
+											</div>
+											<div style="margin: 10px 0;">
+												<div style="width: 45%;display: inline-block;">调出仓：
+													{$transfer['out_warehouse_name']}
+												</div>
+												<div style="width: 45%;display: inline-block;">调入仓：
+													{$transfer['in_warehouse_name']}
+												</div>
+											</div>
+
+											<table class="table table-bordered" width="95%">
+												<tr style="background-color:#f9fafc;text-align:center;">
+													<td style="background-color:#f9fafc;padding:14px;color:#999">商品名称</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">规格</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">单位</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">调拨数量</td>
+													<td style="background-color:#f9fafc;padding:14px;color:#999">备注</td>
+												</tr>
+												<volist name="transfer['product_list']" id="vo">									
+													<tr style="text-align:center;padding:14px;color:#666">
+														<td>{$vo['product_name']}</td>
+														<td>{$vo['spec']}</td>
+														<td>{$vo['unit']}</td>
+														<td>
+															<if condition="$transfer['status'] eq 0">
+																{$vo['count']}
+															<elseif condition="$transfer['status'] eq 1" />
+																<!-- 只能查看已出库sn -->
+																<?php if ($vo['has_sn']) { ?>
+																	<a href="javascript:void(0);" class="view_SN out_sn" product-info-id="{$vo['product_info_id']}" stock-out-id="{$vo['stock_out_id']}" name="{$vo['product_name']}({$vo['spec']})">
+																		<span class="label label-success">SN</span>
+																	</a>
+																	<input type="hidden" class="sn_ids" name="product_info_list[{$vo.product_info_id}][sn]" value="{$vo.sn_ids}" >
+																<?php } ?>
+																<input type="number" min="0" max="{$vo['count']}" class="form-control count" name="product_info_list[{$vo.product_info_id}][count]" value="{$vo['count']}" style="width: 80px;display: inline-block;" readonly="readonly">
+															<else />
+																<!-- 只能查看已入库sn -->
+																<?php if ($vo['has_sn']) { ?>
+																	<a href="javascript:void(0);" class="view_SN in_sn" product-info-id="{$vo['product_info_id']}" stock-in-id="{$vo['stock_in_id']}" name="{$vo['product_name']}({$vo['spec']})">
+																		<span class="label label-success">SN</span>
+																	</a>
+																	<input type="hidden" class="sn_ids" name="product_info_list[{$vo.product_info_id}][sn]" value="{$vo.sn_ids}" >
+																<?php } ?>
+																{$vo['count']}
+															</if>
+														</td>
+														<td>{$vo['remark']}</td>
+													</tr>
+												</volist>
+											</table>
+											<div style="margin: 10px 0;">
+												<div style="width: 45%;display: inline-block;">
+													负责人：
+													<a href="javascript:void(0)" rel="{$transfer['owner_role_id']}" class="role_info">{$transfer['owner_role_name']}</a>
+												</div>
+												<div style="width: 45%;display: inline-block;">
+													创建人：
+													<a href="javascript:void(0)" rel="{$transfer['creator_role_id']}" class="role_info">{$transfer['creator_role_name']}</a>
+												</div>
+											</div>
+											<div>
+												<div style="width: 45%;display: inline-block;">
+													备注：{$transfer['remark']}
+												</div>
+											</div>
+											<if condition="$transfer['status'] gt 0">
+												<div style="font-size:13px;font-weight:700;margin-top:20px;margin-bottom:15px;">
+													<span style="border-left:5px solid #19AA8D;padding-left:10px;height:10px;"></span>出库信息
+													<if condition="$transfer['status'] eq 1">
+														<span class="stock_del btn btn-xs btn-danger pull-right" object="stock_out" pid="{$stock_out['stock_out_id']}" style="margin-top: -6px;">删除</span>
+													</if>
+												</div>
+												<div style="margin: 10px 0;">
+													<div style="width: 45%;display: inline-block;">
+														出库日期：{$stock_out['update_time']}
+													</div>
+													<div style="width: 45%;display: inline-block;">
+														出库单号：{$stock_out['number']}
+													</div>
+												</div>
+												<div>
+													<div style="width: 45%;display: inline-block;">
+														负责人&#12288;：
+														<a href="javascript:void(0)" rel="{$stock_out['owner_role_id']}" class="role_info">{$stock_out['owner_role_name']}</a>
+													</div>
+													<div style="width: 45%;display: inline-block;">
+														出库备注：{$stock_out['remark']}
+													</div>
+												</div>
+											</if>
+											<if condition="$transfer['status'] gt 1">
+												<div style="font-size:13px;font-weight:700;margin-top:20px;margin-bottom:15px;">
+													<span style="border-left:5px solid #19AA8D;padding-left:10px;height:10px;"></span>入库信息
+													<span class="stock_del btn btn-xs btn-danger pull-right" object="stock_in" pid="{$stock_in['stock_in_id']}" style="margin-top: -6px;">删除</span>
+												</div>
+												<div style="margin: 10px 0;">
+													<div style="width: 45%;display: inline-block;">
+														入库日期：{$stock_in['update_time']}
+													</div>
+													<div style="width: 45%;display: inline-block;">
+														入库单号：{$stock_in['number']}
+													</div>
+												</div>
+												<div>
+													<div style="width: 45%;display: inline-block;">
+														负责人&#12288;：
+														<a href="javascript:void(0)" rel="{$stock_in['owner_role_id']}" class="role_info">{$stock_in['owner_role_name']}</a>
+													</div>
+													<div style="width: 45%;display: inline-block;">
+														入库备注：{$stock_in['remark']}
+													</div>
+												</div>
+											</if>
+										</form>
+										<div id="log_view"><!-- 审批日志信息 --></div>
+	
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div style="clear:both;"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div style="display:none;" id="dialog-role-info" title="{:L('DIALOG_USER_INFO')}">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+
+<div style="display:none;" id="dialog-stock-transfer" title="库存调拨">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+
+<div style="display:none" id="dialog-view-SN" title="SN码查看">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+
+<div style="display:none" id="dialog-out" title="调拨出库">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="dialog-in" title="调拨入库">
+	<div class="spiner-example">
+		<div class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	// 定义一个表单提交标识，防止多次点击造成的重复提交
+	var post_flag = false;
+
+	//查看员工信息
+	$("#dialog-role-info").dialog({
+	    autoOpen: false,
+	    modal: true,
+		width: 650,
+		maxHeight:600,
+		position: ["center",100]
+	});
+	$(".role_info").click(function(){
+		$role_id = $(this).attr('rel');
+		$('#dialog-role-info').dialog('open');
+		$('#dialog-role-info').load('{:U("user/dialoginfo","id=")}'+$role_id);
+	});
+
+	//编辑调拨信息
+	$('#transfer_edit').click(function(){
+		var transfer_id = "{$transfer['transfer_id']}";
+		$('#dialog-stock-transfer').dialog('open');
+		$('#dialog-stock-transfer').load('{:U("stock/transfer_edit","transfer_id=")}'+transfer_id);
+	});
+	$("#dialog-stock-transfer").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 1000,
+		maxHeight: 600,
+		position: ["center",100],
+		buttons: {
+			'确定' : function () {
+				var count = 0;
+				$('#form_transfer .count').each(function (key, val) {		
+					count += Number($(val).val());
+				});	
+				if (count == 0) {
+					swal('信息未完善', '至少选择一件产品!', 'warning');
+					return false;
+				}
+				if ($('#form_transfer [name="owner_role_id"]') == '') {
+					swal('信息未完善', '请选择负责人', 'warning');
+					return false;
+				}
+				if ($('#form_transfer [name="number"]') == '') {
+					swal('信息未完善', '请填写出库单号', 'warning');
+					return false;
+				}
+				if ($('select[name="out_warehouse_id"]').val() == $('select[name="in_warehouse_id"]').val()) {
+					swal('信息不正确', '调出仓和调入仓不能相同', 'warning');
+					return false;
+				}
+				swal({
+					title: '数据提交中',
+					text: '......',
+					type: 'info',
+					showConfirmButton: false
+				});
+				var data = $('#form_transfer').serializeArray();
+				var submit_url = $('#form_transfer').attr('action');
+				$.ajax({
+					url: submit_url,
+					data: data,
+					type: 'POST',
+					dataType: 'JSON',
+					success: function (res) {
+						console.log(res);
+						if (res.status == 1) {
+							type = 'success';
+						} else {
+							type = 'error';
+						}
+						swal({
+							title: res.msg,
+							type: type,
+						}, function () {
+							swal({
+								title: '页面刷新中',
+								text: '......',
+								type: 'info',
+								showConfirmButton: false
+							});
+							history.go(0);
+						});
+					}
+				})
+			},
+			'取消' : function () {
+				$(this).dialog('close');
+			}
+		}
+	});
+
+	// 调拨出库
+	$("#dialog-out").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 900,
+		maxHeight: 500,
+		position: ["center", 100],
+		buttons: {
+			"确定": function () {
+				// 防止重复提交
+				if (post_flag) {
+					swal('不能重复提交', '', 'warning');
+					return false;
+				} else {
+					post_flag = true;
+				}
+
+				var flag = 0;
+				$('.count').each(function(k, v){
+					if (Number($(this).val()) != Number($(this).attr('max'))) {
+						flag = 1;
+						return false;
+					}
+				});
+				if (flag == 1) {
+					alert_crm('请确保SN已全部选择');
+					return false;
+				}
+				 $('#form_out').submit();
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function () { 
+	    	dialog_destroy($(this));
+	    }
+	});
+	$("#transfer_out").click(function(){
+		var transfer_id = "{$transfer['transfer_id']}";
+		$('#dialog-out').dialog('open');
+		$('#dialog-out').load('{:U("stock/transfer_out","transfer_id=")}'+transfer_id);
+	});
+
+	//调拨入库
+	$("#dialog-in").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 900,
+		maxHeight: 500,
+		position: ["center", 100],
+		buttons: {
+			"确定": function () {
+				// 防止重复提交
+				if (post_flag) {
+					swal('不能重复提交', '', 'warning');
+					return false;
+				} else {
+					post_flag = true;
+				}
+				$('#form_in').submit();
+			},
+			"取消": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function () { 
+	    	dialog_destroy($(this));
+	    }
+	});
+	$("#transfer_in").click(function(){
+		var transfer_id = "{$transfer['transfer_id']}";
+		$('#dialog-in').dialog('open');
+		$('#dialog-in').load('{:U("stock/transfer_in","transfer_id=")}'+transfer_id);
+	});
+
+
+	//已出库sn查看
+	$('.view_SN.out_sn').on('click', function () {
+		var product_info_id = $(this).attr('product-info-id');
+		var stock_out_id = $(this).attr('stock-out-id');
+		var name = $(this).attr('name');
+		$('#dialog-view-SN').dialog('open');
+		$('#dialog-view-SN').load('{:U("sales/stockOutSnView")}&product_info_id=' + product_info_id + '&stock_out_id=' + stock_out_id + '&name=' + encodeURIComponent(name));
+	});
+	$('#dialog-view-SN').dialog({
+		autoOpen: false,
+		modal: true,
+		width: 800,
+		maxHeight: 600,
+		position: ["center", 100],
+		buttons: {
+			'确认': function () {
+				$(this).dialog('close');
+			}
+		}
+	});
+
+	//已入库sn查看
+	$('.view_SN.in_sn').on('click', function () {
+		var product_info_id = $(this).attr('product-info-id');
+		var stock_in_id = $(this).attr('stock-in-id');
+		var name = $(this).attr('name');
+		$('#dialog-view-SN').dialog('open');
+		$('#dialog-view-SN').load('{:U("purchase/stockInSnView")}&product_info_id=' + product_info_id + '&stock_in_id=' + stock_in_id + '&name=' + encodeURIComponent(name));
+	});
+
+	// 打印按钮。
+	var preview_page; // 弹出窗口
+	$(".print").on('click', function () {
+		var is_IE = IEVersion();
+		if (is_IE != 'edge' && is_IE != -1) {
+			swal('抱歉，IE浏览器暂不支持预览、打印功能', '可换用谷歌，360，edge等浏览器\n（360浏览器须切换极速模式）', 'warning');
+			return false;
+		}
+		let object = $(this).attr('object');
+		let id = $(this).attr('pid');
+		preview_page = layer.open({
+			type: 2,
+			title: '模板预览',
+			shadeClose: true,
+			area: ['100%', '100%'],
+			content: '{:U("template/preview")}&object=' + object + '&id=' + id
+		});
+		$('.layui-layer-title,.layui-layer-close').remove();
+	});
+
+	function IEVersion() {
+		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+		var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器  
+		var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器  
+		var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+		if (isIE) {
+			var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+			reIE.test(userAgent);
+			var fIEVersion = parseFloat(RegExp["$1"]);
+			if (fIEVersion == 7) {
+				return 7;
+			} else if (fIEVersion == 8) {
+				return 8;
+			} else if (fIEVersion == 9) {
+				return 9;
+			} else if (fIEVersion == 10) {
+				return 10;
+			} else {
+				return 6;//IE版本<=7
+			}
+		} else if (isEdge) {
+			return 'edge';//edge
+		} else if (isIE11) {
+			return 11; //IE11  
+		} else {
+			return -1;//不是ie浏览器
+		}
+	}
+
+	// 出入库删除
+	$('.stock_del').on('click', function () {
+		let self = $(this);
+		swal({
+			title: "您确定要删除这条数据吗？",
+			text: "删除后将无法恢复，请谨慎操作！",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "是的，我要删除！",
+			cancelButtonText: '让我再考虑一下…',
+			closeOnConfirm: false,
+			closeOnCancel: false
+		}, function (isConfirm) {
+			if (isConfirm) {
+				ajax_loading();
+				let type = self.attr('object');
+				let id = self.attr('pid');
+				$.ajax({
+					type: 'post',
+					url: "{:U('stock/delete')}",
+					data: {id: id, type: type},
+					success: function (res) {
+						if (res.status == 1) {
+							swal({
+								title: "删除成功！",
+								text: "您已经永久删除了信息！",
+								type: "success"
+							}, () => {
+								location.reload();
+							});
+						} else {
+							swal({
+								title: "操作失败！",
+								text: res.info,
+								type: "error"
+							})
+							return false;
+						}
+					}
+				});
+			} else {
+				swal.close();
+			}
+		});
+	});
+</script>
+<include file="Public:exam" />
+<include file="Public:footer" />	

@@ -1,0 +1,53 @@
+<style type="text/css">
+	#form_contacts table tr td:nth-child(odd){
+		text-align:right;
+		border:none;
+		width: 120px;
+	}
+	#form_contacts table tr td:nth-child(even){
+		border:none;
+	}
+</style>
+<form action="{:U('product_info/edit')}" id="form_dialog" method="post">
+	<input type="hidden" name="product_info_id" value="{$_GET['product_info_id']}">
+	<table class="table" style="border:none;">
+		<tr>
+			<td>产品规格：</td>
+			<td>
+				<volist name="product_info.spec_list" id="spec_info" key="k">
+            		{$spec_info['spec_name']}：{$spec_info['spec_value']}<if condition="$k lt count($product_info['spec_list'])">，</if>
+            	</volist>
+			</td>
+		</tr>
+		<tr>
+			<td>商品编码：</td>
+			<td>
+				<input type="text" name="number" value="{$product_info.number}" class="form-control" style="width: 85%;">
+			</td>
+		</tr>
+		<tr>
+			<td>条形码：</td>
+			<td>
+				<input type="text" name="bar_code" value="{$product_info.bar_code}" class="form-control" style="width: 85%;">
+			</td>
+		</tr>
+		<tr>
+			<td>成本价：</td>
+			<td>
+				<input type="text" name="price_cost_avg" value="{$product_info.price_cost_avg}" class="form-control" style="width: 85%;">
+			</td>
+		</tr>
+		<tr>
+			<td>采购价：</td>
+			<td>
+				<input type="text" name="price_cost" value="{$product_info.price_cost}" class="form-control" style="width: 85%;">
+			</td>
+		</tr>
+		<tr>
+			<td>建议售价：</td>
+			<td>
+				<input type="text" name="price" value="{$product_info.price}" class="form-control" style="width: 85%;">
+			</td>
+		</tr>
+	</table>
+</form>

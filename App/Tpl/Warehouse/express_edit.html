@@ -1,0 +1,27 @@
+<style type="text/css">
+	#form_dialog table tr td:nth-child(odd){
+		/* text-align:right; */
+		border:none;
+		width: 120px;
+	}
+	#form_dialog table tr td:nth-child(even){
+		border:none;
+	}
+</style>
+<form action="{:U('warehouse/express_edit')}" id="form_dialog" method="post">
+	<input type="hidden" name="stock_out_id" value="{$_GET['stock_out_id']}">
+	<table class="table" style="border:none;">
+		<tr>
+			<td>物流单号：</td>
+			<td>
+				<input type="text" name="express" value="{$stock_out['express']}" class="form-control" required>
+			</td>
+		</tr>
+		<tr>
+			<td>备注：</td>
+			<td>
+				<input type="text" name="remark" value="{$stock_out['remark']}" class="form-control">
+			</td>
+		</tr>
+	</table>
+</form>

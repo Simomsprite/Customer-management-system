@@ -1,0 +1,120 @@
+<include file="Public:headerm"/>
+<div class="wrap-box">
+    <header class="abe-header am-header-default"> <a href="javascript:history.go(-1)" class="return iconfont">&#xe612;</a>
+        <h1 class="abe-header-title">日程详情</h1>
+    </header>
+        <input type="hidden" name="event_id" id="event_id" value="{$event_info.event_id}">
+        <ul class="cust-form">
+            <li class="titbox">
+                <span class="tit">日程内容：</span>
+                <div class="txtbox">
+                    <input type="text" class="txt ptxt100p" name="subject" readonly="readonly" value="{$event_info.subject}"/>
+                </div>
+            </li>
+            <li class="titbox">
+                <span class="tit">开始时间：</span>
+                <div class="txtbox">
+                    <input type="text" class="txt ptxt100p" placeholder="请选择开始时间" readonly="readonly" name="start_date" id="USER_AGE" value="{$event_info.start_date|date='Y-m-d H:i',###}">
+                </div>
+            </li>
+            <li class="titbox">
+                <span class="tit">结束时间：</span>
+                <div class="txtbox">
+                    <input type="text" class="txt ptxt100p" placeholder="请选择结束时间" readonly="readonly" name="end_date" id="USER_AGE1" value="{$event_info.end_date|date='Y-m-d H:i',###}">
+                </div>
+            </li>
+            <li class="titbox">
+                <div class="col-sm-1"></div>
+                <span class="tit" for="people">相关：</span>
+                <?php if ($module) { ?>
+                <div class="col-sm-3">
+                    <input type="hidden" name="module" value="{$module['module_name']}" />
+                    <input type="text" class="txt ptxt100p " name="" readonly="true" value="{$module['module']}" />
+                </div>
+                <div class="col-sm-5" style="padding-left: 5px;">
+                    <input type="hidden" id="module_id" name="module_id" value="{$module['id']}">
+                    <input type="text" class="txt ptxt100p " name="module_name" readonly="true" value="{$module['name']}" style="cursor:pointer;" title="请点击选择" placeholder="请点击选择" />
+                </div>
+                <?php } else { ?>
+                <div class="col-sm-3">
+                    <select name="module" class="pbsele w100p " onchange="changeContent()" id="select1" style="padding-right: 0px;">
+                        <option value="">--请选择--</option>
+                        <option value="contacts" <if condition="$event_info.module eq contacts">selected="selected"</if>>联系人</option>
+                        <option value="leads" <if condition="$event_info.module eq leads">selected="selected"</if>>线索</option>
+                        <option value="customer" <if condition="$event_info.module eq customer">selected="selected"</if>>客户</option>
+                        <option value="business" <if condition="$event_info.module eq business">selected="selected"</if>>商机</option>
+                        <option value="product" <if condition="$event_info.module eq product">selected="selected"</if>>产品</option>
+                    </select>
+                </div>
+                <!--<div class="col-sm-5" style="padding-left: 5px;">
+                    <input type="hidden" id="module_id" name="module_id">
+                    <a href="{:U('customer/listdialog')}"><input type="text" class="form-control" name="module_name" id="module_name" readonly="true" style="cursor:pointer;" title="请点击选择" placeholder="请点击选择" /></a>
+                </div>-->
+                <?php } ?>
+            </li>
+            <li class="titbox">
+                <span class="tit">描述：</span>
+                <div class="txtbox">
+                    <textarea type="text" class="txt ptxt100p" rows="5" readonly="readonly" name="description">{$event_info.description}</textarea>
+                </div>
+            </li>
+
+
+            <div class="sub-box">
+               <!-- <input type="button" name="button" value="取消" onclick="goIndex()" class="pbtn  pbtnw30p pbtn-sm mrg_15" >
+                <input type="submit" name="button" value="提交日程" class="pbtn pbtn-sm pbtnw30p ">-->
+            </div>
+        </ul>
+</div>
+<a class="faq-btn iconfont">&#xe60b;</a>
+<div class="faq-btn-box ad-faq">
+   <a href="{:U('Eventm/edit',array('event_id'=>$event_info['event_id']))}"><i class="iconfont icolor3">&#xe6f8;</i>编辑</a>
+    <a href="javascript:showtab(3,'是否删除该条数据');"><i class="iconfont icolor5">&#xe603;</i>删除</a>
+</div>
+<div class="popup-bg" id="heimu" style="display: none;"></div>
+</div>
+
+
+<script src="__PUBLIC__/waps/js/mobiscroll_date.js" charset="gb2312"></script>
+<script src="__PUBLIC__/waps/js/mobiscroll.js"></script>
+<script type="text/javascript">
+    $(function(){ $("select").attr("disabled", "disabled");
+        $("select").prop("disabled", true);});
+
+    $(function(){
+        $("#heimu").css({top:"-100%"});
+        $(".faq-btn").click(function(){
+            $(".faq-btn-box").animate({bottom:"0"});
+            $("#heimu").show();
+            $("#heimu").animate({top:"0"},300);
+        });
+        $("#heimu").click(function(){
+            $(this).animate({top:"-100%"},300);
+            $(".faq-btn-box").animate({bottom:"-200px"});
+        });
+        $(".faq-btn-box a").click(function(){
+            $(".faq-btn-box").animate({bottom:"-200px"});
+            $("#heimu").animate({top:"-100%"},300);
+        });
+        $(".clue-tab").tabs();
+
+    });
+
+
+    function closetab(){
+        var event_id=$("#event_id").val()
+        $.ajax({
+            url:"{:U('Eventm/delete')}",
+            type:"POST",
+            data:{'event_id':event_id},
+            async: true,
+            success:function(){
+                var str="{:U('Eventm/index')}";
+                window.location.href=str;
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

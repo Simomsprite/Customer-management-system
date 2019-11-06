@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>编辑模板</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link href="__PUBLIC__/style/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/style/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link type="text/css" href="__PUBLIC__/css/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+    <script src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+    <script src="__PUBLIC__/ueditor/ueditor.all.min.js"> </script>
+    <script src="__PUBLIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="__PUBLIC__/style/js/jquery-2.1.1.js"></script>
+    <script src="__PUBLIC__/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <script src="__PUBLIC__/js/layer/layer.js"></script>
+    <script src="__PUBLIC__/style/js/plugins/sweetalert/sweetalert.min.js"></script>
+	<style type="text/css">
+		* { margin: 0; padding: 0; }
+		li { list-style: none; }
+		body { background: #525659 }
+		a { color: #333; }
+		a:link { text-decoration: none; color: #333; }
+		#title .top { width: 100%; height: 60px; background: #2C2D43; }
+		#title .top .title { color: #efefef; line-height: 60px; margin: 0 0 0 30px; font-size: 20px; }
+		#title .top button { margin: 11px 20px 0px 0px; padding: 8px 25px; }
+		#title .bottom { height: 60px; line-height: 60px; background: #fff; border-bottom: 1px solid #333; }
+		#title .bottom p { margin: 0 0 0 30px; }
+		#title .bottom .select { margin-right: 50px; position: relative; }
+		#title .bottom .select ul { position: absolute; left: -8px; top: 50px; z-index: 99; background: #fff; box-shadow: 2px 2px 5px 2px; #ccc; border-radius: 5px; width: 90px; line-height: 35px; text-align: center; cursor: pointer; }
+		#title .bottom .select li:nth-child(1).active { background: #649CED; border-radius: 5px 5px 0 0; }
+		#title .bottom .select li:nth-child(2).active { background: #649CED; border-radius: 0 0 5px 5px; }
+		#content iframe { width: 100%; }
+		#select_template { margin: 13px 0 0 50px; }
+	</style>
+</head>
+<body>
+	<div id="title">
+		<div class="top">
+			<div class="pull-left">
+				<h4 class="title">模板打印</h4>
+			</div>
+			<div class="pull-right">
+				<button id="cancel" class="btn btn-default">取消</button> 
+				<button id="download" class="btn btn-primary" style="display: none;">下载</button> 
+				<button id="prent" class="btn btn-primary">打印</button> 
+			</div>
+		</div>
+	</div>
+	<div id="content">
+		<form id="form_pdf" action="{:U('template/output_pdf')}" target="my_iframe" method="POST">
+			<input type="hidden" name="object" value="{$object}">
+			<input type="hidden" name="id" value="{$id}">
+			<input type="hidden" name="content">
+			<input type="hidden" name="aspect">
+			<input type="hidden" name="download">
+			<input type="hidden" name="pdfname">
+		</form>
+		<iframe frameborder="0" id="my_iframe" name="my_iframe"></iframe>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+        layer.load();
+		$('iframe').on('load', function(){
+            layer.closeAll('loading');
+		});
+		content = '{$content}';
+		$('#form_pdf').find('[name="content"]').val(content);
+		get_pdf(content);
+		function get_pdf(content, aspect = 'y', download = null, pdfname = '') {
+			if (download != 'yes') {
+        		layer.load();
+			}
+			var form = $('#form_pdf');
+			form.find('[name="aspect"]').val(aspect);
+			form.find('[name="download"]').val(download);
+			form.find('[name="pdfname"]').val(pdfname);
+			var wh = $(window).height();
+			var th = $('#title').height();
+			$('iframe').height(wh - th - 5);
+			form.submit();
+		}
+		$('#download').on('click', function(){
+			var aspect = $('#aspect').attr('val');
+			var pdfname = $('#select_template').attr('title');
+			if (!pdfname) pdfname = '打印模板';
+			get_pdf(content, aspect, 'yes', pdfname);
+		});
+		$('#prent').on('click', function(){
+			$('#my_iframe')[0].contentWindow.ue.execCommand('print');
+			return false;
+			$('#my_iframe').ue.execCommand( 'print' );
+		});
+		$('#cancel').on('click', function(){
+			parent.layer.close(parent.preview_page);
+        });
+		$(window).on('resize', function(){
+			var wh = $(window).height();
+			var th = $('#title').height();
+			$('iframe').height(wh - th - 5);
+		});
+	});
+</script>
+</html>	

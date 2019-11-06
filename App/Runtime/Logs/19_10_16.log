@@ -1,0 +1,1943 @@
+[ 2019-10-16T10:08:22+08:00 ] 127.0.0.1 /index.php?m=index&a=index
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 75 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 74 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T10:09:36+08:00 ] 127.0.0.1 /index.php?m=index&a=index
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 75 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 74 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T10:09:41+08:00 ] 127.0.0.1 /index.php?m=indexm&a=index
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 75 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_customerm` WHERE ( id = 74 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1571155200 AND 1571241600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1570982400 AND 1571587200 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1569859200 AND 1572537600 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM pd_visitor_plan visitor_plan  JOIN pd_event event ON visitor_plan.event_id=event.event_id WHERE (  (visitor_plan. BETWEEN 1546272000 AND 1577808000 ) ) LIMIT 1  
+ERR: Table 'wkcrm.pd_banner' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_banner`
+ERR: Table 'wkcrm.pd_banner' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_banner` WHERE ( `status` <> 2 ) ORDER BY `order` desc 
+
+[ 2019-10-16T10:09:48+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:09:53+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=82&by=me
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T10:09:56+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:09:58+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:10:00+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=81&by=public
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T10:10:02+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:10:07+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=78&by=public
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T10:10:10+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=78&by=public
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T10:10:11+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:10:13+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:10:24+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:10:25+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:10:27+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:10:28+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:10:32+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:46:00+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:46:10+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:46:12+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:47:26+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:47:33+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&by=me
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T10:47:39+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&by=me
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T10:47:42+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:47:44+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:47:48+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:47:53+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:47:58+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:48:02+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:48:03+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:48:07+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:48:09+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:48:15+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:48:17+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:48:20+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:48:21+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:48:23+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=68&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:48:26+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=68&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:48:27+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:48:30+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:02+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:04+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=69&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:49:07+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=69&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:49:08+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:31+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:36+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=75
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:49:39+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=75
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:49:40+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:43+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:44+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:45+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:47+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:48+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:50+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:51+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:52+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:49:54+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:50:02+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:50:04+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:50:09+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=75
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:50:31+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=75
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:50:32+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:50:54+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=75
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:54:06+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:54:08+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:54:10+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:54:13+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:54:17+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:54:18+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:54:20+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:54:25+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:54:26+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:54:29+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:54:31+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:54:33+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:54:34+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=82&by=me
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T10:54:38+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=82&by=me
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T10:54:39+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:54:40+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:54:42+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:54:46+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:55:37+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:55:44+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:55:46+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:55:50+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:55:52+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=68&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:55:54+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=68&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:55:55+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:56:00+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:56:18+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:56:25+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:56:26+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:56:29+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:56:31+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=81&by=public
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T10:56:34+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=81&by=public
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T10:56:35+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:56:37+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:56:40+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:56:45+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:56:46+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:56:50+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=76
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:56:51+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:56:53+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:56:54+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=68&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:57:03+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=68&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:57:04+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:57:09+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:57:13+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:57:14+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:57:17+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T10:57:22+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:57:24+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:57:26+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=75
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:57:27+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:57:29+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:57:32+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=68&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T10:57:35+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T10:57:37+08:00 ] 127.0.0.1 /index.php?m=userm&a=index
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_user_category`
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SELECT user.user_id AS user_id,user.name AS name,user.sex AS sex,user.img AS img,user.email AS email,user.telephone AS telephone,user.address AS address,user.status AS status,user_category.name AS category_name,user_category.category_id AS category_id,role.role_id AS role_id,role.position_id AS position_id,position.name AS role_name,position.parent_id AS parent_id,position.department_id AS department_id,position.description AS description,role_department.name AS department_name FROM pd_user user LEFT JOIN pd_user_category user_category ON user.category_id=user_category.category_id LEFT JOIN pd_role role ON user.user_id=role.user_id LEFT JOIN pd_position position ON position.position_id=role.position_id LEFT JOIN pd_role_department role_department ON role_department.department_id=position.department_id WHERE ( user.user_id = 1 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SELECT user.user_id AS user_id,user.name AS name,user.sex AS sex,user.img AS img,user.email AS email,user.telephone AS telephone,user.address AS address,user.status AS status,user_category.name AS category_name,user_category.category_id AS category_id,role.role_id AS role_id,role.position_id AS position_id,position.name AS role_name,position.parent_id AS parent_id,position.department_id AS department_id,position.description AS description,role_department.name AS department_name FROM pd_user user LEFT JOIN pd_user_category user_category ON user.category_id=user_category.category_id LEFT JOIN pd_role role ON user.user_id=role.user_id LEFT JOIN pd_position position ON position.position_id=role.position_id LEFT JOIN pd_role_department role_department ON role_department.department_id=position.department_id WHERE ( user.user_id = 2 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SELECT user.user_id AS user_id,user.name AS name,user.sex AS sex,user.img AS img,user.email AS email,user.telephone AS telephone,user.address AS address,user.status AS status,user_category.name AS category_name,user_category.category_id AS category_id,role.role_id AS role_id,role.position_id AS position_id,position.name AS role_name,position.parent_id AS parent_id,position.department_id AS department_id,position.description AS description,role_department.name AS department_name FROM pd_user user LEFT JOIN pd_user_category user_category ON user.category_id=user_category.category_id LEFT JOIN pd_role role ON user.user_id=role.user_id LEFT JOIN pd_position position ON position.position_id=role.position_id LEFT JOIN pd_role_department role_department ON role_department.department_id=position.department_id WHERE ( user.user_id = 3 ) LIMIT 1  
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_user_category` 
+
+[ 2019-10-16T11:06:06+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T11:06:44+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T11:06:45+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T11:06:47+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T11:06:48+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T11:06:49+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T11:06:50+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T11:06:52+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T11:06:53+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T11:06:54+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T11:07:11+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T11:07:17+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&by=me
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T11:07:19+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T11:07:31+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T11:24:39+08:00 ] 127.0.0.1 /index.php?m=user&a=dialoginfo&id=1
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_user_category`
+ERR: Table 'wkcrm.pd_user_category' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_user_category` 
+
+[ 2019-10-16T14:11:04+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T14:11:16+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:11:19+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T14:11:21+08:00 ] 127.0.0.1 /index.php?m=customerm&a=view&id=68&content=resource
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_business` WHERE ( business_id = %d ) 
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_visitor_plan`
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_visitor_plan' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `pd_visitor_plan` WHERE (  (`plan_time` BETWEEN 1571155200 AND 1571241599 ) ) AND ( `status` IN (0,1) ) AND ( `event_id` IN ('75','67') ) ORDER BY plan_time desc LIMIT 0, 10  
+ERR: Table 'wkcrm.pd_field' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_field`
+
+[ 2019-10-16T14:11:56+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T14:11:58+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T14:11:59+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=82&by=me
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T14:12:36+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T14:12:37+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T14:13:03+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=81&by=public
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T14:13:07+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=81&by=public
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T14:13:08+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T14:13:09+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T14:13:59+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=view&id=82&by=me
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) ) ORDER BY log_id desc' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_log` WHERE ( log_id in (%s) ) ORDER BY log_id desc 
+ERR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s) )' at line 1
+ [ SQL语句 ] : SELECT * FROM `pd_file` WHERE ( file_id in (%s) ) 
+
+[ 2019-10-16T14:14:01+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T14:14:02+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T14:14:27+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:15:17+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:15:30+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T14:19:11+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E4%BA%94%E5%93%A5
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:19:16+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:19:23+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:19:29+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:19:33+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%81%AB
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:19:39+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:19:56+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=15263726376
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:20:00+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:32:15+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T14:33:04+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T14:33:43+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T14:53:02+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%85%AC%E5%8F%B8%E5%90%8D
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T14:53:06+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:01:13+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:12:41+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:13:43+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%09%E9%BB%91%E9%BE%99%E6%B1%9F%E7%9C%81
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:13:50+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E9%BB%91%E9%BE%99%E6%B1%9F%E7%9C%81
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:13:55+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%09%E9%BB%91%E9%BE%99%E6%B1%9F%E7%9C%81
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:13:58+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:25:56+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:29:05+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:31:10+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:31:17+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&by=me
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:31:32+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&by=me
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:31:45+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&by=me
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:31:49+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:31:54+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&by=me
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:38:34+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%93%A6%E5%95%8A
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T15:54:12+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T15:54:48+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T15:55:28+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T15:55:29+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T15:55:30+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T15:56:10+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T15:56:36+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T15:56:50+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T15:57:01+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T16:18:20+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T16:18:41+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T16:27:10+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:27:24+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:27:30+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%95%8A
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:27:38+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:28:11+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=resource&by=resource&scene_id=&search=%E5%AF%B9
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:28:24+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T16:34:16+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_customerm' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_customerm`
+
+[ 2019-10-16T16:48:38+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:49:06+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T16:53:41+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T16:53:57+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=resource&by=resource&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:54:06+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T16:56:55+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:57:29+08:00 ] 127.0.0.1 /index.php?m=customer&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:57:53+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:58:07+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:58:18+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T16:58:43+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=me&scene_id=&this_page=1&act=index&daochu=&selectexcelxport=&current_page=&export_limit=&search=%E5%93%A6%E5%95%8A
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:01:55+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:03:30+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=resource&by=resource&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:03:53+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:11:37+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=resource&by=resource&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:11:40+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:11:49+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=resource&by=resource&scene_id=&search=%E5%95%8A%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:11:53+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:11:59+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:12:07+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:12:12+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:12:58+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:13:04+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:13:07+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:13:54+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:13:59+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:14:02+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:18:55+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:19:01+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:19:05+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:20:34+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:20:40+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:20:44+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:20:50+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:20:54+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:21:37+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:21:42+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:21:47+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:21:51+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:22:00+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:22:32+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:22:37+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&searchs=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:22:43+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:25:21+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:26:39+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:26:44+08:00 ] ERR: (ThinkException) 模板不存在[./App/Tpl/Wap_Customer/index.html]
+[ 2019-10-16T17:27:19+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&searchs=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:27:24+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:28:18+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:28:23+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:28:27+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:28:41+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:28:47+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:28:50+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:40:14+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:40:17+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:40:23+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:40:32+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:41:48+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:41:53+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:42:54+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:44:08+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:44:14+08:00 ] 127.0.0.1 /index.php?m=customer&a=index&field=name&condition=contains&content=&by=&scene_id=&search=%E5%93%A6
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T17:44:53+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:44:56+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:45:28+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:51:20+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:51:55+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:52:14+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:52:16+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:52:17+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index&content=resource
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:52:18+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T17:56:01+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:23:42+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:27:39+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:28:36+08:00 ] 127.0.0.1 /index.php?m=leads&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T19:29:11+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:29:16+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&search=%E6%98%AF
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:29:43+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&search=%E6%98%AF
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:29:47+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%98%AF
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:29:57+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%98%AF
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:30:01+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%98%AF
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:30:46+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%98%AF
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:30:50+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%9C%B0%E6%96%B9
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:02+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%9C%B0%E6%96%B9
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:04+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%9C%B0%E6%96%B9
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:06+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%9C%B0%E6%96%B9
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:07+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%9C%B0%E6%96%B9
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:09+08:00 ] 127.0.0.1 /index.php?m=customerm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:10+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:14+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:15+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:18+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%96%B9%E5%AE%98%E8%AF%9D
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:20+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%96%B9%E5%AE%98%E8%AF%9D
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:31:23+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%96%B9%E5%AE%98%E8%AF%9D
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:32:45+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%96%B9%E5%AE%98%E8%AF%9D
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:32:47+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%96%B9%E5%AE%98%E8%AF%9D
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:32:51+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%96%B9%E5%AE%98%E8%AF%9D
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:32:56+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%96%B9%E5%AE%98%E8%AF%9D
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:33:03+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%BA%BF%E7%B4%A2
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:33:05+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%96%B9%E5%AE%98%E8%AF%9D
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:33:06+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:33:07+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:33:13+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:33:45+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T19:33:49+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T19:34:02+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%95%8A
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T19:34:05+08:00 ] 127.0.0.1 /index.php?m=leads&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%95%8A
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+ERR: Table 'wkcrm.pd_system' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_system`
+
+[ 2019-10-16T19:34:52+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:34:58+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E5%A4%A7%E5%93%A5
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:35:00+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=me&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E6%B9%96%E4%BA%BA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:35:03+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:35:31+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:35:36+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%81%AB%E7%AE%AD
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:35:38+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:35:43+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E7%99%BE%E5%BA%A6
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:35:45+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:35:57+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E9%BA%A6%E8%BF%AA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:35:59+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:39:49+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public&name%5Bcondition%5D=contains&name%5Bform_type%5D=text&name%5Bvalue%5D=%E9%BA%A6%E8%BF%AA
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+
+[ 2019-10-16T19:39:51+08:00 ] 127.0.0.1 /index.php?m=leadsm&a=index&by=public
+ERR: Table 'wkcrm.pd_search' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `pd_search`
+

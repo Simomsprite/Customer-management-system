@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>编辑模板</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link href="__PUBLIC__/style/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        var template_print = true;
+    </script>
+    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/ueditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="__PUBLIC__/style/js/jquery-2.1.1.js"></script>
+    <style type="text/css">
+    	body { background: #525659; }
+    	#ueditor_0 { border: 0; }
+    	#edui1_iframeholder { background: #525659; overflow: auto; }
+    	#edui1 { border: 0; }
+        .edui-editor-iframeholder iframe {
+            width: 842px;
+            min-height: -webkit-calc(100% - 40px * 2);
+            min-height: calc(100% - 40px * 2);
+            margin: 20px ;
+            padding: 0 30px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border-radius: 3px;
+            background-color: #fff;
+            -webkit-box-shadow: 0 0px 10px 0 rgba(0,0,0,.2);
+            box-shadow: 0 5px 10px 0 rgba(0,0,0,.2);
+        }
+    </style>
+</head>
+<body>
+	<div id="content">
+		<script name="content" id="editor" type="text/plain">{$content}</script>
+	</div>
+	<script type="text/javascript">
+		var ue = UE.getEditor('editor',  {
+	        toolbars: [],
+	        initialFrameHeight: $(window).height(),//设置编辑器高度
+	        initialFrameWidth: $(window).width() - 20,//设置编辑器高度
+	        // scaleEnabled:true,//设置不	自动调整高度
+			// readonly: true,
+			elementPathEnabled: false,
+			wordCount: false
+	    });
+	    $(function(){
+		    $("#content").bind('DOMNodeInserted', function(e) {
+		    	my_resize();
+			});
+	    });
+	    $(window).on('resize', function(){ my_resize(); });
+	    function my_resize() {
+	    	var m = ($(window).width() - 842) / 2;
+	    	$('.edui-editor-iframeholder iframe').css('margin', '20px ' + m + 'px');
+	    }
+	</script>
+</body>
+</html>

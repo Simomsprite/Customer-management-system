@@ -1,0 +1,26 @@
+<form id="process_edit_form" onkeydown="if(event.keyCode==13)return false;">
+    <input type="hidden" name="type_id" value="{$info['type_id']}">
+    <input type="hidden" name="process_id" value="{$info['process_id']}">
+    <table class="table" style="border:none;">
+        <tbody>
+            <tr>
+                <td>标题：</td>
+                <td>
+                    <input type="text" name="name" class="form-control" value="{$info['name']}">
+                </td>
+            </tr>
+            <tr>
+                <td>描述：</td>
+                <td>
+                    <textarea name="remark" class="form-control" cols="30" rows="2">{$info['remark']}</textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<script>
+    $('#process_edit_form input').on('blur', function () {
+        var val = $(this).val();
+        $(this).val(val.replace(' ', ''));
+    });
+</script>

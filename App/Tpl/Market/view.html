@@ -1,0 +1,1357 @@
+<style>
+    .sidebar-container ul.nav-tabs-task li a{
+        background: #fff;
+        border-right: none;
+        color: #8a959e;
+        padding-left: 0px;
+        margin-right: 10px;
+    }
+    .nav-tabs-task>li.active>a{
+        border-top: none !important;
+        border-bottom: 3px solid #19aa8d !important;
+        color:#333;
+    }
+    .nav-tabs-task>li a:hover{
+        border-bottom: 3px solid #5cb76f !important;
+        color: 
+    }
+    .nav-tabs-task>li{
+        margin-top:10px;
+        padding-top: 10px;
+    }
+    /*详情加载--start--*/
+    .filelist{
+        border: 1px dashed #d8e3ef;
+        width: 97.2%;
+        margin-left: 8px;
+        margin-bottom: 65px;
+    }
+    .filelist .tsinfo{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: block;
+        margin-left: 10px;
+    }
+    .filelist .fujian{
+        margin-left: 8px;
+        color: #646464;
+    }
+    #reparynow{
+        border-top: 1px solid #d8e3ef;
+        padding: 10px;
+    }
+    #content_lanage
+    {
+        border: 1px solid #eee;
+        min-height: 51px;
+        padding: 10px;
+        border-radius: 2px;
+    }
+    #content_lanage:empty::before{  
+        color:#cab0ba;
+        content:attr(placeholder);  
+    }
+    #but_sub{
+        margin-top: 10px;
+        float: right;
+        margin-bottom: 10px;
+    }
+    .talkcontent{
+        clear: both;
+        padding:10px;
+    }
+    .talkcontent .talknow{
+        padding:10px;
+    }
+    .imgtx{
+        width: 28px;
+        float: left;
+    }
+    .neirong{
+        margin-left: 42px;
+        word-wrap: break-word;
+        border-bottom:1px solid #eee;
+    }
+    .reply_talk{
+        margin: 12px 0 12px 0;
+    }
+    .reply_content{
+        border: 1px solid #aaa;
+        min-height: 80px;
+        padding: 10px;
+        border-radius: 2px;
+        margin-left: 43px;
+    }
+    .reply_content:empty::before{  
+        color:#cab0ba;
+        content:attr(placeholder);  
+    }  
+    .btn_reply{
+        margin-top: 0px;
+        float: right;
+    }
+    /*详情加载--end--*/
+    .addMember-trigger-button{
+        width: 30px;
+        height: 30px;
+        line-height: 28px;
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+        background-color: #dcdfe3;
+        border-radius: 50%;
+    }
+    .project-people{
+        float:left;
+    }
+    .project-people a{
+        float:left;
+    }
+
+    /*.sortable-list{
+        padding:0px !important;
+    }*/
+
+    /*子任务*/
+    .list-group{
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+    .list-group-full .list-group-item{
+        padding-right: 0;
+        padding-left: 0;
+        margin-top: 10px;
+    }
+    .list-group-item:first-child{
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+    .checkbox-custom{
+        /*margin-top: 0;
+        margin-bottom: 0;*/
+        padding-left: 20px;
+        position: relative;
+        display: block;
+    }
+    /*子任务*/
+    .dropdown-menu li:hover{
+        background-color: transparent;
+        color:#fff;
+    }
+    
+    /*附件*/
+    #filecontent{
+        width: 99.2%;
+        border: 1px dashed #d8e3ef;
+        margin-top: 0px;
+    }
+    .showfile{
+        padding:6px;
+    }
+    #filecontent .tishiinfo{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: block;
+        margin-left: 10px;
+    }
+    #filecontent .fujian{
+        margin-left: 8px;
+        color: #646464;
+    }
+    #addfilediv{
+        color: #cccccc;
+        margin-left: 6px;
+        padding-top: 8px;
+        display: block;
+        margin-bottom: 6px;
+    }
+    /*活动*/
+    .ai-yellow{
+        background-color: rgba(254,215,32,.7);
+    }
+    .ai-blue{
+        background-color: rgba(43,161,225,.7);
+    }
+    .ai-green{
+        background-color: rgba(121,196,85,.7);
+    }
+    .ai-red{
+        background-color:rgba(230,88,69,.7);
+    }
+    .ai-orange{
+       background-color:rgba(244,131,61,.7); 
+    }
+    .ai-purple{
+        background-color:rgba(166,58,150,.7);
+    }
+    .ai-dark-blue{
+        background-color: rgba(58,153,166,.7);
+    }
+    #vertical-timeline::before{
+        width:0px !important;
+    }
+    .addMember-remove{
+        position: relative;
+        margin-right:-10px;
+        top: -42px;
+        right: -30px;
+        display:none;
+        font-size: 10px;
+        line-height: 1;
+        color: #fa7a7a;
+        cursor: pointer;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+    .re_role_info{
+        float:left;
+        width:42px;
+        height:40px;
+    }
+    
+</style>
+<script>
+    $(document).on('click','.btn_emoji',function(){
+        var wind_width = window.innerWidth;
+        left = wind_width/2+60;
+        $(".emoji_container").css("left",left);
+    });
+</script>
+
+<div class="full-height">
+    <div class="white-bg border-left" id="content_div">
+        <input type="hidden" id="task_id" value="{$market['task_id']}">
+        <input type="hidden" id="dialog_open" value="0">
+        <div class="element-detail-box">
+            <div class="tab-content">
+                <?php if ($auth) { ?>
+                <div class="pull-right">
+                    <div class="tooltip-demo">
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-outline btn-default dropdown-toggle" aria-expanded="true">操作
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <?php if ($market['is_deleted'] == 1) { ?>
+                                <li>
+                                    <a href="javascript:void(0);" class="right_market_edit_field" field="is_deleted" val="0">
+                                        <i class="fa fa-refresh"></i>&nbsp;恢复
+                                    </a>
+                                </li>
+                                <?php } else if ($market['is_lock'] == 1) { ?>
+                                <li>
+                                    <a href="javascript:void(0);" class="right_market_edit_field" field="is_deleted" val="1">
+                                        <i class="fa fa-trash"></i>&nbsp;作废
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" class="right_market_edit_field" field="is_lock" val="0">
+                                        <i class="fa fa-unlock"></i>&nbsp;解锁
+                                    </a>
+                                </li>
+                                <?php } else { ?>
+                                <li>
+                                    <a href="javascript:void(0);" class="right_market_edit_field" field="is_deleted" val="1">
+                                        <i class="fa fa-trash"></i>&nbsp;作废
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" class="right_market_edit_field" field="is_lock" val="1">
+                                        <i class="fa fa-lock"></i>&nbsp;锁定
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{:U('market/edit', array('market_id' => $market_id))}">
+                                        <i class="fa fa-pencil"></i>&nbsp;编辑
+                                    </a>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+                
+                <div class="small text-muted" style="height:35px;">
+                    <i class="fa fa-clock-o"></i>&nbsp;{$market['update_time']}&nbsp;{$market['week_time']}&nbsp;
+                </div>
+                <div class="task_content_view">
+                    <div class="pull-left col-sm-12" style="padding-left:0px;">
+                        <div class="col-sm-8" style="padding-left:0px;padding-top: 15px;">
+                            <div class="pull-left">
+                                <span style="font-size:16px;line-height: 30px;" <if condition = "$market['is_deleted'] eq 1">class="text_line"</if>>
+                                    <span id="new_subject">{$market['name']}</span> / <span style="color: #ccc;">{$market['type']}</span>
+                                </span> 
+                            </div>
+                            <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth) { ?>
+                            <div class="pull-left" style="margin-left:10px;">
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" id="btn_status" class="btn btn-primary dropdown-toggle" aria-expanded="false" style="background-color:{$market['status_color']};border:{$market['status_color']}">{$market['status']}<span class="caret" style="margin-left: 30px;"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="right_market_edit_field btn-info" field="status" val="已计划" rel1="#23C6C8"> 已计划 </a></li>
+                                        <li><a class="right_market_edit_field btn-primary" field="status" val="进行中" rel1="#1AB394"> 进行中 </a></li>
+                                        <li><a class="right_market_edit_field btn-success" field="status" val="已结束" rel1="#00AAEF"> 已结束 </a></li>
+                                        <li><a class="right_market_edit_field btn-warning" field="status" val="终止" rel1="#F8AC59"> 终止 </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" style="padding-left:0px;">
+                    <div class="col-sm-6" style="padding-left:0px;">
+                        <p style="font-size: 16px;color: #ccc;padding: 10px 0px;">负责人</p>
+                    </div>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                        <p style="font-size: 16px;color: #ccc;padding: 10px 0px;">活动参与人</p>
+                    </div>
+                </div>
+                <div class="pull-left col-sm-12" style="padding-left:0px;">
+                    <div class="col-sm-6" style="padding-left:0px;">
+                        <input type="hidden" id="owner_role_id" name="owner_role_id" value="{$market['owner_role_id']}" />
+                        <dd class="project-people">
+                            <div id="owner_role" class="re_role_info">
+                                <a class="right_role_info" title="{$role_list[$market['owner_role_id']]['full_name']}" rel="{$market['owner_role_id']}" href="javascript:void(0)" style="margin-right:-10px;">
+                                    <img alt="image" class="img-circle" src="{$role_list[$market['owner_role_id']]['img']}">
+                                </a>
+                                <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth && (session('role_id') == $market['owner_role_id'] || session('?admin'))) { ?>
+                                <span id="owner_role_edit" rel="{$market['owner_role_id']}" title="更换负责人" style="color: #00AAEF; display: none; position: absolute; top: -4px; left: 29px">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                <?php } ?>
+                            </div>
+                        </dd>
+                    </div>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                        <input type="hidden" id="executor_role_id" name="executor_role_id" value="{$market['executor_role_ids']}" />
+                        <dd class="project-people" id="executor_role_{$market_id}">
+                            <volist name="market['executor_role_list']" id="vo">
+                                <div class="re_role_info executor_role_info">
+                                    <a class="right_role_info" title="{$role_list[$vo]['full_name']}" rel="{$vo.role_id}" href="javascript:void(0)" style="margin-right:5px;">
+                                        <img alt="image" class="img-circle" src="{$role_list[$vo]['img']}">
+                                    </a>
+                                    <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth && (session('role_id') == $market['owner_role_id'] || session('?admin'))) { ?>
+                                    <span class="addMember-remove" rel="{$vo}">
+                                        <i class="fa fa-minus-circle"></i>
+                                    </span>
+                                    <?php } ?>
+                                </div>
+                            </volist>
+                            <div class="hidden" id="executor_role_model">
+                                <a class="role_info" title="{$role_list[$vo]['full_name']}" rel="{$vo.role_id}" href="javascript:void(0)" style="margin-right:5px;">
+                                    <img alt="image" class="img-circle" src="{$role_list[$vo]['img']}">
+                                </a>
+                                <span class="addMember-remove" rel="{$vo}">
+                                    <i class="fa fa-minus-circle"></i>
+                                </span>
+                            </div>
+                            <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth && (session('role_id') == $market['owner_role_id'] || session('?admin'))) { ?>
+                            <a id="add_executor_role" href="javascript:void(0);" rel="{$market['task_id']}">
+                                <div class="addMember-trigger-button">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </a>
+                            <?php } ?>
+                        </dd>
+                    </div>
+                </div>
+                <div class="pull-left" style="width: 100%;margin-top: 15px;">
+                    <div class="pull-right">
+                        <span style="font-size:12px;color:#acaba7;">
+                            <a href="javascript:void(0);" class="right_role_info" rel="{$market['creator_role_id']}">{$role_list[$market['creator_role_id']]['full_name']}</a>&nbsp;{$market['create_time']}，创建了市场活动
+                        </span>
+                    </div>
+                </div>
+
+                <div class="m-t-lg tabs-container example" style="min-height: 200px;float:left;width:100%;">
+                    <ul class="nav nav-tabs nav-tabs-task nav-tabs-line">
+                        <li class="active" style="width:100px;">
+                            <a data-toggle="tab" href="#tab-1"><i class="fa fa-smile-o"></i>基本信息</a>
+                        </li>
+                        <li id="tab-file" style="width:100px;">
+                            <a data-toggle="tab" href="#tab-2" id="file_count" style="margin-right: 0px;">
+                                <span><img src="__PUBLIC__/img/addFile.png">&nbsp;附件</span>
+                                <span class="badge badge-radius badge-primary">{$market['file_count']}</span>
+                            </a>
+                        </li>
+                        <li style="width:100px;">
+                            <a data-toggle="tab" href="#tab-3"><i class="fa fa-commenting-o"></i>活动日志</a>
+                        </li>
+                        <li style="width:100px;">
+                            <a data-toggle="tab" href="#tab-4">
+                                <i class="fa fa fa-child"></i>销售线索</a>
+                        </li>
+                        <li style="width:100px;">
+                            <a data-toggle="tab" href="#tab-5">
+                                <i class="fa fa-user"></i>相关客户</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" style="margin-top: 15px; padding-top: 20px;">
+                        <div id="tab-1" class="tab-pane form-horizontal active">
+                            <volist name="fields" id="val" key="key">
+                                <?php 
+                                    if ($key % 2 == 1) {
+                                 ?>
+                                <div class="form-group row">
+                                <?php } ?>
+                                    <label class="col-lg-2 control-label">{$val['name']}</label>
+                                    <div class="col-lg-4">
+                                        <p class="form-p">
+                                            {$market[$val['field']]}
+                                        </p>
+                                    </div>
+                                <?php if ($key % 2 == 0 || $key == count($fields)) { ?>
+                                </div>
+                                <?php } ?>
+                            </volist>
+                        </div>
+                        <div id="tab-2" class="tab-pane">
+                            <div class="attachment" style="border-top: 1px solid #d8e3ef;">
+                                <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth) { ?>
+                                <span class="addfile" style="cursor: pointer;"><img src="__PUBLIC__/img/addFile.png" title="添加附件"/></span>
+                                <?php } ?>
+                                <empty name="market['file_list']">
+                                    <div style="background-color:#fff;" id="nodata"><include file="Public:nodata" /></div>
+                                </empty>
+                                <div id="filecontent" style="margin:10px 0 50px 0;" <if condition="empty($market['file_list'])">class="hide"</if>>
+                                    <span class="tishiinfo"><img src="__PUBLIC__/img/addFile.png"/><span class="fujian">附件</span></span>
+                                    <volist name="market['file_list']" id="fvo">
+                                        <div class="file_tr" style="float: left;width:100%;padding-top: 6px;">
+                                            <div class="showfile pull-left" id="del_{$fvo['file_id']}">
+                                                <input type="hidden" name="file[]" value="{$fvo['file_id']}"/>
+                                                <img src="__PUBLIC__/productImg/{$fvo['pic']}">&nbsp;
+                                                <a <if condition="in_array(getExtension($fvo['name']),imgFormat())">class="litebox_file" href="{$fvo['file_path']}" title="点击查看大图"</if>>{$fvo.name}</a>
+                                                <span style="color:#646464;">&nbsp;(&nbsp;{$fvo['size']}KB&nbsp;)</span>&nbsp;&nbsp;
+                                                <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth) { ?>
+                                                <a href="javascript:;" rel="{$fvo['file_id']}" onclick="del_file(this);">
+                                                    <img src="__PUBLIC__/img/delfile.png"/>
+                                                </a>
+                                                <?php } ?>
+                                            </div>
+                                            <a class="controls_file" style="float: left;display: none;margin-left: 20px;padding:6px;" href="javascript:;" file="{$fvo.file_path}" filename="{$fvo.name}" onclick="filedown(this);">下载</a>
+                                        </div>
+                                    </volist>
+                                    <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth) { ?>
+                                    <span id="addfilediv" style="float:left;">本次共添加了<span id="file_num"></span>文件,总大小<span id="file_size"></span>KB&nbsp;<a href="javascript:;" style="color: #5a8ee2;" onclick="delall();">全部删除</a></span>
+                                    <?php } ?>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tab-pane">
+                            <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth) { ?>
+                            <div id="reparynow">
+                                <div id="content_lanage" contenteditable="true" placeholder="添加日志..."></div>
+                                <div id="but_sub" style="display: none;">
+                                    <button class="btn btn-primary subit" id="add_language" type="button">发 表</button>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            <div id="log_list" style="padding: 0 20px; margin-top: 42px;">
+                                <volist name="market['log_list']" id="val" key="key">
+                                    <div class="ibox-content gray-bg" log-rel="{$val['log_id']}" style="margin-bottom: 18px;">
+                                        <div class="social-feed-separated clearfix">
+                                            <div class="social-feed-box">
+                                                <?php if ($val['del'] == 1 && (($market['is_deleted'] + $market['is_lock'] == 0) && $auth)) { ?>
+                                                <div class="pull-right social-action dropdown">
+                                                    <span data-toggle="dropdown" class="dropdown-toggle">
+                                                        <i style="font-size:20px;cursor:pointer" class="fa fa-angle-down"></i>
+                                                    </span>
+                                                    <ul class="dropdown-menu m-t-xs">
+                                                        <li>
+                                                            <a rel="{$val['log_id']}" href="javascript:void(0);" type="rMarketLog" onclick="del_confirm(this);">删除</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <?php } ?>
+                                                <div class="social-avatar">
+                                                    <img alt="image" style="width:35px;height:35px;" class="img-circle" src="{$role_list[$val['role_id']]['img']}">
+                                                    <a class="right_role_info name-colors" rel="1" href="javascript:void(0)">{$role_list[$val['role_id']]['full_name']}</a>&nbsp;&nbsp;
+                                                    <span class="text-muted">添加了一条活动日志</span>&nbsp;&nbsp;
+                                                    <span class="text-muted">{$val['create_date']}</span>
+                                                </div>
+                                                <div class="social-body">
+                                                    <span style="word-wrap:break-word;line-height: 21px;color: #000;">{$val['content']}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </volist>
+                                <div id="log_model" class="ibox-content gray-bg" log-rel="" style="margin-bottom: 18px; display: none;">
+                                    <div class="social-feed-separated clearfix">
+                                        <div class="social-feed-box">
+                                            <div class="pull-right social-action dropdown">
+                                                <span data-toggle="dropdown" class="dropdown-toggle">
+                                                    <i style="font-size:20px;cursor:pointer" class="fa fa-angle-down"></i>
+                                                </span>
+                                                <ul class="dropdown-menu m-t-xs">
+                                                    <li>
+                                                        <a rel="" href="javascript:void(0);" type="rMarketLog" onclick="del_confirm(this);">删除</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="social-avatar">
+                                                <img alt="image" style="width:35px;height:35px;" class="img-circle" src="">
+                                                <a class="right_role_info name-colors" rel="" href="javascript:void(0)"></a>&nbsp;&nbsp;
+                                                <span class="text-muted">添加了一条活动日志</span>&nbsp;&nbsp;
+                                                <span class="text-muted create_date"></span>
+                                            </div>
+                                            <div class="social-body">
+                                                <span style="word-wrap:break-word;line-height: 21px;color: #000;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-4" class="tab-pane">
+                            <div class="row" style="padding: 0 20px 10px 20px;;">
+                                <span style="font-size: 15px; color: #8a959e; font-weight: bold;">线索</span>
+                                <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth && checkPerByAction('market', 'edit')) { ?>
+                                <a href="javascript:void(0);" class="pull-right import_excel">导入</a>
+                                <?php } ?>
+                                <a href="javascript:void(0);" class="pull-right send_sms" style="margin: 0 10px;" model="leads">发送短信</a>
+                            </div>
+                            <table class="table table-hover table-striped table_thead_fixed leads">
+                                <empty name="leads">
+                                    <div style="background-color:#fff;">
+                                        <include file="Public:nodata" />
+                                    </div>
+                                <else/>
+                                    <tr>
+                                        <td style="width: 30px;padding-left: 20px">
+                                            <div class="checkbox checkbox-primary">
+                                                <input type="checkbox" class="check_all" />
+                                                <label for=""></label>
+                                            </div>
+                                        </td>
+                                        <td>联系人</td>
+                                        <td>{$leads_name}</td>
+                                        <td>负责人</td>
+                                        <td>添加时间</td>
+                                        <td>操作</td>
+                                    </tr>
+                                    <volist name="leads" id="val" key="key">
+                                        <tr>
+                                            <td style="width: 30px;padding-left: 20px">
+                                                <div class="checkbox checkbox-primary">
+                                                    <input name="market_id[]" class="check_list" type="checkbox" value="{$val['leads_id']}" />
+                                                    <label for=""></label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="{:U('leads/view', array('id' => $val['leads_id']))}" target="_blank">
+                                                    {$val['contacts_name']}
+                                                </a>
+                                            </td>
+                                            <td>{$val['name']}</td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="right_role_info" rel="{$val['owner_role_id']}">
+                                                    {$val['owner_role_full_name']}
+                                                </a>
+                                            </td>
+                                            <td>{$val['create_time']}</td>
+                                            <td>
+                                                <a href="{:U('leads/edit', array('id' => $val['leads_id']))}" target="_blank" style="margin-right: 15px;">
+                                                    <i class="fa fa-pencil"></i>&nbsp;编辑
+                                                </a>
+                                                <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth) { ?>
+                                                <a href="javascript:void(0);" rel="{$val['leads_id']}" model="leads" class="right_delete">
+                                                    <i class="fa fa-times"></i>&nbsp;移除
+                                                </a>
+                                                <?php } ?>
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                </empty>
+                            </table>
+                        </div>
+                        <div id="tab-5" class="tab-pane">
+                            <div class="row" style="padding: 0 20px 10px 20px;;">
+                                <span style="font-size: 15px; color: #8a959e; font-weight: bold;">客户</span>
+                                <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth && checkPerByAction('market', 'edit')) { ?>
+                                <a href="javascript:void(0);" class="pull-right" id="market_customer_add_r">添加</a>
+                                <?php } ?>
+                                <a href="javascript:void(0);" class="pull-right send_sms" style="margin: 0 10px;" model="customer">发送短信</a>
+                            </div>
+                            <table class="table table-hover table-striped table_thead_fixed customer">
+                                <empty name="customer">
+                                    <div style="background-color:#fff;">
+                                        <include file="Public:nodata" />
+                                    </div>
+                                <else/>
+                                    <tr>
+                                        <td style="width: 30px;padding-left: 20px">
+                                            <div class="checkbox checkbox-primary">
+                                                <input type="checkbox" class="check_all" />
+                                                <label for=""></label>
+                                            </div>
+                                        </td>
+                                        <td>客户</td>
+                                        <td>负责人</td>
+                                        <td>添加时间</td>
+                                        <td>操作</td>
+                                    </tr>
+                                    <volist name="customer" id="val" key="key">
+                                        <tr>
+                                            <td style="width: 30px;padding-left: 20px">
+                                                <div class="checkbox checkbox-primary">
+                                                    <input name="market_id[]" class="check_list" type="checkbox" value="{$val['customer_id']}" />
+                                                    <label for=""></label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="{:U('customer/view', array('id' => $val['customer_id']))}" target="_blank">
+                                                    {$val['name']}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="right_role_info" rel="{$val['owner_role_id']}">
+                                                    {$val['owner_role_full_name']}
+                                                </a>
+                                            </td>
+                                            <td>{$val['create_time']}</td>
+                                            <td>
+                                                <a href="{:U('customer/edit', array('id' => $val['customer_id']))}" target="_blank" style="margin-right: 15px;">
+                                                    <i class="fa fa-pencil"></i>&nbsp;编辑
+                                                </a>
+                                                <?php if (($market['is_deleted'] + $market['is_lock'] == 0) && $auth) { ?>
+                                                <a href="javascript:void(0);" rel="{$val['customer_id']}" model="customer" class="right_delete">
+                                                    <i class="fa fa-times"></i>&nbsp;移除
+                                                </a>
+                                                <?php } ?>
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                </empty>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="dialog-customer-list" title="关联客户">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="dialog-import" title="导入线索">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="dialog-role-list" title="活动负责人">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="dialog_add_executor_roles" title="选择活动参与人">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="dialog-file" title="添加附件">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none" id="dialog-sendsms" title="发送短信">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/js/litebox.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/images-loaded.min.js" type="text/javascript"></script>
+<script>
+var market_id = '{$market_id}';
+var del_or_lock = ("{$market['is_lock']}" + "{$market['is_deleted']}") == 0 ? false : true;
+$("#dialog-import").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 680,
+	maxHeight: 400,
+    position: ["center",100],
+    close: function () {
+        $('#dialog_open').val(0);
+    }
+});
+$(function(){
+    // 状态初始化颜色
+    var status_color = $('.market_status[rel="' + "{$market['status']}" + '"]').css('background-color');
+    if ("{$market['is_lock']}" == 1) {
+        status_color = '#ED5565';
+    }
+    $('#btn_status').css({'background-color': status_color, 'border': status_color});
+    // 负责人编辑按钮
+    $('#owner_role').hover(function () {
+        $('#owner_role_edit').show();
+    }, function () {
+        $('#owner_role_edit').hide();
+    });
+
+    $('#content_div').on('mouseenter', '.re_role_info', function () {
+        $(this).find(".addMember-remove").show();
+    });
+    $('#content_div').on('mouseleave', '.re_role_info', function () {
+        $(this).find(".addMember-remove").hide();
+    });
+
+    // 负责人修改
+    $('#owner_role_edit').on('click', function(){
+        if (del_or_lock) return false;
+        $('#dialog_open').val(1);
+        $("#dialog-role-list").dialog({
+            autoOpen: false,
+            modal: true,
+            width: 800,
+            maxHeight: 400,
+            draggable: false,
+            buttons: {
+                "确定": function () {
+                    var role_id = $('input:radio[name="owner"]:checked').val();
+                    var img = $('input:radio[name="owner"]:checked').attr('rel2');
+                    var full_name = $('input:radio[name="owner"]:checked').attr('rel');
+                    if (role_id) {
+                        $.ajax({
+                            url: '{:U("market/edit")}',
+                            data: {market_id: market_id, field: 'owner_role_id', value: role_id},
+                            type: 'POST',
+                            dataType: 'JSON',
+                            success: function(json){
+                                if (json.status == 1) {
+                                    $('#dialog_open').val(1);
+                                    swal(2);
+                                    swal({
+                                        title: json.msg,
+                                        text: '',
+                                        type: "success",
+                                    }, function () {
+                                        $('#owner_role img').attr('src', img);
+                                        $('#owner_role a').attr('title', full_name);
+                                        $('#owner_role a').attr('rel', role_id);
+                                        $('#owner_role_id').val(role_id);
+                                        $('#dialog_open').val(0);
+                                    });
+                                } else {
+                                    $('#dialog_open').val(1);
+                                    swal({
+                                        title: json.msg,
+                                        text: '',
+                                        type: "error",
+                                    }, function () {
+                                        $('#dialog_open').val(0);
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        $('#dialog_open').val(1);
+                        swal({title: '未选择负责人', type: 'info'}, function () {
+                            $('#dialog_open').val(0);
+                        });
+                    }
+                    $(this).dialog("close");
+                },
+                "取消": function () {
+                    $(this).dialog("close");
+                }
+            },
+            position: ["center", 100],
+            close: function () {
+                $('#dialog_open').val(0);
+                $(this).html('');
+            }
+        });
+        var id = $(this).parents('.re_role_info').find('.right_role_info').attr('rel');
+        $('#dialog-role-list').dialog('open');
+        $('#dialog-role-list').load("{:U('user/listDialog')}&id=" + id);
+    });
+
+    // 员工详情
+    $('.right_role_info').on('click', function(){
+        $('#dialog_open').val(1);
+        $role_id = $(this).attr('rel');
+        $('#dialog-role-info').dialog('open');
+        $('#dialog-role-info').load('{:U("user/dialoginfo","id=")}' + $role_id);
+    });
+
+    // 删除参与人
+    $('.addMember-remove').on('click', function(){
+        $('#dialog_open').val(1);
+        if (del_or_lock) return false;
+        var self = $(this);
+        var role_id = $(this).attr('rel');
+        var executor_role_ids = $('#executor_role_id').val();
+        executor_role_ids = executor_role_ids.replace(','+role_id+',', ',');
+        $.ajax({
+            url: "{:U('market/edit')}",
+            type: 'POST',
+            data: {market_id: market_id, field: 'executor_role_ids', value: executor_role_ids},
+            dataType: 'JSON',
+            success: function(json) {
+                if (json.status == 0) {
+                    swal({
+                        title: "操作失败!",
+                        text: json.info,
+                        type: "error",
+                    }, function () {
+                        $('#dialog_open').val(0);
+                    });
+                } else {
+                    self.parents('.re_role_info').remove();
+                }
+            }
+        });
+    });
+        
+    //任务状态修改
+    $('.right_market_edit_field').on('click', function(){
+        var self = $(this);
+        var field = $(this).attr('field');
+        var val = $(this).attr('val');
+        $.ajax({
+            type: "POST",
+            url: "{:U('market/edit')}",
+            data:{market_id: market_id, field: field, value: val},
+            success: function(json) {
+                if(json.status == 1){
+                    if (field == 'status') {
+                        var style = self.attr('rel1');
+                        status_name_span = self.html() + '<span class="caret" style="margin-left: 30px;"></span>';
+                        $('#btn_status').css({ 'background-color': style, 'border': style });
+                        $('#btn_status').html(status_name_span);
+                    } else {
+                        $('#dialog_open').val(1);
+                        swal({title: json.msg, type: 'success'}, function () {
+                            $('#dialog_open').val(0);
+                            $('#sidebar-container').load("{:U('market/view','market_id=')}" + market_id);
+                        });
+                    }
+                }else{
+                    $('#dialog_open').val(1);
+                    swal({
+                        title: "操作失败!",
+                        text: json.info,
+                        type: "error"
+                    }, function () {
+                        $('#dialog_open').val(0);
+                    });
+                }
+            }
+        });
+    });
+
+    // 参与人编辑
+    $('#add_executor_role').on('click', function(){
+        $('#dialog_open').val(1);
+        $('#dialog_add_executor_roles').dialog({
+            autoOpen: false,
+            modal: true,
+            width: 800,
+            maxHeight: 400,
+            draggable: false,
+            buttons: {
+                "确定": function () {
+                    var executor_role_ids = ',';
+                    var checked = $(".muti_role_id:checked");
+                    $.each(checked, function(key, val){
+                        var role_id = $(val).val();
+                        executor_role_ids += role_id + ',';
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: "{:U('market/edit')}",
+                        data: { market_id: market_id, field: 'executor_role_ids', value: executor_role_ids },
+                        dataType: 'JSON',
+                        success: function(json){
+                            if (json.status == 1) {
+                                $('.executor_role_info').remove();
+                                $.each(checked, function (key, val) {
+                                    var role_id = $(val).val();
+                                    var img = $(val).attr('rel1');
+                                    var full_name = $(val).attr('rel');
+                                    var model = $('#executor_role_model').clone(1);
+                                    model.find('a').attr('title', full_name);
+                                    model.find('a,span').attr('rel', role_id);
+                                    model.find('img').attr('src', img);
+                                    model.addClass('re_role_info');
+                                    model.addClass('executor_role_info');
+                                    model.removeClass('hidden');
+                                    model.attr('id', '');
+                                    $('#executor_role_model').before(model);
+                                });
+                                $('#executor_role_id').val(executor_role_ids);
+                            } else {
+                                $('#dialog_open').val(1);
+                                swal({
+                                        title: json.msg,
+                                        text: '',
+                                        type: 'error'
+                                    }, function(){
+                                        $('#dialog_open').val(0);
+                                    });
+                            }
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                "取消": function () {
+                    $(this).dialog("close");
+                }
+            },
+            position: ["center", 100],
+            close: function () {
+                $('#dialog_open').val(0);
+                $(this).html('');
+            }
+        });
+        var ids = $('#executor_role_id').val();
+        $('#dialog_add_executor_roles').dialog('open');
+        $('#dialog_add_executor_roles').load("{:U('user/mutiListDialog')}&check_ids=" + ids );
+    });
+
+    // 附件
+    $(".addfile").on('click', function () {
+        $('#dialog-file').dialog('open');
+        $('#dialog-file').load('{:U("file/addlogfile","r=RFileMarket&module=market&id=")}' + market_id);
+    });
+    $("#dialog-file").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 800,
+        maxHeight: 400,
+        position: ["center", 100],
+        buttons: {
+            "确定": function () {
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: '{:U("file/getfiles")}',
+                    data: $('#uploadForm').serialize(),
+                    async: false,
+                    success: function (data) {
+                        console.log(data);
+                        var result = data.data.file_list;
+                        $('#filecontent').removeAttr('class');
+                        var temp = '';
+                        if (result) {
+                            $.each(result, function (k, v) {
+                                temp += '<div class="showfile" id="del_' + v.file_id + '"><input type="hidden" name="file[]" value="' + v.file_id + '"/><img src="__PUBLIC__/productImg/' + v.pic + '">&nbsp;<span style="color:#646464;">' + v.name + '&nbsp;(&nbsp;' + v.size + 'KB&nbsp;)</span>&nbsp;&nbsp;<a href="javascript:;" rel="' + v.file_id + '" onclick="del_file(this);"><img src="__PUBLIC__/img/delfile.png"/></a></div>';
+                            });
+                            $('#addfilediv').before(temp);
+                            var old_file_num = Number($('#file_num').html());
+                            var old_file_size = Number($('#file_size').html());
+                            var new_file_num = old_file_num + data.data.file_num;
+                            var new_file_size = old_file_size + data.data.file_size;
+                            $('#file_num').html(new_file_num);
+                            $('#file_size').html(new_file_size);
+                            $('#nodata').hide();
+                        }
+                    }
+                });
+                $(this).dialog("close");
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        },
+        open: function () {
+            //显示对话框时触发
+            $('#dialog_open').val('1');
+        },
+        close: function (e, u) {
+            //关闭对话框时触发
+            $('#dialog_open').val('0');
+        }
+    });
+
+    // 日志
+    $('#content_lanage').on('input', function(){
+        var log_content = $(this).html();
+        if (log_content != '') {
+            $('#but_sub').show();
+        } else {
+            $('#but_sub').hide();
+        }
+    })
+    $('#add_language').on('click', function(){
+        var log_content = $('#content_lanage').html();
+        $('#add_language').attr('disabled', true);
+        $.ajax({
+            url: "{:U('market/add_log')}",
+            data: {market_id: market_id, content: log_content},
+            type: 'POST',
+            dataType: 'JSON',
+            success: function(json) {
+                if (json.status == 1) {
+                    var img = json.data.img;
+                    var full_name = json.data.full_name;
+                    var role_id = json.data.role_id;
+                    var log_id = json.data.log_id;
+                    var create_date = json.data.create_date;
+                    var model = $('#log_model').clone(1);
+                    model.attr('log-rel', log_id);
+                    model.find('ul a').attr('rel', log_id);
+                    model.find('.right_role_info').attr('rel', role_id);
+                    model.find('.right_role_info').html(full_name);
+                    model.find('.create_date').html(create_date);
+                    model.find('.social-body span').html(log_content);
+                    model.find('img').attr('src', img);
+                    model.attr('id', '');
+                    $('#log_model').before(model);
+                    model.show();
+                    $('#add_language').attr('disabled', false);
+                    $('#content_lanage').html('');
+                } else {
+                    $('#dialog_open').val(1);
+                    swal({
+                        title: json.msg,
+                        text: '',
+                        type: 'error'
+                        }, function(){
+                            $('#dialog_open').val(0);
+                        });
+                }
+            }
+        });
+    });
+
+    // 导入
+    $(".import_excel").click(function () {
+        $('#dialog_open').val(1);
+        $('#dialog-import').dialog('open');
+        $('#dialog-import').load('{:U("leads/excelimport")}');
+    });
+
+    /**
+     * 附件 如果是图片时 双击可查看大图
+     */
+    $('.litebox_file').liteBox({
+        revealSpeed:  400,
+        background:  'rgba(0,0,0,.8)',
+        overlayClose:  true,
+        escKey:  true,
+        navKey:  true,
+        errorMessage:  '图片加载失败.'
+    });
+
+    // 关联客户
+    $('#market_customer_add_r').on('click', function(){
+        $('#dialog_open').val(1);
+        $('#dialog-customer-list').dialog('open');
+        $('#dialog-customer-list').load('{:U("customer/listDialog")}&input_type=checkbox');
+    });
+
+    // 复选框
+    $('.tab-pane input.check_all').on('click', function () {
+        $(this).parents('table').find('input.check_list').prop('checked', $(this).is(':checked'));
+    });
+
+    // 发送短信
+    $('.send_sms').on('click', function () {
+        var model = $(this).attr('model');
+        var ids = new Array();
+        $('table.'+model).find('input.check_list:checked').each(function (key, val) {
+            ids.push($(val).val());
+        })
+        if (ids.length == 0) {
+            $('#dialog_open').val(1);
+            swal({ title: '请至少选择一个客户', type: 'info'}, function () {
+                $('#dialog_open').val(0);
+            });
+            return false;
+        }
+        $('#dialog_open').val(1);
+        $("#dialog-sendsms").dialog('open');
+        if (model == 'customer') {
+            $("#dialog-sendsms").load('{:U("customer/sendsms")}' + '&ids=' + ids.join(','));
+        } else if (model == 'leads') {
+            $("#dialog-sendsms").load('{:U("leads/sendsms")}' + '&ids=' + ids.join(','));
+        }
+    });
+
+    // 删除线索、客户与活动间关系
+    $('.right_delete').on('click', function () {
+        $('#dialog_open').val(1);
+        var self = $(this);
+        var model = $(this).attr('model');
+        var id = $(this).attr('rel');
+        swal({
+            title: "您确定要移除此联系吗?",
+            text: "移除后将无法恢复，请谨慎操作！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的，我要删除！",
+            cancelButtonText: "让我再考虑一下…",
+            closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: "{:U('market/delete')}",
+                    data: { id: id, model: model, market_id: market_id },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (json) {
+                        if (json.status == 1) {
+                            swal({ title: json.msg, type: 'success' }, function () {
+                                $('#dialog_open').val(0);
+                                self.parents('tr').remove();
+                            });
+                        } else {
+                            swal({ title: json.msg, type: 'error' }, function () {
+                                $('#dialog_open').val(0);
+                            });
+                        }
+                    }
+                });
+            } else {
+                $('#dialog_open').val(0);
+            }
+        });
+    });
+});
+// 短信dialog
+$("#dialog-sendsms").dialog({
+    autoOpen: false,
+    width: 650,
+    maxHeight: 500,
+    position: ["center", 100],
+    modal: true,
+    buttons: {
+        "发送": function () {
+            var sms_con = $('#sendsms_div>form textarea').val();
+            sms_con = $.trim(sms_con);
+            if (sms_con == '') {
+                swal({
+                    title: "短信内容不能为空！",
+                    text: "",
+                    type: "warning",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确认",
+                    closeOnConfirm: false
+                }, function () {
+                    swal.close();
+                    $('#sendsms_div>form textarea').focus();
+                });
+                return false;
+            }
+            $('#sendsms_div>form').submit();
+            $(this).dialog("close");
+        },
+        "取消": function () {
+            $(this).dialog("close");
+        }
+    },
+    close: function () {
+        $('#dialog_open').val(0);
+        $(this).html('');
+    }
+});
+
+$("#dialog-customer-list").dialog({
+    autoOpen: false,
+    modal: true,
+    width: 800,
+    maxHeight: 400,
+    position: ["center", 100],
+    buttons: {
+        "确定": function () {
+            var customer_ids = new Array();
+            $('input.customer_id:checked').each(function (key, val) {
+                customer_ids.push($(val).val());
+            });
+            if (customer_ids.length == 0) {
+                swal('请选择客户');
+                return false;
+            }
+            if ($(this).data('submit') == true) return false;
+            $(this).data('submit', true);
+            $.ajax({
+                url: '{:U("market/customer")}',
+                data: {market_id: market_id, customer_ids: customer_ids},
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (json) {
+                    if (json.status == 1) {
+                        swal({title: json.msg, type: 'success'}, function () {
+                            $("#dialog-customer-list").dialog("close");
+                            $('#sidebar-container').load("{:U('market/view','market_id=')}" + market_id, function () {
+                                $('a[href="#tab-5"]').click();
+                            });
+                        });
+                    } else {
+                        swal({title: json.msg, type: 'error'}, function () {
+                            $("#dialog-customer-list").dialog("close");
+                        });
+                    }
+                }
+            });
+        },
+        "取消": function () {
+            $(this).dialog("close");
+        }
+    },
+    close: function () {
+        $(this).data('submit', false);
+        $('#dialog_open').val(0);
+        $(this).html('');
+    }
+});
+//删除 函数
+function del_obj(id) {
+    $('#dialog_open').val(1);
+    var module = 'market';
+    $.post("{:U('file/filedel')}", { file_id: id, module: module }, function (data) {
+        if (data.status == 1) {
+            $('#del_' + id).remove();
+            swal({
+                title :"删除成功！",
+                text: "你的文件被删除了", 
+                type: "success"},
+                function(){
+                    $('#dialog_open').val(0);
+                });
+            if ($('.showfile').length > 0) {
+                return true;
+            } else {
+                $('#filecontent').addClass('hide');
+            }
+        } else {
+            swal({
+                title: "提示",
+                text: data.info,
+                type: "error"
+            }, function(){
+                $('#dialog_open').val(0);
+            });
+        }
+    }, "json"
+    );
+}
+//删除
+function del_file(obj) {
+    $('#dialog_open').val(1);
+    var id = $(obj).attr('rel');
+    swal({
+        title: "您确定要删除该文件吗?",
+        text: "删除后将无法恢复，请谨慎操作！",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的，我要删除！",
+        cancelButtonText: "让我再考虑一下…",
+        closeOnConfirm: false
+        }, function (isConfirm) {
+            $('#dialog_open').val(0);
+            if (isConfirm) {
+                del_obj(id);
+            } else {
+                return false;
+            }
+        });
+}
+//全部删除 函数
+function delall() {
+    $('#dialog_open').val(1);
+    swal({
+        title: "您确定要删除该文件吗?",
+        text: "删除后将无法恢复，请谨慎操作！",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的，我要删除！",
+        cancelButtonText: "让我再考虑一下…",
+        closeOnConfirm: false
+        },
+        function (isConfirm) {
+            $('#dialog_open').val(0);
+            if (isConfirm) {
+                $('.showfile').each(function () {
+                    var id = $(this).find('input[type="hidden"]').val();
+                    del_obj(id);
+                });
+            } else {
+                return false;
+            }
+    });
+}
+/*删除日志*/
+function del_confirm(e) {
+    $('#dialog_open').val(1);
+    swal({
+        title: "确定要删除沟通日志吗？",
+        text: "删除后将无法恢复，请谨慎操作！",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的，我要删除！",
+        cancelButtonText: '让我再考虑一下…',
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+    function (isConfirm) {
+        if (isConfirm) {
+            var log_id = $(e).attr('rel');
+            var type = $(e).attr('type');
+            $.get("{:U('log/delete')}", { r: type, id: log_id }, function (data) {
+                if (data != 0) {
+                    swal({
+                        title: "删除成功！",
+                        text: "",
+                        type: "success"
+                        }, function () {
+                            $('#dialog_open').val(0);
+                        });
+                    $("[log-rel='" + log_id + "']").remove();
+                } else {
+                    swal({
+                        title: "操作失败！",
+                        text: data.info,
+                        type: "error"
+                        }, function () {
+                            $('#dialog_open').val(0);
+                        })
+                    return false;
+                }
+            });
+        } else {
+            swal({
+                title: "已取消", 
+                text: "您取消了删除操作！",
+                type: "error"},
+                function () {
+                    $('#dialog_open').val(0);
+                });
+        }
+    });
+};
+</script>

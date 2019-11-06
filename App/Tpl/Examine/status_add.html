@@ -1,0 +1,37 @@
+<form class="form-horizontal" id="status_form1" action="{:U('examine/status_add')}" method="post" >
+	<table class="table" style="border:none;">
+		<tr>
+			<td style="border:none;text-align:right">名称：</td>
+			<td style="border:none;">
+				<input class="form-control" type="text" id="name" name="name"/>
+			</td>
+			<td style="border:none;">
+				<span style="color: red;line-height: 32px;">*</span>
+			</td>
+		</tr>
+		<tr>
+			<td style="border:none;text-align:right">审批设置：</td>
+			<td style="border:none;">&nbsp;&nbsp;&nbsp;&nbsp;
+				<div class="radio radio-info radio-inline">
+					<input type="radio" name="option" checked id="option1" value="0">
+					<label for="option1">用户自选审批人</label>&nbsp;&nbsp;
+				</div>
+				<div class="radio radio-info radio-inline">
+					<input type="radio" name="option" id="option2" value="1">
+					<label for="option2">设置审批流程</label>&nbsp;
+				</div>
+			</td>
+			<td style="border:none;">
+				<span style="color: red;line-height: 32px;">*</span>
+			</td>
+		</tr>
+		<tr>
+			<td style="border:none;text-align:right">描述：</td>
+			<td style="border:none;">
+				<textarea name="description" class="form-control" id="description"></textarea>
+			</td>
+			<td style="border:none;">
+			</td>
+		</tr>
+	</table>
+</form>

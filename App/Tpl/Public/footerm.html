@@ -1,0 +1,52 @@
+<div class="footer-menu footer-new">
+    <a href="{:U('Indexm/index')}" id="Indexm"><i class="iconfont">&#xe60a;</i>首页</a>
+    <a href="{:U('Leadsm/index')}" id="Leadsm"><i class="iconfont" >&#xe601;</i>线索</a>
+    <a href="{:U('Customerm/index')}" id="Customerm"><i class="iconfont" >&#xe6a7;</i>客户</a>
+    <a href="#" id="chat" name="chat" id=""><i class="iconfont">&#xe633;</i>聊天</a>
+    <a href="{:U('Userm/index')}" id="Userm"><i class="iconfont">&#xe63b;</i>我的</a>
+</div>
+<script>
+$(function () {
+    var i = "{$Think.MODULE_NAME}";
+    console.log(i);
+    if (i == 'Indexm'){
+        $('#Indexm').addClass("active");
+    }else if(i == 'Leadsm'){
+        $('#Leadsm').addClass("active");
+    }else if(i == 'Customerm'){
+        $('#Customerm').addClass("active");
+    }else if(i == 'Userm'){
+        $('#Userm').addClass("active");
+    }
+})
+
+$('#chat').click(function () {
+    var user_id = $("#chat1").val();
+    var name = $("#chat2").val();
+    $.ajax({
+        url : "{:U('Indexm/chatReg')}",
+        type: "POST",
+        data:{user_id,name},
+        success: function(msg) {
+            if (msg) {
+                console.log("五哥最帅");
+            } else {
+                console.log("五个最胖");
+            }
+        }
+    });
+});
+
+$('#addFriend').click(function(){
+    var user_id = $("#chat1").val();
+    $.ajax({
+        url:"{:U('Indexm/chatAddFriends')}",
+        type: "POST",
+        data:{user_id},
+        success:function (msg) {
+            showtab(msg);
+        }
+    });
+});
+
+</script>

@@ -1,0 +1,344 @@
+<style>
+    .list-group-val:hover {
+        background-color: #fafafb !important;
+    }
+    .list-group-item .task-members {
+        float: left;
+    }
+</style>
+<form id="process_step_form" method="post">
+    <input type="hidden" id="process_step_edit" value="0">
+    <table class="table table-hover table-striped table_thead_fixed sort-list" width="100%" border="0" cellspacing="1" cellpadding="0">
+        <thead>
+            <th>审批人</th>
+            <th>逻辑关系</th>
+            <th>操作</th>
+        </thead>
+        <tbody class="process">
+            <volist name="list" id="vo">
+                <tr class="process_step" step-id="{$vo['step_id']}">
+                    <td class="project-people" style="text-align:left !important;">
+                        <volist name="vo['role_list']" id="vo1">
+                            <a class="role_info" rel="{$vo1['role_id']}" title="{$vo1['full_name']}" href="javascript:void(0);">
+                                <img alt="image" class="img-circle" src="{$vo1['thumb_path']}" />
+                            </a>
+                        </volist>
+                    </td>
+                    <td>
+                        <div class="radio radio-info radio-inline">
+                            <input type="radio" id="relation_1_{$vo['step_id']}" name="relation_{$vo['step_id']}" class="relation" value="1" <if condition="$vo['relation'] eq 1">checked</if> >
+                            <label for="relation_1_{$vo['step_id']}">并</label>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="radio radio-info radio-inline">
+                            <input type="radio" id="relation_2_{$vo['step_id']}" name="relation_{$vo['step_id']}" class="relation" value="2" <if condition="$vo['relation'] eq 2">checked</if> >
+                            <label for="relation_2_{$vo['step_id']}">或</label>&nbsp;
+                        </div>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" class="edit_step" role-ids="{$vo['role_ids']}">编辑</a>
+                        <a href="javascript:void(0);" class="delete_step">删除</a>
+                    </td>
+                </tr>
+            </volist>
+            <tr id="process_step_model" class="hide" step-id="">
+                <td class="role_list project-people" style="text-align:left !important;">
+                </td>
+                <td>
+                    <div class="radio radio-info radio-inline and">
+                        <input type="radio" id="" name="" class="relation" value="1" checked />
+                        <label for="">并</label>&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="radio radio-info radio-inline or">
+                        <input type="radio" id="" name="" class="relation" value="2" />
+                        <label for="">或</label>&nbsp;
+                    </div>
+                </td>
+                <td>
+                    <a href="javascript:void(0);" class="edit_step" role-ids="">编辑</a>
+                    <a href="javascript:void(0);" class="delete_step">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="margin-left:5px;margin-top:15px;">
+        <a id="add_step" href="javascript:void(0)" rel="{$data['id']}">+ 添加审批步骤</a>
+    </div>
+    <div style="color:#ccc;margin-top:10px;">注：通过拖拽可以修改审批流程顺序</div>
+</form>
+<a id="role_info_model" class="role_info hide" rel="" title="" href="javascript:void(0);">
+    <img alt="image" class="img-circle" src="" />
+</a>
+<div style="display:none;" id="dialog-edit-step" title="编辑步骤">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="dialog-add-step" title="增加步骤">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="dialog-role-info" title="{:L('DIALOG_USER_INFO')}">
+    <div class="spiner-example">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function () {
+    // 排序
+    var old_step_ids;
+    $("#process_step_form table tbody").sortable({
+        connectWith: "table tbody",
+        start: function () {
+            old_step_ids = ',';
+            $.each($(".process_step"), function (key, val) {
+                if ($(val).attr('step-id')) {
+                    old_step_ids += $(val).attr('step-id') + ',';
+                }
+            });
+        },
+        stop: function () {
+            var step_ids = ',';
+            $.each($(".process_step"), function (key, val) {
+                step_ids += $(val).attr('step-id') + ',';
+            });
+            if (step_ids == old_step_ids) {
+                rtal('顺序无变化。', 'error');
+                return false;
+            }
+            $.ajax({
+                url: '{:U("exam/step_order")}',
+                data: {step_ids: step_ids},
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (res) {
+                    $('#process_step_edit').val(1); // 改审批流是否修改
+                    if (res.status != 1) {
+                        swal(res.msg, '', 'error');
+                    } else {
+                        rtal(res.msg);
+                        $('#process_step_edit').val(1); // 改审批流是否修改
+                    }
+                }
+            });
+        }
+    });
+
+    // 逻辑关系修改
+    $('.relation').on('change', function () {
+        var relation = $(this).val();
+        var step_id = $(this).parents('.process_step').attr('step-id');
+        $.ajax({
+            url: '{:U("exam/step_edit")}',
+            data: { relation: relation, step_id: step_id },
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (res) {
+                $('#process_step_edit').val(1); // 改审批流是否修改
+                if (res.status != 1) {
+                    swal(res.msg, '', 'error');
+                } else {
+                    rtal(res.msg);
+                }
+            }
+        });
+    })
+
+    // 步骤删除
+    $('.delete_step').on('click', function () {
+        var self = $(this);
+        swal({
+            title: "您确定要删除吗?",
+            text: '删除后数据无法恢复！',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                var step_id = self.parents('.process_step').attr('step-id');
+                // ajax_loading();
+                $.ajax({
+                    url: '{:U("exam/step_delete")}',
+                    data: {step_id: step_id},
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (res) {
+                        swal.close();
+                        if (res.status == 1) {
+                            self.parents('tr.process_step').remove();
+                            rtal(res.msg);
+                            $('#process_step_edit').val(1); // 改审批流是否修改
+                        } else {
+                            rtal(res.msg, 'error');
+                        }
+                    }
+                });
+            } else {
+                swal.close();
+            }
+        });
+    });
+
+    // 步骤添加
+    $('#dialog-add-step').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 800,
+        height: 500,
+        resizable: false,
+        position: ["center", 100],
+        buttons: {
+            "保存": function () {
+                if ($('.muti_role_id:checked').length == 0) {
+                    swal('最少选择一个审批人');
+                    return false;
+                }
+                var role_ids = ',';
+                var process_id = '{$process_id}';
+                var role_list = [];
+                $('.muti_role_id:checked').each(function (key, val) {
+                    role_ids += $(val).val() + ',';
+                    role_list[key] = val;
+                });
+                ajax_loading();
+                $.ajax({
+                    url: '{:U("exam/step_add")}',
+                    data: {role_ids: role_ids, process_id : process_id},
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (res) {
+                        swal.close();
+                        if (res.status) {
+                            var step_id = res.data.step_id;
+                            var model = $('#process_step_model').clone(1);
+                            model.addClass('process_step');
+                            model.removeClass('hide');
+                            model.removeAttr('id');
+                            model.attr('step-id', step_id);
+                            model.find('.radio.and input').attr('id', 'relation_1_' + step_id);
+                            model.find('.radio.and label').attr('for', 'relation_1_' + step_id);
+                            model.find('.radio.or input').attr('id', 'relation_2_' + step_id);
+                            model.find('.radio.or label').attr('for', 'relation_2_' + step_id);
+                            model.find('.radio input').attr('name', 'relation_' + step_id);
+                            model.find('.radio input').attr('name', 'relation_' + step_id);
+                            model.find('.edit_step').attr('role-ids', role_ids);
+                            $.each(role_list, function (key, val) {
+                                var role_model = $('#role_info_model').clone(1);
+                                role_model.removeAttr('id');
+                                role_model.removeClass('hide');
+                                role_model.attr('rel', $(val).val());
+                                role_model.attr('title', $(val).attr('rel'));
+                                role_model.find('img').attr('src', $(val).attr('rel1'));
+                                model.find('.project-people').append(role_model);
+                            });
+                            $('#process_step_model').before(model);
+                            $('#process_step_edit').val(1); // 改审批流是否修改
+                            rtal(res.msg);
+                        } else {
+                            swal(res.msg, '', 'error');
+                        }
+                    }
+                });
+                $(this).dialog("close");
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        },
+        close: function () {
+            dialog_destroy($(this));
+        }
+    });
+    $('#add_step').on('click', function () {
+        $('#dialog-add-step').dialog('open');
+        $('#dialog-add-step').load("{:U('user/mutiListDialog')}");
+    });
+
+    // 步骤编辑
+    $('#dialog-edit-step').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 800,
+        height: 500,
+        resizable: false,
+        position: ["center", 100],
+        buttons: {
+            "保存": function () {
+                if ($('.muti_role_id:checked').length == 0) {
+                    swal('最少选择一个审批人');
+                    return false;
+                }
+                var role_ids = ',';
+                var process_id = '{$process_id}';
+                var role_list = [];
+                var step_id = $('#dialog_step_id').val();
+                $('.muti_role_id:checked').each(function (key, val) {
+                    role_ids += $(val).val() + ',';
+                    role_list[key] = val;
+                });
+                if (role_ids == $('#dialog_check_ids').val()) {
+                    $(this).dialog("close");
+                    return false;
+                }
+                ajax_loading();
+                $.ajax({
+                    url: '{:U("exam/step_edit")}',
+                    data: {step_id: step_id, role_ids: role_ids},
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (res) {
+                        swal.close();
+                        if (res.status) {
+                            $('[step-id="' + step_id + '"] .project-people').html('');
+                            $.each(role_list, function (key, val) {
+                                var role_model = $('#role_info_model').clone(1);
+                                role_model.removeAttr('id');
+                                role_model.removeClass('hide');
+                                role_model.attr('rel', $(val).val());
+                                role_model.attr('title', $(val).attr('rel'));
+                                role_model.find('img').attr('src', $(val).attr('rel1'));
+                                $('[step-id="' + step_id + '"] .project-people').append(role_model);
+                                $('[step-id="' + step_id + '"] .edit_step').attr('role-ids', role_ids);
+                            });
+                            $('#process_step_edit').val(1); // 改审批流是否修改
+                            rtal(res.msg);
+                        } else {
+                            swal(res.msg, '', 'error');
+                        }
+                    }
+                });
+                $(this).dialog("close");
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        },
+        close: function () {
+            dialog_destroy($(this));
+        }
+    });
+    $('.edit_step').on('click', function () {
+        var role_ids = $(this).attr('role-ids');
+        var step_id = $(this).parents('.process_step').attr('step-id');
+        $('#dialog-edit-step').dialog('open');
+        $('#dialog-edit-step').load("{:U('user/mutiListDialog')}&check_ids=" + role_ids + '&step_id=' + step_id);
+    });
+})
+</script>

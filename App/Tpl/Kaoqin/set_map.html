@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>编辑折线、多边形、圆</title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <!-- <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=84a2c54ee72a8b73dac2d010e50ff1cd&plugin=AMap.PolyEditor,AMap.CircleEditor,AMap.Autocomplete,AMap.PlaceSearch"></script> -->
+    <!-- <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script> -->
+	<script src="__PUBLIC__/style/js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=grWGxlWOpGc1D0kVToxUgD6bwwjo35Tr"></script>
+    <style>
+        #container {
+            width: 100%;
+            /* height: 380px; */
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div class="button-group">
+    <input type="button" class="button" value="开始编辑圆" onClick="editor.startEditCircle()"/>
+    <input type="button" class="button" value="结束编辑圆" onClick="editor.closeEditCircle()"/>
+</div>
+<div id="myPageTop">  
+    <table>
+        <tr>
+            <td>
+                <label>请输入关键字：</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="tipinput"/>
+            </td>
+        </tr>
+    </table>
+    <div id="searchResultPanel" style="border:5px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+</div>
+<script>
+    var y = window.parent.$('#y').val() ? window.parent.$('#y').val() : 113.766315;
+    var x = window.parent.$('#x').val() ? window.parent.$('#x').val() : 34.724581;  
+    var radius = window.parent.$('#radius').val() ? window.parent.$('#radius').val() : 200;
+
+	// 百度地图API功能
+    var map = new BMap.Map("container");    // 创建Map实例
+    var point = new BMap.Point(y, x);
+    map.centerAndZoom(point, 17);  // 初始化地图,设置中心点坐标和地图级别
+
+    var circle = new BMap.Circle(point, radius);
+    circle.setFillColor("#38AFF8"); //填充颜色
+    circle.setStrokeColor("#0D9BF2"); //边线颜色
+    circle.setStrokeWeight(1);
+    circle.setStrokeOpacity(1);
+    map.addOverlay(circle);   
+
+    var editor = {};
+    editor.startEditCircle = function () {
+        circle.enableEditing();
+    }
+    editor.closeEditCircle = function () {
+        circle.disableEditing();
+        let _point = circle.getCenter();
+        window.parent.setShippingResult(_point.lng +','+ _point.lat, circle.getRadius());
+        regeocoder(_point.lng, _point.lat);
+    }
+
+    function regeocoder(y, x) {  //逆地理编码
+        var myGeo = new BMap.Geocoder();
+        // 根据坐标得到地址描述    
+        myGeo.getLocation(new BMap.Point(y, x), function (result) {
+            if (result) {
+                window.parent.reg_address(result.address);
+            }
+        });
+    }
+    
+
+    // 添加地图类型控件
+    var top_left_control = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_TOP_LEFT });// 左上角，添加比例尺
+    var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+    //添加控件和比例尺
+    map.addControl(top_left_control);
+    map.addControl(top_left_navigation);
+
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    
+    // 百度地图API功能
+    function G(id) {
+        return document.getElementById(id);
+    }
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+		{"input" : "tipinput"
+		,"location" : map
+	});
+	ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+	    var str = "";
+		var _value = e.fromitem.value;
+		var value = "";
+		if (e.fromitem.index > -1) {
+			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		}    
+		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+		value = "";
+		if (e.toitem.index > -1) {
+			_value = e.toitem.value;
+			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		}    
+		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+		// G("searchResultPanel").innerHTML = str;
+	});
+	var myValue;
+	ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+	var _value = e.item.value;
+		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		// G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+		setPlace();
+	});
+	function setPlace(){
+		map.clearOverlays();    //清除地图上所有覆盖物
+		function myFun(){
+			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+			map.centerAndZoom(pp, 18);
+			map.addOverlay(new BMap.Marker(pp));    //添加标注
+		}
+		var local = new BMap.LocalSearch(map, { //智能搜索
+		  onSearchComplete: myFun
+		});
+		local.search(myValue);
+	}
+
+
+</script>
+</body>
+</html>

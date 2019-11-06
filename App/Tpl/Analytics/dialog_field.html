@@ -1,0 +1,122 @@
+<style>
+    .ccc { border: 1px solid #ccc; }
+    .res { border: 1px solid res; }
+    #fields>div { height: 330px; padding: 0 5px; }
+    #fields>div:nth-child(2) { padding: 0 15px; }
+    #fields .checkbox { margin: 10px; }
+    #fields label p { width: 150px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #fields label p span { font-weight: bold; color: #2898E0; }
+    #fields-change span { width: 40px; height: 40px; font-size: 20px; line-height: 36px; text-align: center; margin: 0 17px; }
+    #fields-change span.field-chang-true { color: #1ab394; border: 1px solid #1ab394; cursor: pointer }
+    #fields-change span.field-chang-false { color: #888; border: 1px solid #ccc; cursor: not-allowed }
+    #fields-change span:nth-child(1) { margin-top: 100px; margin-bottom: 20px; }
+    .field-title { padding-bottom: 5px; font-size: 14px; color: #555; padding-left: 5px; }
+</style>
+<div class="row field-title" style="width: 100%;">
+    <div class="col-md-4 col-md-offset-1">
+        <b>隐藏字段</b>
+    </div>
+    <div class="col-md-4 col-md-offset-2">
+        <b>展示字段</b>
+    </div>
+</div>
+<div id="fields" class="row" style="width: 100%; margin: 0;">
+    <div class="fields fields-hide col-md-4 col-md-offset-1 nicescroll ccc">
+        <volist name="fields['hide']" id="val" key="k">
+            <div class="checkbox checkbox-primary">
+                <input id="h_{$k}" class="field" type="checkbox" value="{$val['field']}">
+                <label for="h_{$k}" title="{$val['name']}">
+                    <p>
+                        <if condition="$val['mudule'] neq ''">
+                            [<span>{$val['mudule']}</span>]
+                        </if>
+                        {$val['name']}
+                    </p>
+                </label>
+            </div>
+        </volist>
+    </div>
+    <div id="fields-change" class="col-md-2">
+        <span class="fa fa-arrow-right field-chang-false"></span>
+        <span class="fa fa-arrow-left field-chang-false"></span>
+    </div>
+    <div class="fields fields-show col-md-4 nicescroll ccc">
+        <volist name="fields['show']" id="val" key="k">
+            <div class="checkbox checkbox-primary">
+                <input id="s_{$k}" class="field" type="checkbox" value="{$val['id']}" rel="{$val['field']}">
+                <label for="s_{$k}" title="{$val['name']}">
+                    <p>
+                        <if condition="$val['mudule'] neq ''">
+                            [<span>{$val['mudule']}</span>]
+                        </if>
+                        {$val['name']}
+                    </p>
+                </label>
+            </div>
+        </volist>
+    </div>
+</div>
+<script>
+$(function () {
+    $(".nicescroll").niceScroll({
+        cursorcolor: "#999",//#CC0071 光标颜色 
+        cursoropacitymax: 0.4, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
+        touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
+        cursorwidth: "5px", //像素光标的宽度 
+        cursorborder: "0", //     游标边框css定义 
+        cursorborderradius: "3px",//以像素为光标边界半径 
+        autohidemode: false, //是否隐藏滚动条 
+        zindex: 100,
+        background: "#F3F3F5",//滚动条背景色
+    });
+
+    $('#fields input.field').on('change', function () {
+        let type = $(this).parents('.fields').is('.fields-show');
+        if ($('#fields input.field:checked').length > 0) {
+            if (type) {
+                $('.fields-hide').find('.field').prop('checked', false);
+                $('#fields-change .fa-arrow-left').addClass('field-chang-true');
+                $('#fields-change .fa-arrow-right').addClass('field-chang-false');
+                $('#fields-change .fa-arrow-left').removeClass('field-chang-false');
+                $('#fields-change .fa-arrow-right').removeClass('field-chang-true');
+            } else {
+                $('.fields-show').find('.field').prop('checked', false);
+                $('#fields-change .fa-arrow-left').addClass('field-chang-false');
+                $('#fields-change .fa-arrow-right').addClass('field-chang-true');
+                $('#fields-change .fa-arrow-left').removeClass('field-chang-true');
+                $('#fields-change .fa-arrow-right').removeClass('field-chang-false');
+            }
+        } else {
+            $('#fields-change .fa-arrow-left').addClass('field-chang-false');
+            $('#fields-change .fa-arrow-right').addClass('field-chang-false');
+            $('#fields-change .fa-arrow-left').removeClass('field-chang-true');
+            $('#fields-change .fa-arrow-right').removeClass('field-chang-true');
+        }
+    });
+
+    $('#fields-change span').on('click', function () {
+        if ($(this).is('.field-chang-false')) return false;
+        let show = $(this).is('.fa-arrow-right');
+        if (show) {
+            $('#fields .fields-hide .field:checked').each(function (key, val) {
+                let temp = $(val).parents('.checkbox').clone(1);
+                temp.find('.field').prop('checked', false);
+                $('#fields .fields-show').append(temp);
+                $(val).parents('.checkbox').remove();
+            });
+        } else {
+            $('#fields .fields-show .field:checked').each(function (key, val) {
+                let temp = $(val).parents('.checkbox').clone(1);
+                temp.find('.field').prop('checked', false);
+                $('#fields .fields-hide').append(temp);
+                $(val).parents('.checkbox').remove();
+            });
+        }
+        $('#fields-change .fa-arrow-left').addClass('field-chang-false');
+        $('#fields-change .fa-arrow-right').addClass('field-chang-false');
+        $('#fields-change .fa-arrow-left').removeClass('field-chang-true');
+        $('#fields-change .fa-arrow-right').removeClass('field-chang-true');
+    });
+                
+});
+</script>

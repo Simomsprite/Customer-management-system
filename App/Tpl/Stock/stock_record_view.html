@@ -1,0 +1,115 @@
+<include file="Public:header" />
+<style>
+	#form1 .form-control {
+		display: inline-block;
+	}
+</style>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+	    <div class="col-lg-12">
+			<div class="title-bar"> 
+				<div class="row " id="title-show">
+					<ul class="nav pull-left" style="margin:0px 10px 0px 20px;">
+						<span>
+							<img src="__PUBLIC__/img/contract_view_icon.png" style="margin-bottom:9px;" alt="">
+						</span>
+						<span style="font-size:21px;margin-left:5px">&nbsp;&nbsp;&nbsp;出入库明细</span>&nbsp;&nbsp; 
+					</ul>
+					<a href="#" class="btn btn-info pull-right" style="margin-right: 15px;">
+						<i class="glyphicon glyphicon-print"></i> 打印
+					</a>
+				</div>
+			</div>
+			<div class="tabs-container">
+				<div class="pull-left" style="width:100%;" >
+					<div class="ibox-content" style="padding:15px 0 0 20px;background:#fff;" id="left-content">
+						<div class="tab-content ">
+							<div class="tab-pane in active" id="tab1">
+								<div class="panel-body">
+									<include file="Public:alert" />
+									<form id="form1" action="{:U('purchase/into_warehouse')}" method="post">
+										
+										<div style="margin: 10px 0;">
+											<div style="width: 45%;display: inline-block;">
+												仓库：华中仓库
+											</div>
+											<div style="width: 45%;display: inline-block;">
+												单号：IN-20180530-160256
+											</div>
+										</div>
+										<div style="margin: 10px 0;">
+											<div style="width: 45%;display: inline-block;">
+												入库日期：2018-05-30 10:14
+											</div>
+											<div style="width: 45%;display: inline-block;">
+												
+											</div>
+										</div>
+
+										<table class="table table-bordered" width="95%">
+											<tr style="background-color:#f9fafc;text-align:center;">
+												<td style="background-color:#f9fafc;padding:14px;color:#999">&#12288;&#12288;</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">商品编码</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">商品名称</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">规格</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">单位</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">入库数量</td>
+												<td style="background-color:#f9fafc;padding:14px;color:#999">备注</td>
+											</tr>										
+											<tr style="text-align:center;padding:14px;color:#666">
+												<td>1</td>
+												<td>P8478358347</td>
+												<td>刘小萌</td>
+												<td>内存：8G，存储：64G</td>                                
+												<td>个</td>
+												<td>
+													1000
+												</td>
+												<td>
+													调拨出库
+												</td>
+											</tr>
+											<tr style="text-align:center;padding:14px;color:#666">
+												<td>2</td>
+												<td>P8478358347</td>
+												<td>刘小萌</td>
+												<td>内存：8G，存储：64G</td>                                
+												<td>个</td>
+												<td>
+													100
+												</td>
+												<td>
+													调拨出库
+												</td>
+											</tr>
+										</table>
+
+										<div style="margin: 10px 0;">
+											<div style="width: 45%;display: inline-block;">
+												经办人：小王八
+											</div>
+											<div style="width: 45%;display: inline-block;">
+												制单人：小可爱
+											</div>
+										</div>
+										<div>
+											<div style="width: 45%;display: inline-block;">
+												备注：不啦不啦不啦不啦不啦不啦不啦不啦不啦不啦
+											</div>
+										</div>
+									</form>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<include file="Public:footer" />	

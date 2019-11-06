@@ -1,0 +1,54 @@
+<style type="text/css">
+	#form_contacts table tr td:nth-child(odd){
+		text-align:right;
+		border:none;
+		width: 120px;
+	}
+	#form_contacts table tr td:nth-child(even){
+		border:none;
+	}
+</style>
+<form action="{:U('product/spec_edit')}" id="form_dialog" method="post">
+	<input type="hidden" name="spec_id" value="{$_GET['spec_id']}">
+	<table class="table" style="border:none;">
+		<tr>
+			<td>规格名称：</td>
+			<td>
+				<input type="text" name="name" value="{$spec['name']}" class="form-control" style="width: 85%;" required>
+			</td>
+		</tr>
+		<volist name="spec['spec_val']" id="vo" key="k">
+			<tr>
+				<td>规格值：</td>
+				<td>
+					<input type="text" name="spec_val[]" value="{$vo}" class="form-control spec_val" style="display: inline-block;width: 85%;" >
+					<if condition="$k == 1">
+						<a href="javascript:void(0);" id="add_num">+增加</a>
+					<else />
+						<a href="javascript:void(0);" class="remove_num">-移除</a>
+					</if>
+				</td>
+			</tr>
+		</volist>
+		<input type="hidden" id="add_flag">
+	</table>
+</form>
+<script type="text/javascript">
+	//增加规格值
+	var num = 1;
+	$('#add_num').click(function(){
+		num++;
+		$('#add_flag').before('<tr>\
+			<td>规格值：</td>\
+			<td>\
+				<input type="text" name="spec_val[]" class="form-control spec_val" style="display: inline-block;width: 85%;" >\
+				<a href="javascript:void(0);" class="remove_num">-移除</a>\
+			</td>\
+		</tr>');
+	});
+
+	//移除规格值
+	$(document).on('click','.remove_num',function(){
+		$(this).parent().parent().remove();
+	});
+</script>

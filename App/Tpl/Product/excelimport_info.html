@@ -1,0 +1,95 @@
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/jquery.form.js"></script>
+<style>
+	.ccc{ border: 1px solid indianred;}
+	#importcontent .row { width: 99%; margin-bottom: 15px; }
+	#importcontent label { margin-left: 20px; font-size: 15px; }
+</style>
+<form id="form_excelImport_info" action="" id="excelimport_dialog" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="m" value="product"/>
+	<input type="hidden" name="a" value="excelImport"/>
+	<table class="table table-hover">
+		<tr>
+			<td class="tdleft" width="20%">{:L('FILE_SPECIFICATION')}</td> 
+			<td>{:L('IMPORT_EXCEL_FILE_PAY_ATTENTION_TO_THE_CHOICE_OF_THE_DATA_CONTENT')}
+			<p>{:L('ALLOW_TYPE_XLS_NO_MORE_THAN_20MB_FILE_TOTAL_SIZE')}</p></td>
+		</tr>
+		<!-- <tr>
+			<td class="tdleft" width="20%">{:L('ERROR_HANDLING')}</td> 
+			<td>
+				<input id="ownership" type="radio" checked="checked" value="2" name="is_jump">{:L('TERMINATION')}
+				<input id="ownership1" type="radio" value="1" name="is_jump">{:L('SKIP')}
+			</td>
+		</tr> -->
+		<tr>
+			<td class="tdleft">{:L('SELECT_IMPORT_FILE')}</td>
+			<td><p id="attachment1"><input type="file" name="excel"/></p><p style="color:red">{:L('IMPORT_FILE_PLEASE_BE_SURE_TO_USE_PROPRIETARY_DATA_WHEN_THE_IMPORT_TEMPLATE')}&nbsp;<a href="{:U('product/excelImportDownload', $spec)}">{:L('NOKIA_MONITOR_TEST')}</a></p></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				<div style="float: right;">
+					<button type="button" id="submit" class="btn btn-primary" role="button" ><span class="ui-button-text">确定</span></button>
+					<button type="button" class="btn" role="button" aria-disabled="false" onclick="javascript:$('#dialog-import').dialog('close');"><span class="ui-button-text">取消</span></button>
+				</div>
+			</td>
+		</tr>
+	</table>
+</form>
+<div id="importcontent" style="display:none">
+	<div class="row">
+		<p style="margin-left: 20px; font-size: 16px; color: #31708f; margin-bottom: 15px;"></p>
+	</div>
+	<div class="row hide model">
+		<div class="col-sm-2">
+			<label>第1行：</label>
+		</div>
+		<div class="col-sm-10 error">
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$("#submit").click(function(){
+	ajax_loading('数据导入中');
+	$("#form_excelImport_info").ajaxSubmit({
+		type:'post',
+		url:'{:U("product/excelImport")}',
+		success:function(res){
+			if(res.status == 1){
+				$.ajax({
+					url:'{:U("product/product_info_import")}',
+					data: { file: res.data },
+					type: 'POST',
+					dataType: 'JSON',
+					success: function (res) {
+						if (res.status == 1) {
+							swal('导入成功', '', 'success');
+							$('#dialog-import').dialog('close');
+						} else {
+							$('#importcontent p').html(res.msg);
+							$.each(res.data, function (key, val) {
+								let model = $('#importcontent .model').clone();
+								model.removeClass('model');
+								model.removeClass('hide');
+								model.find('label').html('第'+ key +'行：');
+								$.each(val, function (k, v) {
+									let p = $('<p class="text-danger"></p>');
+									p.html(v);
+									model.find('.error').append(p);
+								});
+								$('#importcontent').append(model);
+							});
+							$('[aria-describedby="dialog-import"] .ui-dialog-buttonpane').show();
+							swal('导入失败', res.msg, 'error');
+							$('#form_excelImport_info').hide();
+							$('#importcontent').show();
+						}
+					}
+				});
+			}else{
+				alert_crm('上传文件出错！');
+			}
+		}
+	});
+});
+
+</script>

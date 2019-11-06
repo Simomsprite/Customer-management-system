@@ -1,0 +1,20 @@
+<table class="table table-bordered" style="width: 95%;">
+	<empty name="spec_list">
+		<tr>
+			<td>该产品信息关联的"产品分类"没有设置规格属性，<a href="{:U('product_info/spec')}" target="_blank">点击前往设置</a></td>
+		</tr>
+	<else /> 
+		<volist name="spec_list" id="vo">							
+			<tr>
+				<td>
+					<span class="spec_name">{$vo['name']}&#12288;&#12288;</span>
+					<volist name="vo.val_list" id="vv">
+						<label class="spec_val" style="cursor: pointer;">
+							<input type="checkbox" name="list[{$vo['name']}][]" value="{$vv}">{$vv}&#12288;&#12288;
+						</label>
+					</volist>
+				</td>
+			</tr>
+		</volist>
+	</empty>
+</table>

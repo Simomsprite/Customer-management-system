@@ -1,0 +1,41 @@
+<div class="modal-header" style="border:none;">
+    <b style="font-size:16px;">版本及授权信息</b>
+    <button type="button" class="close" style="font-size:34px;font-weight:400;color:#fff;" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+</div>
+<div class="modal-body col-sm-12">
+    <div class="form-horizontal m-t" >
+		<div class="form-group ">
+			<label class="control-label col-sm-3" style="padding-top:0px;">版本信息</label>
+			<div class="col-sm-6">CRM2.0 - beta{:C('VERSION')}</div>
+			<div class="col-sm-3 pull-left"><a target="_blank" href="http://www.pdcrm.com/update/">查看更新日志</a></div>
+		</div>
+		<div class="form-group ">
+			<label class="control-label col-sm-3"></label>
+			<div class="col-sm-9">发布日期：{:date('Y年m月d日',strtotime(C('RELEASE')))}</div>
+		</div>
+		<div class="form-group ">
+			<label class="control-label col-sm-3" style="padding-top:0px;">授权信息</label>
+			<div class="col-sm-6">系统授权人数：{$authorize_setting['NUM']}人</div>
+			<div class="col-sm-3 pull-left">
+				<a target="_blank" href="http://help.pdcrm.com/index.php?m=help&a=view&help_id=128&help_menu_id=3" title="点击查看如何增加授权人数">增加授权人数</a>
+			</div>
+		</div>
+		<div class="form-group ">
+			<label class="control-label col-sm-3"></label>
+			<div <if condition = "$days_remaining lt 30">style="color:#f96868;" class="col-sm-6 crm_heart"<else />class="col-sm-6"</if>>到期时间：{$authorize_setting['ENDTIME']}</div>
+			<div class="col-sm-3 pull-left">
+				<if condition = "$days_remaining lt 30">
+					<a target="_blank" href="http://help.pdcrm.com/index.php?m=help&a=view&help_id=129&help_menu_id=3" title="点击查看如何续费">如何续费</a>
+				</if>
+			</div>
+		</div>
+		<div class="form-group ">
+			<label class="control-label col-sm-3"></label>
+			<if condition = "$call_setting['CENTER']">
+				<div class="col-sm-9">呼叫中心人数：{$call_setting['NUM']}人</div>
+			<else />
+				<div class="col-sm-9">呼叫中心：<a target="_blank" href="{:U('call/setting')}" title="查看详情">未开启</a></div>
+			</if>
+		</div>
+    </div>
+</div>

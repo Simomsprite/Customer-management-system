@@ -1,0 +1,216 @@
+<include file="Public:header" />
+<script src="__PUBLIC__/js/chart/highcharts.js"></script>
+<script src="__PUBLIC__/js/chart/modules/exporting.js"></script>
+<style>
+	body{
+		overflow-y: hidden;
+	}
+	/*悬浮提示信息框样式*/
+	.fa-info-circle {
+		font-size: 16px;
+		color: rgb(249, 94, 0);
+		cursor: pointer;
+	}
+	.popover {
+	 	color: rgb(249, 94, 0);
+	}
+	/*悬浮提示信息框样式*/
+</style>
+<div class="wrapper wrapper-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<include file="Public:analytics_left" />
+				<div class="col-lg-10">
+					<div class="ibox-content" style="padding-bottom:10px;border-bottom: none;">
+						<include file="Public:alert" />
+						<form id="search_form" class="form-group" method="get" style="margin-bottom: 0px;">
+							<input type="hidden" name="m" value="business" />
+							<input type="hidden" name="a" value="trend_number" />
+							<div class="row" style="height: 45px;">
+								<div class="col-lg-4">
+									<div class="pull-left" >
+										<span style="font-size: 18px;color: #000;">商机数量趋势分析</span>
+										<i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="注：点击图表右侧的类型，可隐藏或显示对应的折线趋势" data-original-title="" title=""></i>
+									</div>
+								</div>
+								<div class="col-lg-5">
+								</div>
+								<div class="col-lg-3">
+									<div class="pull-right" style="margin-right: 15px;">
+										<div class="checkbox checkbox-primary">
+											<input type="hidden" name="user_range" value="{$_GET['user_range']}" />
+											<input id="user_range" type="checkbox" <if condition="$_GET['user_range'] eq 'sale'">checked</if> />
+											<label for="user_range">仅显示销售岗数据</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12" >
+									<div class="nav pull-left" style="margin:2px 0 0 0px;width: 165px;">
+										<div class="input-group">
+											<input type="text" name="year" onFocus="WdatePicker({dateFmt:'yyyy'})" value="{$_GET['year']}" autocomplete="off" class="form-control Wdate" placeholder="年份" />
+										</div>
+									</div>
+									<div class="nav pull-left" style="margin:2px 0 0 15px;width: 165px;">
+										<div class="input-group">
+											<input type="text" name="month" onFocus="WdatePicker({dateFmt:'MM'})" value="{$_GET['month']}" autocomplete="off" class="form-control Wdate" placeholder="月份" />
+										</div>
+									</div>
+									<div class="nav pull-left" style="margin:2px 0 0 15px;width: 165px;">
+										<div class="input-group">
+											<select class="form-control select2" style="min-width:165px;max-width: 165px;height: 0px;" name="department" id="department" onchange="changeRole()">
+												<option class="all" value="all">{:L('ALL')}部门</option>
+												<volist name="departmentList" id="vo">
+													<option value="{$vo.department_id}" <if condition="$_GET['department'] eq $vo['department_id']">selected</if>>{$vo.name}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+									<div class="nav pull-left" style="margin:2px 0 0 15px;width: 165px;">
+										<div class="input-group">
+											<select class="form-control select2" style="min-width:165px;max-width: 165px;height: 0px;" name="role" id="role" onchange="changeCondition()">
+												<option class="all" value="all">{:L('ALL')}员工</option>
+												<volist name="roleList" id="vo">
+													<option value="{$vo.role_id}" <if condition="$_GET['role'] eq $vo['role_id']">selected</if>>{$vo.role_name}-{$vo.user_name}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+									<div class="nav pull-left" style="margin:2px 0 0 15px;width: 165px;">
+										<div class="input-group">
+											<select class="form-control" style="min-width:165px;max-width: 165px;line-height: 35px;" name="status_type_id" id="status_type_id" >
+												<option value="">全部商机组</option>
+												<volist name="type_list" id="vo">
+													<option value="{$vo.id}" <if condition="$_GET['status_type_id'] eq $vo['id']">selected</if>>{$vo.name}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+									<div class="pull-left" style="margin-left: 20px;">
+										<button type="submit" id="analytics_search" class="btn btn-primary">{:L('SEARCH')}</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div class="ibox-content clearfix" id="right_height" style="border-top: none;">
+						<div id="content_1" class="th_content full-height-scroll">
+							<div id="container" style="min-width:400px;height:400px"></div>
+							<!-- 表格 -->			
+							<div class="col-lg-12" style="margin: 10px 0px 10px 5px;">
+								<div style="overflow: auto;">
+									<table class="table table-hover table-striped table_thead_fixed table-bordered" id="export">
+										<tr>
+											<td style="min-width: 80px;">
+												{$_GET['year']}<if condition="$_GET['month']">-</if>{$_GET['month']}
+											</td>
+											<volist name="tab_info.date_list" id="vo">
+												<td style="min-width: 70px;">{$vo}</td>
+											</volist>
+											<td style="min-width: 80px;">合计</td>
+										</tr>
+										<tr>
+											<td>新增数</td>
+											<volist name="tab_info.create_list" id="vo">
+												<td>{$vo}</td>
+											</volist>
+											<td>{$tab_info['total_info']['total_create_count']}</td>
+										</tr>
+										<tr>
+											<td>赢单数 <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="按商机成交(即商机状态变更为完成收款或项目成功)的时间节点统计"></i></td>
+											<volist name="tab_info.success_list" id="vo">
+												<td>{$vo}</td>
+											</volist>
+											<td>{$tab_info['total_info']['total_success_count']}</td>
+										</tr>
+										<tr>
+											<td>赢单率 <i class="fa fa-info-circle" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" data-content="时间范围内赢单数的赢单率"></i></td>
+											<volist name="tab_info.success_rate_list" id="vo">
+												<td>{$vo}</td>
+											</volist>
+											<td>{$tab_info['total_info']['total_success_rate']}</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	// 点击切换"仅销售"或"全部"
+	$('#user_range').click(function(){
+		//console.log($(this).is(':checked'));
+		if ($(this).is(':checked') == true) {
+			$('input[name="user_range"]').val('sale');
+		} else {
+			$('input[name="user_range"]').val('all');
+		}
+		$('#search_form').submit();
+	});
+
+
+	// 商机数量趋势折线图
+	$('#container').highcharts({
+		title: {
+			text: '商机新增数量及赢单数量趋势折线图'
+		},
+		yAxis: {
+			title: {
+				text: '商机数量'
+			}
+		},
+		legend: {
+			layout: 'vertical',
+			align: 'right',
+			verticalAlign: 'middle'
+		},
+		// plotOptions: {
+		// 	series: {
+		// 		label: {
+		// 			connectorAllowed: false
+		// 		},
+		// 		pointStart: 2010
+		// 	}
+		// }, 默认X轴信息，不适用，下方改写代替
+		xAxis: {
+			categories: {$js_categories}
+		},
+		series: {$js_series},
+		responsive: {
+			rules: [{
+				condition: {
+					maxWidth: 500
+				},
+				chartOptions: {
+					legend: {
+						layout: 'horizontal',
+						align: 'center',
+						verticalAlign: 'bottom'
+					}
+				}
+			}]
+		},
+		tooltip: {
+			// shared属性 控制显示多组折线值
+			shared: true,
+			// crosshairs属性 控制显示竖线
+			crosshairs: true,
+			// 时间格式化字符
+			// 默认会根据当前的数据点间隔取对应的值
+			// 当前图表中数据点间隔为 1天，所以配置 day 值即可
+			// dateTimeLabelFormats: {
+			// 	day: '%Y-%m-%d'
+			// }
+		},
+	});
+</script>
+<include file="Public:footer" />
